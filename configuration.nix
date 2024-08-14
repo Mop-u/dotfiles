@@ -9,6 +9,9 @@
     #./desktop-environment.nix #included in flake.nix
   ];
 
+  nix.settings.trusted-users = [ "hazama" ];
+  nix.gc.automatic = true;
+
   catppuccin = {
     enable = true;
     accent = "mauve";
