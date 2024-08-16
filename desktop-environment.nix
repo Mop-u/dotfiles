@@ -13,11 +13,13 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # Hyprland
     nwg-look
     hyprshot
     hyprcursor
     catppuccin-cursors.frappeMauve
     networkmanagerapplet
+    # GUI apps
     heroic
     sublime4
     sublime-merge
@@ -68,10 +70,6 @@
   };
 
   home-manager.users.hazama.programs = {
-    waybar = {
-      enable = true;
-      catppuccin.enable = true;
-    };
     bemenu = {
       enable = true;
     };
@@ -115,6 +113,104 @@
     hypridle = {
       enable = false;
     };
+    blueman-applet = {
+      enable = true;
+    };
+  };
+
+  home-manager.users.hazama.programs.waybar = {
+    enable = true;
+    catppuccin.enable = true;
+    settings.mainBar = {
+      layer = "top";
+      position = "top";
+      spacing = 12;
+      modules-left = [
+        "hyprland/workspaces"
+      ];
+      modules-center = [
+        "hyprland/window" # window title
+      ];
+      modules-right = [
+        "clock"             # date & time
+        "hyprland/language" # keyboard region
+        "battery"           # laptop battery state
+        "wireplumber"       # audio
+        "tray"              # system tray
+      ];
+
+      "hyprland/window" = {
+        format = "<b>{class}</b> {title}";
+	separate-outputs = true;
+	icon = true;
+      };
+
+      "hyprland/language".format = "  {}";
+
+      clock = {
+        format = "  {:%H:%M}";
+	format-alt = "  {:%A, %B %d, %Y (%R)}";
+	tooltip-format = "<tt><small>{calendar}</small></tt>";
+	calendar = {
+	  mode = "year";
+	  mode-mon-col = 3;
+	  weeks-pos = "right";
+	  on-scroll = 1;
+	  format = {
+	    months   = "<span color='#ffead3'><b>{}</b></span>";
+	    days     = "<span color='#ecc6d9'><b>{}</b></span>";
+	    weeks    = "<span color='#99ffdd'><b>W{}</b></span>";
+	    weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+	    today    = "<span color='#ff6699'><b><u>{}</u></b></span>";
+	  };
+	};
+	actions = {
+	  on-click-right    = "mode";        # Switch calendar mode between year/month
+	  on-click-forward  = "tz_up";       # Switch to the next provided time zone
+	  on-click-backward = "tz_down";     # Switch to the previous provided time zone
+	  on-scroll-up      = "shift_up";    # Switch to the previous calendar month/year
+	  on-scroll-down    = "shift_down";  # Switch to the previous calendar month/year
+	  on-click-middle   = "shift_reset"; # Switch to current calendar month/year
+	};
+      };
+
+      battery = {
+        states = {
+	  warning = 30;
+	  critical = 15;
+	};
+	format = "{icon} {capacity}%";
+	format-icons = [" " " " " " " " " "];
+      };
+
+      wireplumber = {
+        format = "{icon} {volume}%";
+	format-muted = " ";
+	format-icons = [" " " " " "];
+	on-click = "pavucontrol";
+      };
+
+      tray = {
+        spacing = 8;
+	reverse-direction = false;
+      };
+    };
+    style = ''
+        @define-color highlight @mauve;
+	#workspaces button {
+	  color: @subtext0;
+	  background-color: @base;
+	}
+	#workspaces button.urgent {
+	  color: @text;
+	  font-weight: bold;
+	}
+        #workspaces button.active {
+	  background-color: @surface0;
+	  color: @highlight;
+	  font-weight: bold;
+	}
+    '';
   };
 
   programs.hyprland = {
@@ -130,9 +226,9 @@
       exec-once = [
         "waybar &"
         "swaync &"
-        "goxlr-daemon &"
         "nm-applet &"
         "blueman-applet &"
+        "goxlr-daemon &"
       ];
       monitor = [
         "eDP-1,highres,0x0,1.333333,bitdepth,10"
@@ -202,6 +298,7 @@
       group."col.border_inactive"         = "$mantle"; # inactive (out of focus) group border color
       group."col.border_locked_active"    = "$overlay2 $accent 45deg"; # active locked group border color
       group."col.border_locked_inactive"  = "$mantle"; # inactive locked group border color
+
       group.groupbar."col.active"         = "$surface2"; # active group border color
       group.groupbar."col.inactive"       = "$mantle"; # inactive (out of focus) group border color
       group.groupbar."col.locked_active"  = "$overlay2 $accent 45deg"; # active locked group border color
