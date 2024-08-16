@@ -1,6 +1,7 @@
 { inputs, config, pkgs, ... }:
 {
   security.pam.services.hyprlock = {};
+  services.blueman.enable = true;
 
   services.displayManager = {
     sddm.enable = true;
@@ -130,7 +131,8 @@
         "waybar &"
         "swaync &"
         "goxlr-daemon &"
-	"nm-applet &"
+        "nm-applet &"
+        "blueman-applet &"
       ];
       monitor = [
         "eDP-1,highres,0x0,1.333333,bitdepth,10"
