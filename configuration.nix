@@ -114,29 +114,11 @@
     curl
     pavucontrol
     fastfetch
-    sublime4
-    sublime-merge
-    teams-for-linux
-    slack
-    floorp
-    firefox
-    ungoogled-chromium
-    betterbird
-    discord
-    discord-ptb
-    lutris
-    prismlauncher
-    xivlauncher
-    plexamp
     verilator
     verilog
     haskellPackages.sv2v
-    quartus-prime-lite
     gnumake
     gcc
-    gtkwave
-    wine-wayland
-    wine64Packages.waylandFull
   ];
 
   fonts = {

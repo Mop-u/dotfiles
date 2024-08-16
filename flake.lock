@@ -294,12 +294,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-X3jT3vxvrMJuOs2z2MD+BMVWrdxN4Se80sfQyXP66s4=",
-        "path": "./fonts/",
+        "narHash": "sha256-Re35IL1gHZttcDxGIDuWTnkEIirS5r1kNIB+ZWHMadM=",
+        "path": "fonts/",
         "type": "path"
       },
       "original": {
-        "path": "./fonts/",
+        "path": "fonts/",
         "type": "path"
       }
     },

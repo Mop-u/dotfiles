@@ -17,6 +17,21 @@
     hyprcursor
     catppuccin-cursors.frappeMauve
     networkmanagerapplet
+    heroic
+    sublime4
+    sublime-merge
+    teams-for-linux
+    slack
+    floorp
+    ungoogled-chromium
+    betterbird
+    discord
+    discord-ptb
+    prismlauncher
+    xivlauncher
+    plexamp
+    gtkwave
+    quartus-prime-lite
   ];
 
   home-manager.users.hazama = {
