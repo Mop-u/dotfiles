@@ -3,9 +3,11 @@
     nixConfig = {
         extra-substituters = [
             "https://hyprland.cachix.org"
+            "https://ezkea.cachix.org"
         ];
         extra-trusted-public-keys = [
             "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+            "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
         ];
     };
     inputs = {
@@ -46,8 +48,6 @@
                 ./configuration.nix
                 {
                     _module.args = { inherit inputs; };
-
-                    #nix.settings = aagl.nixConfig; # set up cachix
 
                     imports = [
                         aagl.nixosModules.default
