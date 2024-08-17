@@ -293,14 +293,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
+        "lastModified": 1723897504,
         "narHash": "sha256-Re35IL1gHZttcDxGIDuWTnkEIirS5r1kNIB+ZWHMadM=",
-        "path": "fonts/",
-        "type": "path"
+        "owner": "Mop-u",
+        "repo": "nonfree-fonts",
+        "rev": "d9afde00696b5f55e8f28ea28fa8fc31f614e827",
+        "type": "github"
       },
       "original": {
-        "path": "fonts/",
-        "type": "path"
+        "owner": "Mop-u",
+        "repo": "nonfree-fonts",
+        "type": "github"
       }
     },
     "nixpkgs": {

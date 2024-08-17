@@ -21,7 +21,7 @@
       url = "github:catppuccin/nix";
     };
     moppu-fonts = {
-      url = "path:fonts/";
+      url = "github:Mop-u/nonfree-fonts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     aagl = { 
