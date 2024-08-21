@@ -215,12 +215,12 @@
 
     programs.hyprland = {
         enable = true;
-        #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     };
 
     home-manager.users.hazama.wayland.windowManager.hyprland = {
         enable = true;
-        #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         catppuccin.enable = true;
         settings = {
             exec-once = [
