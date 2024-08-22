@@ -27,7 +27,7 @@
         slack
         floorp
         ungoogled-chromium
-        betterbird
+        #betterbird
         discord
         discord-ptb
         prismlauncher
