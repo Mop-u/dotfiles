@@ -37,6 +37,18 @@
         quartus-prime-lite
     ];
 
+    programs = {
+        anime-game-launcher.enable = true; # genshin
+        sleepy-launcher.enable = true; # zzz
+
+        honkers-railway-launcher.enable = false;
+        honkers-launcher.enable = false;
+        
+        wavey-launcher.enable = false;       # Not currently playable
+        anime-games-launcher.enable = false; # Not for regular use
+        anime-borb-launcher.enable = false;  # Not actively maintained
+    };
+
     home-manager.users.hazama = {
         catppuccin = {
             enable = true;

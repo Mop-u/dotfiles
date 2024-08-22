@@ -13,6 +13,7 @@
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+        nur.url = "github:nix-community/NUR";
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -30,41 +31,24 @@
         };
     };
 
-    outputs = { self, nixpkgs, home-manager, catppuccin, moppu-fonts, aagl, hyprland, ... } @ inputs:
+    outputs = { self, ... } @ inputs:
         let
             hostname = "kaoru";
             username = "hazama";
-        in { nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+        in { nixosConfigurations.${hostname} = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-                catppuccin.nixosModules.catppuccin
-                home-manager.nixosModules.home-manager
-                {
-                    home-manager.users.${username} = {
-                        imports = [ catppuccin.homeManagerModules.catppuccin ];
-                    };
-                }
+                inputs.catppuccin.nixosModules.catppuccin
+                inputs.home-manager.nixosModules.home-manager
+                inputs.aagl.nixosModules.default
+                inputs.nur.nixosModules.nur
+                {home-manager.users.${username}.imports = [
+                    inputs.catppuccin.homeManagerModules.catppuccin
+                    inputs.nur.hmModules.nur
+                ];}
+                ./hardware-configuration.nix
                 ./configuration.nix
-                {
-                    _module.args = { inherit inputs; };
-
-                    imports = [
-                        aagl.nixosModules.default
-                    ];
-                    
-                    programs = {
-                        anime-game-launcher.enable = true; # genshin
-                        sleepy-launcher.enable = true; # zzz
-
-                        honkers-railway-launcher.enable = false;
-                        honkers-launcher.enable = false;
-                        
-                        wavey-launcher.enable = false;             # Not currently playable
-                        anime-games-launcher.enable = false; # Not for regular use
-                        anime-borb-launcher.enable = false;    # Not actively maintained
-                    };
-                }
                 ./desktop-environment.nix
             ];
         };

@@ -4,9 +4,6 @@
 
 { config, pkgs, inputs, ... }:
 {
-    imports = [
-        ./hardware-configuration.nix
-    ];
 
     nix.gc.automatic = true;
 
