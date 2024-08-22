@@ -1,5 +1,6 @@
 { inputs, config, pkgs, ... }:
 {
+
     security.pam.services.hyprlock = {};
     services.blueman.enable = true;
 
@@ -324,39 +325,6 @@
             misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
             misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
 
-            general = {
-                gaps_in = 5;
-                gaps_out = 20;
-                border_size = 2;
-                resize_on_border = false;
-                allow_tearing = true;
-                layout = "dwindle";
-            };
-
-            cursor = {
-                no_hardware_cursors = true;
-                no_break_fs_vrr = false;
-                enable_hyprcursor = true;
-            };
-
-            binds = {
-                scroll_event_delay = 100;
-            };
-
-            decoration = {
-                rounding = 10;
-                active_opacity = 1.0;
-                inactive_opacity = 1.0;
-                drop_shadow = true;
-                shadow_range = 4;
-                shadow_render_power = 3;
-                blur = {
-                    enabled = true;
-                    size = 3;
-                    passes = 1;
-                    vibrancy = 0.1696;
-                };
-            };
             animations = {
                 enabled = true;
                 bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -369,15 +337,59 @@
                     "workspaces, 1, 6, default"
                 ];
             };
+
+            decoration = {
+                rounding = 10;
+                active_opacity = 1.0;
+                inactive_opacity = 1.0;
+                drop_shadow = false;
+                shadow_range = 4;
+                shadow_render_power = 3;
+                blur = {
+                    enabled = false;
+                    size = 3;
+                    passes = 1;
+                    vibrancy = 0.1696;
+                };
+            };
+
+            general = {
+                gaps_in = 5;
+                gaps_out = 20;
+                border_size = 2;
+                resize_on_border = false;
+                allow_tearing = true;
+                layout = "dwindle";
+            };
+
             dwindle = {
                 pseudotile = true;
                 preserve_split = true;
             };
 
+            cursor = {
+                no_hardware_cursors = true;
+                no_break_fs_vrr = false;
+                enable_hyprcursor = true;
+            };
+
+            render = {
+                direct_scanout = true;
+            };
+
+            opengl = {
+                nvidia_anti_flicker = true;
+                force_introspection = 2; # 0:off/1:force/2:nvidia
+            };
+
             misc = {
                 force_default_wallpaper = 0;
                 disable_hyprland_logo = true;
+                vrr = 0;
+                mouse_move_enables_dpms = true;
+                key_press_enables_dpms = true;
             };
+
             input = {
                 kb_layout = "us";
                 # kb_variant = 
@@ -390,9 +402,6 @@
                     natural_scroll = true;
                 };
             };
-            gestures = {
-                workspace_swipe = false;
-            };
             windowrulev2 = [
                 "suppressevent maximize, class:.*"
                 "bordercolor $subtext1,xwayland:1,focus:0"
@@ -404,6 +413,12 @@
                 #"maxsize 1 1,class:^(xwaylandvideobridge)$"
                 #"noblur,class:^(xwaylandvideobridge)$"
             ];
+            gestures = {
+                workspace_swipe = false;
+            };
+            binds = {
+                scroll_event_delay = 100;
+            };
             bind = [
                 "SUPERSHIFT, Return,    exec, kitty"
                 "SUPERSHIFT, C,         killactive,"
