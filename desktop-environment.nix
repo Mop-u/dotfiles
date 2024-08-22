@@ -378,7 +378,7 @@
             };
 
             opengl = {
-                nvidia_anti_flicker = true;
+                nvidia_anti_flicker = false;
                 force_introspection = 2; # 0:off/1:force/2:nvidia
             };
 
