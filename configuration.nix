@@ -72,12 +72,6 @@
     };
 
     services.goxlr-utility.enable = true;
-
-    programs.steam = {
-        enable = true;
-        protontricks.enable = true;
-        extest.enable = true;
-    };
     
     home-manager.useGlobalPkgs = true;
     home-manager.backupFileExtension = "backup";

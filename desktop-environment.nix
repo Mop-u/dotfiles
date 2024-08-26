@@ -48,6 +48,24 @@
         wavey-launcher.enable = false;       # Not currently playable
         anime-games-launcher.enable = false; # Not for regular use
         anime-borb-launcher.enable = false;  # Not actively maintained
+
+        steam = {
+            enable = true;
+            protontricks.enable = true;
+            extest.enable = true;
+        };
+        steam.gamescopeSession = {
+            enable = true;
+            # args = [ ];
+            env = {
+                # for Prime render offload on Nvidia laptops.
+                # Also requires `hardware.nvidia.prime.offload.enable`.
+                __NV_PRIME_RENDER_OFFLOAD = "1";
+                __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
+                __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+                __VK_LAYER_NV_optimus = "NVIDIA_only";
+            };
+        };
     };
 
     home-manager.users.hazama = {
