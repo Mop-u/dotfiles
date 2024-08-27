@@ -76,12 +76,6 @@
 
     nixpkgs.config.allowUnfree = true;
 
-    system.activationScripts.binbash = {
-        text = ''
-            rm /bin/bash; ln -s "${pkgs.bash}/bin/bash" /bin/bash
-        '';
-    };
-
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
