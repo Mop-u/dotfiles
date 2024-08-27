@@ -113,6 +113,7 @@
             pavucontrol
             # GUI apps
             heroic
+            vscodium
             sublime4
             sublime-merge
             teams-for-linux
