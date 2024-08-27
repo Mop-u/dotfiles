@@ -41,11 +41,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724697376,
-        "narHash": "sha256-H1bMY9e8HnHGiquUSAKz7rNWSTPgYeZ2m7tB/0RFAh4=",
+        "lastModified": 1724781866,
+        "narHash": "sha256-ItgACCJCwn8Rx7p8hJBpnU9eCtrdmkg4AbqMZL/rXlY=",
         "owner": "hyprwm",
         "repo": "aquamarine",
-        "rev": "abb3c81c59f64e37d7abbe4bc874302507042a7b",
+        "rev": "7cc3d3179c06caf3769afb3eb0c69aa55676c96a",
         "type": "github"
       },
       "original": {
@@ -88,6 +88,24 @@
     "flake-utils": {
       "inputs": {
         "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -164,11 +182,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1724701003,
-        "narHash": "sha256-kTceEi5B4t2u5oG3bKnGgZkHxFTsvYAUiAmyYA/6Y3o=",
+        "lastModified": 1724784150,
+        "narHash": "sha256-XlmFLoLppuKxSh2eGPXy27+tNIQ+w+cXoh8Ln3vBJew=",
         "ref": "refs/heads/main",
-        "rev": "eb42adc4c090918ad6be9fcb24066da8cdfd9bd0",
-        "revCount": 5145,
+        "rev": "17ed4fc04cedbaad365bdebf6bfe0160c527f3fe",
+        "revCount": 5147,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -285,7 +303,7 @@
         "type": "github"
       }
     },
-    "moppu-fonts": {
+    "naturaldocs": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
@@ -293,16 +311,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1723897504,
-        "narHash": "sha256-Re35IL1gHZttcDxGIDuWTnkEIirS5r1kNIB+ZWHMadM=",
+        "lastModified": 1724790531,
+        "narHash": "sha256-OJBxmObb4exAN5SvMgJjW6nB0J67VDd7RZlct3UMWas=",
         "owner": "Mop-u",
-        "repo": "nonfree-fonts",
-        "rev": "d9afde00696b5f55e8f28ea28fa8fc31f614e827",
+        "repo": "naturaldocs-nix",
+        "rev": "89534942139b56017e418d2eccff6aee5cef89fa",
         "type": "github"
       },
       "original": {
         "owner": "Mop-u",
-        "repo": "nonfree-fonts",
+        "repo": "naturaldocs-nix",
         "type": "github"
       }
     },
@@ -338,13 +356,34 @@
         "type": "github"
       }
     },
+    "nonfree-fonts": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1724787644,
+        "narHash": "sha256-Ws9nOMZzAwN17HKAasJHU5QHC1XgoIagtHiwRl8rypU=",
+        "owner": "Mop-u",
+        "repo": "nonfree-fonts",
+        "rev": "e3602609c776bec68468a36a5097fedcf3a1994b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mop-u",
+        "repo": "nonfree-fonts",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
-        "lastModified": 1724775364,
-        "narHash": "sha256-agN3Oaph2+2DH3+m6Jp4d1ji5s93joohKcV35DfJWQk=",
+        "lastModified": 1724790598,
+        "narHash": "sha256-H14riEUFLwhfFF7aV98H53ZCCNi0hOrtbC/Eb9dueWE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "95f1862227c883581265a8801ea28af99635dd97",
+        "rev": "c170519c42e19027cc0d14a6ac8d36ba19574764",
         "type": "github"
       },
       "original": {
@@ -359,8 +398,9 @@
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "moppu-fonts": "moppu-fonts",
+        "naturaldocs": "naturaldocs",
         "nixpkgs": "nixpkgs_2",
+        "nonfree-fonts": "nonfree-fonts",
         "nur": "nur"
       }
     },
@@ -380,6 +420,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

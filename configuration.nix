@@ -91,6 +91,7 @@
         haskellPackages.sv2v
         gnumake
         gcc
+        inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
     ];
 
     fonts = {
@@ -98,7 +99,7 @@
         packages = with pkgs; [
             nerdfonts
             meslo-lgs-nf
-            inputs.moppu-fonts.packages.${pkgs.system}.comic-code
+            inputs.nonfree-fonts.packages.${pkgs.system}.comic-code
         ];
         fontconfig.defaultFonts = {
             monospace = [ 

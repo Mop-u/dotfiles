@@ -21,12 +21,16 @@
         catppuccin = {
             url = "github:catppuccin/nix";
         };
-        moppu-fonts = {
+        aagl = { 
+            url = "github:ezKEa/aagl-gtk-on-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        aagl = { 
-            url = "github:ezKEa/aagl-gtk-on-nix";
+        naturaldocs = {
+            url = "github:Mop-u/naturaldocs-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
