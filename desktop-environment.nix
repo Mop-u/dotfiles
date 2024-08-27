@@ -174,7 +174,7 @@
                 settings.mainBar = {
                     layer = "top";
                     position = "top";
-                    spacing = 12;
+                    spacing = 16;
                     modules-left = [
                         "hyprland/workspaces"
                     ];
@@ -182,11 +182,11 @@
                         "hyprland/window" # window title
                     ];
                     modules-right = [
-                        "clock"                         # date & time
+                        "clock"             # date & time
                         "hyprland/language" # keyboard region
-                        "battery"                     # laptop battery state
-                        "wireplumber"             # audio
-                        "tray"                            # system tray
+                        "battery"           # laptop battery state
+                        "wireplumber"       # audio
+                        "tray"              # system tray
                     ];
 
                     "hyprland/window" = {
@@ -195,11 +195,11 @@
                         icon = true;
                     };
 
-                    "hyprland/language".format = "    {}";
+                    "hyprland/language".format = "   {}";
 
                     clock = {
-                        format = "    {:%H:%M}";
-                        format-alt = "    {:%A, %B %d, %Y (%R)}";
+                        format = "   {:%H:%M}";
+                        format-alt = "   {:%A, %B %d, %Y (%R)}";
                         tooltip-format = "<tt><small>{calendar}</small></tt>";
                         calendar = {
                             mode = "year";
@@ -225,7 +225,7 @@
                     };
 
                     battery = {
-                        format = "{icon} {capacity}%";
+                        format = "{icon}  {capacity}%";
                         format-icons = [" " " " " " " " " "];
                         states = {
                             warning = 30;
@@ -234,7 +234,7 @@
                     };
 
                     wireplumber = {
-                        format = "{icon} {volume}%";
+                        format = "{icon}  {volume}%";
                         format-muted = " ";
                         format-icons = [" " " " " "];
                         on-click = "pavucontrol";
@@ -259,6 +259,9 @@
                         background-color: @surface0;
                         color: @highlight;
                         font-weight: bold;
+                    }
+                    #tray {
+                        margin-right: 12;
                     }
                 '';
             };
