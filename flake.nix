@@ -31,26 +31,32 @@
         };
     };
 
-    outputs = { self, ... } @ inputs:
-        let
-            hostname = "kaoru";
-            username = "hazama";
-        in { nixosConfigurations.${hostname} = inputs.nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit inputs; };
-            modules = [
-                inputs.catppuccin.nixosModules.catppuccin
-                inputs.home-manager.nixosModules.home-manager
-                inputs.aagl.nixosModules.default
-                inputs.nur.nixosModules.nur
-                {home-manager.users.${username}.imports = [
-                    inputs.catppuccin.homeManagerModules.catppuccin
-                    inputs.nur.hmModules.nur
-                ];}
-                ./hardware-configuration.nix
-                ./configuration.nix
-                ./desktop-environment.nix
-            ];
+    outputs = { self, ... } @ inputs: {
+        nixosConfigurations = {
+            kaoru = let sysConf = {
+                    hostName = "kaoru";
+                    userName = "hazama";
+                    stateVer = "23.11";
+                }; in inputs.nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { 
+                    inherit inputs; 
+                    inherit sysConf;
+                };
+                modules = [
+                    inputs.catppuccin.nixosModules.catppuccin
+                    inputs.home-manager.nixosModules.home-manager
+                    inputs.aagl.nixosModules.default
+                    inputs.nur.nixosModules.nur
+                    {home-manager.users.${sysConf.userName}.imports = [
+                        inputs.catppuccin.homeManagerModules.catppuccin
+                        inputs.nur.hmModules.nur
+                    ];}
+                    ./hardware-configuration.nix
+                    ./configuration.nix
+                    ./desktop-environment.nix
+                ];
+            };
         };
     };
 }
