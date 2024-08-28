@@ -61,6 +61,27 @@
                     ./desktop-environment.nix
                 ];
             };
+            yure = let sysConf = {
+                hostName = "yure";
+                userName = "shinatose";
+                stateVer = "24.05";
+            }; in inputs.nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = {
+                    inherit inputs;
+                    inherit sysConf;
+                };
+                modules = [
+                    inputs.catppuccin.nixosModules.catppuccin
+                    inputs.home-manager.nixosModules.home-manager
+                    inputs.aagl.nixosModules.default
+                    inputs.nur.nixosModules.nur
+                    {home-manager.users.${sysConf.userName}.imports = [
+                        inputs.catppuccin.homeManagerModules.catppuccin
+                        inputs.nur.hmModules.nur
+                    ];}
+                ];
+            };
         };
     };
 }
