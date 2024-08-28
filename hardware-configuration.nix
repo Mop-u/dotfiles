@@ -34,6 +34,9 @@
     boot.initrd.luks.devices."luksroot".device = "/dev/disk/by-uuid/04f8ed32-deda-4e3d-a91b-e9e6470a0ac9";
     boot.initrd.luks.devices."luksswap".device = "/dev/disk/by-uuid/8d864adf-9a85-433f-8919-eb6a8371c077";
 
+    boot.initrd.luks.devices."luksroot".allowDiscards = true;
+    boot.initrd.luks.devices."luksswap".allowDiscards = true;
+
     fileSystems."/boot" = { 
         device = "/dev/disk/by-uuid/8F59-FE20";
         fsType = "vfat";
