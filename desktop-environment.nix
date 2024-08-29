@@ -259,7 +259,10 @@
                 '';
             };
         };
-        wayland.windowManager.hyprland = {
+        wayland.windowManager.hyprland = let 
+            borderSize = "2";
+            rounding = "10";
+        in {
             enable = true;
             package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             catppuccin.enable = true;
@@ -279,6 +282,9 @@
                     force_zero_scaling = true;
                 };
                 env = [
+                    # Apply system theming to bemenu
+                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##$baseAlphaee' --fb '##$baseAlphaee' --nb '##$baseAlphaee' --ab '##$baseAlphaee' --hb '##$baseAlphaee' --tf '##$accentAlpha' --ff '##$textAlpha' --nf '##$textAlpha' --af '##$textAlpha' --hf '##$accentAlpha' --bdr '##$accentAlpha' --width-factor 0.33 --fn 'Comic Code'"
+
                     # XDG specific #
                     "XDG_SESSION_TYPE,wayland"
                     "XDG_SESSION_DESKTOP,Hyprland"
@@ -334,7 +340,7 @@
                 group.groupbar.text_color        = "$text";  # controls the group bar text color
                 misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
                 misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
-
+                
                 animations = {
                     enabled = true;
                     bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -349,7 +355,7 @@
                 };
 
                 decoration = {
-                    rounding = 10;
+                    rounding = rounding;
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
                     drop_shadow = false;
@@ -366,7 +372,7 @@
                 general = {
                     gaps_in = 5;
                     gaps_out = 20;
-                    border_size = 2;
+                    border_size = borderSize;
                     resize_on_border = false;
                     allow_tearing = true;
                     layout = "dwindle";
@@ -434,7 +440,7 @@
                     "SUPERSHIFT, C,         killactive,"
                     "SUPERSHIFT, Q,         exit,"
                     "SUPER,      V,         togglefloating,"
-                    "SUPER,      P,         exec, bemenu-run -i -w -l \"16 down\""
+                    "SUPER,      P,         exec, bemenu-run"
                     "SUPER,      H,         movefocus, l"
                     "SUPER,      J,         movefocus, d"
                     "SUPER,      K,         movefocus, u"
