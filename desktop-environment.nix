@@ -20,7 +20,10 @@
         goxlr-utility.enable = true;
     };
 
-    nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; # for sublime4 & sublime-merge :(
+    nixpkgs.config.permittedInsecurePackages = [
+        "openssl-1.1.1w"  # for sublime4 & sublime-merge :(
+        "electron-29.4.6"
+    ]; 
 
     # enable virtual camera for OBS
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
@@ -37,18 +40,7 @@
             enable = true;
             protontricks.enable = true;
             extest.enable = true;
-        };
-        steam.gamescopeSession = {
-            enable = true;
-            # args = [ ];
-            env = {
-                # for Prime render offload on Nvidia laptops.
-                # Also requires `hardware.nvidia.prime.offload.enable`.
-                __NV_PRIME_RENDER_OFFLOAD = "1";
-                __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
-                __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-                __VK_LAYER_NV_optimus = "NVIDIA_only";
-            };
+            gamescopeSession.enable = true;
         };
 
         anime-game-launcher.enable = true; # genshin
@@ -287,19 +279,6 @@
                     force_zero_scaling = true;
                 };
                 env = [
-                    # NVIDIA #
-                    "LIBVA_DRIVER_NAME,nvidia" # nvidia hardware acceleration
-                    "GBM_BACKEND,nvidia-drm"     # force GBM backend
-                    "__GL_GSYNC_ALLOWED,0"
-                    "__GL_VRR_ALLOWED,0"
-                    "NVD_BACKEND,direct" # VA-API hardware video acceleration
-                            
-                    # Force NVIDIA offload for all applications #
-                    "__NV_PRIME_RENDER_OFFLOAD,1"
-                    "__NV_PRIME_RENDER_OFFLOAD_PROVIDER,NVIDIA_G0"
-                    "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-                    "__VK_LAYER_NV_optimus,NVIDIA_only"
-
                     # XDG specific #
                     "XDG_SESSION_TYPE,wayland"
                     "XDG_SESSION_DESKTOP,Hyprland"
@@ -325,15 +304,10 @@
                     "MOZ_DISABLE_RDD_SANDBOX,1"
                     "MOZ_DBUS_REMOTE,1"
 
-                    # Java specific #
-                    # many Java apps (such as Intellij) don't support Wayland natively and break on
-                    # most XWayland implementations
-
                     # Gaming specific #
                     "__GL_MaxFramesAllowed,1" # Fix frame timings & input lag
                     
                     # Misc #
-                    #"ELECTRON_ARGS=\"--enable-features=UseOzonePlatform --ozone-platform=wayland\""
                     "NIXOS_OZONE_WL,1"
                     #"GDK_SCALE,1"
                     #"GDK_DPI_SCALE,1"

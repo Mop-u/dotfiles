@@ -82,6 +82,31 @@
         };
     };
 
+    environment.sessionVariables = {
+        # NVIDIA
+        LIBVA_DRIVER_NAME  = "nvidia";     # nvidia hardware acceleration
+        GBM_BACKEND        = "nvidia-drm"; # force GBM backend
+        __GL_GSYNC_ALLOWED = "1";
+        __GL_VRR_ALLOWED   = "1";
+        NVD_BACKEND        = "direct";     # VA-API hardware video acceleration
+        
+        # Force NVIDIA offload for all applications
+        __NV_PRIME_RENDER_OFFLOAD          = "1";
+        __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
+        __GLX_VENDOR_LIBRARY_NAME          = "nvidia";
+        __VK_LAYER_NV_optimus              = "NVIDIA_only";
+    };
+    programs.steam.gamescopeSession = {
+        env = {
+            # for Prime render offload on Nvidia laptops.
+            # Also requires `hardware.nvidia.prime.offload.enable`.
+            __NV_PRIME_RENDER_OFFLOAD          = "1";
+            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
+            __GLX_VENDOR_LIBRARY_NAME          = "nvidia";
+            __VK_LAYER_NV_optimus              = "NVIDIA_only";
+        };
+    };
+
     services.thermald.enable = true; # intel thermal protection
     services.tlp = {
         enable = true; # laptop power saving etc
