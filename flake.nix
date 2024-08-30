@@ -11,9 +11,12 @@
         ];
     };
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-        hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+        nixpkgs.url = "github:NixOS/nixpkgs/master";
         nur.url = "github:nix-community/NUR";
+        hyprland = {
+            url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";

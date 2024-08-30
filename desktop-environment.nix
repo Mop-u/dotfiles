@@ -22,7 +22,6 @@
 
     nixpkgs.config.permittedInsecurePackages = [
         "openssl-1.1.1w"  # for sublime4 & sublime-merge :(
-        "electron-29.4.6"
     ]; 
 
     # enable virtual camera for OBS
@@ -158,8 +157,6 @@
                 enable = true;
                 plugins = with pkgs.obs-studio-plugins; [
                     wlrobs
-                    obs-backgroundremoval
-                    obs-pipewire-audio-capture
                 ];
             };
             waybar = {
@@ -289,6 +286,9 @@
                     # XDG specific #
                     "XDG_SESSION_TYPE,wayland"
                     "XDG_SESSION_DESKTOP,Hyprland"
+
+                    # Electron specific #
+                    #"DEFAULT_BROWSER,${pkgs.floorp}/bin/floorp"
                     
                     # Theming specific #
                     "WLR_EGL_NO_MODIFIERS,0" # May help with multiple monitors
