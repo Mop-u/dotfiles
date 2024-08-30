@@ -33,8 +33,8 @@
     programs = {
         hyprland = {
             enable = true;
-            package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-            portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+            package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+            portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
         };
         steam = {
             enable = true;
@@ -463,8 +463,11 @@
                                 in
                                     builtins.toString (x + 1 - (c * 10));
                             in [
-                                "SUPER,      ${ws}, workspace,      ${toString (x + 1)}"
-                                "SUPERSHIFT, ${ws}, movetoworkspace,${toString (x + 1)}"
+                                "SUPER,       ${ws},workspace,             ${toString (x + 1)}"
+                                "SUPERSHIFT,  ${ws},movetoworkspace,       ${toString (x + 1)}"
+                                "SUPERALT,    ${ws},movetoworkspacesilent, ${toString (x + 1)}"
+                                "SUPERCONTROL,${ws},moveworkspacetomonitor,${toString (x + 1)} current"
+                                "SUPERCONTROL,${ws},workspace,             ${toString (x + 1)}"
                             ]
                         )
                     10)
