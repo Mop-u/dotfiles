@@ -6,7 +6,7 @@
 {
     networking.hostName = sysConf.hostName;
 
-    nix.gc.automatic = true;
+    nix.gc.automatic = false;
 
     catppuccin = {
         enable = true;
