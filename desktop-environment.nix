@@ -103,6 +103,7 @@
             hyprcursor
             networkmanagerapplet
             pavucontrol
+            inputs.hyprswitch.packages.${pkgs.system}.default # hyprswitch
             # GUI apps
             heroic
             vscodium
@@ -262,7 +263,7 @@
             rounding = "10";
         in {
             enable = true;
-            package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+            package = inputs.hyprland.packages.${pkgs.system}.hyprland;
             catppuccin.enable = true;
             settings = {
                 exec-once = [
@@ -271,6 +272,7 @@
                     "nm-applet &"
                     "blueman-applet &"
                     "goxlr-daemon &"
+                    "hyprswitch init &"
                 ];
                 monitor = [
                     "eDP-1,highres,0x0,1.333333,bitdepth,10"
@@ -440,6 +442,7 @@
                     "SUPERSHIFT, Return,    exec, kitty"
                     "SUPERSHIFT, C,         killactive,"
                     "SUPERSHIFT, Q,         exit,"
+                    "SUPER,      W,         exec, hyprswitch gui"
                     "SUPER,      V,         togglefloating,"
                     "SUPER,      P,         exec, bemenu-run"
                     "SUPER,      H,         movefocus, l"
