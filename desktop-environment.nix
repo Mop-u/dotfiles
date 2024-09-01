@@ -59,7 +59,14 @@
         backupFileExtension = "backup";
     };
 
-    home-manager.users.${sysConf.userName} = {
+    home-manager.users.${sysConf.userName} = 
+    let
+    hyprswitchFile = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
+        theme = (import ./catppuccin.nix).catppuccin.frappe.hex;
+        accent = theme.mauve;
+        borderSize = "2";
+        rounding = "10";
+    in {
         home = {
             username = sysConf.userName;
             homeDirectory = "/home/${sysConf.userName}";
@@ -134,6 +141,66 @@
             };
         };
 
+        home.file.hyprswitch = {
+            enable = true;
+            executable = false;
+            target = hyprswitchFile;
+            text = ''
+                .client-image {
+                    margin: 15px;
+                }
+
+                .client-index {
+                    margin: 6px;
+                    padding: 5px;
+                    font-size: 20px;
+                    font-weight: bold;
+                    border-radius: ${rounding}px;
+                    border: none;
+                    background-color: inherit;
+                }
+
+                .client {
+                    border-radius: ${rounding}px;
+                    border: none;
+                    background-color: inherit;
+                }
+
+                .client:hover {
+                    color: #${accent};
+                    background-color: inherit;
+                }
+
+                .client_active {
+                    border: none;
+                }
+
+                .workspace {
+                    font-size: 20px;
+                    font-weight: bold;
+                    border-radius: ${rounding}px;
+                    border: none;
+                    background-color: inherit;
+                }
+
+                .workspace_special {
+                    border: none;
+                }
+
+                .workspaces {
+                    margin: 0px;
+                }
+
+                window {
+                    color: #${theme.text};
+                    border-radius: ${rounding}px;
+                    background-color: #${theme.base}ee;
+                    border: ${borderSize}px solid #${accent};
+                    opacity: initial;
+                }
+            '';
+        };
+
         programs = {
             bemenu = {
                 enable = true;
@@ -199,11 +266,11 @@
                             weeks-pos = "right";
                             on-scroll = 1;
                             format = {
-                                months   = "<span color='#c6d0f5'><b>{}</b></span>";        # @text
-                                days     = "<span color='#a5adce'><b>{}</b></span>";        # @subtext0
-                                weeks    = "<span color='#737994'><b>W{}</b></span>";       # @overlay0
-                                weekdays = "<span color='#737994'><b>{}</b></span>";        # @overlay0
-                                today    = "<span color='#ca9ee6'><b><u>{}</u></b></span>"; # @highlight
+                                months   = "<span color='#${theme.text}'><b>{}</b></span>";
+                                days     = "<span color='#${theme.subtext0}'><b>{}</b></span>";
+                                weeks    = "<span color='#${theme.overlay0}'><b>W{}</b></span>";
+                                weekdays = "<span color='#${theme.overlay0}'><b>{}</b></span>";
+                                today    = "<span color='#${accent}'><b><u>{}</u></b></span>";
                             };
                         };
                         actions = {
@@ -238,7 +305,7 @@
                     };
                 };
                 style = ''
-                    @define-color highlight @mauve;
+                    @define-color accent @mauve;
                     #workspaces button {
                         color: @subtext0;
                         background-color: @base;
@@ -249,7 +316,7 @@
                     }
                     #workspaces button.active {
                         background-color: @surface0;
-                        color: @highlight;
+                        color: @accent;
                         font-weight: bold;
                     }
                     #tray {
@@ -258,10 +325,7 @@
                 '';
             };
         };
-        wayland.windowManager.hyprland = let 
-            borderSize = "2";
-            rounding = "10";
-        in {
+        wayland.windowManager.hyprland = {
             enable = true;
             package = inputs.hyprland.packages.${pkgs.system}.hyprland;
             catppuccin.enable = true;
@@ -272,7 +336,7 @@
                     "nm-applet &"
                     "blueman-applet &"
                     "goxlr-daemon &"
-                    "hyprswitch init &"
+                    "hyprswitch init --show-title --custom-css '${hyprswitchFile}' &"
                 ];
                 monitor = [
                     "eDP-1,highres,0x0,1.333333,bitdepth,10"
@@ -283,7 +347,7 @@
                 };
                 env = [
                     # Apply system theming to bemenu
-                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##$baseAlphaee' --fb '##$baseAlphaee' --nb '##$baseAlphaee' --ab '##$baseAlphaee' --hb '##$baseAlphaee' --tf '##$accentAlpha' --ff '##$textAlpha' --nf '##$textAlpha' --af '##$textAlpha' --hf '##$accentAlpha' --bdr '##$accentAlpha' --width-factor 0.33 --fn 'Comic Code'"
+                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${theme.base}ee' --fb '##${theme.base}ee' --nb '##${theme.base}ee' --ab '##${theme.base}ee' --hb '##${theme.base}ee' --tf '##${accent}' --ff '##${theme.text}' --nf '##${theme.text}' --af '##${theme.text}' --hf '##${accent}' --bdr '##${accent}' --width-factor 0.33 --fn 'Comic Code'"
 
                     # XDG specific #
                     "XDG_SESSION_TYPE,wayland"
@@ -323,23 +387,23 @@
                 ];
                 # Gradients:
                 general."col.active_border"         = "$accent";   # border color for the active window
-                general."col.inactive_border"       = "$mantle";   # border color for inactive windows
-                general."col.nogroup_border_active" = "$overlay2"; # active border color for window that cannot be added to a group (see denywindowfromgroup dispatcher)
-                general."col.nogroup_border"        = "$mantle";   # inactive border color for window that cannot be added to a group (see denywindowfromgroup dispatcher)
+                general."col.inactive_border"       = "$overlay2";   # border color for inactive windows
+                general."col.nogroup_border_active" = "$maroon"; # active border color for window that cannot be added to a group (see denywindowfromgroup dispatcher)
+                general."col.nogroup_border"        = "$overlay2";   # inactive border color for window that cannot be added to a group (see denywindowfromgroup dispatcher)
                 
-                group."col.border_active"           = "$surface2"; # active group border color
-                group."col.border_inactive"         = "$mantle";   # inactive (out of focus) group border color
-                group."col.border_locked_active"    = "$overlay2 $accent 45deg"; # active locked group border color
-                group."col.border_locked_inactive"  = "$mantle";   # inactive locked group border color
+                group."col.border_active"           = "$flamingo"; # active group border color
+                group."col.border_inactive"         = "$overlay2";   # inactive (out of focus) group border color
+                group."col.border_locked_active"    = "$flamingo $accent 45deg"; # active locked group border color
+                group."col.border_locked_inactive"  = "$overlay2";   # inactive locked group border color
 
-                group.groupbar."col.active"         = "$surface2"; # active group border color
-                group.groupbar."col.inactive"       = "$mantle";   # inactive (out of focus) group border color
-                group.groupbar."col.locked_active"  = "$overlay2 $accent 45deg"; # active locked group border color
-                group.groupbar."col.locked_inactive"= "$mantle";   # inactive locked group border color
+                group.groupbar."col.active"         = "$flamingo"; # active group border color
+                group.groupbar."col.inactive"       = "$overlay2";   # inactive (out of focus) group border color
+                group.groupbar."col.locked_active"  = "$flamingo $accent 45deg"; # active locked group border color
+                group.groupbar."col.locked_inactive"= "$overlay2";   # inactive locked group border color
 
                 # Colours:
-                decoration."col.shadow"          = "rgba($crustAlphaee)"; # shadow's color. Alpha dictates shadow's opacity.
-                decoration."col.shadow_inactive" = "rgba($crustAlphaee)"; # inactive shadow color. (if not set, will fall back to col.shadow)
+                decoration."col.shadow"          = "rgba(${theme.crust}ee)"; # shadow's color. Alpha dictates shadow's opacity.
+                decoration."col.shadow_inactive" = "rgba(${theme.crust}ee)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                 group.groupbar.text_color        = "$text";  # controls the group bar text color
                 misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
                 misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
@@ -438,6 +502,9 @@
                 binds = {
                     scroll_event_delay = 100;
                 };
+                bindr = [
+                    #"SUPER, W, exec, hyprswitch close"
+                ];
                 bind = [
                     "SUPERSHIFT, Return,    exec, kitty"
                     "SUPERSHIFT, C,         killactive,"
