@@ -460,7 +460,7 @@
                 };
 
                 render = {
-                    direct_scanout = true;
+                    direct_scanout = false; # Try turning this off if fullscreen windows/games crash instantly
                 };
 
                 opengl = {
