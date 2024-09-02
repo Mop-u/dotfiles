@@ -61,7 +61,7 @@
 
     home-manager.users.${sysConf.userName} = 
     let
-    hyprswitchFile = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
+    hyprswitchConf = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
         theme = (import ./catppuccin.nix).catppuccin.frappe.hex;
         accent = theme.mauve;
         borderSize = "2";
@@ -144,7 +144,7 @@
         home.file.hyprswitch = {
             enable = true;
             executable = false;
-            target = hyprswitchFile;
+            target = hyprswitchConf;
             text = ''
                 .client-image {
                     margin: 15px;
@@ -153,7 +153,7 @@
                 .client-index {
                     margin: 6px;
                     padding: 5px;
-                    font-size: 20px;
+                    font-size: inherit;
                     font-weight: bold;
                     border-radius: ${rounding}px;
                     border: none;
@@ -176,7 +176,7 @@
                 }
 
                 .workspace {
-                    font-size: 20px;
+                    font-size: inherit;
                     font-weight: bold;
                     border-radius: ${rounding}px;
                     border: none;
@@ -192,6 +192,7 @@
                 }
 
                 window {
+                    font-size: 18px;
                     color: #${theme.text};
                     border-radius: ${rounding}px;
                     background-color: #${theme.base}ee;
@@ -331,12 +332,12 @@
             catppuccin.enable = true;
             settings = {
                 exec-once = [
-                    "waybar &"
                     "swaync &"
+                    "hyprswitch init --show-title --custom-css '${hyprswitchConf}' &"
+                    "waybar &"
                     "nm-applet &"
                     "blueman-applet &"
                     "goxlr-daemon &"
-                    "hyprswitch init --show-title --custom-css '${hyprswitchFile}' &"
                 ];
                 monitor = [
                     "eDP-1,highres,0x0,1.333333,bitdepth,10"
@@ -348,6 +349,8 @@
                 env = [
                     # Apply system theming to bemenu
                     "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${theme.base}ee' --fb '##${theme.base}ee' --nb '##${theme.base}ee' --ab '##${theme.base}ee' --hb '##${theme.base}ee' --tf '##${accent}' --ff '##${theme.text}' --nf '##${theme.text}' --af '##${theme.text}' --hf '##${accent}' --bdr '##${accent}' --width-factor 0.33 --fn 'Comic Code'"
+                    # hyprswitch options
+                    "WORKSPACES_PER_ROW,3"
 
                     # XDG specific #
                     "XDG_SESSION_TYPE,wayland"
@@ -502,8 +505,8 @@
                 binds = {
                     scroll_event_delay = 100;
                 };
-                bindr = [
-                    #"SUPER, W, exec, hyprswitch close"
+                bindrn = [
+                    ",  escape, exec, hyprswitch close --kill"
                 ];
                 bind = [
                     "SUPERSHIFT, Return,    exec, kitty"
