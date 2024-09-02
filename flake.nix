@@ -10,13 +10,68 @@
             "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
         ];
     };
+
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/master";
+        systems.url = "github:nix-systems/default-linux";
         nur.url = "github:nix-community/NUR";
-        hyprland = {
-            url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+        # Make sure hyprland is using the latest sources (hyprland's flake.lock lags behind sometimes)
+        hyprutils = {
+            url = "github:hyprwm/hyprutils";
             inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
         };
+        hyprwayland-scanner = {
+            url = "github:hyprwm/hyprwayland-scanner";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+        };
+        hyprland-protocols = {
+            url = "github:hyprwm/hyprland-protocols";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+        };
+        hyprlang = {
+            url = "github:hyprwm/hyprlang";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+            inputs.hyprutils.follows = "hyprutils";
+        };
+        hyprcursor = {
+            url = "github:hyprwm/hyprcursor";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+            inputs.hyprlang.follows = "hyprlang";
+        };
+        xdph = {
+            url = "github:hyprwm/xdg-desktop-portal-hyprland";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+            inputs.hyprlang.follows = "hyprlang";
+            inputs.hyprland-protocols.follows = "hyprland-protocols";
+        };
+        aquamarine = {
+            url = "github:hyprwm/aquamarine";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+            inputs.hyprutils.follows = "hyprutils";
+            inputs.hyprwayland-scanner.follows = "hyprwayland-scanner";
+        };
+        hyprland = {
+            url = "https://github.com/hyprwm/Hyprland";
+            type = "git";
+            submodules = true;
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.systems.follows = "systems";
+            inputs.hyprlang.follows = "hyprlang";
+            inputs.hyprutils.follows = "hyprutils";
+            inputs.hyprcursor.follows = "hyprcursor";
+            inputs.aquamarine.follows = "aquamarine";
+            inputs.hyprwayland-scanner.follows = "hyprwayland-scanner";
+            inputs.xdph.follows = "xdph";
+        };
+
         hyprswitch = {
             url = "github:h3rmt/hyprswitch/release";
             inputs.nixpkgs.follows = "nixpkgs";
