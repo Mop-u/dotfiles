@@ -61,8 +61,12 @@
 
     home-manager.users.${sysConf.userName} = 
     let
-    hyprswitchConf = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
+        hyprswitchConf = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
         theme = (import ./catppuccin.nix).catppuccin.frappe.hex // {accent = theme.mauve;};
+        cursorSize = {
+            gtk = "30";
+            hypr = "30";
+        };
         borderSize = "2";
         rounding = "10";
         opacity = rec {
@@ -84,6 +88,11 @@
                 enable = true;
                 accent = "mauve";
                 flavor = "frappe";
+            };
+        };
+        dconf.settings = {
+            "org/gnome/desktop/interface" = {
+                cursor-size = inputs.home-manager.lib.hm.gvariant.mkInt32 cursorSize.gtk;
             };
         };
         gtk.enable = true;
@@ -114,6 +123,7 @@
             networkmanagerapplet
             pavucontrol
             inputs.hyprswitch.packages.${pkgs.system}.default # hyprswitch
+            dconf-editor # for debugging gtk being gtk
             # GUI apps
             heroic
             vscodium
@@ -367,8 +377,8 @@
                     
                     # Theming specific #
                     "WLR_EGL_NO_MODIFIERS,0" # May help with multiple monitors
-                    "HYPRCURSOR_SIZE,32"
-                    "XCURSOR_SIZE,32"
+                    "HYPRCURSOR_SIZE,${cursorSize.hypr}"
+                    "XCURSOR_SIZE,${cursorSize.gtk}"
                     
                     # Toolkit backend vars #
                     "QT_QPA_PLATFORM,wayland;xcb" # "wayland;xcb"
@@ -379,6 +389,7 @@
 
                     # QT specific #
                     "QT_AUTO_SCREEN_SCALE_FACTOR,1" # https://doc.qt.io/qt-5/highdpi.html
+                    "QT_ENABLE_HIGHDPI_SCALING,1"
                     "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
 
                     # App specific #
