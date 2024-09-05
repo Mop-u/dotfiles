@@ -124,7 +124,7 @@
             floorp
             ungoogled-chromium
             discord
-            discord-ptb
+            vesktop
             prismlauncher
             xivlauncher
             plexamp
