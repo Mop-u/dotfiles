@@ -212,6 +212,9 @@
             kitty = {
                 enable = true;
                 catppuccin.enable = true;
+                settings = {
+                    background_opacity = "0.9333"; # Roughly 0xee equivalent
+                };
             };
             neovim = {
                 enable = true;
@@ -536,11 +539,11 @@
                                 in
                                     builtins.toString (x + 1 - (c * 10));
                             in [
-                                "SUPER,       ${ws},workspace,             ${toString (x + 1)}"
-                                "SUPERSHIFT,  ${ws},movetoworkspace,       ${toString (x + 1)}"
-                                "SUPERALT,    ${ws},movetoworkspacesilent, ${toString (x + 1)}"
-                                "SUPERCONTROL,${ws},moveworkspacetomonitor,${toString (x + 1)} current"
-                                "SUPERCONTROL,${ws},workspace,             ${toString (x + 1)}"
+                                "SUPER,          ${ws},workspace,             ${toString (x + 1)}"
+                                "SUPERSHIFT,     ${ws},movetoworkspace,       ${toString (x + 1)}"
+                                "SUPERCONTROL,   ${ws},movetoworkspacesilent, ${toString (x + 1)}"
+                                "SUPERCONTROLALT,${ws},moveworkspacetomonitor,${toString (x + 1)} current"
+                                "SUPERCONTROLALT,${ws},workspace,             ${toString (x + 1)}"
                             ]
                         )
                     10)
