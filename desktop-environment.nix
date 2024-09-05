@@ -500,7 +500,7 @@
                     "bordercolor $yellow 45deg,xwayland:1,focus:1"
                     "float, class:(kitty),  title:(kitty)"
                     "float, class:(gtkwave),title:(gtkwave)"
-
+                    "float, class:(ssh-askpass-sublime)"
 
                     ## xwaylandvideobridge specific ##
                     #"opacity 0.0 override,class:^(xwaylandvideobridge)$"
