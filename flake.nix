@@ -15,6 +15,7 @@
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         systems.url = "github:nix-systems/default-linux";
         nur.url = "github:nix-community/NUR";
+        nix-colors.url = "github:misterio77/nix-colors";
 
         # Make sure hyprland is using the latest sources (hyprland's flake.lock lags behind sometimes)
         hyprutils = {

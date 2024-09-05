@@ -62,10 +62,13 @@
     home-manager.users.${sysConf.userName} = 
     let
     hyprswitchConf = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
-        theme = (import ./catppuccin.nix).catppuccin.frappe.hex;
-        accent = theme.mauve;
+        theme = (import ./catppuccin.nix).catppuccin.frappe.hex // {accent = theme.mauve;};
         borderSize = "2";
         rounding = "10";
+        opacity = rec {
+            hex = "d9";
+            dec = builtins.toString (((inputs.nix-colors.lib.conversions.hexToDec hex)+0.0) / 255.0);
+        };
     in {
         home = {
             username = sysConf.userName;
@@ -167,7 +170,7 @@
                 }
 
                 .client:hover {
-                    color: #${accent};
+                    color: #${theme.accent};
                     background-color: inherit;
                 }
 
@@ -195,8 +198,8 @@
                     font-size: 18px;
                     color: #${theme.text};
                     border-radius: ${rounding}px;
-                    background-color: #${theme.base}ee;
-                    border: ${borderSize}px solid #${accent};
+                    background-color: #${theme.base}${opacity.hex};
+                    border: ${borderSize}px solid #${theme.accent};
                     opacity: initial;
                 }
             '';
@@ -213,7 +216,7 @@
                 enable = true;
                 catppuccin.enable = true;
                 settings = {
-                    background_opacity = "0.9333"; # Roughly 0xee equivalent
+                    background_opacity = "${opacity.dec}";
                 };
             };
             neovim = {
@@ -274,7 +277,7 @@
                                 days     = "<span color='#${theme.subtext0}'><b>{}</b></span>";
                                 weeks    = "<span color='#${theme.overlay0}'><b>W{}</b></span>";
                                 weekdays = "<span color='#${theme.overlay0}'><b>{}</b></span>";
-                                today    = "<span color='#${accent}'><b><u>{}</u></b></span>";
+                                today    = "<span color='#${theme.accent}'><b><u>{}</u></b></span>";
                             };
                         };
                         actions = {
@@ -351,7 +354,7 @@
                 };
                 env = [
                     # Apply system theming to bemenu
-                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${theme.base}ee' --fb '##${theme.base}ee' --nb '##${theme.base}ee' --ab '##${theme.base}ee' --hb '##${theme.base}ee' --tf '##${accent}' --ff '##${theme.text}' --nf '##${theme.text}' --af '##${theme.text}' --hf '##${accent}' --bdr '##${accent}' --width-factor 0.33 --fn 'Comic Code'"
+                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${theme.base}${opacity.hex}' --fb '##${theme.base}${opacity.hex}' --nb '##${theme.base}${opacity.hex}' --ab '##${theme.base}${opacity.hex}' --hb '##${theme.base}${opacity.hex}' --tf '##${theme.accent}' --ff '##${theme.text}' --nf '##${theme.text}' --af '##${theme.text}' --hf '##${theme.accent}' --bdr '##${theme.accent}' --width-factor 0.33 --fn 'Comic Code'"
                     # hyprswitch options
                     "WORKSPACES_PER_ROW,3"
 
@@ -408,8 +411,8 @@
                 group.groupbar."col.locked_inactive"= "$overlay2";   # inactive locked group border color
 
                 # Colours:
-                decoration."col.shadow"          = "rgba(${theme.crust}ee)"; # shadow's color. Alpha dictates shadow's opacity.
-                decoration."col.shadow_inactive" = "rgba(${theme.crust}ee)"; # inactive shadow color. (if not set, will fall back to col.shadow)
+                decoration."col.shadow"          = "rgba(${theme.crust}aa)"; # shadow's color. Alpha dictates shadow's opacity.
+                decoration."col.shadow_inactive" = "rgba(${theme.crust}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                 group.groupbar.text_color        = "$text";  # controls the group bar text color
                 misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
                 misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
@@ -431,11 +434,11 @@
                     rounding = rounding;
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
-                    drop_shadow = false;
-                    shadow_range = 4;
-                    shadow_render_power = 3;
+                    drop_shadow = true;
+                    shadow_range = 12;
+                    shadow_render_power = 2;
                     blur = {
-                        enabled = false;
+                        enabled = true;
                         size = 3;
                         passes = 1;
                         vibrancy = 0.1696;
@@ -493,8 +496,12 @@
                 };
                 windowrulev2 = [
                     "suppressevent maximize, class:.*"
-                    "bordercolor $subtext1,xwayland:1,focus:0"
-                    "bordercolor $subtext1 $accent 45deg,xwayland:1,focus:1"
+                    "bordercolor $overlay2,xwayland:1,focus:0"
+                    "bordercolor $yellow 45deg,xwayland:1,focus:1"
+                    "float, class:(kitty),  title:(kitty)"
+                    "float, class:(gtkwave),title:(gtkwave)"
+
+
                     ## xwaylandvideobridge specific ##
                     #"opacity 0.0 override,class:^(xwaylandvideobridge)$"
                     #"noanim,class:^(xwaylandvideobridge)$"
