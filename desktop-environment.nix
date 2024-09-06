@@ -511,8 +511,9 @@
                     "bordercolor $overlay2,xwayland:1,focus:0"
                     "bordercolor $yellow,  xwayland:1,focus:1"
 
-                    "float,        class:(kitty), title:(kitty)"
-                    "size 896 504, class:(kitty), title:(kitty)"
+                    "float,                          class:(kitty), title:(kitty)"
+                    "size 896 504,                   class:(kitty), title:(kitty)"
+                    "move onscreen cursor -50% -50%, class:(kitty), title:(kitty)"
 
                     "float, class:(gtkwave),title:(gtkwave)"
                     "float, class:(ssh-askpass-sublime)"
