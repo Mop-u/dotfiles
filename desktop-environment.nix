@@ -246,6 +246,7 @@
             };
             waybar = {
                 enable = true;
+                package = inputs.waybar.packages.${pkgs.system}.waybar;
                 catppuccin.enable = true;
                 settings.mainBar = {
                     layer = "top";
@@ -467,7 +468,7 @@
 
                 dwindle = {
                     pseudotile = true;
-                    preserve_split = true;
+                    smart_split = true;
                 };
 
                 cursor = {
@@ -508,8 +509,11 @@
                 windowrulev2 = [
                     "suppressevent maximize, class:.*"
                     "bordercolor $overlay2,xwayland:1,focus:0"
-                    "bordercolor $yellow 45deg,xwayland:1,focus:1"
-                    "float, class:(kitty),  title:(kitty)"
+                    "bordercolor $yellow,  xwayland:1,focus:1"
+
+                    "float,        class:(kitty), title:(kitty)"
+                    "size 896 504, class:(kitty), title:(kitty)"
+
                     "float, class:(gtkwave),title:(gtkwave)"
                     "float, class:(ssh-askpass-sublime)"
 
@@ -540,6 +544,10 @@
                     "SUPER,      J,         movefocus, d"
                     "SUPER,      K,         movefocus, u"
                     "SUPER,      L,         movefocus, r"
+                    "SUPERSHIFT, H,         swapwindow, l"
+                    "SUPERSHIFT, J,         swapwindow, d"
+                    "SUPERSHIFT, K,         swapwindow, u"
+                    "SUPERSHIFT, L,         swapwindow, r"
                     "SUPER,      mouse_down,workspace, e+1"
                     "SUPER,      mouse_up,  workspace, e-1"
                     "SUPER,      S,         togglespecialworkspace, magic"
