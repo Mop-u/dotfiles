@@ -107,13 +107,15 @@
             ];
         };
         #gtk.theme.name = "Adwaita-dark";
-        qt.enable = true;
-        qt.style = {
-            catppuccin.enable = true;
-            catppuccin.apply = true;
-            name = "kvantum";
+        qt = {
+            enable = true;
+            style = {
+                catppuccin.enable = true;
+                catppuccin.apply = true;
+                name = "kvantum";
+            };
+            platformTheme.name = "kvantum";
         };
-        qt.platformTheme.name = "kvantum";
 
         home.packages = with pkgs; [
             # Hyprland / core apps
@@ -121,9 +123,11 @@
             hyprshot
             hyprcursor
             networkmanagerapplet
-            pavucontrol
+            pwvucontrol
+            qpwgraph
             inputs.hyprswitch.packages.${pkgs.system}.default # hyprswitch
             dconf-editor # for debugging gtk being gtk
+            kdePackages.qt6ct # for qt theming
             # GUI apps
             heroic
             vscodium
@@ -314,7 +318,7 @@
                         format = "{icon}  {volume}%";
                         format-muted = " ";
                         format-icons = [" " " " " "];
-                        on-click = "pavucontrol";
+                        on-click = "pwvucontrol";
                     };
 
                     tray = {
@@ -355,6 +359,7 @@
                     "nm-applet &"
                     "blueman-applet &"
                     "goxlr-daemon &"
+                    "qpwgraph -h &"
                 ];
                 monitor = [
                     "eDP-1,highres,0x0,1.333333,bitdepth,10"
@@ -372,9 +377,6 @@
                     # XDG specific #
                     "XDG_SESSION_TYPE,wayland"
                     "XDG_SESSION_DESKTOP,Hyprland"
-
-                    # Electron specific #
-                    #"DEFAULT_BROWSER,${pkgs.floorp}/bin/floorp"
                     
                     # Theming specific #
                     "WLR_EGL_NO_MODIFIERS,0" # May help with multiple monitors
@@ -382,16 +384,17 @@
                     "XCURSOR_SIZE,${cursorSize.gtk}"
                     
                     # Toolkit backend vars #
-                    "QT_QPA_PLATFORM,wayland;xcb" # "wayland;xcb"
                     "GDK_BACKEND,wayland,x11,*"
                     "SDL_VIDEODRIVER,wayland,x11,windows"
                     "CLUTTER_BACKEND,wayland"
                     "WLR_RENDERER_ALLOW_SOFTWARE,1" # software rendering backend
 
                     # QT specific #
-                    "QT_AUTO_SCREEN_SCALE_FACTOR,1" # https://doc.qt.io/qt-5/highdpi.html
+                    "QT_AUTO_SCREEN_SCALE_FACTOR,1"
                     "QT_ENABLE_HIGHDPI_SCALING,1"
                     "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+                    "QT_QPA_PLATFORM,wayland;xcb"
+                    "QT_QPA_PLATFORMTHEME,qt6ct"
 
                     # App specific #
                     "MOZ_ENABLE_WAYLAND,1"
@@ -514,6 +517,8 @@
                     "float,                          class:(kitty), title:(kitty)"
                     "size 896 504,                   class:(kitty), title:(kitty)"
                     "move onscreen cursor -50% -50%, class:(kitty), title:(kitty)"
+
+                    "float, class:(com.saivert.pwvucontrol), title:(Pipewire Volume Control)"
 
                     "float, class:(gtkwave),title:(gtkwave)"
                     "float, class:(ssh-askpass-sublime)"
