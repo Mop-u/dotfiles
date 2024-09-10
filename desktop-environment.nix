@@ -18,6 +18,8 @@
     services = {
         blueman.enable = true;
         goxlr-utility.enable = true;
+        gvfs.enable = true; # Mount, trash, and other functionalities
+        tumbler.enable = true; # Thumbnail support for images
     };
 
     nixpkgs.config.permittedInsecurePackages = [
@@ -42,6 +44,7 @@
             extest.enable = true;
             gamescopeSession.enable = true;
         };
+        xfconf.enable = true; # for remembering thunar preferences etc.
 
         anime-game-launcher.enable = true; # genshin
         sleepy-launcher.enable = true; # zzz
@@ -128,6 +131,9 @@
             inputs.hyprswitch.packages.${pkgs.system}.default # hyprswitch
             dconf-editor # for debugging gtk being gtk
             kdePackages.qt6ct # for qt theming
+            mate.engrampa # archive manager
+            inputs.spacedrive.packages.${pkgs.system}.spacedrive # weird file manager with a ui for ants
+            nemo-with-extensions # normal file manager
             # GUI apps
             heroic
             vscodium
@@ -136,7 +142,6 @@
             teams-for-linux
             slack
             floorp
-            ungoogled-chromium
             discord
             vesktop
             prismlauncher

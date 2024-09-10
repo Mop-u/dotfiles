@@ -100,6 +100,10 @@
             url = "github:Mop-u/naturaldocs-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        spacedrive = {
+            url = "github:Mop-u/spacedrive-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = { self, ... } @ inputs: {

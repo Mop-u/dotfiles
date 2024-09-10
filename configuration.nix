@@ -78,12 +78,14 @@
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
+        _7zz
         git
         vim
         bash
         lshw
         wget
         curl
+        samba
         fastfetch
         verilator
         verilog
