@@ -32,6 +32,14 @@
         options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
 
+    nixpkgs.overlays = [
+        (final: prev: {
+            nemo-with-extensions = prev.nemo-with-extensions.overrideAttrs (old: {
+                extraNativeBuildInputs = [ pkgs.gvfs ];
+            });
+        })
+    ];
+
     programs = {
         hyprland = {
             enable = true;
