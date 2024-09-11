@@ -127,7 +127,7 @@
                         inputs.catppuccin.homeManagerModules.catppuccin
                         inputs.nur.hmModules.nur
                     ];}
-                    ./hardware-configuration.nix
+                    ./kaoru/hardware-configuration.nix
                     ./configuration.nix
                     ./desktop-environment.nix
                 ];
