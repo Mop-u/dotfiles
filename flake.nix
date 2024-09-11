@@ -151,6 +151,9 @@
                         inputs.catppuccin.homeManagerModules.catppuccin
                         inputs.nur.hmModules.nur
                     ];}
+                    ./yure/hardware-configuration.nix
+                    ./configuration.nix
+                    ./desktop-environment.nix
                 ];
             };
         };
