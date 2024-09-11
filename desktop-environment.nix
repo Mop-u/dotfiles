@@ -43,7 +43,6 @@
     programs = {
         hyprland = {
             enable = true;
-            package = inputs.hyprland.packages.${pkgs.system}.hyprland;
             portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
         };
         steam = {
@@ -362,7 +361,6 @@
         };
         wayland.windowManager.hyprland = {
             enable = true;
-            package = inputs.hyprland.packages.${pkgs.system}.hyprland;
             catppuccin.enable = true;
             settings = {
                 exec-once = [
