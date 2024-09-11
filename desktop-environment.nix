@@ -32,14 +32,6 @@
         options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
 
-    nixpkgs.overlays = [
-        (final: prev: {
-            nemo-with-extensions = prev.nemo-with-extensions.overrideAttrs (old: {
-                extraNativeBuildInputs = [ pkgs.gvfs ];
-            });
-        })
-    ];
-
     programs = {
         hyprland = {
             enable = true;
@@ -140,7 +132,7 @@
             kdePackages.qt6ct # for qt theming
             mate.engrampa # archive manager
             inputs.spacedrive.packages.${pkgs.system}.spacedrive # weird file manager with a ui for ants
-            nemo-with-extensions # normal file manager
+            (nemo-with-extensions.overrideAttrs{extraNativeBuildInputs=[pkgs.gvfs];}) # normal file manager
             # GUI apps
             heroic
             vscodium
