@@ -372,15 +372,21 @@
                     "nm-applet &"
                     "blueman-applet &"
                     "goxlr-daemon &"
-                    "qpwgraph -h &"
                 ];
-                monitor = [
-                    "eDP-1,highres,0x0,1.333333,bitdepth,10"
-                    "DP-3,highres,auto-left,1.066667,bitdepth,10"
-                ];
+
+                monitor = {
+                    kaoru = [
+                        "eDP-1,highres,0x0,1.333333,bitdepth,10"
+                        "desc:Lenovo Group Limited P40w-20,highres,auto-left,1.066667,bitdepth,10"
+                        ",highres,auto-left,1"
+                    ];
+                    yure = ",highres,auto,1";
+                }.${sysConf.hostName} or ",highres,auto,1";
+
                 xwayland = {
                     force_zero_scaling = true;
                 };
+                
                 env = [
                     # Apply system theming to bemenu
                     "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${theme.base}${opacity.hex}' --fb '##${theme.base}${opacity.hex}' --nb '##${theme.base}${opacity.hex}' --ab '##${theme.base}${opacity.hex}' --hb '##${theme.base}${opacity.hex}' --tf '##${theme.accent}' --ff '##${theme.text}' --nf '##${theme.text}' --af '##${theme.text}' --hf '##${theme.accent}' --bdr '##${theme.accent}' --width-factor 0.33 --fn 'Comic Code'"
