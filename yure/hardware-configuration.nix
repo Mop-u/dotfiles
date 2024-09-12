@@ -15,6 +15,7 @@ in {
 
     boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
     boot.initrd.kernelModules = [ ];
+    #boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
@@ -43,6 +44,17 @@ in {
         device = "/dev/disk/by-uuid/6f53bc66-23d8-4c65-aeb0-ce8775b1552c";
     };
 
+    hardware.display = {
+        outputs."LVDS-1".edid = "1400x1050_60hz.bin";
+        edid.enable = true;
+        edid.packages = [(pkgs.runCommand "edid-1400x1050-60hz" {} ''
+            mkdir -p "$out/lib/firmware/edid"
+            base64 -d > "$out/lib/firmware/edid/1400x1050_60hz.bin" <<'EOF'
+            AP///////wA15jcTAgAAABcZAQOAGRJ4469AlVZKjyUgUFQhCACQQAEAAQABAAEBAQEBAQEBwCd4yFAaCkAUdCUA9bgAAAAYAAAAEAAAAAAAAAAAAAAAAAAAAAAADwCQQzwAAAATAgAJ5QAAAAAA/gBIVjEyMVAwMS0xMDAKAJ4=
+            EOF
+        '')];
+    };
+
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
     # (the default) this is the recommended approach. When using systemd-networkd it's
     # still possible to use this option, but it's recommended to use it in conjunction
@@ -53,17 +65,6 @@ in {
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-    hardware.display = {
-        outputs."LVDS-1".edid = "edid/1400x1050_60hz.bin";
-        edid.enable = true;
-        edid.packages = [(pkgs.runCommand "edid-1400x1050-60hz" {} ''
-            mkdir -p "$out/lib/firmware/edid"
-            base64 -d > "$out/lib/firmware/edid/1400x1050_60hz.bin" <<'EOF'
-            AP///////wA15jcTAgAAABcZAQOAGRJ4469AlVZKjyUgUFQhCACQQAEAAQABAAEBAQEBAQEBwCd4yFAaCkAUdCUA9bgAAAAYAAAAEAAAAAAAAAAAAAAAAAAAAAAADwCQQzwAAAATAgAJ5QAAAAAA/gBIVjEyMVAwMS0xMDAKAJ4=
-            EOF
-        '')];
-    };
 
     services.thermald.enable = true; # intel thermal protection
     services.tlp = {
