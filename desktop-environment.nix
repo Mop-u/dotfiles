@@ -1,5 +1,11 @@
-{ inputs, config, pkgs, sysConf, ... }:
+{ inputs, config, pkgs, target, ... }:
 {
+
+    nixpkgs.overlays = [
+        (final: prev: {
+            hyprland = (inputs.hyprland.packages.${pkgs.system}.hyprland.override{legacyRenderer=target.legacyGpu;});
+        })
+    ];
 
     security = {
         pam.services.hyprlock = {};
@@ -11,7 +17,7 @@
         sddm.wayland.enable = true;
         sddm.package = pkgs.kdePackages.sddm;
         autoLogin.enable = true;
-        autoLogin.user = sysConf.userName;
+        autoLogin.user = target.userName;
         defaultSession = "hyprland";
     };
 
@@ -45,8 +51,8 @@
         };
         xfconf.enable = true; # for remembering thunar preferences etc.
 
-        anime-game-launcher.enable = true; # genshin
-        sleepy-launcher.enable = true; # zzz
+        anime-game-launcher.enable = !target.legacyGpu; # genshin
+        sleepy-launcher.enable = !target.legacyGpu; # zzz
 
         honkers-railway-launcher.enable = false;
         honkers-launcher.enable = false;
@@ -61,9 +67,9 @@
         backupFileExtension = "backup";
     };
 
-    home-manager.users.${sysConf.userName} = 
+    home-manager.users.${target.userName} = 
     let
-        hyprswitchConf = "/home/${sysConf.userName}/.config/hypr/hyprswitch.css";
+        hyprswitchConf = "/home/${target.userName}/.config/hypr/hyprswitch.css";
         theme = (import ./catppuccin.nix).catppuccin.frappe.hex // {accent = theme.mauve;};
         cursorSize = {
             gtk = "30";
@@ -77,9 +83,9 @@
         };
     in {
         home = {
-            username = sysConf.userName;
-            homeDirectory = "/home/${sysConf.userName}";
-            stateVersion = sysConf.stateVer;
+            username = target.userName;
+            homeDirectory = "/home/${target.userName}";
+            stateVersion = target.stateVer;
         };
 
         catppuccin = {
@@ -230,18 +236,13 @@
             hyprlock = {
                 enable = true;
             };
-            kitty = {
+            foot = {
                 enable = true;
                 catppuccin.enable = true;
                 settings = {
-                    background_opacity = builtins.toString opacity.dec;
-                };
-            };
-            alacritty = {
-                enable = true;
-                catppuccin.enable = true;
-                settings = {
-                    window.opacity = opacity.dec;
+                    # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
+                    main.dpi-aware = "yes";
+                    colors.alpha = builtins.toString opacity.dec;
                 };
             };
             neovim = {
@@ -378,7 +379,7 @@
                         ",highres,auto-left,1"
                     ];
                     yure = ",highres,auto,1";
-                }.${sysConf.hostName} or ",highres,auto,1";
+                }.${target.hostName} or ",highres,auto,1";
 
                 xwayland = {
                     force_zero_scaling = true;
@@ -469,7 +470,7 @@
                     shadow_range = 12;
                     shadow_render_power = 2;
                     blur = {
-                        enabled = true;
+                        enabled = !target.legacyGpu;
                         size = 3;
                         passes = 1;
                         vibrancy = 0.1696;
@@ -530,9 +531,9 @@
                     "bordercolor $overlay2,xwayland:1,focus:0"
                     "bordercolor $yellow,  xwayland:1,focus:1"
 
-                    "float,                          class:(kitty), title:(kitty)"
-                    "size 896 504,                   class:(kitty), title:(kitty)"
-                    "move onscreen cursor -50% -50%, class:(kitty), title:(kitty)"
+                    "float,                          class:(foot), title:(foot)"
+                    "size 896 504,                   class:(foot), title:(foot)"
+                    "move onscreen cursor -50% -50%, class:(foot), title:(foot)"
 
                     "float, class:(com.saivert.pwvucontrol), title:(Pipewire Volume Control)"
 
@@ -556,7 +557,7 @@
                     ",  escape, exec, hyprswitch close --kill"
                 ];
                 bind = [
-                    "SUPERSHIFT, Return,    exec, kitty"
+                    "SUPERSHIFT, Return,    exec, foot"
                     "SUPERSHIFT, C,         killactive,"
                     "SUPERSHIFT, Q,         exit,"
                     "SUPER,      W,         exec, hyprswitch gui"

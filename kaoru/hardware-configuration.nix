@@ -59,13 +59,6 @@
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-
-    nixpkgs.overlays = [
-        (final: prev: {
-            hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-        })
-    ];
     
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {

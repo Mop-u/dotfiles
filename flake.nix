@@ -107,54 +107,60 @@
     };
 
     outputs = { self, ... } @ inputs: {
-        nixosConfigurations = {
-            kaoru = let sysConf = {
-                    hostName = "kaoru";
-                    userName = "hazama";
-                    stateVer = "23.11";
-                }; in inputs.nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                specialArgs = { 
-                    inherit inputs; 
-                    inherit sysConf;
-                };
-                modules = [
+        nixosConfigurations = let
+            setTarget = override: {
+                hostName  = override.hostName;
+                userName  = override.userName;
+                stateVer  = override.stateVer;
+                system    = override.system    or "x86_64-linux";
+                legacyGpu = override.legacyGpu or false;
+                modules   = override.modules   or [
                     inputs.catppuccin.nixosModules.catppuccin
                     inputs.home-manager.nixosModules.home-manager
                     inputs.aagl.nixosModules.default
                     inputs.nur.nixosModules.nur
-                    {home-manager.users.${sysConf.userName}.imports = [
+                    {home-manager.users.${override.userName}.imports = [
                         inputs.catppuccin.homeManagerModules.catppuccin
                         inputs.nur.hmModules.nur
                     ];}
-                    ./kaoru/hardware-configuration.nix
+                    ./${override.hostName}/hardware-configuration.nix
                     ./configuration.nix
                     ./desktop-environment.nix
                 ];
             };
-            yure = let sysConf = {
-                hostName = "yure";
-                userName = "shinatose";
-                stateVer = "24.05";
-            }; in inputs.nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
+            targets = {
+                kaoru = setTarget {
+                    hostName = "kaoru";
+                    userName = "hazama";
+                    stateVer = "23.11";
+                };
+                yure = setTarget {
+                    hostName = "yure";
+                    userName = "shinatose";
+                    stateVer = "24.05";
+                    legacyGpu = true;
+                };
+            };
+        in {
+            kaoru = let 
+                target = targets.kaoru;
+            in inputs.nixpkgs.lib.nixosSystem {
+                system = target.system;
+                specialArgs = { 
+                    inherit inputs; 
+                    inherit target;
+                };
+                modules = target.modules;
+            };
+            yure = let 
+                target = targets.yure;
+            in inputs.nixpkgs.lib.nixosSystem {
+                system = target.system;
                 specialArgs = {
                     inherit inputs;
-                    inherit sysConf;
+                    inherit target;
                 };
-                modules = [
-                    inputs.catppuccin.nixosModules.catppuccin
-                    inputs.home-manager.nixosModules.home-manager
-                    inputs.aagl.nixosModules.default
-                    inputs.nur.nixosModules.nur
-                    {home-manager.users.${sysConf.userName}.imports = [
-                        inputs.catppuccin.homeManagerModules.catppuccin
-                        inputs.nur.hmModules.nur
-                    ];}
-                    ./yure/hardware-configuration.nix
-                    ./configuration.nix
-                    ./desktop-environment.nix
-                ];
+                modules = target.modules;
             };
         };
     };

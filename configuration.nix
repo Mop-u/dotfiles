@@ -2,9 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, sysConf, ... }:
+{ config, pkgs, inputs, target, ... }:
 {
-    networking.hostName = sysConf.hostName;
+    networking.hostName = target.hostName;
 
     nix.gc.automatic = false;
 
@@ -63,7 +63,7 @@
     };
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.${sysConf.userName} = {
+    users.users.${target.userName} = {
         isNormalUser = true;
         description = "Quinn";
         extraGroups = [ "networkmanager" "wheel" ];
@@ -116,5 +116,5 @@
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = sysConf.stateVer;
+    system.stateVersion = target.stateVer;
 }
