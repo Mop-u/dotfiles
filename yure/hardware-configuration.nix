@@ -53,7 +53,18 @@ in {
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-        
+
+    hardware.display = {
+        outputs."LVDS-1".edid = "edid/1400x1050_60hz.bin";
+        edid.enable = true;
+        edid.packages = [(pkgs.runCommand "edid-1400x1050-60hz" {} ''
+            mkdir -p "$out/lib/firmware/edid"
+            base64 -d > "$out/lib/firmware/edid/1400x1050_60hz.bin" <<'EOF'
+            AP///////wA15jcTAgAAABcZAQOAGRJ4469AlVZKjyUgUFQhCACQQAEAAQABAAEBAQEBAQEBwCd4yFAaCkAUdCUA9bgAAAAYAAAAEAAAAAAAAAAAAAAAAAAAAAAADwCQQzwAAAATAgAJ5QAAAAAA/gBIVjEyMVAwMS0xMDAKAJ4=
+            EOF
+        '')];
+    };
+
     services.thermald.enable = true; # intel thermal protection
     services.tlp = {
         enable = true; # laptop power saving etc
