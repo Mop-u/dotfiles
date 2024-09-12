@@ -237,6 +237,13 @@
                     background_opacity = "${opacity.dec}";
                 };
             };
+            alacritty = {
+                enable = true;
+                catppuccin.enable = true;
+                settings = {
+                    opacity = "${opacity.dec}";
+                };
+            };
             neovim = {
                 enable = true;
                 defaultEditor = true;
