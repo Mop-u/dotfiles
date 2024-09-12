@@ -73,7 +73,7 @@
         rounding = "10";
         opacity = rec {
             hex = "d9";
-            dec = builtins.toString (((inputs.nix-colors.lib.conversions.hexToDec hex)+0.0) / 255.0);
+            dec = ((inputs.nix-colors.lib.conversions.hexToDec hex)+0.0) / 255.0;
         };
     in {
         home = {
@@ -234,14 +234,14 @@
                 enable = true;
                 catppuccin.enable = true;
                 settings = {
-                    background_opacity = "${opacity.dec}";
+                    background_opacity = builtins.toString opacity.dec;
                 };
             };
             alacritty = {
                 enable = true;
                 catppuccin.enable = true;
                 settings = {
-                    opacity = "${opacity.dec}";
+                    window.opacity = opacity.dec;
                 };
             };
             neovim = {
