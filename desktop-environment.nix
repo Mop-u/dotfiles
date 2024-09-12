@@ -9,6 +9,7 @@
 
     security = {
         pam.services.hyprlock = {};
+        pam.services.sddm.enableGnomeKeyring = true;
         polkit.enable = true;
     };
 
@@ -39,6 +40,7 @@
     '';
 
     programs = {
+        seahorse.enable = true;
         hyprland = {
             enable = true;
             portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
@@ -164,6 +166,9 @@
                 enable = false;
             };
             blueman-applet = {
+                enable = true;
+            };
+            gnome-keyring = {
                 enable = true;
             };
         };
