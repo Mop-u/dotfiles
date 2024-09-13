@@ -115,7 +115,6 @@
                 system    = override.system    or "x86_64-linux";
                 legacyGpu = override.legacyGpu or false;
                 smallTermFont = override.smallTermFont or false;
-                inputSensitivity = override.inputSensitivity or 0.0; # range from -1.0 to +1.0
                 modules   = override.modules   or [
                     inputs.catppuccin.nixosModules.catppuccin
                     inputs.home-manager.nixosModules.home-manager
@@ -138,6 +137,11 @@
                         highlight = result.${accent};
                     };
                 in result;
+                input = {
+                    sensitivity  = override.input.sensitivity or 0.0; # range from -1.0 to +1.0
+                    accelProfile = override.input.accelProfile or "flat"; # adaptive/flat/custom https://wiki.hyprland.org/Configuring/Variables/#custom-accel-profiles
+                    keyLayout    = override.input.keyLayout or "us";
+                };
                 comicCode = rec {
                     enable  = override.comicCode.enable or false;
                     package = override.comicCode.package or inputs.nonfree-fonts.packages.${system}.comic-code;
@@ -162,7 +166,7 @@
                     catppuccin.flavor = "mocha";
                     catppuccin.accent = "sky";
                     comicCode.enable = true;
-                    inputSensitivity = -0.25;
+                    input.sensitivity = -0.25;
                 };
             };
         in {
@@ -171,7 +175,7 @@
             in inputs.nixpkgs.lib.nixosSystem {
                 system = target.system;
                 specialArgs = { 
-                    inherit inputs; 
+                    inherit inputs;
                     inherit target;
                 };
                 modules = target.modules;

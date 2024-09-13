@@ -531,13 +531,14 @@
                 };
 
                 input = {
-                    kb_layout = "us";
+                    kb_layout = target.input.keyLayout;
                     # kb_variant = 
                     # kb_model = 
                     # kb_options = 
                     # kb_rules = 
                     follow_mouse = 1;
-                    sensitivity = 0;
+                    sensitivity = target.input.sensitivity;
+                    accel_profile = target.input.accelProfile;
                     touchpad = {
                         natural_scroll = true;
                     };
