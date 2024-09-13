@@ -469,7 +469,7 @@
                     rounding = rounding;
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
-                    drop_shadow = true;
+                    drop_shadow = !target.legacyGpu;
                     shadow_range = 12;
                     shadow_render_power = 2;
                     blur = {
