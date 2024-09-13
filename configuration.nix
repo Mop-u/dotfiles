@@ -10,8 +10,8 @@
 
     catppuccin = {
         enable = true;
-        accent = "mauve";
-        flavor = "frappe";
+        accent = target.catppuccin.accent;
+        flavor = target.catppuccin.flavor;
     };
 
     # Enable Graphics

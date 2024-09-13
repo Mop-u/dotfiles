@@ -69,10 +69,8 @@
         backupFileExtension = "backup";
     };
 
-    home-manager.users.${target.userName} = 
-    let
+    home-manager.users.${target.userName} = let
         hyprswitchConf = "/home/${target.userName}/.config/hypr/hyprswitch.css";
-        theme = (import ./catppuccin.nix).catppuccin.frappe.hex // {accent = theme.mauve;};
         cursorSize = {
             gtk = "30";
             hypr = "30";
@@ -92,12 +90,12 @@
 
         catppuccin = {
             enable = true;
-            accent = "mauve";
-            flavor = "frappe";
+            accent = target.catppuccin.accent;
+            flavor = target.catppuccin.flavor;
             pointerCursor = {
                 enable = true;
-                accent = "mauve";
-                flavor = "frappe";
+                accent = target.catppuccin.accent;
+                flavor = target.catppuccin.flavor;
             };
         };
         dconf.settings = {
@@ -199,7 +197,7 @@
                 }
 
                 .client:hover {
-                    color: #${theme.accent};
+                    color: #${target.catppuccin.highlight.hex};
                     background-color: inherit;
                 }
 
@@ -225,10 +223,10 @@
 
                 window {
                     font-size: 18px;
-                    color: #${theme.text};
+                    color: #${target.catppuccin.text.hex};
                     border-radius: ${rounding}px;
-                    background-color: #${theme.base}${opacity.hex};
-                    border: ${borderSize}px solid #${theme.accent};
+                    background-color: #${target.catppuccin.base.hex}${opacity.hex};
+                    border: ${borderSize}px solid #${target.catppuccin.highlight.hex};
                     opacity: initial;
                 }
             '';
@@ -305,11 +303,11 @@
                             weeks-pos = "right";
                             on-scroll = 1;
                             format = {
-                                months   = "<span color='#${theme.text}'><b>{}</b></span>";
-                                days     = "<span color='#${theme.subtext0}'><b>{}</b></span>";
-                                weeks    = "<span color='#${theme.overlay0}'><b>W{}</b></span>";
-                                weekdays = "<span color='#${theme.overlay0}'><b>{}</b></span>";
-                                today    = "<span color='#${theme.accent}'><b><u>{}</u></b></span>";
+                                months   = "<span color='#${target.catppuccin.text.hex}'><b>{}</b></span>";
+                                days     = "<span color='#${target.catppuccin.subtext0.hex}'><b>{}</b></span>";
+                                weeks    = "<span color='#${target.catppuccin.overlay0.hex}'><b>W{}</b></span>";
+                                weekdays = "<span color='#${target.catppuccin.overlay0.hex}'><b>{}</b></span>";
+                                today    = "<span color='#${target.catppuccin.highlight.hex}'><b><u>{}</u></b></span>";
                             };
                         };
                         actions = {
@@ -392,7 +390,7 @@
                 
                 env = [
                     # Apply system theming to bemenu
-                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${theme.base}${opacity.hex}' --fb '##${theme.base}${opacity.hex}' --nb '##${theme.base}${opacity.hex}' --ab '##${theme.base}${opacity.hex}' --hb '##${theme.base}${opacity.hex}' --tf '##${theme.accent}' --ff '##${theme.text}' --nf '##${theme.text}' --af '##${theme.text}' --hf '##${theme.accent}' --bdr '##${theme.accent}' --width-factor 0.33 --fn 'Comic Code'"
+                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${target.catppuccin.base.hex}${opacity.hex}' --fb '##${target.catppuccin.base.hex}${opacity.hex}' --nb '##${target.catppuccin.base.hex}${opacity.hex}' --ab '##${target.catppuccin.base.hex}${opacity.hex}' --hb '##${target.catppuccin.base.hex}${opacity.hex}' --tf '##${target.catppuccin.highlight.hex}' --ff '##${target.catppuccin.text.hex}' --nf '##${target.catppuccin.text.hex}' --af '##${target.catppuccin.text.hex}' --hf '##${target.catppuccin.highlight.hex}' --bdr '##${target.catppuccin.highlight.hex}' --width-factor 0.33 --fn 'Comic Code'"
                     # hyprswitch options
                     "WORKSPACES_PER_ROW,3"
 
@@ -448,8 +446,8 @@
                 group.groupbar."col.locked_inactive"= "$overlay2";   # inactive locked group border color
 
                 # Colours:
-                decoration."col.shadow"          = "rgba(${theme.crust}aa)"; # shadow's color. Alpha dictates shadow's opacity.
-                decoration."col.shadow_inactive" = "rgba(${theme.crust}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
+                decoration."col.shadow"          = "rgba(${target.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
+                decoration."col.shadow_inactive" = "rgba(${target.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                 group.groupbar.text_color        = "$text";  # controls the group bar text color
                 misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
                 misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)

@@ -127,18 +127,31 @@
                     ./desktop-environment/default.nix
                     ./target/${override.hostName}/hardware-configuration.nix
                 ];
+                catppuccin = let
+                    flavor = override.catppuccin.flavor or "frappe"; # latte/frappe/macchiato/mocha
+                    accent = override.catppuccin.accent or "mauve";  # see all available colours at https://catppuccin.com/palette (or check catppuccin.nix)
+                    result = (import ./catppuccin.nix).catppuccin.${flavor} // {
+                        flavor = flavor;
+                        accent = accent;
+                        highlight = result.${accent};
+                    };
+                in result;
             };
             targets = {
                 kaoru = setTarget {
                     hostName = "kaoru";
                     userName = "hazama";
                     stateVer = "23.11";
+                    catppuccin.flavor = "frappe";
+                    catppuccin.accent = "mauve";
                 };
                 yure = setTarget {
                     hostName = "yure";
                     userName = "shinatose";
                     stateVer = "24.05";
                     legacyGpu = true;
+                    catppuccin.flavor = "mocha";
+                    catppuccin.accent = "sky";
                 };
             };
         in {
