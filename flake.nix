@@ -136,11 +136,11 @@
                         highlight = result.${accent};
                     };
                 in result;
-                comicCode = let result = {
+                comicCode = rec {
                     enable  = override.comicCode.enable or false;
                     package = override.comicCode.package or inputs.nonfree-fonts.packages.${system}.comic-code;
-                    name    = if result.enable then "Comic Code" else "ComicShannsMono Nerd Font";
-                }; in result;
+                    name    = if comicCode.enable then "Comic Code" else "ComicShannsMono Nerd Font";
+                };
             };
             targets = {
                 kaoru = setTarget {
