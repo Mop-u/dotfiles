@@ -115,6 +115,7 @@
                 system    = override.system    or "x86_64-linux";
                 legacyGpu = override.legacyGpu or false;
                 smallTermFont = override.smallTermFont or false;
+                inputSensitivity = override.inputSensitivity or 0.0; # range from -1.0 to +1.0
                 modules   = override.modules   or [
                     inputs.catppuccin.nixosModules.catppuccin
                     inputs.home-manager.nixosModules.home-manager
@@ -161,6 +162,7 @@
                     catppuccin.flavor = "mocha";
                     catppuccin.accent = "sky";
                     comicCode.enable = true;
+                    inputSensitivity = -0.25;
                 };
             };
         in {
