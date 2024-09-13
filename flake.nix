@@ -115,15 +115,22 @@
                 system    = override.system    or "x86_64-linux";
                 legacyGpu = override.legacyGpu or false;
                 smallTermFont = override.smallTermFont or false;
+                helper = let 
+                    config = self.nixosConfigurations.${override.hostName}.config; # get the host's config
+                    target = setTarget override; # beware infinite recursion!
+                in (import ./helper.nix) {inherit target; inherit config;};
+
                 modules   = override.modules   or [
                     inputs.catppuccin.nixosModules.catppuccin
                     inputs.home-manager.nixosModules.home-manager
                     inputs.aagl.nixosModules.default
                     inputs.nur.nixosModules.nur
-                    {home-manager.users.${override.userName}.imports = [
-                        inputs.catppuccin.homeManagerModules.catppuccin
-                        inputs.nur.hmModules.nur
-                    ];}
+                    {
+                        home-manager.users.${override.userName}.imports = [
+                            inputs.catppuccin.homeManagerModules.catppuccin
+                            inputs.nur.hmModules.nur
+                        ];
+                    }
                     ./configuration.nix
                     ./desktop-environment/default.nix
                     ./target/${override.hostName}/hardware-configuration.nix

@@ -232,7 +232,7 @@
             '';
         };
         home.file.vesktop = {
-            enable = true;
+            enable = target.helper.isInstalled pkgs.vesktop;
             executable = false;
             target = "/home/${target.userName}/.config/vesktop/settings/quickCss.css";
             text = ''
