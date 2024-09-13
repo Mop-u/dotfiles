@@ -123,9 +123,9 @@
                         inputs.catppuccin.homeManagerModules.catppuccin
                         inputs.nur.hmModules.nur
                     ];}
-                    ./${override.hostName}/hardware-configuration.nix
                     ./configuration.nix
-                    ./desktop-environment.nix
+                    ./desktop-environment/default.nix
+                    ./target/${override.hostName}/hardware-configuration.nix
                 ];
             };
             targets = {
