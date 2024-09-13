@@ -114,6 +114,7 @@
                 stateVer  = override.stateVer;
                 system    = override.system    or "x86_64-linux";
                 legacyGpu = override.legacyGpu or false;
+                smallTermFont = override.smallTermFont or false;
                 modules   = override.modules   or [
                     inputs.catppuccin.nixosModules.catppuccin
                     inputs.home-manager.nixosModules.home-manager
@@ -156,6 +157,7 @@
                     userName = "shinatose";
                     stateVer = "24.05";
                     legacyGpu = true;
+                    smallTermFont = true;
                     catppuccin.flavor = "mocha";
                     catppuccin.accent = "sky";
                     comicCode.enable = true;

@@ -245,6 +245,7 @@
                 settings = {
                     # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
                     main.dpi-aware = "yes";
+                    main.font = "monospace:size=${if target.smallTermFont then "7" else "8"}";
                     colors.alpha = builtins.toString opacity.dec;
                 };
             };
@@ -381,7 +382,10 @@
                         "desc:Lenovo Group Limited P40w-20,highres,auto-left,1.066667,bitdepth,10"
                         ",highres,auto-left,1"
                     ];
-                    yure = ",highres,auto,1";
+                    yure = [
+                        "LVDS-1,highres,0x0,1"
+                        ",highres,auto,1"
+                    ];
                 }.${target.hostName} or ",highres,auto,1";
 
                 xwayland = {
