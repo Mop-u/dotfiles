@@ -343,7 +343,7 @@
                     };
                 };
                 style = ''
-                    @define-color accent @mauve;
+                    @define-color accent @${target.catppuccin.accent};
                     #workspaces button {
                         color: @subtext0;
                         background-color: @base;
