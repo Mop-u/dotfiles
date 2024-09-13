@@ -390,7 +390,7 @@
                 
                 env = [
                     # Apply system theming to bemenu
-                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${target.catppuccin.base.hex}${opacity.hex}' --fb '##${target.catppuccin.base.hex}${opacity.hex}' --nb '##${target.catppuccin.base.hex}${opacity.hex}' --ab '##${target.catppuccin.base.hex}${opacity.hex}' --hb '##${target.catppuccin.base.hex}${opacity.hex}' --tf '##${target.catppuccin.highlight.hex}' --ff '##${target.catppuccin.text.hex}' --nf '##${target.catppuccin.text.hex}' --af '##${target.catppuccin.text.hex}' --hf '##${target.catppuccin.highlight.hex}' --bdr '##${target.catppuccin.highlight.hex}' --width-factor 0.33 --fn 'Comic Code'"
+                    "BEMENU_OPTS,-nciwl '16 down' --single-instance --border ${borderSize} --border-radius ${rounding} --tb '##${target.catppuccin.base.hex}${opacity.hex}' --fb '##${target.catppuccin.base.hex}${opacity.hex}' --nb '##${target.catppuccin.base.hex}${opacity.hex}' --ab '##${target.catppuccin.base.hex}${opacity.hex}' --hb '##${target.catppuccin.base.hex}${opacity.hex}' --tf '##${target.catppuccin.highlight.hex}' --ff '##${target.catppuccin.text.hex}' --nf '##${target.catppuccin.text.hex}' --af '##${target.catppuccin.text.hex}' --hf '##${target.catppuccin.highlight.hex}' --bdr '##${target.catppuccin.highlight.hex}' --width-factor 0.33 --fn '${target.comicCode.name}'"
                     # hyprswitch options
                     "WORKSPACES_PER_ROW,3"
 

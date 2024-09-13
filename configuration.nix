@@ -100,11 +100,9 @@
         packages = with pkgs; [
             nerdfonts
             meslo-lgs-nf
-            inputs.nonfree-fonts.packages.${pkgs.system}.comic-code
-        ];
+        ] ++ (if target.comicCode.enable then inputs.nonfree-fonts.packages.${pkgs.system}.comic-code else []);
         fontconfig.defaultFonts = {
-            monospace = [ 
-                "Comic Code"
+            monospace = (if target.comicCode.enable then target.comicCode.name else []) ++ [ 
                 "ComicShannsMono Nerd Font"
             ];
         };

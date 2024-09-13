@@ -108,7 +108,7 @@
 
     outputs = { self, ... } @ inputs: {
         nixosConfigurations = let
-            setTarget = override: {
+            setTarget = override: rec {
                 hostName  = override.hostName;
                 userName  = override.userName;
                 stateVer  = override.stateVer;
@@ -136,6 +136,11 @@
                         highlight = result.${accent};
                     };
                 in result;
+                comicCode = let result = {
+                    enable  = override.comicCode.enable or false;
+                    package = override.comicCode.package or inputs.nonfree-fonts.packages.${system}.comic-code;
+                    name    = if result.enable then "Comic Code" else "ComicShannsMono Nerd Font";
+                }; in result;
             };
             targets = {
                 kaoru = setTarget {
@@ -144,6 +149,7 @@
                     stateVer = "23.11";
                     catppuccin.flavor = "frappe";
                     catppuccin.accent = "mauve";
+                    comicCode.enable = true;
                 };
                 yure = setTarget {
                     hostName = "yure";
@@ -152,6 +158,7 @@
                     legacyGpu = true;
                     catppuccin.flavor = "mocha";
                     catppuccin.accent = "sky";
+                    comicCode.enable = true;
                 };
             };
         in {
