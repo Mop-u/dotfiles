@@ -588,6 +588,10 @@
                     "SUPERSHIFT, J,         swapwindow, d"
                     "SUPERSHIFT, K,         swapwindow, u"
                     "SUPERSHIFT, L,         swapwindow, r"
+                    "SUPERALT,   H,         resizeactive, -10    0" # resize left
+                    "SUPERALT,   J,         resizeactive,   0   10" # resize down
+                    "SUPERALT,   K,         resizeactive,   0  -10" # resize up
+                    "SUPERALT,   L,         resizeactive,  10    0" # resize right
                     "SUPER,      mouse_down,workspace, e+1"
                     "SUPER,      mouse_up,  workspace, e-1"
                     "SUPER,      S,         togglespecialworkspace, magic"
