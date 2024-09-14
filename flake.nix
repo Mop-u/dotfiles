@@ -173,7 +173,7 @@
                     catppuccin.flavor = "mocha";
                     catppuccin.accent = "sky";
                     comicCode.enable = true;
-                    input.sensitivity = -0.25;
+                    input.sensitivity = -0.1;
                 };
             };
         in {
