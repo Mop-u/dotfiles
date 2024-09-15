@@ -37,7 +37,13 @@
     services.irqbalance.enable = true;
 
     # Enable networking
-    networking.networkmanager.enable = true;
+    networking.networkmanager = {
+        enable = true;
+        wifi = {
+            backend = "iwd";
+            powersave = true;
+        };
+    };
     networking.nftables.enable = true;
 
     # Enable bluetooth
