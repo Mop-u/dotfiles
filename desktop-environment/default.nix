@@ -165,8 +165,9 @@
         ];
 
         services = {
-            swaync = {
+            dunst = {
                 enable = true;
+                catppuccin.enable = true;
             };
             hypridle = {
                 enable = false;
@@ -385,7 +386,7 @@
             catppuccin.enable = true;
             settings = {
                 exec-once = [
-                    "swaync &"
+                    "dunst &"
                     "hyprswitch init --show-title --custom-css '${hyprswitchConf}' &"
                     "waybar &"
                     "nm-applet &"
