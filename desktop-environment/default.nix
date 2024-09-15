@@ -12,6 +12,14 @@
         pam.services.sddm.enableGnomeKeyring = true;
         polkit.enable = true;
     };
+    xdg = {
+        autostart.enable = true;
+        portal = {
+            extraPortals = [
+                pkgs.xdg-desktop-portal-gnome
+            ];
+        };
+    };
 
     services.displayManager = {
         sddm.enable = true;
