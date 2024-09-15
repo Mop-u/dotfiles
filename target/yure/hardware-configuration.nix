@@ -66,6 +66,7 @@ in {
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+    powerManagement.enable = true;
     services.thermald.enable = true; # intel thermal protection
     services.tlp = {
         enable = true; # laptop power saving etc

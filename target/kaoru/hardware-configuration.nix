@@ -108,6 +108,7 @@
         };
     };
 
+    powerManagement.enable = true;
     services.thermald.enable = true; # intel thermal protection
     services.tlp = {
         enable = true; # laptop power saving etc
