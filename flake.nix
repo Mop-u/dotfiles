@@ -108,71 +108,25 @@
 
     outputs = { self, ... } @ inputs: {
         nixosConfigurations = let
-            setTarget = override: rec {
-                hostName  = override.hostName;
-                userName  = override.userName;
-                stateVer  = override.stateVer;
-                system    = override.system    or "x86_64-linux";
-                legacyGpu = override.legacyGpu or false;
-                smallTermFont = override.smallTermFont or false;
-                helper = let 
-                    config = self.nixosConfigurations.${override.hostName}.config; # get the host's config
-                    target = setTarget override; # beware infinite recursion!
-                in (import ./helper.nix) {inherit target; inherit config;};
-
-                modules   = override.modules   or [
-                    inputs.catppuccin.nixosModules.catppuccin
-                    inputs.home-manager.nixosModules.home-manager
-                    inputs.aagl.nixosModules.default
-                    inputs.nur.nixosModules.nur
-                    {
-                        home-manager.users.${override.userName}.imports = [
-                            inputs.catppuccin.homeManagerModules.catppuccin
-                            inputs.nur.hmModules.nur
-                        ];
-                    }
-                    ./configuration.nix
-                    ./desktop-environment/default.nix
-                    ./target/${override.hostName}/hardware-configuration.nix
-                ];
-                catppuccin = let
-                    flavor = override.catppuccin.flavor or "frappe"; # latte/frappe/macchiato/mocha
-                    accent = override.catppuccin.accent or "mauve";  # see all available colours at https://catppuccin.com/palette (or check catppuccin.nix)
-                    result = (import ./catppuccin.nix).catppuccin.${flavor} // {
-                        flavor = flavor;
-                        accent = accent;
-                        highlight = result.${accent};
-                    };
-                in result;
-                input = {
-                    sensitivity  = override.input.sensitivity or 0.0; # range from -1.0 to +1.0
-                    accelProfile = override.input.accelProfile or "flat"; # adaptive/flat/custom https://wiki.hyprland.org/Configuring/Variables/#custom-accel-profiles
-                    keyLayout    = override.input.keyLayout or "us";
-                };
-                comicCode = rec {
-                    enable  = override.comicCode.enable or false;
-                    package = override.comicCode.package or inputs.nonfree-fonts.packages.${system}.comic-code;
-                    name    = if comicCode.enable then "Comic Code" else "ComicShannsMono Nerd Font";
-                };
-            };
+            setTarget = (import ./setTarget.nix {inherit self inputs;}).setTarget;
             targets = {
                 kaoru = setTarget {
                     hostName = "kaoru";
                     userName = "hazama";
                     stateVer = "23.11";
-                    catppuccin.flavor = "frappe";
-                    catppuccin.accent = "mauve";
-                    comicCode.enable = true;
+                    style.catppuccin.flavor = "frappe";
+                    style.catppuccin.accent = "mauve";
+                    text.comicCode.enable = true;
                 };
                 yure = setTarget {
                     hostName = "yure";
                     userName = "shinatose";
                     stateVer = "24.05";
                     legacyGpu = true;
-                    smallTermFont = true;
-                    catppuccin.flavor = "mocha";
-                    catppuccin.accent = "sky";
-                    comicCode.enable = true;
+                    text.smallTermFont = true;
+                    style.catppuccin.flavor = "mocha";
+                    style.catppuccin.accent = "sky";
+                    text.comicCode.enable = true;
                     input.sensitivity = -0.1;
                 };
             };

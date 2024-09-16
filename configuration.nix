@@ -10,8 +10,8 @@
 
     catppuccin = {
         enable = true;
-        accent = target.catppuccin.accent;
-        flavor = target.catppuccin.flavor;
+        accent = target.style.catppuccin.accent;
+        flavor = target.style.catppuccin.flavor;
     };
 
     # Enable Graphics
@@ -106,9 +106,9 @@
         packages = with pkgs; [
             nerdfonts
             meslo-lgs-nf
-        ] ++ (if target.comicCode.enable then [target.comicCode.package] else []);
+        ] ++ (if target.text.comicCode.enable then [target.text.comicCode.package] else []);
         fontconfig.defaultFonts = {
-            monospace = (if target.comicCode.enable then [target.comicCode.name] else []) ++ [ 
+            monospace = (if target.text.comicCode.enable then [target.text.comicCode.name] else []) ++ [ 
                 "ComicShannsMono Nerd Font"
             ];
         };
