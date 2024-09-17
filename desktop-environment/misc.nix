@@ -70,7 +70,6 @@
         plexamp
         gtkwave
         quartus-prime-lite
-        verible
     ];
 
     services = {
@@ -88,16 +87,6 @@
     programs = {
         hyprlock = {
             enable = true;
-        };
-        foot = {
-            enable = true;
-            catppuccin.enable = true;
-            settings = {
-                # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
-                main.dpi-aware = "yes";
-                main.font = "monospace:size=${if target.text.smallTermFont then "7" else "8"}";
-                colors.alpha = builtins.toString target.window.opacity.dec;
-            };
         };
         neovim = {
             enable = true;

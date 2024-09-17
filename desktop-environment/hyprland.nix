@@ -169,10 +169,6 @@
                 "bordercolor $overlay2,xwayland:1,focus:0"
                 "bordercolor $yellow,  xwayland:1,focus:1"
 
-                "float,                          class:(foot), title:(foot)"
-                "size 896 504,                   class:(foot), title:(foot)"
-                "move onscreen cursor -50% -50%, class:(foot), title:(foot)"
-
                 "float, class:(com.saivert.pwvucontrol), title:(Pipewire Volume Control)"
 
                 "float, class:(gtkwave),title:(gtkwave)"
@@ -192,7 +188,6 @@
                 scroll_event_delay = 100;
             };
             bind = [
-                "SUPERSHIFT, Return,    exec, foot"
                 "SUPERSHIFT, C,         killactive,"
                 "SUPERSHIFT, Q,         exit,"
                 "SUPER,      V,         togglefloating,"

@@ -94,7 +94,9 @@
         samba
         fastfetch
         verilator
+        verible
         verilog
+        nil
         haskellPackages.sv2v
         gnumake
         gcc

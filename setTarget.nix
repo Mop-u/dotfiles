@@ -65,7 +65,7 @@ rec {
             # text.smallTermFont:    bool
             # text.comicCode.enable: bool
             smallTermFont = override.text.smallTermFont or false;
-            comicCode = rec {
+            comicCode = {
                 enable  = override.text.comicCode.enable or false;
                 package = inputs.nonfree-fonts.packages.${system}.comic-code;
                 name    = if text.comicCode.enable then "Comic Code" else "ComicShannsMono Nerd Font";
