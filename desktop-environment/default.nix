@@ -79,6 +79,7 @@
 
     home-manager.users.${target.userName} = let
 
+        #todo: use builtins.readDir to get all add-in modules from a directory
         modules = builtins.map (module: import module {inherit inputs config pkgs lib target;})[
             ./bemenu.nix
             ./dunst.nix
