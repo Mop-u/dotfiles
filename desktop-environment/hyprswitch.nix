@@ -1,84 +1,85 @@
 {inputs, config, pkgs, lib, target, ... }: let
     configFile = "/home/${target.userName}/.config/hypr/hyprswitch.css";
 in {
-
-    home.packages = [
-        inputs.hyprswitch.packages.${pkgs.system}.default
-    ];
-
-    wayland.windowManager.hyprland.settings = {
-        env = [
-            "WORKSPACES_PER_ROW,3"
+    home-manager.users.${target.userName} = {
+        home.packages = [
+            inputs.hyprswitch.packages.${pkgs.system}.default
         ];
-        exec-once = [
-            "hyprswitch init --show-title --custom-css '${configFile}' &"
-        ];
-        bind = [
-            "SUPER, W, exec, hyprswitch gui"
-        ];
-        bindrn = [
-            ",  escape, exec, hyprswitch close --kill"
-        ];
-    };
 
-    home.file.hyprswitch = {
-        enable = true;
-        executable = false;
-        target = configFile;
-        text = ''
-            .client-image {
-                margin: 15px;
-            }
+        wayland.windowManager.hyprland.settings = {
+            env = [
+                "WORKSPACES_PER_ROW,3"
+            ];
+            exec-once = [
+                "hyprswitch init --show-title --custom-css '${configFile}' &"
+            ];
+            bind = [
+                "SUPER, W, exec, hyprswitch gui"
+            ];
+            bindrn = [
+                ",  escape, exec, hyprswitch close --kill"
+            ];
+        };
 
-            .client-index {
-                margin: 6px;
-                padding: 5px;
-                font-size: inherit;
-                font-weight: bold;
-                border-radius: ${target.window.rounding}px;
-                border: none;
-                background-color: inherit;
-            }
+        home.file.hyprswitch = {
+            enable = true;
+            executable = false;
+            target = configFile;
+            text = ''
+                .client-image {
+                    margin: 15px;
+                }
 
-            .client {
-                border-radius: ${target.window.rounding}px;
-                border: none;
-                background-color: inherit;
-            }
+                .client-index {
+                    margin: 6px;
+                    padding: 5px;
+                    font-size: inherit;
+                    font-weight: bold;
+                    border-radius: ${target.window.rounding}px;
+                    border: none;
+                    background-color: inherit;
+                }
 
-            .client:hover {
-                color: #${target.style.catppuccin.highlight.hex};
-                background-color: inherit;
-            }
+                .client {
+                    border-radius: ${target.window.rounding}px;
+                    border: none;
+                    background-color: inherit;
+                }
 
-            .client_active {
-                border: none;
-            }
+                .client:hover {
+                    color: #${target.style.catppuccin.highlight.hex};
+                    background-color: inherit;
+                }
 
-            .workspace {
-                font-size: inherit;
-                font-weight: bold;
-                border-radius: ${target.window.rounding}px;
-                border: none;
-                background-color: inherit;
-            }
+                .client_active {
+                    border: none;
+                }
 
-            .workspace_special {
-                border: none;
-            }
+                .workspace {
+                    font-size: inherit;
+                    font-weight: bold;
+                    border-radius: ${target.window.rounding}px;
+                    border: none;
+                    background-color: inherit;
+                }
 
-            .workspaces {
-                margin: 0px;
-            }
+                .workspace_special {
+                    border: none;
+                }
 
-            window {
-                font-size: 18px;
-                color: #${target.style.catppuccin.text.hex};
-                border-radius: ${target.window.rounding}px;
-                background-color: #${target.style.catppuccin.base.hex}${target.window.opacity.hex};
-                border: ${target.window.borderSize}px solid #${target.style.catppuccin.highlight.hex};
-                opacity: initial;
-            }
-        '';
+                .workspaces {
+                    margin: 0px;
+                }
+
+                window {
+                    font-size: 18px;
+                    color: #${target.style.catppuccin.text.hex};
+                    border-radius: ${target.window.rounding}px;
+                    background-color: #${target.style.catppuccin.base.hex}${target.window.opacity.hex};
+                    border: ${target.window.borderSize}px solid #${target.style.catppuccin.highlight.hex};
+                    opacity: initial;
+                }
+            '';
+        };
     };
 }

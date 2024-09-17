@@ -19,8 +19,10 @@
     };
 
 in {
-    programs.bemenu.enable = true;
-    wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, P, exec, bemenu-run ${bemenu.opts}"
-    ];
+    home-manager.users.${target.userName} = {
+        programs.bemenu.enable = true;
+        wayland.windowManager.hyprland.settings.bind = [
+            "SUPER, P, exec, bemenu-run ${bemenu.opts}"
+        ];
+    };
 }
