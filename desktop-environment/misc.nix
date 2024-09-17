@@ -70,6 +70,7 @@
         plexamp
         gtkwave
         quartus-prime-lite
+        verible
     ];
 
     services = {
