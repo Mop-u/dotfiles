@@ -54,7 +54,7 @@
         dconf-editor # for debugging gtk being gtk
         kdePackages.qt6ct # for qt theming
         mate.engrampa # archive manager
-        inputs.spacedrive.packages.${pkgs.system}.spacedrive # weird file manager with a ui for ants
+        spacedrive # weird file manager with a ui for ants
         (nemo-with-extensions.overrideAttrs{extraNativeBuildInputs=[pkgs.gvfs];}) # normal file manager
         # GUI apps
         heroic
