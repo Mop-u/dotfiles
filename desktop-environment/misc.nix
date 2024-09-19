@@ -131,7 +131,6 @@
             teams-for-linux
             slack
             floorp
-            discord
             prismlauncher
             xivlauncher
             plexamp

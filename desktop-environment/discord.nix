@@ -1,14 +1,18 @@
-{inputs, config, pkgs, lib, target, ... }:
-{
+{inputs, config, pkgs, lib, target, ... }: let
+    withVencord = true;
+in {
     home-manager.users.${target.userName}.home = {
         packages = [
-            pkgs.vesktop
+            (pkgs.discord.override {
+                withOpenASAR = true;
+                withVencord = withVencord;
+            })
         ];
 
-        file.vesktop = {
-            enable = true;
+        file.vencord = {
+            enable = withVencord;
             executable = false;
-            target = "/home/${target.userName}/.config/vesktop/settings/quickCss.css";
+            target = "/home/${target.userName}/.config/Vencord/settings/quickCss.css";
             text = ''
                 @import url("https://catppuccin.github.io/discord/dist/catppuccin-${target.style.catppuccin.flavor}.theme.css");
                 @import url("https://catppuccin.github.io/discord/dist/catppuccin-${target.style.catppuccin.flavor}-${target.style.catppuccin.accent}.theme.css");

@@ -3,6 +3,7 @@
     #todo: use builtins.readDir to get all add-in modules from a directory
     modules = builtins.map (module: import module {inherit inputs config pkgs lib target;})[
         ./bemenu.nix
+        ./discord.nix
         ./dunst.nix
         ./foot.nix
         ./hyprland.nix
