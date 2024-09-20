@@ -19,30 +19,29 @@ in {
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
+    boot.initrd = {
+        secrets."${keyFile}" = null;
+        luks.devices = {
+            "luksroot" = {
+                allowDiscards = true;
+                keyFile = keyFile;
+                device = "/dev/disk/by-uuid/6f53bc66-23d8-4c65-aeb0-ce8775b1552c";
+            };
+            "luksswap" = {
+                allowDiscards = true;
+                keyFile = keyFile;
+                device = "/dev/disk/by-uuid/27cc08a3-261e-4da1-beae-1fe9a61f57ef";
+            };
+        };
+    };
+
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/6be0b367-cd67-468c-8792-4e53dc357244";
         fsType = "ext4";
     };
 
-    swapDevices = [
-        { device = "/dev/disk/by-uuid/a3d42fd4-40f7-4d88-a932-fa0439a96f70"; }
-    ];
-
-    boot.initrd.secrets = {
-        "${keyFile}" = null;
-    };
-
-    boot.initrd.luks.devices."luks-27cc08a3-261e-4da1-beae-1fe9a61f57ef" = {
-        allowDiscards = true;
-        keyFile = keyFile;
-        device = "/dev/disk/by-uuid/27cc08a3-261e-4da1-beae-1fe9a61f57ef";
-    };
-
-    boot.initrd.luks.devices."luks-6f53bc66-23d8-4c65-aeb0-ce8775b1552c" = {
-        allowDiscards = true;
-        keyFile = keyFile;
-        device = "/dev/disk/by-uuid/6f53bc66-23d8-4c65-aeb0-ce8775b1552c";
-    };
+    swapDevices = [{ device = "/dev/disk/by-uuid/a3d42fd4-40f7-4d88-a932-fa0439a96f70"; }];
+    boot.resumeDevice = "/dev/disk/by-uuid/a3d42fd4-40f7-4d88-a932-fa0439a96f70";
 
     hardware.display = {
         outputs."LVDS-1".edid = "1400x1050_60hz.bin";
