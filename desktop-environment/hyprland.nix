@@ -21,7 +21,6 @@
                 exec-once = [
                     "nm-applet &"
                     "blueman-applet &"
-                    "goxlr-daemon &"
                 ];
 
                 monitor = {

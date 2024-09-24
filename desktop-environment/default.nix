@@ -6,6 +6,7 @@
         ./discord.nix
         ./dunst.nix
         ./foot.nix
+        ./goxlr.nix
         ./hyprland.nix
         ./hyprswitch.nix
         ./misc.nix
