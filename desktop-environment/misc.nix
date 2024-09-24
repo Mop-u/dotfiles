@@ -90,6 +90,7 @@
             };
         };
         gtk.enable = true;
+        # When this deprecated catppuccin gtk theme finally rots, try magnetic-catppuccin-gtk
         gtk.catppuccin = {
             enable = true;
             icon.enable = true;

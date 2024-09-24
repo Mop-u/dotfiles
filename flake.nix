@@ -26,7 +26,7 @@
 
         waybar = {
             url = "github:Alexays/Waybar";
-            inputs.nixpkgs.follows = "nixpkgs";
+            #inputs.nixpkgs.follows = "nixpkgs";
         };
         hyprswitch = {
             url = "github:h3rmt/hyprswitch/release";
