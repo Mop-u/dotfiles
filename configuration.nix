@@ -4,6 +4,8 @@
 
 { config, pkgs, inputs, target, ... }:
 {
+    boot.initrd.systemd.enable = true;
+
     networking.hostName = target.hostName;
 
     nix.gc.automatic = false;
