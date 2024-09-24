@@ -16,7 +16,7 @@ in {
     boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
     boot.initrd.kernelModules = [ ];
     boot.kernelPackages = pkgs.linuxPackages_zen;
-    boot.kernelModules = [ "kvm-intel" ];
+    boot.kernelModules = [ "kvm-intel" "tp_smapi" ];
     boot.extraModulePackages = [ ];
 
     boot.initrd = {
