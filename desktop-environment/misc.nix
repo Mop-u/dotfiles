@@ -151,6 +151,13 @@
         };
 
         programs = {
+            zoxide = {
+                enable = true;
+            };
+            bat = {
+                enable = true;
+                catppuccin.enable = true;
+            };
             hyprlock = {
                 enable = true;
             };
