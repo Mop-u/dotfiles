@@ -13,9 +13,9 @@
         };
         wayland.windowManager.hyprland.settings = {
             windowrulev2 = [
-                "float,                          class:(foot), title:(foot)"
-                "size 896 504,                   class:(foot), title:(foot)"
-                "move onscreen cursor -50% -50%, class:(foot), title:(foot)"
+                "float,                           class:(foot), title:(foot)"
+                "size ${target.window.float.wh},  class:(foot), title:(foot)"
+                "${target.window.float.onCursor}, class:(foot), title:(foot)"
             ];
             bind = [
                 "SUPERSHIFT, Return, exec, foot"

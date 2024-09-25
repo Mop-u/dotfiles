@@ -185,7 +185,9 @@
                     "float, class:(com.saivert.pwvucontrol), title:(Pipewire Volume Control)"
 
                     "float, class:(gtkwave),title:(gtkwave)"
-                    "float, class:(ssh-askpass-sublime)"
+
+                    "size ${target.window.float.wh}, class:.*, title:(Open File)"
+                    "size ${target.window.float.wh}, class:.*, title:(Save File)"
 
                     ## xwaylandvideobridge specific ##
                     #"opacity 0.0 override,class:^(xwaylandvideobridge)$"

@@ -26,7 +26,7 @@
 
         waybar = {
             url = "github:Alexays/Waybar";
-            #inputs.nixpkgs.follows = "nixpkgs";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
         hyprswitch = {
             url = "github:h3rmt/hyprswitch/release";
@@ -50,6 +50,16 @@
         naturaldocs = {
             url = "github:Mop-u/naturaldocs-nix";
             inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        # sublime text packages
+        patchedSublimeLinterContribVerilator = {
+            url = "github:Mop-u/SublimeLinter-contrib-verilator/dev";
+            flake = false;
+        };
+        stextPackageControl = {
+            url = "github:wbond/package_control/master";
+            flake = false;
         };
     };
 

@@ -10,6 +10,7 @@
         ./hyprland.nix
         ./hyprswitch.nix
         ./misc.nix
+        ./sublime4.nix
         ./vesktop.nix
         ./waybar.nix
     ];

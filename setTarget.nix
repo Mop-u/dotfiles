@@ -1,6 +1,8 @@
 {self, inputs}:
 rec {
-    setTarget = override: rec {
+    setTarget = override: let
+        lib = inputs.nixpkgs.lib;
+    in rec {
 
         hostName  = override.hostName;
         userName  = override.userName;
@@ -12,7 +14,7 @@ rec {
         helper = let 
             config = self.nixosConfigurations.${override.hostName}.config; # get the host's config
             target = setTarget override; # beware infinite recursion!
-        in (import ./helper.nix) {inherit target config;};
+        in (import ./helper.nix) {inherit target config lib;};
 
         modules = [
             inputs.catppuccin.nixosModules.catppuccin
@@ -49,10 +51,19 @@ rec {
             };
         };
         
+        # window.borderSize: integer
+        # window.rounding:   integer
+        # window.opacity:    2-digit hexadecimal string
+        # window.float.w:    integer
+        # window.float.h:    integer
         window = {
-            # window.borderSize: integer
-            # window.rounding:   integer
-            # window.opacity:    2-digit hexadecimal string
+            # define default width/height of a spawned floating window
+            float = rec {
+                w = (override.window.float.w or "896") + "";
+                h = (override.window.float.h or "504") + "";
+                wh = w + " " + h;
+                onCursor = "move onscreen cursor -50% -50%";
+            };
             borderSize = (override.window.borderSize or "2") + "";
             rounding = (override.window.rounding or "10") + "";
             opacity = rec {

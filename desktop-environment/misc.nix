@@ -30,10 +30,7 @@
         tumbler.enable = true; # Thumbnail support for images
     };
 
-    nixpkgs.config.permittedInsecurePackages = [
-        "openssl-1.1.1w"  # for sublime4 & sublime-merge :(
-    ]; 
-
+    
     # enable virtual camera for OBS
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     boot.extraModprobeConfig = ''
@@ -126,8 +123,6 @@
             # GUI apps
             heroic
             vscodium
-            sublime4
-            sublime-merge
             teams-for-linux
             slack
             floorp
