@@ -18,7 +18,6 @@ in {
                 "size ${target.window.float.wh}, class:(sublime_text), title:(Select Folder)"
 
                 "float,                           class:(ssh-askpass-sublime)"
-                "${target.window.float.onCursor}, class:(ssh-askpass-sublime)"
             ];
         };
         home.file = {
