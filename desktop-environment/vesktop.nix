@@ -1,11 +1,11 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
-    home-manager.users.${target.userName}.home = {
-        packages = [
+    home-manager.users.${target.userName} = {
+        home.packages = [
             pkgs.vesktop
         ];
 
-        file.vesktop = {
+        home.file.vesktop = {
             enable = true;
             executable = false;
             target = "/home/${target.userName}/.config/vesktop/settings/quickCss.css";

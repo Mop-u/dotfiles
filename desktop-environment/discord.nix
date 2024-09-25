@@ -1,15 +1,15 @@
 {inputs, config, pkgs, lib, target, ... }: let
     withVencord = true;
 in {
-    home-manager.users.${target.userName}.home = {
-        packages = [
+    home-manager.users.${target.userName} = {
+        home.packages = [
             (pkgs.discord.override {
                 withOpenASAR = true;
                 withVencord = withVencord;
             })
         ];
 
-        file.vencord = {
+        home.file.vencord = {
             enable = withVencord;
             executable = false;
             target = "/home/${target.userName}/.config/Vencord/settings/quickCss.css";
