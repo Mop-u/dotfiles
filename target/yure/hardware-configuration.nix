@@ -11,11 +11,13 @@ in {
         device = "/dev/sda";
         useOSProber = true;
         enableCryptodisk = true;
+        gfxmodeBios = "1280x1024,auto";
+        gfxpayloadBios = "keep";
     };
 
     boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.linuxPackages_lqx;
+    boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelModules = [ "kvm-intel" "tp_smapi" ];
     boot.extraModulePackages = [ ];
 
