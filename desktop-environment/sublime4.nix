@@ -43,7 +43,7 @@ in {
                     [
                         "Vintage",
                     ],
-                    "font_size": 12,
+                    "font_size": "${if target.text.smallTermFont then "11" else "12"}",
                     "translate_tabs_to_spaces": true,
                     "index_files": false,
                     "hardware_acceleration": "${if target.legacyGpu then "none" else "opengl"}",
