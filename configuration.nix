@@ -88,6 +88,8 @@
     environment.systemPackages = with pkgs; [
         _7zz
         git
+        radicle-node
+        radicle-httpd
         vim
         bash
         lshw
