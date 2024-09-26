@@ -53,12 +53,32 @@
         };
 
         # sublime text packages
-        patchedSublimeLinterContribVerilator = {
-            url = "github:Mop-u/SublimeLinter-contrib-verilator/dev";
+        stextSublimeLinterContribVerilator = {
+            url = "github:Mop-u/SublimeLinter-contrib-verilator";
             flake = false;
         };
         stextPackageControl = {
-            url = "github:wbond/package_control/master";
+            url = "github:wbond/package_control";
+            flake = false;
+        };
+        stextLSP = {
+            url = "github:sublimelsp/LSP";
+            flake = false;
+        };
+        stextNix = {
+            url = "github:wmertens/sublime-nix";
+            flake = false;
+        };
+        stextCatppuccin = {
+            url = "github:catppuccin/sublime-text";
+            flake = false;
+        };
+        stextSublimeLinter = {
+            url = "github:SublimeLinter/SublimeLinter";
+            flake = false;
+        };
+        stextSystemVerilog = {
+            url = "github:TheClams/SystemVerilog";
             flake = false;
         };
     };

@@ -1,6 +1,7 @@
 {inputs, config, pkgs, lib, target, ... }: let
     stextTop = "/home/${target.userName}/.config/sublime-text";
-    stextCfg = "${stextTop}/Packages";
+    stextPkg = "${stextTop}/Packages";
+    stextCfg = "${stextPkg}/User";
 in {
 
     nixpkgs.config.permittedInsecurePackages = [
@@ -21,22 +22,54 @@ in {
             ];
         };
         home.file = {
-            stextPackageControlPackage = {
+            # Packages
+            stextPackageControl = {
                 enable = true;
                 executable = false;
-                target = "${stextCfg}/Package Control";
+                target = "${stextPkg}/Package Control";
                 source = inputs.stextPackageControl;
             };
-            stextPatchedSublimeLinterContribVerilator = {
+            stextSublimeLinterContribVerilator = {
                 enable = true;
                 executable = false;
-                target = "${stextCfg}/SublimeLinter-contrib-verilator";
-                source = inputs.patchedSublimeLinterContribVerilator;
+                target = "${stextPkg}/SublimeLinter-contrib-verilator";
+                source = inputs.stextSublimeLinterContribVerilator;
             };
-            stextPreferences = {
+            stextCatppuccin = {
                 enable = true;
                 executable = false;
-                target = "${stextCfg}/User/Preferences.sublime-settings";
+                target = "${stextPkg}/Catppuccin color schemes";
+                source = inputs.stextCatppuccin;
+            };
+            stextLSP = {
+                enable = true;
+                executable = false;
+                target = "${stextPkg}/LSP";
+                source = inputs.stextLSP;
+            };
+            stextNix = {
+                enable = true;
+                executable = false;
+                target = "${stextPkg}/Nix";
+                source = inputs.stextNix;
+            };
+            stextSublimeLinter = {
+                enable = true;
+                executable = false;
+                target = "${stextPkg}/SublimeLinter";
+                source = inputs.stextSublimeLinter;
+            };
+            stextSystemVerilog = {
+                enable = true;
+                executable = false;
+                target = "${stextPkg}/SystemVerilog";
+                source = inputs.stextSystemVerilog;
+            };
+            # Config
+            stextCfg = {
+                enable = true;
+                executable = false;
+                target = "${stextCfg}/Preferences.sublime-settings";
                 text = ''
                 {
                     "ignored_packages":
@@ -54,31 +87,10 @@ in {
                 }
                 '';
             };
-            stextPackageControlConfig = {
+            stextSublimeLinterCfg = {
                 enable = true;
                 executable = false;
-                target = "${stextCfg}/User/Package Control.sublime-settings";
-                text = ''
-                {
-                    "bootstrapped": true,
-                    "in_process_packages":
-                    [
-                    ],
-                    "installed_packages":
-                    [
-                        "Catppuccin color schemes",
-                        "LSP",
-                        "Nix",
-                        "SublimeLinter",
-                        "SystemVerilog",
-                    ]
-                }
-                '';
-            };
-            stextSublimeLinter = {
-                enable = true;
-                executable = false;
-                target = "${stextCfg}/User/SublimeLinter.sublime-settings";
+                target = "${stextCfg}/SublimeLinter.sublime-settings";
                 text = ''
                 {
                     "no_column_highlights_line": true,
@@ -124,10 +136,10 @@ in {
                 }
                 '';
             };
-            stextLSP = {
+            stextLSPCfg = {
                 enable = true;
                 executable = false;
-                target = "${stextCfg}/User/LSP.sublime-settings";
+                target = "${stextCfg}/LSP.sublime-settings";
                 text = ''
                 {
                     "clients": {

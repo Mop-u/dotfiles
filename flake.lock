@@ -181,11 +181,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727246346,
-        "narHash": "sha256-TcUaKtya339Asu+g6KTJ8h7KiKcKXKp2V+At+7tksyY=",
+        "lastModified": 1727346017,
+        "narHash": "sha256-z7OCFXXxIseJhEHiCkkUOkYxD9jtLU8Kf5Q9WC0SjJ8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1e22ef1518fb175d762006f9cae7f6312b8caedb",
+        "rev": "c124568e1054a62c20fbe036155cc99237633327",
         "type": "github"
       },
       "original": {
@@ -237,11 +237,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1727257173,
-        "narHash": "sha256-J4VU76LLWEILNTZ8osUaUxSny+cTUH/wCKcV+Lqr3Bw=",
+        "lastModified": 1727345453,
+        "narHash": "sha256-UOMbqaP2YO1xK8uVuAJ04HYQfPnS7XPbedca9rJo/Xc=",
         "ref": "refs/heads/main",
-        "rev": "8b86ee8bf08eaf8b57d0a7f12af876216323cc3d",
-        "revCount": 5257,
+        "rev": "caaa9b11e4763ed0367f81bf97ceaad5175806fc",
+        "revCount": 5261,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -423,11 +423,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1726937504,
-        "narHash": "sha256-bvGoiQBvponpZh8ClUcmJ6QnsNKw0EMrCQJARK3bI1c=",
+        "lastModified": 1727122398,
+        "narHash": "sha256-o8VBeCWHBxGd4kVMceIayf5GApqTavJbTa44Xcg5Rrk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9357f4f23713673f310988025d9dc261c20e70c6",
+        "rev": "30439d93eb8b19861ccbe3e581abf97bdc91b093",
         "type": "github"
       },
       "original": {
@@ -487,33 +487,16 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1727282922,
-        "narHash": "sha256-E02sB3xUunf2jJdfQZGUHtThRw3DuvsHqvW3ZhIkfKc=",
+        "lastModified": 1727348207,
+        "narHash": "sha256-PvgB7Wolpm8Q20Hquz1j/xXK7MuN6REVmt6jxpvRUwU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "054121a25636bdc7201deff2d907f4fbdb9bcc25",
+        "rev": "936785778bca86332d6b201dda67a38585cab885",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "NUR",
-        "type": "github"
-      }
-    },
-    "patchedSublimeLinterContribVerilator": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1719416839,
-        "narHash": "sha256-KQrVw/jxdHZLoI4WQOE1IsR1/h64X1dULHYguFsZQak=",
-        "owner": "Mop-u",
-        "repo": "SublimeLinter-contrib-verilator",
-        "rev": "d3d6e6a8996e396f3e634995ac8e87ca847d9624",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mop-u",
-        "ref": "dev",
-        "repo": "SublimeLinter-contrib-verilator",
         "type": "github"
       }
     },
@@ -529,10 +512,63 @@
         "nixpkgs": "nixpkgs",
         "nonfree-fonts": "nonfree-fonts",
         "nur": "nur",
-        "patchedSublimeLinterContribVerilator": "patchedSublimeLinterContribVerilator",
+        "stextCatppuccin": "stextCatppuccin",
+        "stextLSP": "stextLSP",
+        "stextNix": "stextNix",
         "stextPackageControl": "stextPackageControl",
+        "stextSublimeLinter": "stextSublimeLinter",
+        "stextSublimeLinterContribVerilator": "stextSublimeLinterContribVerilator",
+        "stextSystemVerilog": "stextSystemVerilog",
         "systems": "systems_4",
         "waybar": "waybar"
+      }
+    },
+    "stextCatppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726873087,
+        "narHash": "sha256-/elII6MisW2e4MkLeFZELS6nA3V/kc+P2Y/Qn2tZha0=",
+        "owner": "catppuccin",
+        "repo": "sublime-text",
+        "rev": "16099e0a34a17fc7cc6e600bffb0762219721466",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "sublime-text",
+        "type": "github"
+      }
+    },
+    "stextLSP": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727019526,
+        "narHash": "sha256-GIV2388LkBEbUxn150xcmLnbCriyoyThvMRrm8dE3Ew=",
+        "owner": "sublimelsp",
+        "repo": "LSP",
+        "rev": "9b6ecb6056b82269594dd4bc49ac337be5dd476b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sublimelsp",
+        "repo": "LSP",
+        "type": "github"
+      }
+    },
+    "stextNix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1544185249,
+        "narHash": "sha256-ojb9xg26OL0kOZfcYXWIIS0efpHPFwlIwKklclmrUTc=",
+        "owner": "wmertens",
+        "repo": "sublime-nix",
+        "rev": "9032bd613746b9c135223fd6f26a5fa555f18946",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wmertens",
+        "repo": "sublime-nix",
+        "type": "github"
       }
     },
     "stextPackageControl": {
@@ -547,8 +583,55 @@
       },
       "original": {
         "owner": "wbond",
-        "ref": "master",
         "repo": "package_control",
+        "type": "github"
+      }
+    },
+    "stextSublimeLinter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724857301,
+        "narHash": "sha256-xx0lqgDo8MWS+4dQ24O4/17kTXheo9R5uaI3U7pQ5dc=",
+        "owner": "SublimeLinter",
+        "repo": "SublimeLinter",
+        "rev": "b71799c0b51fb0effd911794b4df1175e3a51ce3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SublimeLinter",
+        "repo": "SublimeLinter",
+        "type": "github"
+      }
+    },
+    "stextSublimeLinterContribVerilator": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719416839,
+        "narHash": "sha256-KQrVw/jxdHZLoI4WQOE1IsR1/h64X1dULHYguFsZQak=",
+        "owner": "Mop-u",
+        "repo": "SublimeLinter-contrib-verilator",
+        "rev": "d3d6e6a8996e396f3e634995ac8e87ca847d9624",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mop-u",
+        "repo": "SublimeLinter-contrib-verilator",
+        "type": "github"
+      }
+    },
+    "stextSystemVerilog": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1599161250,
+        "narHash": "sha256-hME4OsuBZPPtZXlj/KcW0ctyXjZW31pc6BiPFEkm24A=",
+        "owner": "TheClams",
+        "repo": "SystemVerilog",
+        "rev": "7eca705e87f87b94478fe222fc91d54d488cc8e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TheClams",
+        "repo": "SystemVerilog",
         "type": "github"
       }
     },
