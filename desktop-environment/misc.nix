@@ -126,6 +126,7 @@
             teams-for-linux
             slack
             floorp
+            ungoogled-chromium
             prismlauncher
             xivlauncher
             plexamp
