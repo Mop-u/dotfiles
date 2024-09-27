@@ -1,5 +1,5 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
     services.goxlr-utility.enable = true;
-    services.goxlr-utility.autoStart.xdg = true;
+    services.goxlr-utility.autoStart.xdg = false; # respect goxlr-utility's autostart toggle
 }
