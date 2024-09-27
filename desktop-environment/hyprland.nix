@@ -17,12 +17,10 @@
         wayland.windowManager.hyprland = {
             enable = true;
             catppuccin.enable = true;
+            systemd.enable = true;
+            systemd.enableXdgAutostart = true;
+            xwayland.enable = true;
             settings = {
-                exec-once = [
-                    "nm-applet &"
-                    "blueman-applet &"
-                ];
-
                 monitor = {
                     kaoru = [
                         "eDP-1,highres,0x0,1.333333,bitdepth,10"

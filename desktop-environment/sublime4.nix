@@ -77,9 +77,9 @@ in {
                     index_files = true;
                     hardware_acceleration = if target.legacyGpu then "none" else "opengl";
                     theme = "Adaptive.sublime-theme";
-                    color_scheme = "Catppuccin ${target.helper.capitalize target.style.catppuccin.flavor}.sublime-color-scheme";
+                    color_scheme = "Catppuccin ${target.lib.capitalize target.style.catppuccin.flavor}.sublime-color-scheme";
                     update_check = false;
-                    sublime_merge_path = if target.helper.isInstalled pkgs.sublime-merge then "\"${pkgs.sublime-merge}/bin/sublime_merge\"" else null;
+                    sublime_merge_path = if target.lib.isInstalled pkgs.sublime-merge then "\"${pkgs.sublime-merge}/bin/sublime_merge\"" else null;
                 };
             };
             stextSublimeLinterCfg = {
@@ -91,7 +91,7 @@ in {
                     debug = false;
                     linters = {
                         verilator = {
-                            disable = if target.helper.isInstalled pkgs.verilator then false else true;
+                            disable = if target.lib.isInstalled pkgs.verilator then false else true;
                             lint_mode = "load_save";
                             styles = [
                                 {
@@ -133,7 +133,7 @@ in {
                 text = builtins.toJSON {
                     clients = {
                         verilbe = {
-                            enabled = if target.helper.isInstalled pkgs.verible then true else false;
+                            enabled = if target.lib.isInstalled pkgs.verible then true else false;
                             command = [
                                 "verible-verilog-ls"
                                 "--rules_config_search"
@@ -141,7 +141,7 @@ in {
                             selector = "source.systemverilog";
                         };
                         nil = {
-                            enabled = if target.helper.isInstalled pkgs.nil then true else false;
+                            enabled = if target.lib.isInstalled pkgs.nil then true else false;
                             command = ["nil"];
                             selector = "source.nix";
                         };

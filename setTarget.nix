@@ -1,8 +1,6 @@
 {self, inputs}:
 rec {
-    setTarget = override: let
-        lib = inputs.nixpkgs.lib;
-    in rec {
+    setTarget = override: rec {
 
         hostName  = override.hostName;
         userName  = override.userName;
@@ -11,10 +9,11 @@ rec {
 
         legacyGpu = override.legacyGpu or false; # set this to true for OpenGL ES 2 support
 
-        helper = let 
+        lib = let 
             config = self.nixosConfigurations.${override.hostName}.config; # get the host's config
             target = setTarget override; # beware infinite recursion!
-        in (import ./helper.nix) {inherit target config lib;};
+            lib = inputs.nixpkgs.lib;
+        in (import ./lib.nix) {inherit target config lib;};
 
         modules = [
             inputs.catppuccin.nixosModules.catppuccin
