@@ -78,7 +78,7 @@ in {
             '';
         };
     };
-    systemd.user.services."hyprswitch.service" = {
+    systemd.user.services.hyprswitch = {
         enable = true;
         wantedBy = ["hyprland-session.target"];
         serviceConfig = {
