@@ -1,7 +1,6 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
     home-manager.users.${target.userName} = {
-        wayland.windowManager.hyprland.settings.exec-once = ["dunst &"];
         services.dunst = {
             enable = true;
             catppuccin.enable = false; # using our own values as overriding background breaks opacity

@@ -1,17 +1,13 @@
 {inputs, config, pkgs, lib, target, ... }: let
     configFile = "/home/${target.userName}/.config/hypr/hyprswitch.css";
+    pkg = inputs.hyprswitch.packages.${pkgs.system}.default;
 in {
     home-manager.users.${target.userName} = {
-        home.packages = [
-            inputs.hyprswitch.packages.${pkgs.system}.default
-        ];
+        home.packages = [pkg];
 
         wayland.windowManager.hyprland.settings = {
             env = [
                 "WORKSPACES_PER_ROW,3"
-            ];
-            exec-once = [
-                "hyprswitch init --show-title --custom-css '${configFile}' &"
             ];
             bind = [
                 "SUPER, W, exec, hyprswitch gui"
@@ -80,6 +76,17 @@ in {
                     opacity: initial;
                 }
             '';
+        };
+    };
+    systemd.user.services."hyprswitch.service" = {
+        enable = true;
+        wantedBy = ["hyprland-session.target"];
+        serviceConfig = {
+            ExecStart = "${pkg}/bin/hyprswitch init --show-title --custom-css '${configFile}'";
+        };
+        unitConfig = {
+            Description = "Hyprland workspace switcher";
+            PartOf = "hyprland-session.target";
         };
     };
 }
