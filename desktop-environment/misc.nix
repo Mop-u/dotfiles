@@ -62,6 +62,14 @@
         programs = {
             zsh = {
                 enable = true;
+                syntaxHighlighting = {
+                    enable = true;
+                    catppuccin.enable = true;
+                    highlighters = [
+                        "main"
+                        "brackets"
+                    ];
+                };
             };
             bash = {
                 enable = true;
