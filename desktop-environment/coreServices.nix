@@ -34,6 +34,8 @@
         tumbler.enable = true; # Thumbnail support for images
 
         blueman.enable = true;
+
+        playerctld.enable = true;
     };
 
     programs = {
@@ -104,6 +106,7 @@
             qpwgraph
             mate.engrampa # archive manager
             (nemo-with-extensions.overrideAttrs{extraNativeBuildInputs=[pkgs.gvfs];})
+            brightnessctl
         ];
     };
 }
