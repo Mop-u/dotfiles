@@ -76,7 +76,9 @@
         description = "Quinn";
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [];
+        shell = pkgs.zsh;
     };
+    programs.zsh.enable = true;
 
     # Enable experimental features
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
