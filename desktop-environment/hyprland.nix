@@ -184,8 +184,14 @@
 
                     "float, class:(gtkwave),title:(gtkwave)"
 
+                    "float,                          class:.*, title:(Open File)"
                     "size ${target.window.float.wh}, class:.*, title:(Open File)"
+                    
+                    "float,                          class:.*, title:(Save File)"
                     "size ${target.window.float.wh}, class:.*, title:(Save File)"
+
+                    "float,                          class:.*, title:(Select Folder)"
+                    "size ${target.window.float.wh}, class:.*, title:(Select Folder)"
 
                     ## xwaylandvideobridge specific ##
                     #"opacity 0.0 override,class:^(xwaylandvideobridge)$"

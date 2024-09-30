@@ -81,6 +81,10 @@
             url = "github:TheClams/SystemVerilog";
             flake = false;
         };
+
+        #goxlr-utility-ui = {
+        #    url = "git+file:../goxlr-utility-ui-nix";
+        #};
     };
 
     outputs = { self, ... } @ inputs: {

@@ -15,10 +15,7 @@ in {
         ];
         wayland.windowManager.hyprland.settings = {
             windowrulev2 = [
-                "float,                          class:(sublime_text), title:(Select Folder)"
-                "size ${target.window.float.wh}, class:(sublime_text), title:(Select Folder)"
-
-                "float,                           class:(ssh-askpass-sublime)"
+                "float, class:(ssh-askpass-sublime)"
             ];
         };
         home.file = {
