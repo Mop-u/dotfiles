@@ -99,7 +99,17 @@
         curl
         samba
         fastfetch
-        verilator
+        (verilator.overrideAttrs rec {
+            version = "5.028";
+            VERILATOR_SRC_VERSION = "v${version}";
+            src = fetchFromGitHub {
+                owner = "verilator";
+                repo = "verilator";
+                rev = "v${version}";
+                hash = "sha256-YgK60fAYG5575uiWmbCODqNZMbRfFdOVcJXz5h5TLuE=";
+            };
+            extraNativeBuildInputs = [pkgs.zlib]; # for .fst file generation
+        })
         verible
         verilog
         nil

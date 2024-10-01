@@ -79,6 +79,14 @@ in {
                     sublime_merge_path = if target.lib.isInstalled pkgs.sublime-merge then "\"${pkgs.sublime-merge}/bin/sublime_merge\"" else null;
                 };
             };
+            stextSystemVerilogCfg = {
+                enable = true;
+                executable = false;
+                target = "${stextCfg}/SystemVerilog.sublime-settings";
+                text = builtins.toJSON {
+                    "sv.disable_autocomplete" = true;
+                };
+            };
             stextSublimeLinterCfg = {
                 enable = true;
                 executable = false;
