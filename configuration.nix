@@ -34,6 +34,12 @@
         wireplumber.enable = true;
     };
 
+    # use rust based switch-to-configuration-ng
+    system.switch = {
+        enable = false;
+        enableNg = true;
+    };
+
     services.fstrim.enable = true;
     services.dbus.implementation = "broker";
     services.irqbalance.enable = true;
