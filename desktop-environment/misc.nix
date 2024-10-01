@@ -60,27 +60,6 @@
         };
 
         programs = {
-            zsh = {
-                enable = true;
-                syntaxHighlighting = {
-                    enable = true;
-                    catppuccin.enable = true;
-                    highlighters = [
-                        "main"
-                        "brackets"
-                    ];
-                };
-            };
-            bash = {
-                enable = true;
-            };
-            zoxide = {
-                enable = true;
-            };
-            bat = {
-                enable = true;
-                catppuccin.enable = true;
-            };
             hyprlock = {
                 enable = true;
             };

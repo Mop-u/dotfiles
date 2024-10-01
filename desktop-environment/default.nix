@@ -14,6 +14,7 @@
         ./sublime4.nix
         ./vesktop.nix
         ./waybar.nix
+        ./zsh.nix
     ];
 
 in target.lib.recursiveMerge modules

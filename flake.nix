@@ -109,6 +109,7 @@
                     style.catppuccin.accent = "sky";
                     text.comicCode.enable = true;
                     input.sensitivity = -0.1;
+                    input.keyLayout = "gb";
                 };
             };
         in {
