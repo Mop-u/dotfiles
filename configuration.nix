@@ -51,8 +51,20 @@
             backend = "iwd";
             powersave = true;
         };
+        dns = "systemd-resolved";
     };
     networking.nftables.enable = true;
+    networking.firewall.enable = true;
+
+
+    # Enable local service discovery
+    networking.firewall.allowedUDPPorts = [5353];
+    services.resolved = {
+        enable = true;
+	    llmnr = "true"; # true/false/resolve
+	    dnsovertls = "opportunistic";
+    };
+
 
     # Enable bluetooth
     hardware.bluetooth.enable = true;
