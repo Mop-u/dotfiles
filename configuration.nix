@@ -88,6 +88,48 @@
         LC_TIME           = "en_IE.UTF-8";
     };
 
+    console.keyMap = target.input.keyLayout;
+
+    # more feature-rich tty
+    # https://github.com/Aetf/kmscon
+    services.kmscon = {
+        enable = true;
+        hwRender = true;
+        autologinUser = target.userName;
+        fonts = (if target.text.comicCode.enable then [
+            {name = target.text.comicCode.name; package = target.text.comicCode.package;}] else [])
+        ++ [
+            {name = "ComicShannsMono Nerd Font"; package = pkgs.nerdfonts;}
+        ];
+        extraConfig = ''
+            xkb-layout=${target.input.keyLayout}
+
+            font-size=14
+
+            palette=custom
+            palette-foreground=${target.style.catppuccin.text.rgb}
+            palette-background=${target.style.catppuccin.base.rgb}
+
+            palette-black=${target.style.catppuccin.surface1.rgb}
+            palette-red=${target.style.catppuccin.red.rgb}
+            palette-green=${target.style.catppuccin.green.rgb}
+            palette-yellow=${target.style.catppuccin.peach.rgb}
+            palette-blue=${target.style.catppuccin.blue.rgb}
+            palette-magenta=${target.style.catppuccin.pink.rgb}
+            palette-cyan=${target.style.catppuccin.lavender.rgb}
+            palette-light-grey=${target.style.catppuccin.subtext1.rgb}
+
+            palette-dark-grey=${target.style.catppuccin.surface2.rgb}
+            palette-light-red=${target.style.catppuccin.maroon.rgb}
+            palette-light-green=${target.style.catppuccin.teal.rgb}
+            palette-light-yellow=${target.style.catppuccin.yellow.rgb}
+            palette-light-blue=${target.style.catppuccin.sky.rgb}
+            palette-light-magenta=${target.style.catppuccin.flamingo.rgb}
+            palette-light-cyan=${target.style.catppuccin.sapphire.rgb}
+            palette-white=${target.style.catppuccin.text.rgb}
+        '';
+    };
+
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.${target.userName} = {
         isNormalUser = true;
@@ -116,6 +158,7 @@
         wget
         curl
         samba
+        kmscon
         fastfetch
         (verilator.overrideAttrs rec {
             version = "5.028";
