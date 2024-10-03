@@ -3,6 +3,7 @@
     # tty with modern font rendering
     # https://github.com/Aetf/kmscon
 
+    # TODO: stop services.kmscon from screwing with kmsconvt@.service
     services.kmscon = {
         enable = true;
         hwRender = true;
