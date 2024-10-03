@@ -86,6 +86,16 @@
             flake = false;
         };
 
+        # get up-to-date kmscon version
+        kmscon = {
+            url = "github:Aetf/kmscon/develop";
+            flake = false;
+        };
+        libtsm = {
+            url = "github:Aetf/libtsm/develop";
+            flake = false;
+        };
+
         #goxlr-utility-ui = {
         #    url = "git+file:../goxlr-utility-ui-nix";
         #};

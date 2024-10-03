@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, target, ... }:
+{ config, pkgs, inputs, lib, target, ... }:
 {
     boot.initrd.systemd.enable = true;
 
@@ -92,10 +92,38 @@
 
     # more feature-rich tty
     # https://github.com/Aetf/kmscon
+    nixpkgs.overlays = [
+        (final: prev: {
+            kmscon = (prev.kmscon.overrideAttrs{
+                src = inputs.kmscon;
+                buildInputs = with pkgs; [
+                    util-linux
+                    check
+                    libGLU
+                    libGL
+                    libdrm
+                    # https://github.com/Aetf/kmscon/issues/64
+                    (libtsm.overrideAttrs{src=inputs.libtsm;})
+                    libxkbcommon
+                    pango
+                    pixman
+                    systemd
+                    mesa
+                ];
+
+                patches = [./kmscon-systemd-path.patch];
+
+                env.NIX_CFLAGS_COMPILE = "-O" # _FORTIFY_SOURCE requires compiling with optimization (-O)
+                    # https://github.com/Aetf/kmscon/issues/49
+                    + " -Wno-error=maybe-uninitialized"
+                    # https://github.com/Aetf/kmscon/issues/64
+                    + " -Wno-error=implicit-function-declaration";
+            });
+        })
+    ];
     services.kmscon = {
         enable = true;
         hwRender = true;
-        autologinUser = target.userName;
         fonts = (if target.text.comicCode.enable then [
             {name = target.text.comicCode.name; package = target.text.comicCode.package;}] else [])
         ++ [
@@ -169,7 +197,7 @@
                 rev = "v${version}";
                 hash = "sha256-YgK60fAYG5575uiWmbCODqNZMbRfFdOVcJXz5h5TLuE=";
             };
-            extraNativeBuildInputs = [pkgs.zlib]; # for .fst file generation
+            extraBuildInputs = [pkgs.zlib]; # for .fst file generation
         })
         verible
         verilog
