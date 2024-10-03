@@ -27,6 +27,7 @@ rec {
                 ];
             }
             ./configuration.nix
+            ./kmscon.nix
             ./desktop-environment/default.nix
             ./target/${override.hostName}/hardware-configuration.nix
         ];
