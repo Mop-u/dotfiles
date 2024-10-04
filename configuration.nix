@@ -8,8 +8,10 @@
 
     networking.hostName = target.hostName;
 
-    nix.gc.automatic = false;
+    nix.gc.automatic = true;
     nix.settings.auto-optimise-store = true;
+    nix.settings.keep-outputs = true;
+    nix.settings.keep-derivations = true;
 
     catppuccin = {
         enable = true;
