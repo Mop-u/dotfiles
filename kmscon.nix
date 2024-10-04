@@ -1,18 +1,10 @@
-{ config, pkgs, inputs, lib, target, ... }:
-{
-    # tty with modern font rendering
-    # https://github.com/Aetf/kmscon
-
-    # TODO: stop services.kmscon from screwing with kmsconvt@.service
-    services.kmscon = {
-        enable = true;
-        hwRender = true;
-        fonts = (if target.text.comicCode.enable then [
-            {name = target.text.comicCode.name; package = target.text.comicCode.package;}] else [])
-        ++ [
-            {name = "ComicShannsMono Nerd Font"; package = pkgs.nerdfonts;}
-        ];
-        extraConfig = ''
+# tty with modern font rendering
+# https://github.com/Aetf/kmscon
+{ config, pkgs, inputs, lib, target, ... }: let
+    configDir = pkgs.writeTextFile {
+        name = "kmscon-config";
+        destination = "/kmscon.conf";
+        text = ''
             xkb-layout=${target.input.keyLayout}
 
             font-size=14
@@ -38,7 +30,34 @@
             palette-light-magenta=${target.style.catppuccin.flamingo.rgb}
             palette-light-cyan=${target.style.catppuccin.sapphire.rgb}
             palette-white=${target.style.catppuccin.text.rgb}
+
+            ${if config.hardware.graphics.enable then ''
+                drm
+                hwaccel
+            '' else ""}
+            ${if config.fonts.fontconfig.enable then ''
+                font-name=${lib.strings.concatStringsSep ", " config.fonts.fontconfig.defaultFonts.monospace}
+            '' else ""}
         '';
+    };
+in {
+    # ensure services.kmscon does not screw with kmsconvt@.service
+    disabledModules = ["services/ttys/kmscon.nix"];
+
+    # add all systemd overrides from services/ttys/kmscon.nix aside from ExecStart as we have it patched in the package overlay
+    systemd = {
+        packages = [ pkgs.kmscon ];
+        services = {
+            systemd-vconsole-setup.enable = true;
+            reload-systemd-vconsole-setup.enable = true;
+            "kmsconvt@" = {
+                after = [ "systemd-logind.service" "systemd-vconsole-setup.service" ];
+                requires = [ "systemd-logind.service" ];
+                restartIfChanged = false;
+                aliases = [ "autovt@.service" ];
+            };
+        };
+        suppressedSystemUnits = [ "autovt@.service" ];
     };
 
     nixpkgs.overlays = [
@@ -51,16 +70,28 @@
                     libGLU
                     libGL
                     libdrm
-                    # https://github.com/Aetf/kmscon/issues/64
-                    (libtsm.overrideAttrs{src=inputs.libtsm;})
+                    (libtsm.overrideAttrs{src=inputs.libtsm;}) # https://github.com/Aetf/kmscon/issues/64
                     libxkbcommon
                     pango
                     pixman
                     systemd
                     mesa
                 ];
+                
+                env.NIX_CFLAGS_COMPILE = "-O" # _FORTIFY_SOURCE requires compiling with optimization (-O)
+                    # https://github.com/Aetf/kmscon/issues/49
+                    + " -Wno-error=maybe-uninitialized"
+                    # https://github.com/Aetf/kmscon/issues/64
+                    + " -Wno-error=implicit-function-declaration";
 
                 patches = [
+                    # https://github.com/Aetf/kmscon/pull/66
+                    (pkgs.fetchpatch {
+                        name = "no-display-kms-flicker";
+                        url = "https://github.com/Aetf/kmscon/pull/66/commits/e92a53e23cf1e1cf7fc6689a078a86bd29871c1f.patch";
+                        hash = "sha256-bmfJb4ok2dCpyp3A/gb28f1/6rU8JRbndTcMHGJb4Oo=";
+                    })
+                    # Stop meson from writing systemd units to ${pkgs.systemd}/systemd/system, they should be written to ${pkgs.kmscon}/systemd/system
                     (pkgs.writeTextFile {
                         name = "meson.build.patch";
                         text = ''
@@ -79,6 +110,7 @@
                              # Required dependencies
                         '';
                     })
+                    # Fix agetty binary paths and link the configuration directory
                     (pkgs.writeTextFile {
                         name = "kmscon.service.in.patch";
                         text = ''
@@ -91,7 +123,7 @@
                              
                              [Service]
                             -ExecStart=@bindir@/kmscon --login -- /sbin/agetty -o '-p -- \\u' --noclear -- -
-                            +ExecStart=@bindir@/kmscon --login -- ${pkgs.util-linux}/bin/agetty -o '-p -- \\u' --noclear -- -
+                            +ExecStart=@bindir@/kmscon --configdir ${configDir} --login -- ${pkgs.util-linux}/bin/agetty -o '-p -- \\u' --noclear -- -
                              
                              [Install]
                              WantedBy=multi-user.target
@@ -109,19 +141,13 @@
                              
                              [Service]
                             -ExecStart=@bindir@/kmscon --vt=%I --seats=seat0 --no-switchvt --login -- /sbin/agetty -o '-p -- \\u' --noclear -- -
-                            +ExecStart=@bindir@/kmscon --vt=%I --seats=seat0 --no-switchvt --login -- ${pkgs.util-linux}/bin/agetty -o '-p -- \\u' --noclear -- -
+                            +ExecStart=@bindir@/kmscon --vt=%I --seats=seat0 --no-switchvt --configdir ${configDir} --login -- ${pkgs.util-linux}/bin/agetty -o '-p -- \\u' --noclear -- -
                              UtmpIdentifier=%I
                              TTYPath=/dev/%I
                              TTYReset=yes
                         '';
                     })
                 ];
-
-                env.NIX_CFLAGS_COMPILE = "-O" # _FORTIFY_SOURCE requires compiling with optimization (-O)
-                    # https://github.com/Aetf/kmscon/issues/49
-                    + " -Wno-error=maybe-uninitialized"
-                    # https://github.com/Aetf/kmscon/issues/64
-                    + " -Wno-error=implicit-function-declaration";
             });
         })
     ];
