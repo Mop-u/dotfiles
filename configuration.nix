@@ -9,6 +9,7 @@
     networking.hostName = target.hostName;
 
     nix.gc.automatic = false;
+    nix.settings.auto-optimise-store = true;
 
     catppuccin = {
         enable = true;
