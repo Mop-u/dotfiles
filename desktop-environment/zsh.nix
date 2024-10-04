@@ -2,11 +2,17 @@
 {
     home-manager.users.${target.userName}.programs = {
         zsh.enable = true;
-        bat.enable = true;
         zoxide.enable = true;
         oh-my-posh.enable = true;
 
-        bat.catppuccin.enable = true;
+        bat = {
+            enable = true;
+            catppuccin.enable = true;
+            config = {
+                style = "plain";
+                paging = "never";
+            };
+        };
 
         zsh.syntaxHighlighting = {
             enable = true;
