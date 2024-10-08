@@ -67,10 +67,7 @@
         powerManagement.finegrained = false;
         open = false;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
-        #package = config.boot.kernelPackages.nvidiaPackages.beta;
-        #package = config.boot.kernelPackages.nvidiaPackages.production;
-        #package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = config.boot.kernelPackages.nvidiaPackages.latest; #latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
             #sync.enable = true;
@@ -92,10 +89,10 @@
         NVD_BACKEND        = "direct";     # VA-API hardware video acceleration
         
         # Force NVIDIA offload for all applications
-        __NV_PRIME_RENDER_OFFLOAD          = "1";
-        __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
-        __GLX_VENDOR_LIBRARY_NAME          = "nvidia";
-        __VK_LAYER_NV_optimus              = "NVIDIA_only";
+        #__NV_PRIME_RENDER_OFFLOAD          = "1";
+        #__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
+        #__GLX_VENDOR_LIBRARY_NAME          = "nvidia";
+        #__VK_LAYER_NV_optimus              = "NVIDIA_only";
     };
     programs.steam.gamescopeSession = {
         env = {

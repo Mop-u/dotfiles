@@ -23,6 +23,9 @@ in {
         programs.bemenu.enable = true;
         wayland.windowManager.hyprland.settings.bind = [
             "SUPER, P, exec, bemenu-run ${bemenu.opts}"
-        ];
+        ]
+        ++ (if config.hardware.nvidia.prime.offload.enableOffloadCmd then [
+            "SUPERSHIFT, P, exec, nvidia-offload $(bemenu-run --no-exec ${bemenu.opts})"
+        ] else []);
     };
 }
