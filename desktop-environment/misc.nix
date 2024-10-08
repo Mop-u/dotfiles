@@ -51,6 +51,7 @@
             plexamp
             gtkwave
             quartus-prime-lite
+            inputs.whiskers.packages.${system}.default
         ];
 
         services = {

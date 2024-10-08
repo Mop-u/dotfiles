@@ -55,6 +55,10 @@
             url = "github:Mop-u/ttf2psf-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        whiskers = {
+            url = "github:catppuccin/whiskers";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         # sublime text packages
         stextSublimeLinterContribVerilator = {
@@ -109,7 +113,7 @@
                     hostName = "kaoru";
                     userName = "hazama";
                     stateVer = "23.11";
-                    style.catppuccin.flavor = "frappe";
+                    style.catppuccin.flavor = "macchiato";
                     style.catppuccin.accent = "mauve";
                     text.comicCode.enable = true;
                 };
