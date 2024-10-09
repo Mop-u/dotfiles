@@ -175,6 +175,13 @@ in {
                             enabled = if target.lib.isInstalled pkgs.nil then true else false;
                             command = ["nil"];
                             selector = "source.nix";
+                            # https://github.com/oxalica/nil/blob/main/docs/configuration.md
+                            settings = {
+                                nil.nix.flake = {
+                                    autoArchive = true;
+                                    autoEvalInputs = true;
+                                };
+                            };
                         };
                     };
                 };
