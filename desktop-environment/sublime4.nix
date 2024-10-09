@@ -243,7 +243,7 @@ in {
                         title_bar_style = "dark";
                         header_bg = "var(base)";
                         header_fg = "var(text-heading)";
-                        header_button_bg = "color(var(base) l(25%))";
+                        header_button_bg = "var(surface1)";#"color(var(base) l(25%))";
                         icon_button_fg = "var(text)";
 
                         info_shadow = "color(black a(0.2))";
@@ -274,8 +274,8 @@ in {
                         disclosure_fg = "var(text)";
 
                         # Commit list
-                        commit_list_bg = "var(surface0)";
-                        commit_row_bg-hover = "var(surface1)";
+                        commit_list_bg = "var(mantle)";
+                        commit_row_bg-hover = "var(base)";
                         commit_summary_fg-primary = "var(text-heading)";
                         commit_summary_fg-secondary = "var(text-light)";
                         commit_color_count = 8;
@@ -354,13 +354,13 @@ in {
                         file_diff_shadow = "color(black a(0.5))";
                         file_icon_bg = "color(var(text) a(0.2))";
 
-                        hunk_button_fg = "white";
+                        hunk_button_fg = "var(text)";
                         hunk_button_shadow = "color(black a(0.5))";
 
-                        file_header_bg = "color(var(base) l(+ 5%))";
-                        file_header_bg-hover = "color(var(base) l(+ 10%))";
+                        file_header_bg = "var(surface0)";#"color(var(base) l(+ 5%))";
+                        file_header_bg-hover = "var(surface1)";#"color(var(base) l(+ 10%))";
 
-                        hunk_header_bg = "color(var(base) l(+ 12%))";
+                        hunk_header_bg = "var(base)";#"color(var(base) l(+ 12%))";
 
                         deleted_icon_fg = "var(text)";
                         deleted_header_bg = "var(red)";
@@ -372,8 +372,8 @@ in {
 
                         recent_icon_fg = "var(yellow)";
                         recent_icon_bg = "transparent";
-                        untracked_header_bg = "color(var(base) s(- 5%) l(+ 15%))";
-                        untracked_header_bg-hover = "color(var(untracked_header_bg) l(+ 5%))";
+                        untracked_header_bg = "var(surface0)";#"color(var(base) s(- 5%) l(+ 15%))";
+                        untracked_header_bg-hover = "var(surface1)";#"color(var(untracked_header_bg) l(+ 5%))";
 
                         full_context_icon_bg = "var(text)";
 
@@ -383,10 +383,10 @@ in {
                         renamed_file_deleted = "color(var(red) s(50%) l(65%))";
 
                         # Blame
-                        blame_popup_bg = "color(var(base) l(+ 10%))";
+                        blame_popup_bg = "var(surface0)";
 
                         # Buttons
-                        button_bg = "var(surface1)";#"color(var(white) a(20%))"
+                        button_bg = "var(overlay0)";#"color(var(white) a(20%))"
                         button_fg = "var(label_color)";
                         button_shadow = "color(black a(0.5))";
 
@@ -396,7 +396,7 @@ in {
                         highlighted_button_dark_fg = "var(text)";
                         highlighted_button_shadow = "color(black a(0.5) l(+ 10%))";
 
-                        toggle_button_bg = "var(surface1)";#"color(var(white) a(20%))" # This matches the header hover buttons
+                        toggle_button_bg = "var(overlay0)";#"color(var(white) a(20%))" # This matches the header hover buttons
                         toggle_button_fg = "var(text)";
                         toggle_button_fg_selected = "var(text-heading)";
 
@@ -416,7 +416,7 @@ in {
 
                         # Dialogs
                         dialog_bg = "var(base)";
-                        dialog_button_bg = "var(surface1)";#"color(var(white) a(20%))"
+                        dialog_button_bg = "var(overlay0)";#"color(var(white) a(20%))"
 
                         # Progress bar
                         progress_bg = "var(header_button_bg)";
@@ -424,7 +424,7 @@ in {
 
                         # Quick panel
                         quick_panel_bg = "var(base)";
-                        quick_panel_row_bg = "color(var(base) l(+ 7%))";
+                        quick_panel_row_bg = "var(surface0)";
                         quick_panel_fg = "var(text)";
                         quick_panel_fg-match = "var(highlight)";
                         quick_panel_fg-selected = "var(text)";
@@ -437,8 +437,8 @@ in {
                         switch_repo_bg = "var(base)";
 
                         # Image Diffs
-                        image_diff_checkerboard_alt_bg = "color(var(base) l(+ 10%))";
-                        image_metadata_label_bg = "var(surface1)";#"color(var(white) a(20%))"
+                        image_diff_checkerboard_alt_bg = "var(surface0)";
+                        image_metadata_label_bg = "var(surface1)";
 
                         # Hints
                         failed_label_fg = "var(base)";
@@ -547,38 +547,10 @@ in {
                             "layer0.tint" = "var(base)";
                         }{
                             class = "tool_tip_label_control";
-                            color = "var(base)";
+                            color = "var(text)";
                         }{
                             class = "tool_tip_control";
-                            "layer0.tint" = "color(var(highlight) s(50%) l(75%))";
-                        }{
-                            class = "tab_close_button";
-                            "layer0.texture" = "Theme - Default/common/tab_close.png";
-                            "layer0.tint" = "var(text-light)";#"color(var(white) a(0.7))";
-                            "layer0.opacity" = 0.0;
-                        }{
-                            class = "tab_close_button";
-                            parents = [{class = "tab_control"; attributes = ["selected"];}];
-                            "layer0.opacity" = 0.5;
-                        }{
-                            class = "tab_close_button";
-                            parents = [{class = "tab_control"; attributes = ["hover"];}];
-                            "layer0.opacity" = 0.5;
-                        }{
-                            class = "tab_close_button";
-                            parents = [{class = "tab_control"; attributes = ["dirty"];}];
-                            "layer0.texture" = "Theme - Merge/tab_dirty.png";
-                            "layer0.tint" = "color(var(red) a(0.7))";
-                            "layer0.opacity" = 0.7;
-                        }{
-                            class = "tab_close_button";
-                            "layer0.texture" = "Theme - Default/common/tab_close.png";
-                            attributes = ["hover"];
-                            "layer0.tint" = "var(text-light)";#"color(var(white) a(0.7))";
-                            "layer0.opacity" = 0.7;
-                        }{
-                            class = "icon_folder";
-                            "layer0.texture" = "Theme - Default/common/folder_closed.png";
+                            "layer0.tint" = "var(base)";
                         }{
                             class = "info_area";
                             "layer0.opacity" = 0.5;
@@ -594,46 +566,10 @@ in {
                             class = "table_of_contents_heading";
                             color = "var(table_of_contents_heading_fg)";
                         }{
-                            class = "branch_table";
-                            "dark_content" = true;
-                        }{
-                            class = "commit_table";
-                            "dark_content" = true;
-                        }{
-                            class = "scroll_track_control";
-                            parents = [{class = "commit_table_container";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
-                        }{
-                            class = "puck_control";
-                            parents = [{class = "commit_table_container";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
-                        }{
-                            class = "scroll_track_control";
-                            parents = [{class = "side_bar_container";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
-                        }{
-                            class = "puck_control";
-                            parents = [{class = "side_bar_container";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
-                        }{
-                            class = "scroll_track_control";
-                            parents = [{class = "details_panel";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
-                        }{
-                            class = "puck_control";
-                            parents = [{class = "details_panel";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
-                        }{
-                            class = "scroll_track_control";
-                            parents = [{class = "overlay_control";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
-                        }{
-                            class = "puck_control";
-                            parents = [{class = "overlay_control";}];
-                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
-                        }{
                             class = "text_line_control";
-                            "layer0.tint" = "var(base)";
+                            "layer0.tint" = "var(mantle)";
+                            color_scheme_tint = "var(mantle)";
+                            color_scheme_tint_2 = "var(mantle)";
                         }{
                             class = "search_text_control";
                             "layer0.tint" = "var(base)";
@@ -648,8 +584,8 @@ in {
                             color = "var(overlay2)";
                         }{
                             class = "diff_text_control";
-                            "line_selection_color" = "color(var(blue) alpha(0.05))";
-                            "line_selection_border_color" = "color(var(blue) alpha(0.5))";
+                            "line_selection_color" = "color(var(highlight) alpha(0.05))";
+                            "line_selection_border_color" = "color(var(highlight) alpha(0.5))";
                             "line_selection_border_width" = 2.0;
                             "line_selection_border_radius" = 2.0;
                         }{
@@ -773,29 +709,97 @@ in {
                         }{
                             class = "tab_label";
                             parents = [{class = "tab_control"; attributes = ["!selected"];}];
-                            fg = "var(text-light)";
+                            fg = "var(subtext0)";
                         }{
                             class = "tab_label";
                             parents = [{class = "tab_control"; attributes = ["!selected" "hover"];}];
-                            fg = "var(text-light)";
+                            fg = "var(subtext1)";
+                        }{
+                            class = "tab_close_button";
+                            "layer0.texture" = "Theme - Default/common/tab_close.png";
+                            "layer0.tint" = "var(overlay1)";
+                            "layer0.opacity" = 0.0;
+                        }{
+                            class = "tab_close_button";
+                            parents = [{class = "tab_control"; attributes = ["selected"];}];
+                            "layer0.opacity" = 1.0;
+                        }{
+                            class = "tab_close_button";
+                            parents = [{class = "tab_control"; attributes = ["hover"];}];
+                            "layer0.opacity" = 1.0;
+                        }{
+                            class = "tab_close_button";
+                            parents = [{class = "tab_control"; attributes = ["dirty"];}];
+                            "layer0.texture" = "Theme - Merge/tab_dirty.png";
+                            "layer0.tint" = "var(maroon)";
+                            "layer0.opacity" = 1.0;
+                        }{
+                            class = "tab_close_button";
+                            "layer0.texture" = "Theme - Default/common/tab_close.png";
+                            attributes = ["hover"];
+                            "layer0.tint" = "var(text)";
+                            "layer0.opacity" = 1.0;
+                        }{
+                            class = "icon_folder";
+                            "layer0.texture" = "Theme - Default/common/folder_closed.png";
                         }{
                             class = "icon_folder";
                             parents = [{class = "tab_control"; attributes = ["selected"];}];
                             "layer0.texture" = "Theme - Default/common/folder_open.png";
-                            "layer0.opacity" = 1;
+                            "layer0.opacity" = 1.0;
                             "layer0.tint" = "var(highlight)";
                         }{
                             class = "icon_folder";
                             parents = [{class = "tab_control"; attributes = ["!selected"];}];
-                            "layer0.opacity" = 0.3;
-                            "layer0.tint" = "var(text)";
+                            "layer0.opacity" = 1.0;
+                            "layer0.tint" = "var(overlay0)";
                         }{
                             class = "icon_folder";
                             parents = [{class = "tab_control"; attributes = ["!selected" "hover"];}];
-                            "layer0.opacity" = 0.6;
-                            "layer0.tint" = "var(text)";
+                            "layer0.opacity" = 1.0;
+                            "layer0.tint" = "var(overlay1)";
                         }
-                    ];
+                    ] ++ (if target.style.catppuccin.flavor == "latte" then [] else [
+                        {
+                            class = "branch_table";
+                            "dark_content" = true;
+                        }{
+                            class = "commit_table";
+                            "dark_content" = true;
+                        }{
+                            class = "scroll_track_control";
+                            parents = [{class = "commit_table_container";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
+                        }{
+                            class = "puck_control";
+                            parents = [{class = "commit_table_container";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
+                        }{
+                            class = "scroll_track_control";
+                            parents = [{class = "side_bar_container";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
+                        }{
+                            class = "puck_control";
+                            parents = [{class = "side_bar_container";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
+                        }{
+                            class = "scroll_track_control";
+                            parents = [{class = "details_panel";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
+                        }{
+                            class = "puck_control";
+                            parents = [{class = "details_panel";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
+                        }{
+                            class = "scroll_track_control";
+                            parents = [{class = "overlay_control";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_bar.png";
+                        }{
+                            class = "puck_control";
+                            parents = [{class = "overlay_control";}];
+                            "layer0.texture" = "Theme - Merge/dark_scroll_puck.png";
+                        }
+                    ]);
                 };
             };
         };
