@@ -183,6 +183,11 @@ in {
                                 };
                             };
                         };
+                        slang = {
+                            enabled = if target.lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools then true else false;
+                            command = ["slang-lsp"];
+                            selector = "source.systemverilog";
+                        };
                     };
                 };
             };

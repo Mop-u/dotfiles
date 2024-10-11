@@ -51,6 +51,10 @@
             url = "github:Mop-u/naturaldocs-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        slang-lsp = {
+            url = "github:Mop-u/slang-lsp-tools-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         ttf2psf = {
             url = "github:Mop-u/ttf2psf-nix";
             inputs.nixpkgs.follows = "nixpkgs";

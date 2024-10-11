@@ -122,6 +122,8 @@
         curl
         samba
         fastfetch
+        surelog
+        sv-lang
         (verilator.overrideAttrs rec {
             version = "5.028";
             VERILATOR_SRC_VERSION = "v${version}";
@@ -140,6 +142,7 @@
         gnumake
         gcc
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
+        inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
     ];
 
     fonts = {
