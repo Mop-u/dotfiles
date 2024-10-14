@@ -122,8 +122,9 @@
         curl
         samba
         fastfetch
-        surelog
-        sv-lang
+        #surelog
+        #sv-lang
+        #svls
         (verilator.overrideAttrs rec {
             version = "5.028";
             VERILATOR_SRC_VERSION = "v${version}";

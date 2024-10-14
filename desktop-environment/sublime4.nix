@@ -188,6 +188,11 @@ in {
                             command = ["slang-lsp"];
                             selector = "source.systemverilog";
                         };
+                        svls = {
+                            enabled = if target.lib.isInstalled pkgs.svls then true else false;
+                            command = ["svls"];
+                            selector = "source.systemverilog";
+                        };
                     };
                 };
             };
