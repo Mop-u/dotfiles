@@ -60,6 +60,19 @@
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     
+    environment.systemPackages = with pkgs; [
+        nvtop
+        intel-gpu-tools
+    ];
+    hardware.graphics.extraPackages = with pkgs; [
+        # modern intel
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        libvdpau-va-gl     # VDPAU_DRIVER=va_gl
+        #nvidia
+        nvidia-vaapi-driver # LIBVA_DRIVER_NAME=nvidia # this doesn't seem to work with mixed intel/nvidia
+        # VDPAU_DRIVER=nvidia
+    ];
+
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
         modesetting.enable = true;
@@ -82,11 +95,11 @@
 
     environment.sessionVariables = {
         # NVIDIA
-        LIBVA_DRIVER_NAME  = "nvidia";     # nvidia hardware acceleration
-        GBM_BACKEND        = "nvidia-drm"; # force GBM backend
+        LIBVA_DRIVER_NAME  = "iHD";     # default to intel hardware acceleration
+        VDPAU_DRIVER       = "va_gl";   # intel vdpau fallback
         __GL_GSYNC_ALLOWED = "1";
         __GL_VRR_ALLOWED   = "1";
-        NVD_BACKEND        = "direct";     # VA-API hardware video acceleration
+        NVD_BACKEND        = "direct";     # fixes nvidia VA-API hardware video acceleration
         
         # Force NVIDIA offload for all applications
         #__NV_PRIME_RENDER_OFFLOAD          = "1";

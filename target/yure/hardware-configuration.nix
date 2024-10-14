@@ -67,6 +67,10 @@ in {
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+    environment.systemPackages = with pkgs; [
+        intel-gpu-tools
+    ];
+
     powerManagement.enable = true;
     services.thermald.enable = true; # intel thermal protection
     services.tlp = {

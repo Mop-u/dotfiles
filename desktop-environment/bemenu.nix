@@ -25,7 +25,7 @@ in {
             "SUPER, P, exec, bemenu-run ${bemenu.opts}"
         ]
         ++ (if config.hardware.nvidia.prime.offload.enableOffloadCmd then [
-            "SUPERSHIFT, P, exec, nvidia-offload $(bemenu-run --no-exec ${bemenu.opts})"
+            "SUPERSHIFT, P, exec, LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia nvidia-offload $(bemenu-run --no-exec ${bemenu.opts})"
         ] else []);
     };
 }
