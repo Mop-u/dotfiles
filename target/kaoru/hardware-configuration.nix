@@ -61,7 +61,7 @@
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     
     environment.systemPackages = with pkgs; [
-        nvtop
+        nvtopPackages.full
         intel-gpu-tools
     ];
     hardware.graphics.extraPackages = with pkgs; [

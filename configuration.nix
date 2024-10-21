@@ -74,7 +74,8 @@
     hardware.bluetooth.powerOnBoot = true;
 
     # Set your time zone.
-    time.timeZone = "Europe/Dublin";
+    #time.timeZone = lib.mkDefault "Europe/Dublin";
+    services.automatic-timezoned.enable = true;
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_GB.UTF-8";
@@ -143,7 +144,7 @@
         gnumake
         gcc
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
-        inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
+        #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
     ];
 
     fonts = {

@@ -43,6 +43,7 @@
             heroic
             vscodium
             teams-for-linux
+            protonvpn-gui
             slack
             floorp
             ungoogled-chromium
@@ -51,7 +52,7 @@
             plexamp
             gtkwave
             quartus-prime-lite
-            inputs.whiskers.packages.${system}.default
+            #inputs.whiskers.packages.${system}.default
         ];
 
         services = {
