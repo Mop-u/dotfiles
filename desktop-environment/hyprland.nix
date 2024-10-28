@@ -58,8 +58,6 @@
                     "QT_ENABLE_HIGHDPI_SCALING,1"
                     "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
                     "QT_QPA_PLATFORM,wayland;xcb"
-                    "QT_QPA_PLATFORMTHEME,qt6ct"
-                    "QT_STYLE_OVERRIDE,kvantum"
 
                     # App specific #
                     "MOZ_ENABLE_WAYLAND,1"

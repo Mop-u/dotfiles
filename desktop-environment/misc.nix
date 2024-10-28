@@ -37,8 +37,6 @@
             # Hyprland / core apps
             nwg-look
             hyprshot
-            dconf-editor # for debugging gtk being gtk
-            kdePackages.qt6ct # for qt theming
             # GUI apps
             heroic
             vscodium

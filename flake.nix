@@ -104,6 +104,12 @@
             flake = false;
         };
 
+        # get up-to-date magnetic-catppuccin-gtk
+        magnetic-catppuccin-gtk = {
+            url = "github:Fausto-Korpsvart/Catppuccin-GTK-Theme";
+            flake = false;
+        };
+
         #goxlr-utility-ui = {
         #    url = "git+file:../goxlr-utility-ui-nix";
         #};

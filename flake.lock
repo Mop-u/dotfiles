@@ -334,11 +334,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1730072482,
-        "narHash": "sha256-3Aotvc0dFS9J2iDnrSVjjngdZcaD9ghfroVU3jl84Gk=",
+        "lastModified": 1730134334,
+        "narHash": "sha256-pea733SV05j8hPet8aBJ7hUf68OHGJ7riTGw0isr+gQ=",
         "ref": "refs/heads/main",
-        "rev": "6cf193e1662f6f750e964a3e174ae017246b4d48",
-        "revCount": 5385,
+        "rev": "d49a1334a8af7c704626cdf1746cb72415ad6d0d",
+        "revCount": 5387,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -509,6 +509,22 @@
         "type": "github"
       }
     },
+    "magnetic-catppuccin-gtk": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726176224,
+        "narHash": "sha256-tTiB9IeGH1BiYQzSIn69522IvSNLqLjyeeRJ/RDiW+U=",
+        "owner": "Fausto-Korpsvart",
+        "repo": "Catppuccin-GTK-Theme",
+        "rev": "bddedc3e40bd865b7c072bb76084ffdf53a7f727",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Fausto-Korpsvart",
+        "repo": "Catppuccin-GTK-Theme",
+        "type": "github"
+      }
+    },
     "naturaldocs": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -632,11 +648,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1730117981,
-        "narHash": "sha256-ERnuv2bthBig/rxb3n1Ql/4x97uy/O9ujeRrEaryY9A=",
+        "lastModified": 1730134033,
+        "narHash": "sha256-7wZWS9hpF8WYZLZzpmTsW+U0DyiblQoX7fjVWwiwwLQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "766d28a5c81b7d1b79775a1cfe145fdae71ca749",
+        "rev": "01936ee33cef1675ba8475d11aba559d52629d86",
         "type": "github"
       },
       "original": {
@@ -678,6 +694,7 @@
         "hyprswitch": "hyprswitch",
         "kmscon": "kmscon",
         "libtsm": "libtsm",
+        "magnetic-catppuccin-gtk": "magnetic-catppuccin-gtk",
         "naturaldocs": "naturaldocs",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
