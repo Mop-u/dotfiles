@@ -37,8 +37,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         catppuccin = {
-            #url = "github:catppuccin/nix";
-            url = "github:ryand56/catppuccin-nix/home-manager-kvantum-fix";
+            url = "github:catppuccin/nix";
         };
         aagl = { 
             url = "github:ezKEa/aagl-gtk-on-nix";
