@@ -72,19 +72,54 @@
                 cursor-size = inputs.home-manager.lib.hm.gvariant.mkInt32 target.style.cursorSize.gtk;
             };
         };
-        gtk.enable = true;
-        # When this deprecated catppuccin gtk theme finally rots, try magnetic-catppuccin-gtk
-        gtk.catppuccin = {
-            enable = true;
-            icon.enable = true;
-            size = "standard";
-            tweaks = [ 
-                #"black"
-                "rimless"
-                "normal"
-            ];
-        };
-        #gtk.theme.name = "Adwaita-dark";
+        gtk = {enable = true;} // (
+            if (builtins.elem target.style.catppuccin.accent [
+                "rosewater"
+                "flamingo"
+                "maroon"
+                "sky"
+                "lavender"
+            ]) 
+            then (
+                builtins.warn ''
+                    The selected theme accent `${target.style.catppuccin.accent}` is not yet supported by magnetic-catppuccin-gtk.
+                    Falling back to the deprecated `gtk.catppuccin.enable` method.
+                '' 
+                {
+                    catppuccin = {
+                        enable = true;
+                        icon.enable = true;
+                    };
+                }
+            )
+            else let
+                shade = if target.style.catppuccin.flavor == "latte" then "light" else "dark";
+                accent = {
+                    # Renamed colours
+                    mauve     = "purple";
+                    sapphire  = "cyan";
+                    peach     = "orange";
+                }.${target.style.catppuccin.accent} or target.style.catppuccin.accent;
+                doTweak = builtins.elem target.style.catppuccin.flavor ["frappe" "macchiato"];
+            in {
+                theme.name = lib.strings.concatStringsSep "-" (
+                    ["Catppuccin" "GTK" (target.lib.capitalize accent) (target.lib.capitalize shade)]
+                    ++(if doTweak then [(target.lib.capitalize target.style.catppuccin.flavor)] else [])
+                );
+                theme.package = (pkgs.magnetic-catppuccin-gtk.overrideAttrs{
+                    src = inputs.magnetic-catppuccin-gtk;
+                }).override{
+                    inherit shade;
+                    accent = [accent];
+                    tweaks = if doTweak then [target.style.catppuccin.flavor] else [];
+                };
+                iconTheme.name = "Papirus";
+                iconTheme.package = pkgs.catppuccin-papirus-folders.override{
+                    flavor = target.style.catppuccin.flavor;
+                    accent = target.style.catppuccin.accent;
+                };
+            }
+        );
         qt = {
             enable = true;
             style = {
