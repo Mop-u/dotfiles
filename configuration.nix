@@ -134,17 +134,7 @@
         #surelog
         #sv-lang
         #svls
-        (verilator.overrideAttrs rec {
-            version = "5.028";
-            VERILATOR_SRC_VERSION = "v${version}";
-            src = fetchFromGitHub {
-                owner = "verilator";
-                repo = "verilator";
-                rev = "v${version}";
-                hash = "sha256-YgK60fAYG5575uiWmbCODqNZMbRfFdOVcJXz5h5TLuE=";
-            };
-            extraBuildInputs = [pkgs.zlib]; # for .fst file generation
-        })
+        (verilator.overrideAttrs{extraBuildInputs=[pkgs.zlib];})
         verible
         verilog
         nil
