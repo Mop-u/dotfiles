@@ -67,7 +67,15 @@
 	    llmnr = "true"; # true/false/resolve
 	    dnsovertls = "opportunistic";
     };
+    services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        nssmdns6 = true;
+        openFirewall = true;
+    };
 
+    # Enable printing
+    services.printing.enable = true;
 
     # Enable bluetooth
     hardware.bluetooth.enable = true;
