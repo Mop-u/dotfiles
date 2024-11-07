@@ -48,6 +48,7 @@
                     "XCURSOR_SIZE,${target.style.cursorSize.gtk}"
                     
                     # Toolkit backend vars #
+                    "GSK_RENDERER,gl" # Temporary fix for Gdk-Message: Error 71 (Protocol error) dispatching to Wayland display
                     "GDK_BACKEND,wayland,x11,*"
                     "SDL_VIDEODRIVER,wayland,x11,windows"
                     "CLUTTER_BACKEND,wayland"
