@@ -89,8 +89,6 @@
                 group.groupbar."col.locked_inactive"= "$overlay2";   # inactive locked group border color
 
                 # Colours:
-                decoration."col.shadow"          = "rgba(${target.style.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
-                decoration."col.shadow_inactive" = "rgba(${target.style.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                 group.groupbar.text_color        = "$text";  # controls the group bar text color
                 misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
                 misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
@@ -112,9 +110,13 @@
                     rounding = target.window.rounding;
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
-                    drop_shadow = !target.legacyGpu;
-                    shadow_range = 12;
-                    shadow_render_power = 2;
+                    shadow = {
+                        enabled = !target.legacyGpu;
+                        range = 12;
+                        render_power = 2;
+                        color          = "rgba(${target.style.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
+                        color_inactive = "rgba(${target.style.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
+                    };
                     blur = {
                         enabled = !target.legacyGpu;
                         size = 3;
