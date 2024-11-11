@@ -72,7 +72,7 @@
                     format = "{icon}  {volume}%";
                     format-muted = " ";
                     format-icons = [" " " " " "];
-                    on-click = "pwvucontrol";
+                    on-click = "GSK_RENDERER=gl pwvucontrol";
                 };
 
                 tray = {
