@@ -83,6 +83,9 @@ in {
             CPU_SCALING_GOVERNOR_ON_AC = "performance";
             CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
 
+            # Limit max freq to avoid crashing under load on low battery
+            CPU_SCALING_MAX_FREQ_ON_BAT = 1200000;
+
             START_CHARGE_THRESH_BAT0 = 40;
             STOP_CHARGE_THRESH_BAT0 = 80;
             NATACPI_ENABLE = 1; # battery care driver
