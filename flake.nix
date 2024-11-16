@@ -12,10 +12,13 @@
     };
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-        systems.url = "github:nix-systems/default-linux";
-        nur.url = "github:nix-community/NUR";
+        nixpkgs.url = "github:NixOS/nixpkgs";#/nixos-unstable";
         nix-colors.url = "github:misterio77/nix-colors";
+
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows  = "nixpkgs";
+        };
 
         hyprland = {
             url = "https://github.com/hyprwm/Hyprland";
@@ -55,12 +58,9 @@
             url = "github:Mop-u/slang-lsp-tools-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        ttf2psf = {
-            url = "github:Mop-u/ttf2psf-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        whiskers = {
-            url = "github:catppuccin/whiskers";
+        quartus = {
+            url = "github:Mop-u/nix-quartus";
+            #url = "git+file:../nix-quartus";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 

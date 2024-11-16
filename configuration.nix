@@ -13,6 +13,10 @@
     nix.settings.keep-outputs = true;
     nix.settings.keep-derivations = true;
 
+    sops.defaultSopsFile = ./secrets/secrets.yaml;
+    sops.defaultSopsFormat = "yaml";
+    sops.age.keyFile = "/home/${target.userName}/.config/sops/age/keys.txt";
+
     catppuccin = {
         enable = true;
         accent = target.style.catppuccin.accent;
@@ -112,6 +116,10 @@
     };
     programs.zsh.enable = true;
 
+    programs.ssh.extraConfig = ''
+        SetEnv TERM=xterm-256color
+    '';
+
     # Enable experimental features
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -122,8 +130,7 @@
     environment.systemPackages = with pkgs; [
         _7zz
         git
-        radicle-node
-        radicle-httpd
+        sops
         vim
         bash
         lshw
@@ -131,9 +138,6 @@
         curl
         samba
         fastfetch
-        #surelog
-        #sv-lang
-        #svls
         (verilator.overrideAttrs{extraBuildInputs=[pkgs.zlib];})
         verible
         verilog

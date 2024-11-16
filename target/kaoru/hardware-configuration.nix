@@ -20,8 +20,12 @@
     boot.initrd.kernelModules = [ ];
     #boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelPackages = pkgs.linuxPackages_zen;
-    boot.kernelModules = [ "kvm-intel" ];
-    boot.extraModulePackages = [ ];
+    boot.kernelModules = [
+        "kvm-intel"
+        "r8152" # realtek USB 2.5Gbe
+        "r8125" # realtek PCIe 2.5Gbe
+    ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [];
 
     fileSystems."/" = { 
         device = "/dev/disk/by-uuid/75980f2d-cc48-4245-b6c5-31bf9d0465bc";
