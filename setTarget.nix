@@ -19,15 +19,13 @@ rec {
             inputs.catppuccin.nixosModules.catppuccin
             inputs.home-manager.nixosModules.home-manager
             inputs.aagl.nixosModules.default
-            inputs.nur.nixosModules.nur
             {
                 home-manager.users.${override.userName}.imports = [
                     inputs.catppuccin.homeManagerModules.catppuccin
-                    inputs.nur.hmModules.nur
                 ];
             }
             ./configuration.nix
-            ./kmscon.nix
+            #./kmscon.nix
             ./desktop-environment/default.nix
             ./target/${override.hostName}/hardware-configuration.nix
         ];

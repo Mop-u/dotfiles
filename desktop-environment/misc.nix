@@ -49,7 +49,8 @@
             xivlauncher
             plexamp
             gtkwave
-            quartus-prime-lite
+            #quartus-prime-lite
+            inputs.quartus.packages.${system}.quartus-prime-lite
             #inputs.whiskers.packages.${system}.default
         ];
 
