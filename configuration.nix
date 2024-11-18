@@ -112,6 +112,10 @@
     };
     programs.zsh.enable = true;
 
+    programs.ssh.extraConfig = ''
+        SetEnv TERM=xterm-256color
+    '';
+
     # Enable experimental features
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
