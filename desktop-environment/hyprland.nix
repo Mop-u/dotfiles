@@ -14,6 +14,16 @@
 
     home-manager.users.${target.userName} = {
         home.packages = [pkgs.hyprcursor];
+        home.file.xdphCfg = {
+            enable = true;
+            target = "/home/${target.userName}/.config/hypr/xdph.conf";
+            text = ''
+                screencopy {
+                    max_fps = 60
+                    allow_token_by_default = true
+                }
+            '';
+        };
         wayland.windowManager.hyprland = {
             enable = true;
             catppuccin.enable = true;

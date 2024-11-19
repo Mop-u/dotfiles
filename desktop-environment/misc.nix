@@ -49,7 +49,7 @@
             xivlauncher
             plexamp
             gtkwave
-            inputs.quartus.packages.${system}.quartus-prime-pro
+            inputs.quartus.packages.${system}.quartus-prime-pro-23
         ];
 
         services = {
