@@ -2,7 +2,7 @@ keys:
   - &kaoru age1hrt0lj225sjnfxd3ha508fuqrf9q3nzk5f5wslqqzlf04dyejdaqahut69
   - &yure age1d5k507hw38y36j6plurhuurx7msr0umtqtpl23zw3726vy2al5as4a3lqy
 creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|zip)$
+  - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:
         - *kaoru
