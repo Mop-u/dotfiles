@@ -15,6 +15,11 @@
         nixpkgs.url = "github:NixOS/nixpkgs";#/nixos-unstable";
         nix-colors.url = "github:misterio77/nix-colors";
 
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows  = "nixpkgs";
+        };
+
         hyprland = {
             url = "https://github.com/hyprwm/Hyprland";
             type = "git";

@@ -19,6 +19,7 @@ rec {
             inputs.catppuccin.nixosModules.catppuccin
             inputs.home-manager.nixosModules.home-manager
             inputs.aagl.nixosModules.default
+            inputs.sops-nix.nixosModules.sops
             {
                 home-manager.users.${override.userName}.imports = [
                     inputs.catppuccin.homeManagerModules.catppuccin

@@ -13,6 +13,10 @@
     nix.settings.keep-outputs = true;
     nix.settings.keep-derivations = true;
 
+    sops.defaultSopsFile = ./secrets/secrets.yaml;
+    sops.defaultSopsFormat = "yaml";
+    sops.age.keyFile = "/home/${target.userName}/.config/sops/age/keys.txt";
+
     catppuccin = {
         enable = true;
         accent = target.style.catppuccin.accent;
@@ -126,8 +130,7 @@
     environment.systemPackages = with pkgs; [
         _7zz
         git
-        radicle-node
-        radicle-httpd
+        sops
         vim
         bash
         lshw
@@ -135,9 +138,6 @@
         curl
         samba
         fastfetch
-        #surelog
-        #sv-lang
-        #svls
         (verilator.overrideAttrs{extraBuildInputs=[pkgs.zlib];})
         verible
         verilog
