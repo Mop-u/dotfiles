@@ -5,6 +5,10 @@ in {
 
     hardware.enableRedistributableFirmware = true;
 
+    # This is a dual core system :)
+    nix.settings.max-jobs = 1;
+    nix.settings.cores = 1;
+
     boot.loader.grub = {
         enable = true;
         device = "/dev/sda";
