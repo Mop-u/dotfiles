@@ -1,10 +1,9 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{ inputs, config, lib, pkgs, ... }:
 let
     keyFile = "/boot/crypto_keyfile.bin";
 in {
-    imports = [
-        (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+
+    hardware.enableRedistributableFirmware = true;
 
     boot.loader.grub = {
         enable = true;

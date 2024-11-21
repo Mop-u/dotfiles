@@ -1,9 +1,8 @@
-{ inputs, config, pkgs, lib, modulesPath, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
-    imports = [ 
-        (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+ 
+    hardware.enableRedistributableFirmware = true;
 
     boot.loader = {
         efi.canTouchEfiVariables = true;

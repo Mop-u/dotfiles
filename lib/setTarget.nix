@@ -95,7 +95,6 @@ rec {
             }
             ../config/headless/default.nix
             (if (!graphics.headless) then ../config/graphical/default.nix else {})
-            ../config/target/${override.hostName}/hardware-configuration.nix
         ];
         # use builtins.getAttr to assert that all the user-input target config options exist
     };
