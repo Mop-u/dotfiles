@@ -31,6 +31,8 @@
             );
     in f [] attrList;
 
+    lsFiles = path: lib.mapAttrsToList (n: v: (lib.path.append path n)) (lib.filterAttrs (n: v: v == "regular") (builtins.readDir path));
+
     home.applications = "/home/${target.userName}/.nix-profile/share/applications";
     home.autostart = "/home/${target.userName}/.config/autostart";
 }

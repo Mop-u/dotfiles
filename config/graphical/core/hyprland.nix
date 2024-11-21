@@ -3,7 +3,7 @@
 
     nixpkgs.overlays = [
         (final: prev: {
-            hyprland = (inputs.hyprland.packages.${pkgs.system}.hyprland.override{legacyRenderer=target.legacyGpu;});
+            hyprland = (inputs.hyprland.packages.${pkgs.system}.hyprland.override{legacyRenderer=target.graphics.legacyGpu;});
         })
     ];
 
@@ -122,14 +122,14 @@
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
                     shadow = {
-                        enabled = !target.legacyGpu;
+                        enabled = !target.graphics.legacyGpu;
                         range = 12;
                         render_power = 2;
                         color          = "rgba(${target.style.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
                         color_inactive = "rgba(${target.style.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                     };
                     blur = {
-                        enabled = !target.legacyGpu;
+                        enabled = !target.graphics.legacyGpu;
                         size = 3;
                         passes = 1;
                         vibrancy = 0.1696;

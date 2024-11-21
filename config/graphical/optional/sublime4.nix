@@ -69,7 +69,7 @@ in {
                     font_size = if target.text.smallTermFont then 11 else 12;
                     translate_tabs_to_spaces = true;
                     index_files = true;
-                    hardware_acceleration = if target.legacyGpu then "none" else "opengl";
+                    hardware_acceleration = if target.graphics.legacyGpu then "none" else "opengl";
                     theme = "Adaptive.sublime-theme";
                     color_scheme = catppuccinColorScheme;
                     update_check = false;
@@ -84,7 +84,7 @@ in {
                     translate_tabs_to_spaces = true;
                     side_bar_layout = "tabs";
                     font_size = if target.text.smallTermFont then 11 else 12;
-                    hardware_acceleration = if target.legacyGpu then "none" else "opengl";
+                    hardware_acceleration = if target.graphics.legacyGpu then "none" else "opengl";
                     update_check = false;
                     editor_path = if target.lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
                 };

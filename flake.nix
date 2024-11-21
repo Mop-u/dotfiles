@@ -117,7 +117,8 @@
 
     outputs = { self, ... } @ inputs: {
         nixosConfigurations = let
-            setTarget = (import ./setTarget.nix {inherit self inputs;}).setTarget;
+            #TODO: add default package definitions etc. here as part of setTarget bringup
+            setTarget = (import ./lib/setTarget.nix {inherit self inputs;}).setTarget;
             targets = {
                 kaoru = setTarget {
                     hostName = "kaoru";
@@ -131,7 +132,7 @@
                     hostName = "yure";
                     userName = "shinatose";
                     stateVer = "24.05";
-                    legacyGpu = true;
+                    graphics.legacyGpu = true;
                     text.smallTermFont = true;
                     style.catppuccin.flavor = "mocha";
                     style.catppuccin.accent = "sky";

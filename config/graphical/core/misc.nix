@@ -19,8 +19,8 @@
             gamescopeSession.enable = true;
         };
 
-        anime-game-launcher.enable = !target.legacyGpu; # genshin
-        sleepy-launcher.enable = !target.legacyGpu; # zzz
+        anime-game-launcher.enable = !target.graphics.legacyGpu; # genshin
+        sleepy-launcher.enable = !target.graphics.legacyGpu; # zzz
 
         honkers-railway-launcher.enable = false;
         honkers-launcher.enable = false;

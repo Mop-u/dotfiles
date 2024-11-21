@@ -26,7 +26,8 @@
         oh-my-posh.settings = { # builtins.toJSON
             "$schema"= "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
             properties = {
-                disable_notice = true;
+                upgrade_notice = false;
+                auto_upgrade = false;
             };
             palette = {
                 os        = "p:surface2";
