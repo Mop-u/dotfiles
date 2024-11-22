@@ -8,7 +8,7 @@
         settings = {
             PasswordAuthentication = false;
             AllowUsers = null;
-            UseDns = true;
+            UseDns = false;
             X11Forwarding = false;
             PermitRootLogin = "no";
         };
