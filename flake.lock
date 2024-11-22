@@ -261,11 +261,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1732025103,
-        "narHash": "sha256-qjEI64RKvDxRyEarY0jTzrZMa8ebezh2DEZmJJrpVdo=",
+        "lastModified": 1732303962,
+        "narHash": "sha256-5Umjb5AdtxV5jSJd5jxoCckh5mlg+FBQDsyAilu637g=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a46e702093a5c46e192243edbd977d5749e7f294",
+        "rev": "8cf9cb2ee78aa129e5b8220135a511a2be254c0c",
         "type": "github"
       },
       "original": {
@@ -319,11 +319,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1732100541,
-        "narHash": "sha256-vFeNbKUstvSZbe9TD4bDYozZd+A/bKD+fxCye+p/Mp8=",
+        "lastModified": 1732291262,
+        "narHash": "sha256-EDTvzp9ExAljyfESZZN8UQM08bpYvI2hFTaXivp3frg=",
         "ref": "refs/heads/main",
-        "rev": "940f7aa990dbc99815bab8d355999d8277534b17",
-        "revCount": 5484,
+        "rev": "745a82ce8ab19d958e344f5925bb1dc8ea7d6a53",
+        "revCount": 5488,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -631,6 +631,38 @@
         "type": "github"
       }
     },
+    "plexASS": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731317684,
+        "narHash": "sha256-dqcAGAFPps0Hd18j54FTPGVH8KK0iYBfpI4Q3qRT+H0=",
+        "owner": "ZeroQI",
+        "repo": "Absolute-Series-Scanner",
+        "rev": "33ce1de7199918371eff75e894d35d52bb9a6f30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ZeroQI",
+        "repo": "Absolute-Series-Scanner",
+        "type": "github"
+      }
+    },
+    "plexHama": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731364742,
+        "narHash": "sha256-6xFYCg4wP1ZARKgOPxMZQlt4yHei9FwvqXI1fVHg1NA=",
+        "owner": "ZeroQI",
+        "repo": "Hama.bundle",
+        "rev": "fb6a5689359c6630c0fcfec58f8e3533497fd977",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ZeroQI",
+        "repo": "Hama.bundle",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -691,6 +723,8 @@
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
         "nonfree-fonts": "nonfree-fonts",
+        "plexASS": "plexASS",
+        "plexHama": "plexHama",
         "quartus": "quartus",
         "slang-lsp": "slang-lsp",
         "sops-nix": "sops-nix",
