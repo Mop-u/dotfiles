@@ -15,10 +15,14 @@
     };
     services.sonarr = {
         enable = true;
-        openFirewall = true;
+        openFirewall = true; # 8989
     };
     services.radarr = {
         enable = true;
-        openFirewall = true;
+        openFirewall = true; # 7878
+    };
+    services.prowlarr = {
+        enable = true;
+        openFirewall = true; # 9696
     };
 }
