@@ -146,6 +146,7 @@
                     stateVer = "24.05";
                     style.catppuccin.flavor = "mocha";
                     style.catppuccin.accent = "teal";
+                    graphics.headless = true;
                 };
             };
         in {
