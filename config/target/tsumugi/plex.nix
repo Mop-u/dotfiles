@@ -1,6 +1,9 @@
 { inputs, config, pkgs, lib, target, ... }:
 {
     services.plex = {
-        enable = false;
+        enable = true;
+        openFirewall = true;
+        extraScanners = [];
+        extraPlugins = [];
     };
 }
