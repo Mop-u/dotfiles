@@ -44,29 +44,8 @@
         nm-applet.enable = true; # systemd graphical-session.target
     };
 
-    home-manager = {
-        useGlobalPkgs = true;
-        backupFileExtension = "backup";
-    };
-
     home-manager.users.${target.userName} = {
 
-        home = {
-            username = target.userName;
-            homeDirectory = "/home/${target.userName}";
-            stateVersion = target.stateVer;
-        };
-
-        catppuccin = {
-            enable = true;
-            accent = target.style.catppuccin.accent;
-            flavor = target.style.catppuccin.flavor;
-            pointerCursor = {
-                enable = true;
-                accent = target.style.catppuccin.accent;
-                flavor = target.style.catppuccin.flavor;
-            };
-        };
         dconf.settings = {
             "org/gnome/desktop/interface" = {
                 cursor-size = inputs.home-manager.lib.hm.gvariant.mkInt32 target.style.cursorSize.gtk;
