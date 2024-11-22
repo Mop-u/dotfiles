@@ -62,15 +62,6 @@
             hyprlock = {
                 enable = true;
             };
-            neovim = {
-                enable = true;
-                defaultEditor = true;
-                catppuccin.enable = true;
-            };
-            btop = {
-                enable = true;
-                catppuccin.enable = true;
-            };
             obs-studio = {
                 enable = true;
                 plugins = with pkgs.obs-studio-plugins; [
