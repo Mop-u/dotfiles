@@ -140,6 +140,13 @@
                     input.sensitivity = -0.1;
                     input.keyLayout = "gb";
                 };
+                tsumugi = setTarget {
+                    hostName = "tsumugi";
+                    userName = "shiraui";
+                    stateVer = "24.05";
+                    style.catppuccin.flavor = "mocha";
+                    style.catppuccin.accent = "teal";
+                };
             };
         in {
             kaoru = let 
@@ -154,6 +161,16 @@
             };
             yure = let 
                 target = targets.yure;
+            in inputs.nixpkgs.lib.nixosSystem {
+                system = target.system;
+                specialArgs = {
+                    inherit inputs;
+                    inherit target;
+                };
+                modules = target.modules;
+            };
+            tsumugi = let
+                target = targets.tsumugi;
             in inputs.nixpkgs.lib.nixosSystem {
                 system = target.system;
                 specialArgs = {

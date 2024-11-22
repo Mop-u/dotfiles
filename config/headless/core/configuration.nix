@@ -109,7 +109,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.${target.userName} = {
         isNormalUser = true;
-        description = "Quinn";
+        description = target.lib.capitalize target.userName;
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [];
         shell = pkgs.zsh;
