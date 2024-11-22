@@ -137,6 +137,7 @@
         wget
         curl
         samba
+        ssh-to-age
         fastfetch
         (verilator.overrideAttrs{extraBuildInputs=[pkgs.zlib];})
         verible
