@@ -5,6 +5,8 @@
         device = "10.0.4.3:/var/nfs/shared/media";
         options = [
             "nfsvers=3"
+            "hard"
+            "intr"
         ];
     };
 }
