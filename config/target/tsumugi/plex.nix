@@ -7,7 +7,10 @@
             inputs.plexASS
         ];
         extraPlugins = [
-            inputs.plexHama
+            (builtins.path {
+                name = "Hama.bundle";
+                path = inputs.plexHama;
+            })
         ];
     };
     services.sonarr = {
