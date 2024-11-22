@@ -116,10 +116,6 @@
     };
     programs.zsh.enable = true;
 
-    programs.ssh.extraConfig = ''
-        SetEnv TERM=xterm-256color
-    '';
-
     # Enable experimental features
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -148,6 +144,7 @@
         gcc
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
         #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
+        foot.terminfo
     ];
 
     fonts = {
