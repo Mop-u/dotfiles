@@ -3,7 +3,11 @@
     services.plex = {
         enable = true;
         openFirewall = true;
-        extraScanners = [];
-        extraPlugins = [];
+        extraScanners = [
+            inputs.plexASS
+        ];
+        extraPlugins = [
+            inputs.plexHama
+        ];
     };
 }
