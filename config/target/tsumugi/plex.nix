@@ -10,4 +10,12 @@
             inputs.plexHama
         ];
     };
+    services.sonarr = {
+        enable = true;
+        openFirewall = true;
+    };
+    services.radarr = {
+        enable = true;
+        openFirewall = true;
+    };
 }
