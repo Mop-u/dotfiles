@@ -35,7 +35,13 @@
     };
     services.deluge = {
         enable = true;
+        declarative = true;
         web.enable = true;
         web.openFirewall = false; # 8112
+        config = {
+            enabled_plugins = [
+                "Label"
+            ];
+        };
     };
 }
