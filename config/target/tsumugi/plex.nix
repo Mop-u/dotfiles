@@ -29,10 +29,6 @@
         enable = true;
         openFirewall = true; # 6767
     };
-    services.flaresolverr = {
-        enable = true;
-        openFirewall = true; # 8191
-    };
     services.jellyseerr = {
         enable = true;
         openFirewall = true; # 5055

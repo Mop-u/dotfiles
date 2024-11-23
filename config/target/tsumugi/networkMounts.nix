@@ -7,6 +7,7 @@
             "nfsvers=3"
             "hard"
             "intr"
+            "nolock"
         ];
     };
 }
