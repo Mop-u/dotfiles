@@ -33,4 +33,9 @@
         enable = true;
         openFirewall = true; # 5055
     };
+    services.deluge = {
+        enable = true;
+        web.enable = true;
+        web.openFirewall = false; # 8112
+    };
 }
