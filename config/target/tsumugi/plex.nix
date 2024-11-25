@@ -57,25 +57,18 @@ in {
         openFirewall = true; # 5055
     };
     
-    sops.secrets."tsumugi/delugePass" = {};
-    sops.templates.delugeAuthFile = {
-        owner = "deluge";
-        content = ''
-            localclient:${config.sops.placeholder."tsumugi/delugePass"}:10
-        '';
-    };
+    #sops.secrets."tsumugi/delugePass" = {};
+    #sops.templates.delugeAuthFile = {
+    #    owner = "deluge";
+    #    content = ''
+    #        localclient:${config.sops.placeholder."tsumugi/delugePass"}:10
+    #    '';
+    #};
 
     services.deluge = {
         enable = true;
-        declarative = true;
         web.enable = true;
         web.openFirewall = true; # 8112
-        config = {
-            enabled_plugins = [
-                "Label"
-            ];
-        };
-        authFile = config.sops.templates.delugeAuthFile.path;
     };
 
     networking.nat = {
