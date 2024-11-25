@@ -22,6 +22,16 @@ let
         } // configuration.config;
     };
 in {
+
+    networking.firewall.allowedTCPPorts = [ 
+        8998  # sonarrAnime
+        7887  # radarrAnime
+        29347 # deluge incoming
+    ];
+    networking.firewall.allowedUDPPorts = [ 
+        29347 # deluge incoming
+    ];
+
     services.plex = {
         enable = true;
         openFirewall = true;
@@ -78,7 +88,6 @@ in {
         externalInterface = "enp6s0";
     };
 
-    networking.firewall.allowedTCPPorts = [ 8998 7887 ];
 
     containers.sonarrAnime = portRemap {
         id = 1;
