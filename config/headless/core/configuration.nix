@@ -13,7 +13,7 @@
     nix.settings.keep-outputs = true;
     nix.settings.keep-derivations = true;
 
-    sops.defaultSopsFile = ./secrets/secrets.yaml;
+    sops.defaultSopsFile = ../../../secrets/secrets.yaml;
     sops.defaultSopsFormat = "yaml";
     sops.age.keyFile = "/home/${target.userName}/.config/sops/age/keys.txt";
 
