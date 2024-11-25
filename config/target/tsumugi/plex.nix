@@ -3,10 +3,8 @@ let
     portRemap = configuration: {
         autoStart = true;
         privateNetwork = true;
-        hostAddress = "192.168.168.${toString (configuration.id)}";
-        localAddress = "192.168.168.${toString (configuration.id+128)}";
-        hostAddress6 = "fc00::${toString (configuration.id)}";
-        localAddress6 = "fc00::${toString (configuration.id+128)}";
+        hostAddress = "192.168.${toString configuration.id}.10";
+        localAddress = "192.168.${toString configuration.id}.11";
         forwardPorts = [{
             containerPort = configuration.containerPort;
             hostPort = configuration.hostPort;
@@ -73,7 +71,7 @@ in {
 
     networking.nat = {
         enable = true;
-        enableIPv6 = true;
+        enableIPv6 = false;
         internalInterfaces = ["ve-+"];
         externalInterface = "enp6s0";
     };
