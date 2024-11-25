@@ -5,6 +5,8 @@ let
         privateNetwork = true;
         hostAddress = "192.168.${toString configuration.id}.10";
         localAddress = "192.168.${toString configuration.id}.11";
+        hostAddress6 = "fc00::${toString configuration.id}:10";
+        localAddress6 = "fc00::${toString configuration.id}:11";
         forwardPorts = [{
             containerPort = configuration.containerPort;
             hostPort = configuration.hostPort;
@@ -86,13 +88,15 @@ in {
         web.openFirewall = true; # 8112
     };
 
-    networking.nat = {
-        enable = true;
-        enableIPv6 = false;
-        internalInterfaces = ["ve-+"];
-        externalInterface = "enp6s0";
+    networking = {
+        nat = {
+            enable = true;
+            enableIPv6 = true;
+            internalInterfaces = ["ve-+"];
+            externalInterface = "enp6s0";
+        };
+        networkmanager.unmanaged = [ "interface-name:ve-*" ];
     };
-
 
     containers.sonarrAnime = portRemap {
         id = 1;
