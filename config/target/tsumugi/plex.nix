@@ -10,6 +10,11 @@ let
             hostPort = configuration.hostPort;
             protocol = "tcp";
         }];
+        bindMounts."/mnt/media" = {
+            mountPoint = "/mnt/media";
+            hostPath = "/mnt/media";
+            isReadOnly = false;
+        };
         config = {
             system.stateVersion = target.stateVer;
             networking = {
