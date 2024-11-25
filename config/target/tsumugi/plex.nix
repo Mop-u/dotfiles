@@ -1,5 +1,29 @@
-{ inputs, config, pkgs, lib, target, ... }:
-{
+{ inputs, config, pkgs, lib, target, ... }: 
+let
+    portRemap = configuration: {
+        autoStart = true;
+        privateNetwork = true;
+        hostAddress = "192.168.168.${toString (configuration.id)}";
+        localAddress = "192.168.168.${toString (configuration.id+128)}";
+        hostAddress6 = "fc00::${toString (configuration.id)}";
+        localAddress6 = "fc00::${toString (configuration.id+128)}";
+        forwardPorts = [{
+            containerPort = configuration.containerPort;
+            hostPort = configuration.hostPort;
+            protocol = "tcp";
+        }];
+        config = {
+            system.stateVersion = target.stateVer;
+            networking = {
+                firewall.enable = true;
+                # Use systemd-resolved inside the container
+                # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+                useHostResolvConf = lib.mkForce false;
+            };
+            services.resolved.enable = true;
+        } // configuration.config;
+    };
+in {
     services.plex = {
         enable = true;
         openFirewall = true;
@@ -12,6 +36,11 @@
                 path = inputs.plexHama;
             })
         ];
+    };
+
+    services.sonarr = {
+        enable = true;
+        openFirewall = true; # 8989
     };
     services.radarr = {
         enable = true;
@@ -42,9 +71,6 @@
     #    };
     #};
 
-
-    networking.firewall.allowedTCPPorts = [ 8998 ];
-
     networking.nat = {
         enable = true;
         enableIPv6 = true;
@@ -52,31 +78,13 @@
         externalInterface = "enp6s0";
     };
 
-    containers.sonarrStd = {
-        
-        autoStart = true;
-        privateNetwork = true;
-        hostAddress = "192.168.168.10";
-        localAddress = "192.168.168.11";
-        hostAddress6 = "fc00::10";
-        localAddress6 = "fc00::11";
+    networking.firewall.allowedTCPPorts = [ 8998 7887 ];
 
-        forwardPorts = [{
-            containerPort = 8989;
-            hostPort = 8998;
-            protocol = "tcp";
-        }];
-
+    containers.sonarrAnime = portRemap {
+        id = 1;
+        containerPort = 8989;
+        hostPort = 8998;
         config = {
-            system.stateVersion = target.stateVer;
-            networking = {
-                firewall.enable = true;
-                # Use systemd-resolved inside the container
-                # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-                useHostResolvConf = lib.mkForce false;
-            };
-            services.resolved.enable = true;
-
             services.sonarr = {
                 enable = true;
                 openFirewall = true;
@@ -84,10 +92,15 @@
         };
     };
 
-    #containers.sonarrAnime = {
-    #};
-    #containers.radarrStandard = {
-    #};
-    #containers.radarrAnime = {
-    #};
+    containers.radarrAnime = portRemap {
+        id = 2;
+        containerPort = 7878;
+        hostPort = 7887;
+        config = {
+            services.radarr = {
+                enable = true;
+                openFirewall = true;
+            };
+        };
+    };
 }
