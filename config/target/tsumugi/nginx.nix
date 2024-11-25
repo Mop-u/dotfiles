@@ -4,7 +4,7 @@
     services.caddy = {
         enable = true;
         virtualHosts = {
-            "tsumugi.local:80" = {
+            "tsumugi.local" = {
                 extraConfig = ''
                     
                     redir /sonarr/tv /sonarr/tv/
@@ -25,6 +25,16 @@
                     redir /radarr/anime-movies /radarr/anime-movies/
                     reverse_proxy /radarr/anime-movies/* {
                         to localhost:7887
+                    }
+
+                    redir /prowlarr /prowlarr/
+                    reverse_proxy /prowlarr/* {
+                        to localhost:9696
+                    }
+
+                    redir /bazarr /bazarr/
+                    reverse_proxy /bazarr/* {
+                        to localhost:6767
                     }
                 '';
             };
