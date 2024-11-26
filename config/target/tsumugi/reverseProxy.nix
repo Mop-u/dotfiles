@@ -25,6 +25,9 @@
     };
     services.cloudflared = {
         enable = true;
-        tunnels.tsumugi.credentialsFile = config.sops.secrets."tsumugi/cloudflare".path;
+        tunnels.tsumugi = {
+            credentialsFile = config.sops.secrets."tsumugi/cloudflare".path;
+            default = "http_status:404";
+        };
     };
 }
