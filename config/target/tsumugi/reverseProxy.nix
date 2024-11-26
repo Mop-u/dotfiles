@@ -19,4 +19,12 @@
     '';
     networking.firewall.allowedUDPPorts = [ 9546 ];
     networking.wg-quick.interfaces.ochiai.configFile = config.sops.templates.ochiaiWgQuick.path;
+
+    sops.secrets."tsumugi/cloudflare" = {
+        owner = "cloudflared";
+    };
+    services.cloudflared = {
+        enable = true;
+        tunnels.tsumugi.credentialsFile = config.sops.secrets."tsumugi/cloudflare".path;
+    };
 }
