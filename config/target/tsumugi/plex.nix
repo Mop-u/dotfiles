@@ -98,10 +98,10 @@ in {
         nat = {
             enable = true;
             enableIPv6 = true;
-            internalInterfaces = ["ve-+"];
+            internalInterfaces = [ "ve-*" ]; # wildcard: use * for nftables, + for iptables
             externalInterface = "enp6s0";
         };
-        networkmanager.unmanaged = [ "interface-name:ve-*" ];
+        #networkmanager.unmanaged = [ "interface-name:ve-*" ];
     };
 
     containers.sonarrAnime = portRemap {
