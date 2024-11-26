@@ -24,8 +24,11 @@ let
                 # Use systemd-resolved inside the container
                 # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
                 useHostResolvConf = lib.mkForce false;
+                nameservers = [
+                    "10.0.4.1"
+                    "fe80::e638:83ff:fe96:6a8b"
+                ];
             };
-            services.resolved.enable = true;
         } // configuration.config;
     };
 in {
