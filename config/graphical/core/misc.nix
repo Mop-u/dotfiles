@@ -27,7 +27,6 @@
         
         wavey-launcher.enable = false;       # Not currently playable
         anime-games-launcher.enable = false; # Not for regular use
-        anime-borb-launcher.enable = false;  # Not actively maintained
     };
 
 
