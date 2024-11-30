@@ -150,7 +150,9 @@
     fonts = {
         fontDir.enable = true;
         packages = with pkgs; [
-            nerdfonts
+            nerd-fonts.comic-shanns-mono
+            nerd-fonts.ubuntu
+            liberation_ttf
             meslo-lgs-nf
         ] ++ (if target.text.comicCode.enable then [target.text.comicCode.package] else []);
         fontconfig.defaultFonts = {
