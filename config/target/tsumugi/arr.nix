@@ -21,8 +21,6 @@ let
             system.stateVersion = target.stateVer;
             networking = {
                 firewall.enable = true;
-                # Use systemd-resolved inside the container
-                # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
                 useHostResolvConf = lib.mkForce false;
                 nameservers = [
                     "10.0.4.1"
@@ -32,6 +30,14 @@ let
         } // configuration.config;
     };
 in {
+
+    # needed for sonarr
+    nixpkgs.config.permittedInsecurePackages = [
+        "aspnetcore-runtime-wrapped-6.0.36"
+        "aspnetcore-runtime-6.0.36"
+        "dotnet-sdk-wrapped-6.0.428"
+        "dotnet-sdk-6.0.428"
+    ];
 
     networking.firewall.allowedTCPPorts = [ 
         8998  # sonarrAnime
@@ -112,6 +118,12 @@ in {
         containerPort = 8989;
         hostPort = 8998;
         config = {
+            nixpkgs.config.permittedInsecurePackages = [
+                "aspnetcore-runtime-wrapped-6.0.36"
+                "aspnetcore-runtime-6.0.36"
+                "dotnet-sdk-wrapped-6.0.428"
+                "dotnet-sdk-6.0.428"
+            ];
             services.sonarr = {
                 enable = true;
                 openFirewall = true;
