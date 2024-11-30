@@ -132,6 +132,7 @@
         lshw
         wget
         curl
+        tmux
         samba
         ssh-to-age
         fastfetch
