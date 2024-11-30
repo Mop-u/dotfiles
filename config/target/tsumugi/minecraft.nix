@@ -54,5 +54,63 @@
             "-Djava.net.preferIPv4Stack=true"
             "-Djava.net.preferIPv6Addresses=false"
         ];
+        symlinks = {
+            "plugins/DamageIndicator.jar" = pkgs.fetchurl {
+                url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.1.4/DamageIndicator.jar";
+                hash = "sha256-sOZPuxTAl5ykFdowZIxXZgFdiTEm6jQDIsxHaynOIsQ=";
+            };
+            "plugins/EssentialsX.jar" = pkgs.fetchurl {
+                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+143-b560bbd.jar";
+                hash = "sha256-z8ZISFeCoE6zReHrvE0YuMylJOoTR225sHt8orX/lhI="; 
+            };
+            "plugins/EssentialsXChat.jar" = pkgs.fetchurl {
+                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXChat-2.21.0-dev+143-b560bbd.jar";
+                hash = "sha256-CTVetWXJfeiETmCIjHpjtvd+Ce7cTzAHtfpT9Ii5o/0=";
+            };
+            "plugins/EssentialsXSpawn.jar" = pkgs.fetchurl {
+                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+143-b560bbd.jar";
+                hash = "sha256-AGeUrjfnrJXTEuGWwQGe5hG9NQgNylpm/+jZ+S+eHCo="; 
+            };
+            "plugins/FastAsyncWorldEdit.jar" = pkgs.fetchurl {
+                url = "https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.12.2/FastAsyncWorldEdit-Paper-2.12.2.jar";
+                hash = "sha256-/6vjPK8c9ooI01vpnGzYvlji3rXNAx5pxwu3WX8ArT8="; 
+            };
+            "plugins/LuckPerms.jar" = pkgs.fetchurl {
+                url = "https://download.luckperms.net/1561/bukkit/loader/LuckPerms-Bukkit-5.4.146.jar";
+                hash = "sha256-RKxwhPoshigjWBNihucTkaOSZZhYcBlNvhmnWFaTH0U="; 
+            };
+            "plugins/multiverse-core.jar" = pkgs.fetchurl {
+                url = "https://github.com/Multiverse/Multiverse-Core/releases/download/4.3.14/multiverse-core-4.3.14.jar";
+                hash = "sha256-J2MOl8aGEvLM0a9ykFVSjiKIeSPM5vbOzDTkVYPlrhE="; 
+            };
+            "plugins/multiverse-inventories.jar" = pkgs.fetchurl {
+                url = "https://github.com/Multiverse/Multiverse-Inventories/releases/download/4.2.7-pre/multiverse-inventories-4.2.7-pre.jar";
+                hash = "sha256-fxwMD3nrm7LOEOkCEThhg1ozB30XauFf00KCYw3bS8E="; 
+            };
+            "plugins/Slabs.jar" = pkgs.fetchurl {
+                url = "https://mediafilez.forgecdn.net/files/2381/666/Slabs-2.2.0.jar";
+                hash = "sha256-95oOuGumIRFcJio+VCXKi1TASVrdEEWf1HYJbVpXkmA="; 
+            };
+            "plugins/TabTPS.jar" = pkgs.fetchurl {
+                url = "https://hangarcdn.papermc.io/plugins/jmp/TabTPS/versions/1.3.25/PAPER/tabtps-spigot-1.3.25.jar";
+                hash = "sha256-f+mc1bGwc5BKgWiog3ABEKSeVeOrFEr06OogM6oUBAA="; 
+            };
+            "plugins/Vault.jar" = pkgs.fetchurl {
+                url = "https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar";
+                hash = "sha256-prXtl/Q6XPW7rwCnyM0jxa/JvQA/hJh1r4s25s930B0="; 
+            };
+            "plugins/ViaBackwards.jar" = pkgs.fetchurl {
+                url = "https://github.com/ViaVersion/ViaBackwards/releases/download/5.1.1/ViaBackwards-5.1.1.jar";
+                hash = "sha256-FN/kBvT9f/i4Em9dXCteSWvlpYLIy81HiyN/rJIeunU="; 
+            };
+            "plugins/ViaVersion.jar" = pkgs.fetchurl {
+                url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.1.1/ViaVersion-5.1.1.jar";
+                hash = "sha256-4j8Vj42k2UhgcgcB93iSRCO0GPqdH4Ya7IlcKKDw6Tw="; 
+            };
+            "plugins/WorldEditSUI.jar" = pkgs.fetchurl {
+                url = "https://github.com/kennytv/WorldEditSUI/releases/download/1.7.4/WorldEditSUI-1.7.4.jar";
+                hash = "sha256-cAbPnllEx14bV8wZ3IjtF/wXmg4oNU/aQkqjKpWqw9g="; 
+            };
+        };
     };
 }
