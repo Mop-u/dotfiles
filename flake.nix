@@ -63,6 +63,10 @@
             #url = "git+file:../nix-quartus";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        nix-minecraft = {
+            url = "github:Infinidoge/nix-minecraft";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         # sublime text packages
         stextSublimeLinterContribVerilator = {
