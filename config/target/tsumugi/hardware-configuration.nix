@@ -35,6 +35,9 @@
         { device = "/dev/disk/by-uuid/290e7047-d429-4196-825d-8fd6cc01d7d5"; }
     ];
 
+    # Intel ARC GPU
+    hardware.graphics.extraPackages = [ pkgs.vpl-gpu-rt ];
+
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
     # (the default) this is the recommended approach. When using systemd-networkd it's
     # still possible to use this option, but it's recommended to use it in conjunction
