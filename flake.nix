@@ -13,7 +13,10 @@
 
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
         nix-colors.url = "github:misterio77/nix-colors";
+
+        aagl.url = "github:ezKEa/aagl-gtk-on-nix";
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
@@ -24,7 +27,6 @@
             url = "https://github.com/hyprwm/Hyprland";
             type = "git";
             submodules = true;
-            #inputs.nixpkgs.follows = "nixpkgs";
         };
 
         waybar = {
@@ -42,10 +44,21 @@
         catppuccin = {
             url = "github:catppuccin/nix";
         };
-        aagl = { 
-            url = "github:ezKEa/aagl-gtk-on-nix";
-            #inputs.nixpkgs.follows = "nixpkgs";
+
+        lancache-domains = {
+            url = "github:uklans/cache-domains";
+            flake = false;
         };
+        lancache-monolithic = {
+            url = "github:lancachenet/monolithic";
+            flake = false;
+        };
+        lancache = {
+            url = "github:Mop-u/nix-lancache";
+            inputs.cache-domains.follows = "lancache-domains";
+            inputs.monolithic.follows = "lancache-monolithic";
+        };
+        
         nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";
             inputs.nixpkgs.follows = "nixpkgs";

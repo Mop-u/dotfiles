@@ -86,6 +86,8 @@ rec {
         modules = [
             inputs.catppuccin.nixosModules.catppuccin
             inputs.home-manager.nixosModules.home-manager
+            inputs.lancache.nixosModules.dns
+            inputs.lancache.nixosModules.cache
             inputs.aagl.nixosModules.default
             inputs.sops-nix.nixosModules.sops
             inputs.nix-minecraft.nixosModules.minecraft-servers
