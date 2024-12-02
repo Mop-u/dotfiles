@@ -24,7 +24,7 @@
             url = "https://github.com/hyprwm/Hyprland";
             type = "git";
             submodules = true;
-            inputs.nixpkgs.follows = "nixpkgs";
+            #inputs.nixpkgs.follows = "nixpkgs";
         };
 
         waybar = {
@@ -44,7 +44,7 @@
         };
         aagl = { 
             url = "github:ezKEa/aagl-gtk-on-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
+            #inputs.nixpkgs.follows = "nixpkgs";
         };
         nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";
