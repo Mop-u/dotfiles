@@ -37,6 +37,7 @@
             nwg-look
             hyprshot
             # GUI apps
+            pinta # Paint.NET-like image editor
             heroic
             vscodium
             teams-for-linux
