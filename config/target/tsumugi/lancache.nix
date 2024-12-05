@@ -2,7 +2,10 @@
 {
     lancache.dns = {
         enable = true;
-        forwarders = [ "10.0.4.1" ];
+        forwarders = [ 
+            "10.0.4.1"
+            "fe80::e638:83ff:fe96:6a8b%enp6s0"
+        ];
         cacheIp = "10.0.4.2";
         #cacheIp6 = "fe80::e154:9dfe:dd4f:a1d5";
         cacheNetworks = [
@@ -19,7 +22,6 @@
         resolvers = [ "10.0.4.1" ];
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
-        nginxWorkerProcesses = "4";
         cacheDir = "/mnt/lancache";
     };
     services.resolved.extraConfig = ''
