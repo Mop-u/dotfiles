@@ -12,4 +12,9 @@
 in {
     fileSystems."/mnt/media"    = mntBenisuzume "media";
     fileSystems."/mnt/lancache" = mntBenisuzume "lancache";
+    
+    services.cachefilesd = {
+        enable = true;
+        # TODO: install ssd raid and point cacheDir to it
+    };
 }
