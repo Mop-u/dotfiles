@@ -176,37 +176,10 @@
                     graphics.headless = true;
                 };
             };
-        in {
-            kaoru = let 
-                target = targets.kaoru;
-            in inputs.nixpkgs.lib.nixosSystem {
-                system = target.system;
-                specialArgs = { 
-                    inherit inputs;
-                    inherit target;
-                };
-                modules = target.modules;
-            };
-            yure = let 
-                target = targets.yure;
-            in inputs.nixpkgs.lib.nixosSystem {
-                system = target.system;
-                specialArgs = {
-                    inherit inputs;
-                    inherit target;
-                };
-                modules = target.modules;
-            };
-            tsumugi = let
-                target = targets.tsumugi;
-            in inputs.nixpkgs.lib.nixosSystem {
-                system = target.system;
-                specialArgs = {
-                    inherit inputs;
-                    inherit target;
-                };
-                modules = target.modules;
-            };
-        };
+        in inputs.nixpkgs.lib.mapAttrs (n: target: (inputs.nixpkgs.lib.nixosSystem {
+            system = target.system;
+            specialArgs = {inherit inputs target;};
+            modules = target.modules;
+        })) targets;
     };
 }
