@@ -24,7 +24,7 @@ let
                 useHostResolvConf = lib.mkForce false;
                 nameservers = [
                     "10.0.4.1"
-                    "fe80::e638:83ff:fe96:6a8b"
+                    "2001:bb6:9533:4002::1"
                 ];
             };
         } // configuration.config;
@@ -95,11 +95,7 @@ in {
         enable = true;
         web.enable = true;
         web.openFirewall = true; # 8112
-        config = {
-            enabled_plugins = [
-                "Label"
-            ];
-        };
+        config.enabled_plugins = [ "Label" ];
         authFile = config.sops.templates.delugeAuthFile.path;
     };
 
