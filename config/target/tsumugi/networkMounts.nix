@@ -4,9 +4,10 @@
         device = "10.0.4.3:/var/nfs/shared/${name}";
         options = [
             "nfsvers=3"
-            "hard"
+            "hard"   # hard mount
             "intr"
-            "nolock"
+            "nolock" # no file locking
+	    "fsc"    # enable caching with cachefilesd
         ];
     };
 in {
