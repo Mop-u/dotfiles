@@ -7,7 +7,7 @@
             "hard"   # hard mount
             "intr"
             "nolock" # no file locking
-	    "fsc"    # enable caching with cachefilesd
+            "fsc"    # enable caching with cachefilesd
         ];
     };
 in {
