@@ -40,6 +40,7 @@ in {
     ];
 
     networking.firewall.allowedTCPPorts = [ 
+        8112  # deluge
         8998  # sonarrAnime
         7887  # radarrAnime
         29347 # deluge incoming
@@ -101,9 +102,10 @@ in {
             isReadOnly = false;
         };
         config = {
+            system.stateVersion = target.stateVer;
             services.deluge = {
-                enable = false;
-                web.enable = false;
+                enable = true;
+                web.enable = true;
                 web.openFirewall = true; # 8112
                 config.enabled_plugins = [ "Label" ];
                 #authFile = config.sops.templates.delugeAuthFile.path;
