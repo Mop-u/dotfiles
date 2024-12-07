@@ -83,7 +83,7 @@
         powerManagement.finegrained = false;
         open = false;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest; #latest/beta/production/stable
+        package = config.boot.kernelPackages.nvidiaPackages.production; #latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
             #sync.enable = true;
