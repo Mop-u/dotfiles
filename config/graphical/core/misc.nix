@@ -38,6 +38,8 @@
             hyprshot
             # GUI apps
             pinta # Paint.NET-like image editor
+            nomacs # image viewer
+            mpv
             heroic
             vscodium
             teams-for-linux
