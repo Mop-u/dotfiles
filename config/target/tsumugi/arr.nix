@@ -83,20 +83,32 @@ in {
         openFirewall = true; # 5055
     };
     
-    sops.secrets."tsumugi/delugePass" = {};
-    sops.templates.delugeAuthFile = {
-        owner = "deluge";
-        content = ''
-            localclient:${config.sops.placeholder."tsumugi/delugePass"}:10
-        '';
-    };
 
-    services.deluge = {
-        enable = true;
-        web.enable = true;
-        web.openFirewall = true; # 8112
-        config.enabled_plugins = [ "Label" ];
-        authFile = config.sops.templates.delugeAuthFile.path;
+    #sops.secrets."tsumugi/delugePass" = {};
+    #sops.templates.delugeAuthFile = {
+    #    owner = "deluge";
+    #    content = ''
+    #        localclient:${config.sops.placeholder."tsumugi/delugePass"}:10
+    #    '';
+    #};
+
+    containers.deluge = {
+        autoStart = true;
+        privateNetwork = false;
+        bindMounts."/mnt/media" = {
+            mountPoint = "/mnt/media";
+            hostPath = "/mnt/media";
+            isReadOnly = false;
+        };
+        config = {
+            services.deluge = {
+                enable = false;
+                web.enable = false;
+                web.openFirewall = true; # 8112
+                config.enabled_plugins = [ "Label" ];
+                #authFile = config.sops.templates.delugeAuthFile.path;
+            };
+        };
     };
 
     networking = {
