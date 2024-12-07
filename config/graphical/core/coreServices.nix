@@ -119,6 +119,7 @@
             pwvucontrol
             qpwgraph
             mate.engrampa # archive manager
+            ffmpegthumbnailer
             (nemo-with-extensions.overrideAttrs{extraNativeBuildInputs=[pkgs.gvfs];})
             brightnessctl
         ];
