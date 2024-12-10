@@ -7,7 +7,7 @@
             settings = {
                 # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
                 main.dpi-aware = "yes";
-                main.font = "monospace:size=${if target.text.smallTermFont then "7" else "8"}";
+                main.font = "monospace:size=${if target.text.smallTermFont then "6" else "7"}";
                 colors.alpha = builtins.toString target.window.opacity.dec;
             };
         };

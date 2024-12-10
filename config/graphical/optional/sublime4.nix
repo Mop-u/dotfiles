@@ -66,7 +66,7 @@ in {
                 target = stextCfg + "/Preferences.sublime-settings";
                 text = builtins.toJSON {
                     ignored_packages = ["Vintage"];
-                    font_size = if target.text.smallTermFont then 11 else 12;
+                    font_size = if target.text.smallTermFont then 10 else 11;
                     translate_tabs_to_spaces = true;
                     index_files = true;
                     hardware_acceleration = if target.graphics.legacyGpu then "none" else "opengl";
@@ -83,7 +83,7 @@ in {
                     theme = "${catppuccinBaseName}.sublime-theme";
                     translate_tabs_to_spaces = true;
                     side_bar_layout = "tabs";
-                    font_size = if target.text.smallTermFont then 11 else 12;
+                    font_size = if target.text.smallTermFont then 10 else 11;
                     hardware_acceleration = if target.graphics.legacyGpu then "none" else "opengl";
                     update_check = false;
                     editor_path = if target.lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
