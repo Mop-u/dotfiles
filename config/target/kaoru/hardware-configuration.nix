@@ -18,7 +18,7 @@
     boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" "aesni_intel" "cryptd" ];
     boot.initrd.kernelModules = [ ];
     #boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.kernelPackages = pkgs.linuxPackages_zen;
+    #boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelModules = [
         "kvm-intel"
         "r8152" # realtek USB 2.5Gbe
