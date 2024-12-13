@@ -89,7 +89,8 @@
 
     # Set your time zone.
     #time.timeZone = lib.mkDefault "Europe/Dublin";
-    services.automatic-timezoned.enable = true;
+    #services.automatic-timezoned.enable = true;
+    services.localtimed.enable = true;
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_GB.UTF-8";

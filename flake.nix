@@ -42,8 +42,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         catppuccin = {
-            #url = "github:catppuccin/nix";
-	    url = "github:catppuccin/nix?ref=pull/400/head"; # temp fix for new nixpkgs
+            url = "github:catppuccin/nix";
         };
 
         lancache-domains = {

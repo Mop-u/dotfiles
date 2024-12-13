@@ -39,6 +39,7 @@
             # GUI apps
             pinta # Paint.NET-like image editor
             nomacs # image viewer
+            plex-desktop
             mpv
             heroic
             vscodium
