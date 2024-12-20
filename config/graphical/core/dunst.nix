@@ -1,9 +1,9 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
     home-manager.users.${target.userName} = {
+        catppuccin.dunst.enable = false; # using our own values as overriding background breaks opacity
         services.dunst = {
             enable = true;
-            catppuccin.enable = false; # using our own values as overriding background breaks opacity
             settings = {
                 # https://dunst-project.org/documentation/
                 global = {

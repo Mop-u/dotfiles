@@ -45,6 +45,11 @@
     };
 
     home-manager.users.${target.userName} = {
+        catppuccin.cursors = {
+            enable = true;
+            accent = target.style.catppuccin.accent;
+            flavor = target.style.catppuccin.flavor;
+        };
 
         dconf.settings = {
             "org/gnome/desktop/interface" = {
@@ -101,12 +106,12 @@
         );
         qt = {
             enable = true;
-            style = {
-                catppuccin.enable = true;
-                catppuccin.apply = true;
-                name = "kvantum";
-            };
+            style.name = "kvantum";
             platformTheme.name = "kvantum";
+        };
+        catppuccin.kvantum = {
+            enable = true;
+            apply = true;
         };
 
         services = {

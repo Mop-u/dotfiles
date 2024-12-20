@@ -1,11 +1,11 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
     home-manager.users.${target.userName} = {
+        catppuccin.waybar.enable = true;
         programs.waybar = {
             enable = true;
             systemd.enable = true;
             package = inputs.waybar.packages.${pkgs.system}.waybar;
-            catppuccin.enable = true;
             settings.mainBar = {
                 layer = "top";
                 position = "top";

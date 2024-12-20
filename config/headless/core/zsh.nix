@@ -1,29 +1,29 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
-    home-manager.users.${target.userName}.programs = {
-        zsh.enable = true;
-        zoxide.enable = true;
-        oh-my-posh.enable = true;
+    home-manager.users.${target.userName} = {
+        programs.zsh.enable = true;
+        programs.zoxide.enable = true;
+        programs.oh-my-posh.enable = true;
 
-        bat = {
+        catppuccin.bat.enable = true;
+        programs.bat = {
             enable = true;
-            catppuccin.enable = true;
             config = {
                 style = "plain";
                 paging = "never";
             };
         };
 
-        zsh.syntaxHighlighting = {
+        catppuccin.zsh-syntax-highlighting.enable = true;
+        programs.zsh.syntaxHighlighting = {
             enable = true;
-            catppuccin.enable = true;
             highlighters = [
                 "main"
                 "brackets"
             ];
         };
 
-        oh-my-posh.settings = { # builtins.toJSON
+        programs.oh-my-posh.settings = { # builtins.toJSON
             "$schema"= "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
             properties = {
                 upgrade_notice = false;

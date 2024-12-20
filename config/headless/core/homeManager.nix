@@ -18,11 +18,6 @@
             enable = true;
             accent = target.style.catppuccin.accent;
             flavor = target.style.catppuccin.flavor;
-            pointerCursor = {
-                enable = true;
-                accent = target.style.catppuccin.accent;
-                flavor = target.style.catppuccin.flavor;
-            };
         };
     };
 }

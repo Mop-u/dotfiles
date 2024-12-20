@@ -1,9 +1,9 @@
 {inputs, config, pkgs, lib, target, ... }:
 {
     home-manager.users.${target.userName} = {
+        catppuccin.foot.enable = true;
         programs.foot = {
             enable = true;
-            catppuccin.enable = true;
             settings = {
                 # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
                 main.dpi-aware = "yes";
