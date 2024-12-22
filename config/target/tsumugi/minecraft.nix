@@ -87,6 +87,10 @@
                 url = "https://github.com/Multiverse/Multiverse-Inventories/releases/download/4.2.7-pre/multiverse-inventories-4.2.7-pre.jar";
                 hash = "sha256-fxwMD3nrm7LOEOkCEThhg1ozB30XauFf00KCYw3bS8E="; 
             };
+            "plugins/multiverse-netherportals.jar" = pkgs.fetchurl {
+                url = "https://hangarcdn.papermc.io/plugins/Multiverse/Multiverse-NetherPortals/versions/4.2.3/PAPER/multiverse-netherportals-4.2.3.jar";
+                hash = "sha256-lyg5Vak62oL15wk4gDhII+IkZxl4uOZ2njwnuhWxusM=";
+            };
             "plugins/Slabs.jar" = pkgs.fetchurl {
                 url = "https://mediafilez.forgecdn.net/files/2381/666/Slabs-2.2.0.jar";
                 hash = "sha256-95oOuGumIRFcJio+VCXKi1TASVrdEEWf1HYJbVpXkmA="; 
