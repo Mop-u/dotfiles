@@ -60,16 +60,16 @@
                 hash = "sha256-sOZPuxTAl5ykFdowZIxXZgFdiTEm6jQDIsxHaynOIsQ=";
             };
             "plugins/EssentialsX.jar" = pkgs.fetchurl {
-                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+143-b560bbd.jar";
-                hash = "sha256-z8ZISFeCoE6zReHrvE0YuMylJOoTR225sHt8orX/lhI="; 
+                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+151-f2af952.jar";
+                hash = "sha256-VqlnQB9WSi6bM5PMWiEIkAga1oji94n+oriyjorYy/0="; 
             };
             "plugins/EssentialsXChat.jar" = pkgs.fetchurl {
-                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXChat-2.21.0-dev+143-b560bbd.jar";
-                hash = "sha256-CTVetWXJfeiETmCIjHpjtvd+Ce7cTzAHtfpT9Ii5o/0=";
+                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXChat-2.21.0-dev+151-f2af952.jar";
+                hash = "sha256-0aDFEkOC3puic46PpyX/Ng5frG2yuJXhtKfdcbXFr4I=";
             };
             "plugins/EssentialsXSpawn.jar" = pkgs.fetchurl {
-                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+143-b560bbd.jar";
-                hash = "sha256-AGeUrjfnrJXTEuGWwQGe5hG9NQgNylpm/+jZ+S+eHCo="; 
+                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+151-f2af952.jar";
+                hash = "sha256-R6HQE7eumo7EW3r4bqzr1eEEs6x4SRSBOQ9MtzVzSTg="; 
             };
             "plugins/FastAsyncWorldEdit.jar" = pkgs.fetchurl {
                 url = "https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.12.2/FastAsyncWorldEdit-Paper-2.12.2.jar";
