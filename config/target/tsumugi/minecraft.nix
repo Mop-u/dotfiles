@@ -108,8 +108,8 @@
                 hash = "sha256-FN/kBvT9f/i4Em9dXCteSWvlpYLIy81HiyN/rJIeunU="; 
             };
             "plugins/ViaVersion.jar" = pkgs.fetchurl {
-                url = "https://github.com/ViaVersion/ViaVersion/releases/download/5.1.1/ViaVersion-5.1.1.jar";
-                hash = "sha256-4j8Vj42k2UhgcgcB93iSRCO0GPqdH4Ya7IlcKKDw6Tw="; 
+                url = "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.2.0/PAPER/ViaVersion-5.2.0.jar";
+                hash = ""; 
             };
             "plugins/WorldEditSUI.jar" = pkgs.fetchurl {
                 url = "https://github.com/kennytv/WorldEditSUI/releases/download/1.7.4/WorldEditSUI-1.7.4.jar";
