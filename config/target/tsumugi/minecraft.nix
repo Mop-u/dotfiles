@@ -109,7 +109,7 @@
             };
             "plugins/ViaVersion.jar" = pkgs.fetchurl {
                 url = "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.2.0/PAPER/ViaVersion-5.2.0.jar";
-                hash = ""; 
+                hash = "sha256-wM6rCamKhMS0vGdMlgVrZDFzGlLGgu76+s2TVDEnlVs="; 
             };
             "plugins/WorldEditSUI.jar" = pkgs.fetchurl {
                 url = "https://github.com/kennytv/WorldEditSUI/releases/download/1.7.4/WorldEditSUI-1.7.4.jar";
