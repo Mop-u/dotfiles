@@ -1,7 +1,9 @@
 { inputs, config, pkgs, lib, target, ... }:
 {
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
-
+    networking.firewall.allowedTCPPorts = [
+        8100 # bluemap
+    ];
     services.minecraft-servers = {
         enable = true;
         eula = true;
@@ -55,6 +57,10 @@
             "-Djava.net.preferIPv6Addresses=false"
         ];
         symlinks = {
+            "plugins/bluemap.jar" = pkgs.fetchurl {
+                url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.5/PAPER/bluemap-5.5-paper.jar";
+                hash = "sha256-nZxBbF1KkGHveZCKPJ0hHyJGXHnNSCKTvX5JRr0+s88=";
+            };
             "plugins/DamageIndicator.jar" = pkgs.fetchurl {
                 url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.1.4/DamageIndicator.jar";
                 hash = "sha256-sOZPuxTAl5ykFdowZIxXZgFdiTEm6jQDIsxHaynOIsQ=";
