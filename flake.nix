@@ -160,7 +160,7 @@
                     userName = "shinatose";
                     stateVer = "24.05";
                     graphics.legacyGpu = true;
-                    text.smallTermFont = true;
+                    text.smallTermFont = false;
                     style.catppuccin.flavor = "mocha";
                     style.catppuccin.accent = "sapphire";
                     text.comicCode.enable = true;
