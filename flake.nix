@@ -162,7 +162,7 @@
                     graphics.legacyGpu = true;
                     text.smallTermFont = false;
                     style.catppuccin.flavor = "mocha";
-                    style.catppuccin.accent = "sapphire";
+                    style.catppuccin.accent = "mauve";
                     text.comicCode.enable = true;
                     input.sensitivity = -0.1;
                     input.keyLayout = "gb";
