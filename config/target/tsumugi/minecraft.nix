@@ -61,10 +61,10 @@
                 url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.5/PAPER/bluemap-5.5-paper.jar";
                 hash = "sha256-nZxBbF1KkGHveZCKPJ0hHyJGXHnNSCKTvX5JRr0+s88=";
             };
-            "plugins/DamageIndicator.jar" = pkgs.fetchurl {
-                url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.1.4/DamageIndicator.jar";
-                hash = "sha256-sOZPuxTAl5ykFdowZIxXZgFdiTEm6jQDIsxHaynOIsQ=";
-            };
+            #"plugins/DamageIndicator.jar" = pkgs.fetchurl {
+            #    url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.1.4/DamageIndicator.jar";
+            #    hash = "sha256-sOZPuxTAl5ykFdowZIxXZgFdiTEm6jQDIsxHaynOIsQ=";
+            #};
             "plugins/EssentialsX.jar" = pkgs.fetchurl {
                 url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+151-f2af952.jar";
                 hash = "sha256-VqlnQB9WSi6bM5PMWiEIkAga1oji94n+oriyjorYy/0="; 
@@ -109,18 +109,14 @@
                 url = "https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar";
                 hash = "sha256-prXtl/Q6XPW7rwCnyM0jxa/JvQA/hJh1r4s25s930B0="; 
             };
-            "plugins/ViaBackwards.jar" = pkgs.fetchurl {
-                url = "https://github.com/ViaVersion/ViaBackwards/releases/download/5.1.1/ViaBackwards-5.1.1.jar";
-                hash = "sha256-FN/kBvT9f/i4Em9dXCteSWvlpYLIy81HiyN/rJIeunU="; 
-            };
-            "plugins/ViaVersion.jar" = pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.2.0/PAPER/ViaVersion-5.2.0.jar";
-                hash = "sha256-wM6rCamKhMS0vGdMlgVrZDFzGlLGgu76+s2TVDEnlVs="; 
-            };
-            "plugins/WorldEditSUI.jar" = pkgs.fetchurl {
-                url = "https://github.com/kennytv/WorldEditSUI/releases/download/1.7.4/WorldEditSUI-1.7.4.jar";
-                hash = "sha256-cAbPnllEx14bV8wZ3IjtF/wXmg4oNU/aQkqjKpWqw9g="; 
-            };
+            #"plugins/ViaVersion.jar" = pkgs.fetchurl {
+            #    url = "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.2.0/PAPER/ViaVersion-5.2.0.jar";
+            #    hash = "sha256-wM6rCamKhMS0vGdMlgVrZDFzGlLGgu76+s2TVDEnlVs="; 
+            #};
+            #"plugins/WorldEditSUI.jar" = pkgs.fetchurl {
+            #    url = "https://github.com/kennytv/WorldEditSUI/releases/download/1.7.4/WorldEditSUI-1.7.4.jar";
+            #    hash = "sha256-cAbPnllEx14bV8wZ3IjtF/wXmg4oNU/aQkqjKpWqw9g="; 
+            #};
         };
     };
 }
