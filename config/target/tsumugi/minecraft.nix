@@ -22,8 +22,9 @@
             white-list=true;
             motd="gameing";
             server-port=25565;
-            simulation-distance=16;
+            simulation-distance=8;
             view-distance=32;
+	    network-compression-threshold=64;
             gamemode = "survival";
             difficulty = "easy";
         };
