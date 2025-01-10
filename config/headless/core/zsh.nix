@@ -30,8 +30,7 @@
                 auto_upgrade = false;
             };
             palette = {
-                os        = "p:surface2";
-                closer    = "p:os";
+                accent    = "#${target.style.catppuccin.highlight.hex}";
                 rosewater = "#${target.style.catppuccin.rosewater.hex}";
                 flamingo  = "#${target.style.catppuccin.flamingo.hex}";
                 pink      = "#${target.style.catppuccin.pink.hex}";
@@ -62,12 +61,7 @@
             blocks = [{
                 alignment = "left";
                 segments = [{
-                    foreground = "p:os";
-                    style = "plain";
-                    template = "{{.Icon}} ";
-                    type = "os";
-                }{
-                    foreground = "p:blue";
+                    foreground = "p:accent";
                     style = "plain";
                     template = "{{ .UserName }}@{{ .HostName }} ";
                     type = "session";
@@ -101,7 +95,7 @@
                     type = "git";
                 }{
                     style = "plain";
-                    foreground = "p:closer";
+                    foreground = "p:accent";
                     template = "";
                     type = "text";
                 }];
