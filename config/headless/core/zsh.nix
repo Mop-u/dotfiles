@@ -29,6 +29,10 @@
                 upgrade_notice = false;
                 auto_upgrade = false;
             };
+            upgrade = {
+                notice = false;
+                auto = false;
+            };
             palette = {
                 accent    = "#${target.style.catppuccin.highlight.hex}";
                 rosewater = "#${target.style.catppuccin.rosewater.hex}";
@@ -59,6 +63,7 @@
                 crust     = "#${target.style.catppuccin.crust.hex}";
             };
             blocks = [{
+                type = "prompt";
                 alignment = "left";
                 segments = [{
                     foreground = "p:accent";
@@ -99,10 +104,12 @@
                     template = "";
                     type = "text";
                 }];
-                type = "prompt";
             }];
             final_space = true;
             version = 2;
+            accent_color = "p:accent";
+            terminal_background = "p:base";
+            enable_cursor_positioning = true;
         };
     };
 }
