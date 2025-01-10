@@ -85,12 +85,6 @@ in {
                     + " -Wno-error=implicit-function-declaration";
 
                 patches = [
-                    # https://github.com/Aetf/kmscon/pull/66
-                    (pkgs.fetchpatch {
-                        name = "no-display-kms-flicker";
-                        url = "https://github.com/Aetf/kmscon/pull/66/commits/e92a53e23cf1e1cf7fc6689a078a86bd29871c1f.patch";
-                        hash = "sha256-bmfJb4ok2dCpyp3A/gb28f1/6rU8JRbndTcMHGJb4Oo=";
-                    })
                     # Stop meson from writing systemd units to ${pkgs.systemd}/systemd/system, they should be written to ${pkgs.kmscon}/systemd/system
                     (pkgs.writeTextFile {
                         name = "meson.build.patch";
