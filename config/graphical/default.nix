@@ -5,7 +5,6 @@
         ./optional/discord.nix
         ./optional/goxlr.nix
         ./optional/sublime4.nix
-        ./optional/wallpaperengine.nix
     ] ++ (target.lib.lsFiles ./core));
 
 in target.lib.recursiveMerge modules
