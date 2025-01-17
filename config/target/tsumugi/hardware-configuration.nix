@@ -8,7 +8,10 @@
     hardware.enableRedistributableFirmware = true;
 
     # Bootloader.
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot = {
+        enable = true;
+        configurationLimit = 30;
+    };
     boot.loader.efi.canTouchEfiVariables = true;
 
     nix.settings.max-jobs = 4; # set to core count w/o hyprethreading to not choke other services
