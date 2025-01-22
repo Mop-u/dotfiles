@@ -24,7 +24,7 @@
             sddm.enable = true;
             sddm.wayland.enable = true;
             sddm.package = pkgs.kdePackages.sddm;
-            autoLogin.enable = true;
+            autoLogin.enable = false;
             autoLogin.user = target.userName;
             defaultSession = "hyprland";
         };
