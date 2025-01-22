@@ -41,7 +41,8 @@
         wireplumber.enable = true;
     };
 
-    #services.fwupd.enable = true;
+    # Firmware updater
+    services.fwupd.enable = true;
 
     # use rust based switch-to-configuration-ng
     system.switch = {
