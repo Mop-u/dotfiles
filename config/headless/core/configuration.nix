@@ -150,6 +150,7 @@
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
         #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
         foot.terminfo
+        smartmontools
     ];
 
     fonts = {
