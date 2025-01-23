@@ -54,7 +54,6 @@
             gtkwave
             inputs.quartus.packages.${system}.quartus-prime-lite-23
             surfer
-            gsmartcontrol
         ];
 
         services = {
