@@ -1,7 +1,5 @@
-{ inputs, config, lib, pkgs, ... }:
-let
-    keyFile = "/boot/crypto_keyfile.bin";
-in {
+{ inputs, config, lib, pkgs, ... }: 
+{
 
     hardware.enableRedistributableFirmware = true;
 
@@ -13,7 +11,6 @@ in {
         enable = true;
         device = "/dev/sda";
         useOSProber = true;
-        enableCryptodisk = true;
         gfxmodeBios = "1280x1024,auto";
         gfxpayloadBios = "keep";
     };
@@ -23,22 +20,6 @@ in {
     #boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelModules = [ "kvm-intel" "tp_smapi" ];
     boot.extraModulePackages = [ ];
-
-    boot.initrd = {
-        secrets."${keyFile}" = null;
-        luks.devices = {
-            "luksroot" = {
-                allowDiscards = true;
-                keyFile = keyFile;
-                device = "/dev/disk/by-uuid/6f53bc66-23d8-4c65-aeb0-ce8775b1552c";
-            };
-            "luksswap" = {
-                allowDiscards = true;
-                keyFile = keyFile;
-                device = "/dev/disk/by-uuid/27cc08a3-261e-4da1-beae-1fe9a61f57ef";
-            };
-        };
-    };
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/6be0b367-cd67-468c-8792-4e53dc357244";
