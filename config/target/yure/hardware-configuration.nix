@@ -26,8 +26,8 @@
         fsType = "ext4";
     };
 
-    swapDevices = [{ device = "/dev/disk/by-uuid/a3d42fd4-40f7-4d88-a932-fa0439a96f70"; }];
-    boot.resumeDevice = "/dev/disk/by-uuid/a3d42fd4-40f7-4d88-a932-fa0439a96f70";
+    swapDevices = [{ device = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a"; }];
+    boot.resumeDevice = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a";
 
     hardware.display = {
         outputs."LVDS-1".edid = "1400x1050_60hz.bin";
