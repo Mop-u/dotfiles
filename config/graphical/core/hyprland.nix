@@ -195,6 +195,8 @@
 
                     "float, class:(gtkwave),title:(gtkwave)"
 
+                    "float, class:(nemo)"
+
                     "float,                          class:.*, title:(Open File)"
                     "size ${target.window.float.wh}, class:.*, title:(Open File)"
                     

@@ -10,6 +10,12 @@
     };
 
     xdg = {
+        terminal-exec = {
+            enable = true;
+            settings.default = [
+                "foot.desktop"
+            ];
+        };
         autostart.enable = true;
         portal = {
             extraPortals = [
@@ -56,7 +62,16 @@
 
         dconf.settings = {
             "org/gnome/desktop/interface" = {
-                cursor-size = inputs.home-manager.lib.hm.gvariant.mkInt32 target.style.cursorSize.gtk;
+                cursor-size = lib.gvariant.mkInt32 target.style.cursorSize.gtk;
+            };
+            "org/cinnamon/desktop/default-applications/terminal" = {
+                #exec = lib.gvariant.mkValue "${pkgs.foot}/bin/foot";
+                exec = lib.gvariant.mkValue "foot";
+                exec-arg = lib.gvariant.mkValue "-e";
+            };
+            "org/gnome/desktop/applications/terminal" = {
+                exec = lib.gvariant.mkValue "foot";
+                exec-arg = lib.gvariant.mkValue "-e";
             };
         };
         gtk = {enable = true;} // (
@@ -127,9 +142,45 @@
             pwvucontrol
             qpwgraph
             mate.engrampa # archive manager
+            qimgv         # image viewer
+            mpv           # video player
+            floorp        # browser
+            dconf-editor  # view gsettings stuff
+            gsettings-desktop-schemas
+            ungoogled-chromium
             ffmpegthumbnailer
+            webp-pixbuf-loader
             (nemo-with-extensions.overrideAttrs{extraNativeBuildInputs=[pkgs.gvfs];})
             brightnessctl
         ];
+
+        xdg = {
+            mimeApps.enable = true;
+            mimeApps.defaultApplications = let
+                browser = "floorp.desktop";
+                imageViewer = "qimgv.desktop";
+                fileExplorer = "nemo.desktop";
+            in {
+                "text/html"                = browser;
+                "x-scheme-handler/http"    = browser;
+                "x-scheme-handler/https"   = browser;
+                "x-scheme-handler/about"   = browser;
+                "x-scheme-handler/unknown" = browser;
+                "image/jpg"  = imageViewer;
+                "image/jpeg" = imageViewer;
+                "image/png"  = imageViewer;
+                "image/bmp"  = imageViewer;
+                "image/gif"  = imageViewer;
+                "image/webp" = imageViewer;
+                "inode/directory"                  = fileExplorer;
+                "application/x-gnome-saved-search" = fileExplorer;
+            };
+            mimeApps.associations.added = {
+                "image/jpg" = "qimgv.desktop";
+            };
+            desktopEntries = {
+
+            };
+        };
     };
 }

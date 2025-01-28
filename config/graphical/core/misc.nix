@@ -37,15 +37,11 @@
             hyprshot
             # GUI apps
             pinta # Paint.NET-like image editor
-            nomacs # image viewer
             #plex-desktop # doesn't launch
-            mpv
             heroic
             vscodium
             protonvpn-gui
             slack
-            floorp
-            ungoogled-chromium
             prismlauncher
             #xivlauncher
             plexamp
