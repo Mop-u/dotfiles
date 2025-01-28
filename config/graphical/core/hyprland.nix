@@ -33,8 +33,8 @@
             settings = {
                 monitor = {
                     kaoru = [
-                        "eDP-1,highres,0x0,1.333333,bitdepth,10"
-                        "desc:Lenovo Group Limited P40w-20,highres,auto-left,1.066667,bitdepth,10"
+                        "eDP-1, 2560x1600@165.00400, 0x0, 1.333333, bitdepth, 10"
+                        "desc:Lenovo Group Limited P40w-20, 5120x2160@74.97900, -4800x-400, 1.066667, bitdepth, 10"
                         ",highres,auto-left,1"
                     ];
                     yure = [

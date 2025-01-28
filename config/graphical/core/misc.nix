@@ -29,7 +29,6 @@
         anime-games-launcher.enable = false; # Not for regular use
     };
 
-
     home-manager.users.${target.userName} = {
 
         home.packages = with pkgs; [
@@ -39,11 +38,10 @@
             # GUI apps
             pinta # Paint.NET-like image editor
             nomacs # image viewer
-            plex-desktop
+            #plex-desktop # doesn't launch
             mpv
             heroic
             vscodium
-            teams-for-linux
             protonvpn-gui
             slack
             floorp
@@ -52,8 +50,10 @@
             #xivlauncher
             plexamp
             gtkwave
-            #inputs.quartus.packages.${system}.quartus-prime-lite-23
+            inputs.quartus.packages.${system}.quartus-prime-lite-23
             surfer
+            #bambu-studio
+            tageditor
         ];
 
         services = {

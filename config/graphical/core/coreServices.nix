@@ -2,7 +2,10 @@
 {
 
     security = {
-        pam.services.sddm.enableGnomeKeyring = true;
+        pam.services = {
+            sddm.enableGnomeKeyring = true;
+            login.enableGnomeKeyring = true;
+        };
         polkit.enable = true;
     };
 
