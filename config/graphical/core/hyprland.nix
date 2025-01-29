@@ -184,6 +184,7 @@
                     accel_profile = target.input.accelProfile;
                     touchpad = {
                         natural_scroll = true;
+                        scroll_factor = 0.2;
                     };
                 };
                 windowrulev2 = [
