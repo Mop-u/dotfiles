@@ -13,6 +13,7 @@
         useOSProber = true;
         gfxmodeBios = "1280x1024,auto";
         gfxpayloadBios = "keep";
+        configurationLimit = 10;
     };
 
     boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
