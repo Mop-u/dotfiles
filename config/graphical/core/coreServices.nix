@@ -142,7 +142,33 @@
             pwvucontrol
             qpwgraph
             mate.engrampa # archive manager
-            qimgv         # image viewer
+            qimgv
+            (stdenv.mkDerivation {
+                pname = "qtraw";
+                version = "1.1";
+
+                src = fetchFromGitLab {
+                    owner = "mardy";
+                    repo = "qtraw";
+                    rev = "e75153f9d914f757d29959775bae7931303781e7";
+                    hash = "sha256-tN9aVb7yCti1j/Jg+B73wo1W5ewSt4oR8aOswjF3Zew=";
+                };
+
+                nativeBuildInputs = [
+                    libsForQt5.qt5.wrapQtAppsHook
+                    libsForQt5.qmake
+                    pkg-config
+                    libraw
+                ];
+
+                buildInputs = [
+                    libsForQt5.qt5.qtbase
+                ];
+
+                #QT_INSTALL_PLUGINS = "";
+
+                #dontWrapQtApps = true;
+            })
             mpv           # video player
             floorp        # browser
             dconf-editor  # view gsettings stuff
@@ -166,12 +192,13 @@
                 "x-scheme-handler/https"   = browser;
                 "x-scheme-handler/about"   = browser;
                 "x-scheme-handler/unknown" = browser;
-                "image/jpg"  = imageViewer;
-                "image/jpeg" = imageViewer;
-                "image/png"  = imageViewer;
-                "image/bmp"  = imageViewer;
-                "image/gif"  = imageViewer;
-                "image/webp" = imageViewer;
+                "image/jpg"        = imageViewer;
+                "image/jpeg"       = imageViewer;
+                "image/png"        = imageViewer;
+                "image/bmp"        = imageViewer;
+                "image/gif"        = imageViewer;
+                "image/webp"       = imageViewer;
+                "image/x-sony-arw" = imageViewer;
                 "inode/directory"                  = fileExplorer;
                 "application/x-gnome-saved-search" = fileExplorer;
             };
