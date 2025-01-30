@@ -151,7 +151,7 @@
                 };
 
                 cursor = {
-                    no_hardware_cursors = true;
+                    no_hardware_cursors = false;
                     no_break_fs_vrr = false;
                     enable_hyprcursor = true;
                 };
