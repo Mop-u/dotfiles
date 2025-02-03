@@ -38,6 +38,12 @@
             defaultSession = "hyprland";
         };
 
+        logind = {
+            lidSwitch = "suspend-then-hibernate";
+            lidSwitchExternalPower = "ignore";
+            lidSwitchDocked = "ignore";
+        };
+
         gvfs.enable = true; # Mount, trash, and other functionalities
         
         tumbler.enable = true; # Thumbnail support for images

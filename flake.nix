@@ -154,6 +154,14 @@
                     style.catppuccin.flavor = "macchiato";
                     style.catppuccin.accent = "mauve";
                     text.comicCode.enable = true;
+                    isLaptop = true;
+                    monitors = [{
+                        name = "eDP-1";
+                        args = "2560x1600@165.00400,0x0,1.333333,bitdepth,10";
+                    }{
+                        name = "desc:Lenovo Group Limited P40w-20";
+                        args = "5120x2160@74.97900,-4800x-400,1.066667,bitdepth,8";
+                    }];
                 };
                 yure = setTarget {
                     hostName = "yure";
@@ -166,6 +174,11 @@
                     text.comicCode.enable = true;
                     input.sensitivity = -0.1;
                     input.keyLayout = "gb";
+                    isLaptop = true;
+                    monitors = [{
+                        name = "LVDS-1";
+                        args = "highres,0x0,1";
+                    }];
                 };
                 tsumugi = setTarget {
                     hostName = "tsumugi";

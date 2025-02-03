@@ -31,17 +31,7 @@
             systemd.enableXdgAutostart = true;
             xwayland.enable = true;
             settings = {
-                monitor = {
-                    kaoru = [
-                        "eDP-1, 2560x1600@165.00400, 0x0, 1.333333, bitdepth, 10"
-                        "desc:Lenovo Group Limited P40w-20, 5120x2160@74.97900, -4800x-400, 1.066667, bitdepth, 10"
-                        ",highres,auto-left,1"
-                    ];
-                    yure = [
-                        "LVDS-1,highres,0x0,1"
-                        ",highres,auto,1"
-                    ];
-                }.${target.hostName} or ",highres,auto,1";
+                monitor = builtins.concatMap (mon: [mon.enable]) target.monitors;
 
                 xwayland = {
                     force_zero_scaling = true;
@@ -151,7 +141,7 @@
                 };
 
                 cursor = {
-                    no_hardware_cursors = false;
+                    no_hardware_cursors = true;
                     no_break_fs_vrr = false;
                     enable_hyprcursor = true;
                 };
@@ -162,7 +152,6 @@
 
                 opengl = {
                     nvidia_anti_flicker = false;
-                    force_introspection = 0; # 0:off/1:force/2:nvidia
                 };
 
                 misc = {
@@ -215,7 +204,7 @@
                     #"noblur,class:^(xwaylandvideobridge)$"
                 ];
                 gestures = {
-                    workspace_swipe = false;
+                    workspace_swipe = true;
                 };
                 binds = {
                     scroll_event_delay = 100;
@@ -234,7 +223,9 @@
                     ", XF86AudioPause, exec, playerctl play-pause"
                     ", XF86AudioPlay,  exec, playerctl play-pause"
                     ", XF86AudioPrev,  exec, playerctl previous"
-                ];
+                ] ++ (lib.optional target.isLaptop 
+                    ", switch:on:Lid Switch, exec, hyprctl keyword monitor \"${(builtins.head target.monitors).disable}\""
+                );
                 binde = [
                     "SUPERALT,   H,         resizeactive, -10    0" # resize left
                     "SUPERALT,   J,         resizeactive,   0   10" # resize down

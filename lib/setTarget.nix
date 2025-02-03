@@ -13,6 +13,20 @@ rec {
         stateVer  = override.stateVer;
         system    = override.system or "x86_64-linux";
 
+
+        # monitors.*.name: name of monitor (see hyprland wiki)
+        # monitors.*.args: resolution/scaling/positioning args (see hyprland wiki)
+        monitors = builtins.map ( monitor: {
+            name = monitor.name;
+            args = monitor.args;
+            enable  = builtins.concatStringsSep "," [monitor.name monitor.args];
+            disable = builtins.concatStringsSep "," [monitor.name "disable"];
+        })((override.monitors or []) ++ [{name="";args="highres,auto,1";}]);
+
+
+        # isLaptop: bool - if this is enabled, the first monitor in the list is disabled on lid close.
+        isLaptop = override.isLaptop or false;
+
         # graphics.legacyGpu: bool # set this to true for OpenGL ES 2 support
         # graphics.headless:  bool # set this to true to disable the desktop environment
         graphics = {
