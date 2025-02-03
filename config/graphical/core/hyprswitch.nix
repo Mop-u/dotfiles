@@ -5,15 +5,15 @@ in {
     home-manager.users.${target.userName} = {
         home.packages = [pkg];
 
-        wayland.windowManager.hyprland.settings = {
+        wayland.windowManager.hyprland.settings = let
+            mod = "SUPER";
+            key = "Tab";
+        in {
             env = [
                 "WORKSPACES_PER_ROW,3"
             ];
             bind = [
-                "SUPER, W, exec, hyprswitch gui"
-            ];
-            bindrn = [
-                ",  escape, exec, hyprswitch close --kill"
+                "${mod}, ${key}, exec, hyprswitch gui --mod-key ${lib.toLower mod} --key ${key}"
             ];
         };
 
@@ -65,6 +65,12 @@ in {
 
                 .workspaces {
                     margin: 0px;
+                }
+
+                .index {
+                    border-radius: ${target.window.rounding}px;
+                    border: none;
+                    background-color: inherit;
                 }
 
                 window {
