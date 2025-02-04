@@ -65,6 +65,7 @@
         };
         naturaldocs = {
             url = "github:Mop-u/naturaldocs-nix";
+            #url = "git+file:../naturaldocs-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         slang-lsp = {
@@ -157,10 +158,13 @@
                     isLaptop = true;
                     monitors = [{
                         name = "eDP-1";
-                        args = "2560x1600@165.00400,0x0,1.333333,bitdepth,10";
+                        args = "2560x1600@165.00400,1920x0,1.333333,bitdepth,10";
                     }{
                         name = "desc:Lenovo Group Limited P40w-20";
                         args = "5120x2160@74.97900,-4800x-400,1.066667,bitdepth,8";
+                    }{
+                        name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
+                        args = "1920x1080@60.00,0x0,1.0,bitdepth,8";
                     }];
                 };
                 yure = setTarget {

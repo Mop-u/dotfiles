@@ -46,7 +46,7 @@
             #xivlauncher
             plexamp
             gtkwave
-            inputs.quartus.packages.${system}.quartus-prime-lite-23
+            inputs.quartus.packages.${system}.quartus-prime-pro-24
             surfer
             #bambu-studio
             tageditor
