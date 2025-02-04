@@ -97,7 +97,7 @@
     };
 
     environment.sessionVariables = {
-        # NVIDIA
+
         LIBVA_DRIVER_NAME  = "iHD";     # default to intel hardware acceleration
         VDPAU_DRIVER       = "va_gl";   # intel vdpau fallback
         __GL_GSYNC_ALLOWED = "1";
@@ -109,6 +109,9 @@
         #__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
         #__GLX_VENDOR_LIBRARY_NAME          = "nvidia";
         #__VK_LAYER_NV_optimus              = "NVIDIA_only";
+
+        # Default to NVIDIA card for hyprland session (Main monitor is 5120x2160)
+        AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
     };
     programs.steam.gamescopeSession = {
         env = {
