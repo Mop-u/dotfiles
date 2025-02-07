@@ -187,14 +187,6 @@ in {
                             command = ["veridian"];
                             selector = "source.systemverilog";
                         };
-                        verilbe = {
-                            enabled = if target.lib.isInstalled pkgs.verible then true else false;
-                            command = [
-                                "verible-verilog-ls"
-                                "--rules_config_search"
-                            ];
-                            selector = "source.systemverilog";
-                        };
                         nil = {
                             enabled = if target.lib.isInstalled pkgs.nil then true else false;
                             command = ["nil"];
@@ -206,16 +198,6 @@ in {
                                     autoEvalInputs = true;
                                 };
                             };
-                        };
-                        slang = {
-                            enabled = if target.lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools then true else false;
-                            command = ["slang-lsp"];
-                            selector = "source.systemverilog";
-                        };
-                        svls = {
-                            enabled = if target.lib.isInstalled pkgs.svls then true else false;
-                            command = ["svls"];
-                            selector = "source.systemverilog";
                         };
                     };
                 };

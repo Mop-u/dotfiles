@@ -140,15 +140,10 @@
         samba
         ssh-to-age
         fastfetch
-        (verilator.overrideAttrs{extraBuildInputs=[pkgs.zlib];})
-        verible
-        verilog
         nil
-        haskellPackages.sv2v
         gnumake
         gcc
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
-        #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
         foot.terminfo
         smartmontools
     ];
