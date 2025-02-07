@@ -17,6 +17,23 @@ in {
         home.packages = with pkgs; [
             sublime4
             sublime-merge
+            (let source = inputs.veridian; in rustPlatform.buildRustPackage {
+                pname = "veridian";
+                version = source.rev;#"0.1.0";
+                src = source;
+                useFetchCargoVendor = true;
+                cargoLock.lockFile = "${source}/Cargo.lock";
+                nativeBuildInputs = [
+                    verilator
+                    verible
+                    sv-lang
+                ];
+                buildInputs = [
+                    verilator
+                    verible
+                    sv-lang
+                ];
+            })
         ];
         wayland.windowManager.hyprland.settings = {
             windowrulev2 = [
@@ -165,6 +182,11 @@ in {
                 target = stextCfg + "/LSP.sublime-settings";
                 text = builtins.toJSON {
                     clients = {
+                        veridian = {
+                            enabled = true;
+                            command = ["veridian"];
+                            selector = "source.systemverilog";
+                        };
                         verilbe = {
                             enabled = if target.lib.isInstalled pkgs.verible then true else false;
                             command = [

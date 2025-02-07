@@ -58,6 +58,11 @@
             inputs.cache-domains.follows = "lancache-domains";
             inputs.monolithic.follows = "lancache-monolithic";
         };
+
+        veridian = {
+            url = "github:vivekmalneedi/veridian";
+            flake = false;
+        };
         
         nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";
