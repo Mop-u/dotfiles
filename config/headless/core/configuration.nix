@@ -144,6 +144,7 @@
         gnumake
         gcc
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
+        inputs.veridian-nix.packages.${pkgs.system}.veridian
         foot.terminfo
         smartmontools
     ];

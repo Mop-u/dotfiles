@@ -17,23 +17,6 @@ in {
         home.packages = with pkgs; [
             sublime4
             sublime-merge
-            (let source = inputs.veridian; in rustPlatform.buildRustPackage {
-                pname = "veridian";
-                version = source.rev;#"0.1.0";
-                src = source;
-                useFetchCargoVendor = true;
-                cargoLock.lockFile = "${source}/Cargo.lock";
-                nativeBuildInputs = [
-                    verilator
-                    verible
-                    sv-lang
-                ];
-                buildInputs = [
-                    verilator
-                    verible
-                    sv-lang
-                ];
-            })
         ];
         wayland.windowManager.hyprland.settings = {
             windowrulev2 = [
@@ -142,7 +125,7 @@ in {
                     debug = false;
                     linters = {
                         verilator = {
-                            disable = if target.lib.isInstalled pkgs.verilator then false else true;
+                            disable = target.lib.isInstalled pkgs.verilator;
                             lint_mode = "load_save";
                             styles = [
                                 {
@@ -183,12 +166,12 @@ in {
                 text = builtins.toJSON {
                     clients = {
                         veridian = {
-                            enabled = true;
+                            enabled = target.lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
                             command = ["veridian"];
                             selector = "source.systemverilog";
                         };
                         nil = {
-                            enabled = if target.lib.isInstalled pkgs.nil then true else false;
+                            enabled = target.lib.isInstalled pkgs.nil;
                             command = ["nil"];
                             selector = "source.nix";
                             # https://github.com/oxalica/nil/blob/main/docs/configuration.md

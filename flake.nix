@@ -59,9 +59,8 @@
             inputs.monolithic.follows = "lancache-monolithic";
         };
 
-        veridian = {
-            url = "github:vivekmalneedi/veridian";
-            flake = false;
+        veridian-nix = {
+            url = "github:Mop-u/veridian-nix";
         };
         
         nonfree-fonts = {
