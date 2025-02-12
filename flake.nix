@@ -61,6 +61,7 @@
 
         veridian-nix = {
             url = "github:Mop-u/veridian-nix";
+            #url = "git+file:../veridian-nix";
         };
         
         nonfree-fonts = {

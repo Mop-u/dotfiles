@@ -115,6 +115,7 @@ in {
                 target = stextCfg + "/SystemVerilog.sublime-settings";
                 text = builtins.toJSON {
                     "sv.disable_autocomplete" = true;
+                    "sv.tooltip" = false;
                 };
             };
             stextSublimeLinterCfg = {

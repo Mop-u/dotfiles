@@ -1321,11 +1321,11 @@
         "veridian": "veridian"
       },
       "locked": {
-        "lastModified": 1739377871,
-        "narHash": "sha256-K1UL/REa7RM/A+/kpAmzqlLWvgQU2LkZk8QL1PjErXg=",
+        "lastModified": 1739387702,
+        "narHash": "sha256-uWMl6jMgyRd5ZvWuv7uA3EMC+IUf/guyb3CBWZcxsP8=",
         "owner": "Mop-u",
         "repo": "veridian-nix",
-        "rev": "21c07f976f9571c93a80282e89f335111a32be76",
+        "rev": "46f817d8f8895b533a9d2d392c2546e02190d022",
         "type": "github"
       },
       "original": {
