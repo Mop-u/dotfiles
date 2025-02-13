@@ -104,6 +104,7 @@
             enable = true;
             target = "/home/${target.userName}/.config/systemd/user/waybar.service.d/dropin.conf";
             text = ''
+                [Service]
                 RestartSec=5
             '';
         };
