@@ -17,6 +17,11 @@ in {
         home.packages = with pkgs; [
             sublime4
             sublime-merge
+            #inputs.veridian-nix.packages.${pkgs.system}.veridian
+            #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
+            #svls
+            #verilator
+            verible
         ];
         wayland.windowManager.hyprland.settings = {
             windowrulev2 = [
@@ -166,6 +171,14 @@ in {
                 target = stextCfg + "/LSP.sublime-settings";
                 text = builtins.toJSON {
                     clients = {
+                        verilbe = {
+                            enabled = target.lib.isInstalled pkgs.verible;
+                            command = [
+                                "verible-verilog-ls"
+                                "--rules_config_search"
+                            ];
+                            selector = "source.systemverilog";
+                        };
                         veridian = {
                             enabled = target.lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
                             command = ["veridian"];
@@ -182,6 +195,16 @@ in {
                                     autoEvalInputs = true;
                                 };
                             };
+                        };
+                        slang = {
+                            enabled = target.lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools;
+                            command = ["slang-lsp"];
+                            selector = "source.systemverilog";
+                        };
+                        svls = {
+                            enabled = target.lib.isInstalled pkgs.svls;
+                            command = ["svls"];
+                            selector = "source.systemverilog";
                         };
                     };
                 };
