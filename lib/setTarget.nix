@@ -69,7 +69,7 @@ rec {
             borderSize = (override.window.borderSize or "2") + "";
             rounding = (override.window.rounding or "10") + "";
             opacity = rec {
-                hex = override.window.opacity or "d9";
+                hex = override.window.opacity or "ee";
                 dec = ((inputs.nix-colors.lib.conversions.hexToDec hex)+0.0) / 255.0;
             };
         };

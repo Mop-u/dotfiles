@@ -12,11 +12,12 @@
     };
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
         nix-colors.url = "github:misterio77/nix-colors";
 
-        aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+        aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-24.11";
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
@@ -27,6 +28,7 @@
             url = "https://github.com/hyprwm/Hyprland";
             type = "git";
             submodules = true;
+            inputs.nixpkgs.follows = "nixpkgs";
         };
 
         waybar = {
@@ -38,7 +40,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "github:nix-community/home-manager/release-24.11";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         catppuccin = {

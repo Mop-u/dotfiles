@@ -111,7 +111,7 @@
         #__VK_LAYER_NV_optimus              = "NVIDIA_only";
 
         # Default to NVIDIA card for hyprland session (Main monitor is 5120x2160)
-        AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
+        #AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
     };
     programs.steam.gamescopeSession = {
         env = {

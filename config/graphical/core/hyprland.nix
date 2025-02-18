@@ -147,11 +147,7 @@
                 };
 
                 render = {
-                    direct_scanout = false; # Try turning this off if fullscreen windows/games crash instantly
-                };
-
-                opengl = {
-                    nvidia_anti_flicker = false;
+                    direct_scanout = 2; # Try turning this off if fullscreen windows/games crash instantly
                 };
 
                 misc = {

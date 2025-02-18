@@ -46,7 +46,13 @@
             #xivlauncher
             plexamp
             gtkwave
-            inputs.quartus.packages.${system}.quartus-prime-pro-24
+            #inputs.quartus.packages.${system}.quartus-prime-pro-24
+            #(inputs.quartus.packages.${system}.quartus-prime-lite{devices=["cyclonev"];})
+            (inputs.quartus.packages.${system}.mkQuartus {
+                edition = "pro";
+                version = 24;
+                devices=["cyclone10gx"];
+            })
             surfer
             #bambu-studio
             tageditor
