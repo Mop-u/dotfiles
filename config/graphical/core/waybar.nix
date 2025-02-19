@@ -5,7 +5,7 @@
         programs.waybar = {
             enable = true;
             systemd.enable = true;
-            package = inputs.waybar.packages.${pkgs.system}.waybar;
+            #package = inputs.waybar.packages.${pkgs.system}.waybar;
             settings.mainBar = {
                 layer = "top";
                 position = "top";
@@ -96,7 +96,7 @@
                     font-weight: bold;
                 }
                 #tray {
-                    margin-right: 12;
+                    margin-right: 12px;
                 }
             '';
         };

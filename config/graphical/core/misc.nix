@@ -48,10 +48,12 @@
             gtkwave
             #inputs.quartus.packages.${system}.quartus-prime-pro-24
             #(inputs.quartus.packages.${system}.quartus-prime-lite{devices=["cyclonev"];})
-            (inputs.quartus.packages.${system}.mkQuartus {
+            (inputs.quartus.packages.${system}.mkVersion {
                 edition = "pro";
                 version = 24;
-                devices=["cyclone10gx"];
+                extraArgs = {
+                    devices=["cyclone10gx"];
+                };
             })
             surfer
             #bambu-studio

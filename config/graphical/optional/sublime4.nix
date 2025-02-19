@@ -171,7 +171,7 @@ in {
                 target = stextCfg + "/LSP.sublime-settings";
                 text = builtins.toJSON {
                     clients = {
-                        verilbe = {
+                        verible = {
                             enabled = target.lib.isInstalled pkgs.verible;
                             command = [
                                 "verible-verilog-ls"

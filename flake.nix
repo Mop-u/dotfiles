@@ -31,10 +31,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        waybar = {
-            url = "github:Alexays/Waybar";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         hyprswitch = {
             url = "github:h3rmt/hyprswitch/release";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -80,7 +76,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         quartus = {
-            url = "github:Mop-u/nix-quartus";
+            url = "github:Mop-u/nix-quartus/ux";
             #url = "git+file:../nix-quartus";
             inputs.nixpkgs.follows = "nixpkgs";
         };
