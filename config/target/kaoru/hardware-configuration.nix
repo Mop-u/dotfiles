@@ -110,8 +110,10 @@
         #__GLX_VENDOR_LIBRARY_NAME          = "nvidia";
         #__VK_LAYER_NV_optimus              = "NVIDIA_only";
 
-        # Default to NVIDIA card for hyprland session (Main monitor is 5120x2160)
-        #AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
+        AQ_DRM_DEVICES = let
+            dGPU = "/dev/dri/card0";
+            iGPU = "/dev/dri/card1";
+        in builtins.concatStringsSep ":" [ iGPU dGPU ]; 
     };
     programs.steam.gamescopeSession = {
         env = {
