@@ -1,10 +1,9 @@
-{ inputs, config, pkgs, lib, target, ... }: let
+{ inputs, config, pkgs, lib, ... }: let
 
-    modules = builtins.map (module: import module {inherit inputs config pkgs lib target;})([
+    modules = builtins.map (module: import module {inherit inputs config pkgs lib;})([
         #./optional/kmscon.nix
     ] 
-    ++ (target.lib.lsFiles ./core)
-    ++ (target.lib.lsFiles (lib.path.append ../target target.hostName))
+    ++ (lib.lsFiles ./core)
     );
 
-in target.lib.recursiveMerge modules
+in lib.recursiveMerge modules

@@ -1,6 +1,6 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
         programs.zsh.enable = true;
         programs.zoxide.enable = true;
         programs.oh-my-posh.enable = true;
@@ -34,33 +34,33 @@
                 auto = false;
             };
             palette = {
-                accent    = "#${target.style.catppuccin.highlight.hex}";
-                rosewater = "#${target.style.catppuccin.rosewater.hex}";
-                flamingo  = "#${target.style.catppuccin.flamingo.hex}";
-                pink      = "#${target.style.catppuccin.pink.hex}";
-                mauve     = "#${target.style.catppuccin.mauve.hex}";
-                red       = "#${target.style.catppuccin.red.hex}";
-                maroon    = "#${target.style.catppuccin.maroon.hex}";
-                peach     = "#${target.style.catppuccin.peach.hex}";
-                yellow    = "#${target.style.catppuccin.yellow.hex}";
-                green     = "#${target.style.catppuccin.green.hex}";
-                teal      = "#${target.style.catppuccin.teal.hex}";
-                sky       = "#${target.style.catppuccin.sky.hex}";
-                sapphire  = "#${target.style.catppuccin.sapphire.hex}";
-                blue      = "#${target.style.catppuccin.blue.hex}";
-                lavender  = "#${target.style.catppuccin.lavender.hex}";
-                text      = "#${target.style.catppuccin.text.hex}";
-                subtext1  = "#${target.style.catppuccin.subtext1.hex}";
-                subtext0  = "#${target.style.catppuccin.subtext0.hex}";
-                overlay2  = "#${target.style.catppuccin.overlay2.hex}";
-                overlay1  = "#${target.style.catppuccin.overlay1.hex}";
-                overlay0  = "#${target.style.catppuccin.overlay0.hex}";
-                surface2  = "#${target.style.catppuccin.surface2.hex}";
-                surface1  = "#${target.style.catppuccin.surface1.hex}";
-                surface0  = "#${target.style.catppuccin.surface0.hex}";
-                base      = "#${target.style.catppuccin.base.hex}";
-                mantle    = "#${target.style.catppuccin.mantle.hex}";
-                crust     = "#${target.style.catppuccin.crust.hex}";
+                accent    = "#${config.sidonia.style.catppuccin.highlight.hex}";
+                rosewater = "#${config.sidonia.style.catppuccin.rosewater.hex}";
+                flamingo  = "#${config.sidonia.style.catppuccin.flamingo.hex}";
+                pink      = "#${config.sidonia.style.catppuccin.pink.hex}";
+                mauve     = "#${config.sidonia.style.catppuccin.mauve.hex}";
+                red       = "#${config.sidonia.style.catppuccin.red.hex}";
+                maroon    = "#${config.sidonia.style.catppuccin.maroon.hex}";
+                peach     = "#${config.sidonia.style.catppuccin.peach.hex}";
+                yellow    = "#${config.sidonia.style.catppuccin.yellow.hex}";
+                green     = "#${config.sidonia.style.catppuccin.green.hex}";
+                teal      = "#${config.sidonia.style.catppuccin.teal.hex}";
+                sky       = "#${config.sidonia.style.catppuccin.sky.hex}";
+                sapphire  = "#${config.sidonia.style.catppuccin.sapphire.hex}";
+                blue      = "#${config.sidonia.style.catppuccin.blue.hex}";
+                lavender  = "#${config.sidonia.style.catppuccin.lavender.hex}";
+                text      = "#${config.sidonia.style.catppuccin.text.hex}";
+                subtext1  = "#${config.sidonia.style.catppuccin.subtext1.hex}";
+                subtext0  = "#${config.sidonia.style.catppuccin.subtext0.hex}";
+                overlay2  = "#${config.sidonia.style.catppuccin.overlay2.hex}";
+                overlay1  = "#${config.sidonia.style.catppuccin.overlay1.hex}";
+                overlay0  = "#${config.sidonia.style.catppuccin.overlay0.hex}";
+                surface2  = "#${config.sidonia.style.catppuccin.surface2.hex}";
+                surface1  = "#${config.sidonia.style.catppuccin.surface1.hex}";
+                surface0  = "#${config.sidonia.style.catppuccin.surface0.hex}";
+                base      = "#${config.sidonia.style.catppuccin.base.hex}";
+                mantle    = "#${config.sidonia.style.catppuccin.mantle.hex}";
+                crust     = "#${config.sidonia.style.catppuccin.crust.hex}";
             };
             blocks = [{
                 type = "prompt";

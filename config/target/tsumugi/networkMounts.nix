@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, target, ... }: let
+{ inputs, config, pkgs, lib, ... }: let
     mntBenisuzume = name: {
         fsType = "nfs";
         device = "10.0.4.3:/var/nfs/shared/${name}";

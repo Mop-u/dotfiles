@@ -1,7 +1,7 @@
-{inputs, config, pkgs, lib, target, ... }: let
+{inputs, config, pkgs, lib, ... }: let
     withVencord = true;
 in {
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
         home.packages = [
             (pkgs.discord.override {
                 withOpenASAR = true;
@@ -12,10 +12,10 @@ in {
         home.file.vencord = {
             enable = withVencord;
             executable = false;
-            target = "/home/${target.userName}/.config/Vencord/settings/quickCss.css";
+            target = "/home/${config.sidonia.userName}/.config/Vencord/settings/quickCss.css";
             text = ''
-                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${target.style.catppuccin.flavor}.theme.css");
-                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${target.style.catppuccin.flavor}-${target.style.catppuccin.accent}.theme.css");
+                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${config.sidonia.style.catppuccin.flavor}.theme.css");
+                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${config.sidonia.style.catppuccin.flavor}-${config.sidonia.style.catppuccin.accent}.theme.css");
             '';
         };
     };

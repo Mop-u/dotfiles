@@ -1,4 +1,4 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
     
     security = {
@@ -19,8 +19,8 @@
             gamescopeSession.enable = true;
         };
 
-        anime-game-launcher.enable = !target.graphics.legacyGpu; # genshin
-        sleepy-launcher.enable = !target.graphics.legacyGpu; # zzz
+        anime-game-launcher.enable = !config.sidonia.graphics.legacyGpu; # genshin
+        sleepy-launcher.enable = !config.sidonia.graphics.legacyGpu; # zzz
 
         honkers-railway-launcher.enable = false;
         honkers-launcher.enable = false;
@@ -40,7 +40,7 @@
         };
     };
 
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
 
         home.packages = with pkgs; [
             # Hyprland / core apps

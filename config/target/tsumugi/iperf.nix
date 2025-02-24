@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, target, ... }:
+{ inputs, config, pkgs, lib, ... }:
 {
     services.iperf3 = {
         enable = true;

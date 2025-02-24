@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, target, ... }:
+{ inputs, config, pkgs, lib, ... }:
 {
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
     networking.firewall.allowedTCPPorts = [

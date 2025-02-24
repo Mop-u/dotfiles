@@ -1,25 +1,27 @@
-{inputs, config, pkgs, lib, target, ... }: let
-
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+    inherit (cfg) window;
+    theme = cfg.style.catppuccin;
     bemenu = rec {
         placement = " -nciwl '16 down' --single-instance --width-factor 0.33";
-        border    = " --border ${target.window.borderSize} --border-radius ${target.window.rounding}";
-        tb        = " --tb '##${target.style.catppuccin.base.hex}${target.window.opacity.hex}'";
-        fb        = " --fb '##${target.style.catppuccin.base.hex}${target.window.opacity.hex}'";
-        nb        = " --nb '##${target.style.catppuccin.base.hex}${target.window.opacity.hex}'";
-        ab        = " --ab '##${target.style.catppuccin.base.hex}${target.window.opacity.hex}'";
-        hb        = " --hb '##${target.style.catppuccin.base.hex}${target.window.opacity.hex}'";
-        tf        = " --tf '##${target.style.catppuccin.highlight.hex}'";
-        ff        = " --ff '##${target.style.catppuccin.text.hex}'";
-        nf        = " --nf '##${target.style.catppuccin.text.hex}'";
-        af        = " --af '##${target.style.catppuccin.text.hex}'";
-        hf        = " --hf '##${target.style.catppuccin.highlight.hex}'";
-        bdr       = " --bdr '##${target.style.catppuccin.highlight.hex}'";
+        border    = " --border ${builtins.toString window.borderSize} --border-radius ${builtins.toString window.rounding}";
+        tb        = " --tb '##${theme.base.hex}${window.opacity.hex}'";
+        fb        = " --fb '##${theme.base.hex}${window.opacity.hex}'";
+        nb        = " --nb '##${theme.base.hex}${window.opacity.hex}'";
+        ab        = " --ab '##${theme.base.hex}${window.opacity.hex}'";
+        hb        = " --hb '##${theme.base.hex}${window.opacity.hex}'";
+        tf        = " --tf '##${theme.highlight.hex}'";
+        ff        = " --ff '##${theme.text.hex}'";
+        nf        = " --nf '##${theme.text.hex}'";
+        af        = " --af '##${theme.text.hex}'";
+        hf        = " --hf '##${theme.highlight.hex}'";
+        bdr       = " --bdr '##${theme.highlight.hex}'";
         font      = " --fn monospace";
         opts = placement + border + tb + fb + nb + ab + hb + tf + ff + nf + af + hf + bdr + font;
     };
 
 in {
-    home-manager.users.${target.userName} = {
+    home-manager.users.${cfg.userName} = {
         programs.bemenu.enable = true;
         wayland.windowManager.hyprland.settings.bind = [
             "SUPER, P, exec, bemenu-run ${bemenu.opts}"

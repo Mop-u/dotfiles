@@ -1,35 +1,35 @@
 # tty with modern font rendering
 # https://github.com/Aetf/kmscon
-{ config, pkgs, inputs, lib, target, ... }: let
+{ config, pkgs, inputs, lib, ... }: let
     configDir = pkgs.writeTextFile {
         name = "kmscon-config";
         destination = "/kmscon.conf";
         text = ''
-            xkb-layout=${target.input.keyLayout}
+            xkb-layout=${config.sidonia.input.keyLayout}
 
             font-size=14
 
             palette=custom
-            palette-foreground=${target.style.catppuccin.text.rgb}
-            palette-background=${target.style.catppuccin.base.rgb}
+            palette-foreground=${config.sidonia.style.catppuccin.text.rgb}
+            palette-background=${config.sidonia.style.catppuccin.base.rgb}
 
-            palette-black=${target.style.catppuccin.surface1.rgb}
-            palette-red=${target.style.catppuccin.red.rgb}
-            palette-green=${target.style.catppuccin.green.rgb}
-            palette-yellow=${target.style.catppuccin.peach.rgb}
-            palette-blue=${target.style.catppuccin.blue.rgb}
-            palette-magenta=${target.style.catppuccin.pink.rgb}
-            palette-cyan=${target.style.catppuccin.lavender.rgb}
-            palette-light-grey=${target.style.catppuccin.subtext1.rgb}
+            palette-black=${config.sidonia.style.catppuccin.surface1.rgb}
+            palette-red=${config.sidonia.style.catppuccin.red.rgb}
+            palette-green=${config.sidonia.style.catppuccin.green.rgb}
+            palette-yellow=${config.sidonia.style.catppuccin.peach.rgb}
+            palette-blue=${config.sidonia.style.catppuccin.blue.rgb}
+            palette-magenta=${config.sidonia.style.catppuccin.pink.rgb}
+            palette-cyan=${config.sidonia.style.catppuccin.lavender.rgb}
+            palette-light-grey=${config.sidonia.style.catppuccin.subtext1.rgb}
 
-            palette-dark-grey=${target.style.catppuccin.surface2.rgb}
-            palette-light-red=${target.style.catppuccin.maroon.rgb}
-            palette-light-green=${target.style.catppuccin.teal.rgb}
-            palette-light-yellow=${target.style.catppuccin.yellow.rgb}
-            palette-light-blue=${target.style.catppuccin.sky.rgb}
-            palette-light-magenta=${target.style.catppuccin.flamingo.rgb}
-            palette-light-cyan=${target.style.catppuccin.sapphire.rgb}
-            palette-white=${target.style.catppuccin.text.rgb}
+            palette-dark-grey=${config.sidonia.style.catppuccin.surface2.rgb}
+            palette-light-red=${config.sidonia.style.catppuccin.maroon.rgb}
+            palette-light-green=${config.sidonia.style.catppuccin.teal.rgb}
+            palette-light-yellow=${config.sidonia.style.catppuccin.yellow.rgb}
+            palette-light-blue=${config.sidonia.style.catppuccin.sky.rgb}
+            palette-light-magenta=${config.sidonia.style.catppuccin.flamingo.rgb}
+            palette-light-cyan=${config.sidonia.style.catppuccin.sapphire.rgb}
+            palette-white=${config.sidonia.style.catppuccin.text.rgb}
 
             ${if config.hardware.graphics.enable then ''
                 drm

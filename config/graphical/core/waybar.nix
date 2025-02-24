@@ -1,6 +1,6 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
         catppuccin.waybar.enable = true;
         programs.waybar = {
             enable = true;
@@ -42,11 +42,11 @@
                         weeks-pos = "right";
                         on-scroll = 1;
                         format = {
-                            months   = "<span color='#${target.style.catppuccin.text.hex}'><b>{}</b></span>";
-                            days     = "<span color='#${target.style.catppuccin.subtext0.hex}'><b>{}</b></span>";
-                            weeks    = "<span color='#${target.style.catppuccin.overlay0.hex}'><b>W{}</b></span>";
-                            weekdays = "<span color='#${target.style.catppuccin.overlay0.hex}'><b>{}</b></span>";
-                            today    = "<span color='#${target.style.catppuccin.highlight.hex}'><b><u>{}</u></b></span>";
+                            months   = "<span color='#${config.sidonia.style.catppuccin.text.hex}'><b>{}</b></span>";
+                            days     = "<span color='#${config.sidonia.style.catppuccin.subtext0.hex}'><b>{}</b></span>";
+                            weeks    = "<span color='#${config.sidonia.style.catppuccin.overlay0.hex}'><b>W{}</b></span>";
+                            weekdays = "<span color='#${config.sidonia.style.catppuccin.overlay0.hex}'><b>{}</b></span>";
+                            today    = "<span color='#${config.sidonia.style.catppuccin.highlight.hex}'><b><u>{}</u></b></span>";
                         };
                     };
                     actions = {
@@ -81,7 +81,7 @@
                 };
             };
             style = ''
-                @define-color accent @${target.style.catppuccin.accent};
+                @define-color accent @${config.sidonia.style.catppuccin.accent};
                 #workspaces button {
                     color: @subtext0;
                     background-color: @base;
@@ -102,7 +102,7 @@
         };
         home.file.waybarDropin = {
             enable = true;
-            target = "/home/${target.userName}/.config/systemd/user/waybar.service.d/dropin.conf";
+            target = "/home/${config.sidonia.userName}/.config/systemd/user/waybar.service.d/dropin.conf";
             text = ''
                 [Service]
                 RestartSec=5

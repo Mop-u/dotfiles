@@ -1,9 +1,10 @@
-{inputs, config, pkgs, lib, target, ... }: let
-    configFile = "/home/${target.userName}/.config/hypr/hyprswitch.css";
-    pkg = inputs.hyprswitch.packages.${pkgs.system}.default;
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+    configFile = "/home/${config.sidonia.userName}/.config/hypr/hyprswitch.css";
+    hyprswitch = inputs.hyprswitch.packages.${pkgs.system}.default;
 in {
-    home-manager.users.${target.userName} = {
-        home.packages = [pkg];
+    home-manager.users.${config.sidonia.userName} = {
+        home.packages = [hyprswitch];
 
         wayland.windowManager.hyprland.settings = let
             mod = "SUPER";
@@ -21,7 +22,12 @@ in {
             enable = true;
             executable = false;
             target = configFile;
-            text = ''
+            text = let
+                rounding = builtins.toString cfg.window.rounding;
+                borderSize = builtins.toString cfg.window.borderSize;
+                opacity = cfg.window.opacity.hex;
+                theme = cfg.style.catppuccin;
+            in ''
                 .client-image {
                     margin: 15px;
                 }
@@ -31,19 +37,19 @@ in {
                     padding: 5px;
                     font-size: inherit;
                     font-weight: bold;
-                    border-radius: ${target.window.rounding}px;
+                    border-radius: ${rounding}px;
                     border: none;
                     background-color: inherit;
                 }
 
                 .client {
-                    border-radius: ${target.window.rounding}px;
+                    border-radius: ${rounding}px;
                     border: none;
                     background-color: inherit;
                 }
 
                 .client:hover {
-                    color: #${target.style.catppuccin.highlight.hex};
+                    color: #${theme.highlight.hex};
                     background-color: inherit;
                 }
 
@@ -54,7 +60,7 @@ in {
                 .workspace {
                     font-size: inherit;
                     font-weight: bold;
-                    border-radius: ${target.window.rounding}px;
+                    border-radius: ${rounding}px;
                     border: none;
                     background-color: inherit;
                 }
@@ -68,17 +74,17 @@ in {
                 }
 
                 .index {
-                    border-radius: ${target.window.rounding}px;
+                    border-radius: ${rounding}px;
                     border: none;
                     background-color: inherit;
                 }
 
                 window {
                     font-size: 18px;
-                    color: #${target.style.catppuccin.text.hex};
-                    border-radius: ${target.window.rounding}px;
-                    background-color: #${target.style.catppuccin.base.hex}${target.window.opacity.hex};
-                    border: ${target.window.borderSize}px solid #${target.style.catppuccin.highlight.hex};
+                    color: #${theme.text.hex};
+                    border-radius: ${rounding}px;
+                    background-color: #${theme.base.hex}${opacity};
+                    border: ${borderSize}px solid #${theme.highlight.hex};
                     opacity: initial;
                 }
             '';
@@ -88,7 +94,7 @@ in {
         enable = true;
         wantedBy = ["hyprland-session.target"];
         serviceConfig = {
-            ExecStart = "${pkg}/bin/hyprswitch init --show-title --custom-css '${configFile}'";
+            ExecStart = "${hyprswitch}/bin/hyprswitch init --show-title --custom-css '${configFile}'";
         };
         unitConfig = {
             Description = "Hyprland workspace switcher";

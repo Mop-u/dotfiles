@@ -1,10 +1,16 @@
-{inputs, config, pkgs, lib, target, ... }:
-{
-    home-manager.users.${target.userName} = {
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+in {
+    home-manager.users.${cfg.userName} = {
         catppuccin.dunst.enable = false; # using our own values as overriding background breaks opacity
         services.dunst = {
             enable = true;
-            settings = {
+            settings = let
+                theme = cfg.style.catppuccin;
+                rounding = builtins.toString cfg.window.rounding;
+                borderSize = builtins.toString cfg.window.borderSize;
+                opacity = cfg.window.opacity.hex;
+            in {
                 # https://dunst-project.org/documentation/
                 global = {
                     width = 400;
@@ -17,25 +23,25 @@
                     enable_recursive_icon_lookup = true;
                     dmenu = "bemenu -p dunst";
                     layer = "overlay";
-                    frame_width = target.window.borderSize;
-                    corner_radius = target.window.rounding;
-                    highlight       = "#${target.style.catppuccin.highlight.hex}";
-                    separator_color = "#${target.style.catppuccin.highlight.hex}";
+                    frame_width = borderSize;
+                    corner_radius = rounding;
+                    highlight       = "#${theme.highlight.hex}";
+                    separator_color = "#${theme.highlight.hex}";
                 };
                 urgency_low = {
-                    background  = "#${target.style.catppuccin.base.hex+target.window.opacity.hex}";
-                    foreground  = "#${target.style.catppuccin.text.hex}";
-                    frame_color = "#${target.style.catppuccin.highlight.hex}";
+                    background  = "#${theme.base.hex+opacity}";
+                    foreground  = "#${theme.text.hex}";
+                    frame_color = "#${theme.highlight.hex}";
                 };
                 urgency_normal = {
-                    background  = "#${target.style.catppuccin.base.hex+target.window.opacity.hex}";
-                    foreground  = "#${target.style.catppuccin.text.hex}";
-                    frame_color = "#${target.style.catppuccin.highlight.hex}";
+                    background  = "#${theme.base.hex+opacity}";
+                    foreground  = "#${theme.text.hex}";
+                    frame_color = "#${theme.highlight.hex}";
                 };
                 urgency_high = {
-                    background  = "#${target.style.catppuccin.base.hex+target.window.opacity.hex}";
-                    foreground  = "#${target.style.catppuccin.text.hex}";
-                    frame_color = "#${target.style.catppuccin.red.hex}";
+                    background  = "#${theme.base.hex+opacity}";
+                    foreground  = "#${theme.text.hex}";
+                    frame_color = "#${theme.red.hex}";
                 };
             };
         };

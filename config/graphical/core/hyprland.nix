@@ -1,9 +1,10 @@
-{inputs, config, pkgs, lib, target, ... }:
-{
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+in {
 
     nixpkgs.overlays = [
         (final: prev: {
-            hyprland = (inputs.hyprland.packages.${pkgs.system}.hyprland.override{legacyRenderer=target.graphics.legacyGpu;});
+            hyprland = (inputs.hyprland.packages.${pkgs.system}.hyprland.override{legacyRenderer=cfg.graphics.legacyGpu;});
         })
     ];
 
@@ -12,11 +13,34 @@
         portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
     };
 
-    home-manager.users.${target.userName} = {
+    home-manager.users.${cfg.userName} = let
+        monitors = with lib; builtins.map ( monitor: let 
+            hasHz = monitor.refresh != 0.0;
+            hasXtra = monitor.extraArgs != "";
+        in rec {
+            name = monitor.name;
+            args = concatStringsSep "," ([
+                (concatStringsSep "@" ([monitor.resolution] ++ (optional hasHz (strings.floatToString monitor.refresh))))
+                monitor.position
+                (strings.floatToString monitor.scale)
+            ] ++ (optional hasXtra monitor.extraArgs));
+            enable = concatStringsSep "," [name args];
+            disable = concatStringsSep "," [name "disable"];
+        })(
+            cfg.monitors ++ [{
+                name = "";
+                resolution = "highres";
+                position = "auto";
+                scale = 1.0;
+                refresh = 0.0;
+                extraArgs = "";
+            }]
+        );
+    in {
         home.packages = [pkgs.hyprcursor];
         home.file.xdphCfg = {
             enable = true;
-            target = "/home/${target.userName}/.config/hypr/xdph.conf";
+            target = "/home/${cfg.userName}/.config/hypr/xdph.conf";
             text = ''
                 screencopy {
                     max_fps = 60
@@ -31,7 +55,7 @@
             systemd.enableXdgAutostart = true;
             xwayland.enable = true;
             settings = {
-                monitor = builtins.concatMap (mon: [mon.enable]) target.monitors;
+                monitor = builtins.concatMap (mon: [mon.enable]) monitors;
 
                 xwayland = {
                     force_zero_scaling = true;
@@ -44,8 +68,8 @@
                     
                     # Theming specific #
                     "WLR_EGL_NO_MODIFIERS,0" # May help with multiple monitors
-                    "HYPRCURSOR_SIZE,${target.style.cursorSize.hypr}"
-                    "XCURSOR_SIZE,${target.style.cursorSize.gtk}"
+                    "HYPRCURSOR_SIZE,${builtins.toString cfg.style.cursorSize}"
+                    "XCURSOR_SIZE,${builtins.toString cfg.style.cursorSize}"
                     
                     # Toolkit backend vars #
                     "GSK_RENDERER,gl" # Temporary fix for Gdk-Message: Error 71 (Protocol error) dispatching to Wayland display
@@ -90,9 +114,9 @@
                 group.groupbar."col.locked_inactive"= "$overlay2";   # inactive locked group border color
 
                 # Colours:
-                group.groupbar.text_color        = "$text";  # controls the group bar text color
-                misc."col.splash"                = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
-                misc.background_color            = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
+                group.groupbar.text_color = "$text";  # controls the group bar text color
+                misc."col.splash"         = "$text";  # Changes the color of the splash text (requires a monitor reload to take effect).
+                misc.background_color     = "$crust"; # change the background color. (requires enabled disable_hyprland_logo)
                 
                 animations = {
                     enabled = true;
@@ -108,18 +132,18 @@
                 };
 
                 decoration = {
-                    rounding = target.window.rounding;
+                    rounding = cfg.window.rounding;
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
                     shadow = {
-                        enabled = !target.graphics.legacyGpu;
+                        enabled = !cfg.graphics.legacyGpu;
                         range = 12;
                         render_power = 2;
-                        color          = "rgba(${target.style.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
-                        color_inactive = "rgba(${target.style.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
+                        color          = "rgba(${cfg.style.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
+                        color_inactive = "rgba(${cfg.style.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                     };
                     blur = {
-                        enabled = !target.graphics.legacyGpu;
+                        enabled = !cfg.graphics.legacyGpu;
                         size = 3;
                         passes = 1;
                         vibrancy = 0.1696;
@@ -129,7 +153,7 @@
                 general = {
                     gaps_in = 5;
                     gaps_out = 20;
-                    border_size = target.window.borderSize;
+                    border_size = cfg.window.borderSize;
                     resize_on_border = false;
                     allow_tearing = true;
                     layout = "dwindle";
@@ -159,14 +183,14 @@
                 };
 
                 input = {
-                    kb_layout = target.input.keyLayout;
+                    kb_layout = cfg.input.keyLayout;
                     # kb_variant = 
                     # kb_model = 
                     # kb_options = 
                     # kb_rules = 
                     follow_mouse = 1;
-                    sensitivity = target.input.sensitivity;
-                    accel_profile = target.input.accelProfile;
+                    sensitivity = cfg.input.sensitivity;
+                    accel_profile = cfg.input.accelProfile;
                     touchpad = {
                         natural_scroll = true;
                         scroll_factor = 0.2;
@@ -183,14 +207,14 @@
 
                     "float, class:(nemo)"
 
-                    "float,                          class:.*, title:(Open File)"
-                    "size ${target.window.float.wh}, class:.*, title:(Open File)"
+                    "float,                       class:.*, title:(Open File)"
+                    "size ${cfg.window.float.wh}, class:.*, title:(Open File)"
                     
-                    "float,                          class:.*, title:(Save File)"
-                    "size ${target.window.float.wh}, class:.*, title:(Save File)"
+                    "float,                       class:.*, title:(Save File)"
+                    "size ${cfg.window.float.wh}, class:.*, title:(Save File)"
 
-                    "float,                          class:.*, title:(Select Folder)"
-                    "size ${target.window.float.wh}, class:.*, title:(Select Folder)"
+                    "float,                       class:.*, title:(Select Folder)"
+                    "size ${cfg.window.float.wh}, class:.*, title:(Select Folder)"
 
                     ## xwaylandvideobridge specific ##
                     #"opacity 0.0 override,class:^(xwaylandvideobridge)$"
@@ -219,8 +243,8 @@
                     ", XF86AudioPause, exec, playerctl play-pause"
                     ", XF86AudioPlay,  exec, playerctl play-pause"
                     ", XF86AudioPrev,  exec, playerctl previous"
-                ] ++ (lib.optional target.isLaptop 
-                    ", switch:on:Lid Switch, exec, hyprctl keyword monitor \"${(builtins.head target.monitors).disable}\""
+                ] ++ (lib.optional cfg.isLaptop 
+                    ", switch:on:Lid Switch, exec, hyprctl keyword monitor \"${(builtins.head monitors).disable}\""
                 );
                 binde = [
                     "SUPERALT,   H,         resizeactive, -10    0" # resize left
@@ -257,11 +281,11 @@
                                 in
                                     builtins.toString (x + 1 - (c * 10));
                             in [
-                                "SUPER,          ${ws},workspace,             ${toString (x + 1)}"
-                                "SUPERSHIFT,     ${ws},movetoworkspace,       ${toString (x + 1)}"
-                                "SUPERCONTROL,   ${ws},movetoworkspacesilent, ${toString (x + 1)}"
-                                "SUPERCONTROLALT,${ws},moveworkspacetomonitor,${toString (x + 1)} current"
-                                "SUPERCONTROLALT,${ws},workspace,             ${toString (x + 1)}"
+                                "SUPER,          ${ws},workspace,             ${builtins.toString (x + 1)}"
+                                "SUPERSHIFT,     ${ws},movetoworkspace,       ${builtins.toString (x + 1)}"
+                                "SUPERCONTROL,   ${ws},movetoworkspacesilent, ${builtins.toString (x + 1)}"
+                                "SUPERCONTROLALT,${ws},moveworkspacetomonitor,${builtins.toString (x + 1)} current"
+                                "SUPERCONTROLALT,${ws},workspace,             ${builtins.toString (x + 1)}"
                             ]
                         )
                     10)

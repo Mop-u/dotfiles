@@ -1,6 +1,6 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
         home.packages = [
             pkgs.vesktop
         ];
@@ -8,10 +8,10 @@
         home.file.vesktop = {
             enable = true;
             executable = false;
-            target = "/home/${target.userName}/.config/vesktop/settings/quickCss.css";
+            target = "/home/${config.sidonia.userName}/.config/vesktop/settings/quickCss.css";
             text = ''
-                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${target.style.catppuccin.flavor}.theme.css");
-                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${target.style.catppuccin.flavor}-${target.style.catppuccin.accent}.theme.css");
+                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${config.sidonia.style.catppuccin.flavor}.theme.css");
+                @import url("https://catppuccin.github.io/discord/dist/catppuccin-${config.sidonia.style.catppuccin.flavor}-${config.sidonia.style.catppuccin.accent}.theme.css");
             '';
         };
     };

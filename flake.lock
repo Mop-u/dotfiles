@@ -385,11 +385,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1740365530,
-        "narHash": "sha256-g9Q8wHAbjMOwJgTIV3XuKw7S47b/XnDOgtmQP0lswQI=",
+        "lastModified": 1740492189,
+        "narHash": "sha256-ulVWP6hjMT+aByXlqjaLSEywkfw8lbTwVg4K9J/j5f0=",
         "ref": "refs/heads/main",
-        "rev": "3458d7ac93a101ea534ef6d0bcbc32725e267045",
-        "revCount": 5840,
+        "rev": "f0850905f0275922340035f62b6d808c2980ceda",
+        "revCount": 5843,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -750,11 +750,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740275590,
-        "narHash": "sha256-UJ0ZsaMDcJk/dafSSdYtOF08Ofc6ZKjVkomocrzwb+U=",
+        "lastModified": 1740534523,
+        "narHash": "sha256-Cj9QjgP+spa7R6Y9SK8eW8BWqbbsqoel/w5IO/wXoEA=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "3ebed14b163cedb3f6f44d2d70386cb415e63455",
+        "rev": "eaf77b2110536430d43e6efde7d7670c9a0a79b6",
         "type": "github"
       },
       "original": {
@@ -824,11 +824,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1740162160,
-        "narHash": "sha256-SSYxFhqCOb3aiPb6MmN68yEzBIltfom8IgRz7phHscM=",
+        "lastModified": 1740463929,
+        "narHash": "sha256-4Xhu/3aUdCKeLfdteEHMegx5ooKQvwPHNkOgNCXQrvc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "11415c7ae8539d6292f2928317ee7a8410b28bb9",
+        "rev": "5d7db4668d7a0c6cc5fc8cf6ef33b008b2b1ed8b",
         "type": "github"
       },
       "original": {
@@ -938,11 +938,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740079178,
-        "narHash": "sha256-/yHXmkpB4g6U3Wjkg5O3MVVyFcLMWsjN/HTKgsjfAXo=",
+        "lastModified": 1740405652,
+        "narHash": "sha256-dO7/N+BQuiISo10gbz4yjlv29RjxWh1XJx2QxryxuIQ=",
         "owner": "Mop-u",
         "repo": "nix-quartus",
-        "rev": "3517a0f2016ea00b322a35a6e046995dc5ffb1ce",
+        "rev": "f7ebc8564e81c87ad6002056d52e5855faabfcd6",
         "type": "github"
       },
       "original": {
@@ -975,6 +975,7 @@
         "slang-lsp": "slang-lsp",
         "sops-nix": "sops-nix",
         "stextCatppuccin": "stextCatppuccin",
+        "stextHooks": "stextHooks",
         "stextLSP": "stextLSP",
         "stextNix": "stextNix",
         "stextPackageControl": "stextPackageControl",
@@ -1060,6 +1061,22 @@
       "original": {
         "owner": "catppuccin",
         "repo": "sublime-text",
+        "type": "github"
+      }
+    },
+    "stextHooks": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1441942539,
+        "narHash": "sha256-qPWK/IngqGM3H2NbYLVlEzgwZMDiJNyYJpeqWejEZBY=",
+        "owner": "twolfson",
+        "repo": "sublime-hooks",
+        "rev": "6117eb910eafe1a7d230fd1b889a4b2b88483b85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "twolfson",
+        "repo": "sublime-hooks",
         "type": "github"
       }
     },

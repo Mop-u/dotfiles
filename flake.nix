@@ -114,6 +114,10 @@
             url = "github:TheClams/SystemVerilog";
             flake = false;
         };
+        stextHooks = {
+            url = "github:twolfson/sublime-hooks";
+            flake = false;
+        };
 
         # plex packages
         plexHama = {
@@ -149,7 +153,7 @@
     outputs = { self, ... } @ inputs: {
         nixosConfigurations = let
             #TODO: add default package definitions etc. here as part of setTarget bringup
-            setTarget = (import ./lib/setTarget.nix {inherit self inputs;}).setTarget;
+            setTarget = (import ./lib/setTarget.nix {inherit inputs;}).setTarget;
             targets = {
                 kaoru = setTarget {
                     hostName = "kaoru";
@@ -161,13 +165,23 @@
                     isLaptop = true;
                     monitors = [{
                         name = "eDP-1";
-                        args = "2560x1600@165.00400,1920x0,1.333333,bitdepth,10";
+                        resolution = "2560x1600";
+                        refresh = 165.00400;
+                        scale = 1.333333;
+                        position = "6720x0";
+                        extraArgs = "bitdepth,10";
                     }{
                         name = "desc:Lenovo Group Limited P40w-20";
-                        args = "5120x2160@74.97900,-4800x-400,1.066667,bitdepth,8";
+                        resolution = "5120x2160";
+                        refresh = 74.97900;
+                        scale = 1.066667;
+                        position = "0x0";
                     }{
                         name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
-                        args = "1920x1080@60.00,0x0,1.0,bitdepth,8";
+                        resolution = "1920x1080";
+                        refresh = 60.00;
+                        scale = 1.0;
+                        position = "4800x400";
                     }];
                 };
                 yure = setTarget {
@@ -184,7 +198,6 @@
                     isLaptop = true;
                     monitors = [{
                         name = "LVDS-1";
-                        args = "highres,0x0,1";
                     }];
                 };
                 tsumugi = setTarget {
@@ -196,10 +209,41 @@
                     graphics.headless = true;
                 };
             };
-        in inputs.nixpkgs.lib.mapAttrs (n: target: (inputs.nixpkgs.lib.nixosSystem {
+        in inputs.nixpkgs.lib.mapAttrs (hostName: target: (inputs.nixpkgs.lib.nixosSystem {
             system = target.system;
-            specialArgs = {inherit inputs target;};
-            modules = target.modules;
+            specialArgs = {
+                inherit inputs; 
+                inherit (import inputs.nixpkgs { inherit (target) system;
+                    overlays = [((import ./lib/overlay.nix) {inherit (self.nixosConfigurations.${hostName}) config;})];
+                }) lib;
+            };
+            modules = [
+                ((import ./lib/module.nix) {inherit inputs;})
+                inputs.catppuccin.nixosModules.catppuccin
+                inputs.home-manager.nixosModules.home-manager
+                inputs.lancache.nixosModules.dns
+                inputs.lancache.nixosModules.cache
+                inputs.aagl.nixosModules.default
+                inputs.sops-nix.nixosModules.sops
+                inputs.nix-minecraft.nixosModules.minecraft-servers
+                inputs.quartus.nixosModules.quartus
+                ({inputs, config, pkgs, lib, ... }: let 
+                    modules = builtins.map (module: import module {inherit inputs config pkgs lib;})(
+                        (lib.lsFiles (lib.path.append ./config/target hostName))
+                    );
+                in lib.recursiveMerge modules)
+                ({inputs, config, pkgs, lib, ... }: let
+                    cfg = config.sidonia; 
+                in {
+                    sidonia = target.override;
+                    home-manager.users.${cfg.userName}.imports = [
+                        inputs.catppuccin.homeManagerModules.catppuccin
+                    ];
+
+                })
+                ./config/headless/default.nix
+                ./config/graphical/default.nix
+            ];
         })) targets;
     };
 }

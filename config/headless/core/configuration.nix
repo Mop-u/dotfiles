@@ -2,11 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, lib, target, ... }:
-{
+{ config, pkgs, inputs, lib, ... }: let
+    cfg = config.sidonia;
+in {
     boot.initrd.systemd.enable = true;
 
-    networking.hostName = target.hostName;
+    networking.hostName = config.sidonia.hostName;
 
     nix.gc.automatic = true;
     nix.settings.auto-optimise-store = true;
@@ -15,12 +16,12 @@
 
     sops.defaultSopsFile = ../../../secrets/secrets.yaml;
     sops.defaultSopsFormat = "yaml";
-    sops.age.keyFile = "/home/${target.userName}/.config/sops/age/keys.txt";
+    sops.age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
 
     catppuccin = {
         enable = true;
-        accent = target.style.catppuccin.accent;
-        flavor = target.style.catppuccin.flavor;
+        accent = config.sidonia.style.catppuccin.accent;
+        flavor = config.sidonia.style.catppuccin.flavor;
     };
 
     # Enable Graphics
@@ -108,12 +109,12 @@
         LC_TIME           = "en_IE.UTF-8";
     };
 
-    console.keyMap = target.input.keyLayout;
+    console.keyMap = config.sidonia.input.keyLayout;
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.${target.userName} = {
+    users.users.${config.sidonia.userName} = {
         isNormalUser = true;
-        description = target.lib.capitalize target.userName;
+        description = lib.capitalize config.sidonia.userName;
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [];
         shell = pkgs.zsh;
@@ -157,9 +158,9 @@
             nerdfonts # 24.11
             liberation_ttf
             meslo-lgs-nf
-        ] ++ (if target.text.comicCode.enable then [target.text.comicCode.package] else []);
+        ] ++ (lib.optional cfg.text.comicCode.enable  cfg.text.comicCode.package);
         fontconfig.defaultFonts = {
-            monospace = (if target.text.comicCode.enable then [target.text.comicCode.name] else []) ++ [ 
+            monospace = (lib.optional cfg.text.comicCode.enable cfg.text.comicCode.name) ++ [ 
                 "ComicShannsMono Nerd Font"
             ];
         };
@@ -171,5 +172,5 @@
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = target.stateVer;
+    system.stateVersion = config.sidonia.stateVer;
 }

@@ -1,10 +1,10 @@
-{ inputs, config, pkgs, lib, target, ... }: let
-
-    modules = builtins.map (module: import module {inherit inputs config pkgs lib target;})([
+{ inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+    modules = builtins.map (module: import module {inherit inputs config pkgs lib;})([
         ./optional/vesktop.nix
         ./optional/discord.nix
         ./optional/goxlr.nix
         ./optional/sublime4.nix
-    ] ++ (target.lib.lsFiles ./core));
+    ] ++ (lib.lsFiles ./core));
 
-in target.lib.recursiveMerge modules
+in lib.mkIf (!cfg.graphics.headless) (lib.recursiveMerge modules)

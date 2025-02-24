@@ -1,11 +1,13 @@
-{inputs, config, pkgs, lib, target, ... }: let
-    stextTop = "/home/${target.userName}/.config/sublime-text";
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+    theme = cfg.style.catppuccin;
+    stextTop = "/home/${cfg.userName}/.config/sublime-text";
     stextPkg = stextTop + "/Packages";
     stextCfg = stextTop + "/Packages/User";
-    smergeTop = "/home/${target.userName}/.config/sublime-merge";
+    smergeTop = "/home/${cfg.userName}/.config/sublime-merge";
     smergePkg = smergeTop + "/Packages";
     smergeCfg = smergeTop + "/Packages/User";
-    catppuccinBaseName = "Catppuccin " + target.lib.capitalize target.style.catppuccin.flavor;
+    catppuccinBaseName = "Catppuccin " + lib.capitalize theme.flavor;
     catppuccinColorScheme = catppuccinBaseName + ".sublime-color-scheme";
 in {
 
@@ -13,7 +15,7 @@ in {
         "openssl-1.1.1w"  # for sublime4 & sublime-merge :(
     ]; 
 
-    home-manager.users.${target.userName} = {
+    home-manager.users.${cfg.userName} = {
         home.packages = with pkgs; [
             sublime4
             sublime-merge
@@ -36,7 +38,7 @@ in {
                 source = inputs.stextPackageControl;
             };
             stextSublimeLinterContribVerilator = {
-                enable = true;
+                enable = lib.isInstalled pkgs.verilator;
                 target = stextPkg + "/SublimeLinter-contrib-verilator";
                 source = inputs.stextSublimeLinterContribVerilator;
             };
@@ -65,20 +67,25 @@ in {
                 target = stextPkg + "/SystemVerilog";
                 source = inputs.stextSystemVerilog;
             };
+            stextHooks = {
+                enable = true;
+                target = stextPkg + "/hooks";
+                source = inputs.stextHooks;
+            };
             # Config
             stextCfg = {
                 enable = true;
                 target = stextCfg + "/Preferences.sublime-settings";
                 text = builtins.toJSON {
                     ignored_packages = ["Vintage"];
-                    font_size = if target.text.smallTermFont then 10 else 11;
+                    font_size = if cfg.text.smallTermFont then 10 else 11;
                     translate_tabs_to_spaces = true;
                     index_files = true;
-                    hardware_acceleration = if target.graphics.legacyGpu then "none" else "opengl";
+                    hardware_acceleration = if cfg.graphics.legacyGpu then "none" else "opengl";
                     theme = "Adaptive.sublime-theme";
                     color_scheme = catppuccinColorScheme;
                     update_check = false;
-                    sublime_merge_path = if target.lib.isInstalled pkgs.sublime-merge then "${pkgs.sublime-merge}/bin/sublime_merge" else null;
+                    sublime_merge_path = if lib.isInstalled pkgs.sublime-merge then "${pkgs.sublime-merge}/bin/sublime_merge" else null;
                 };
             };
             smergeCfg = {
@@ -88,10 +95,10 @@ in {
                     theme = "${catppuccinBaseName}.sublime-theme";
                     translate_tabs_to_spaces = true;
                     side_bar_layout = "tabs";
-                    font_size = if target.text.smallTermFont then 10 else 11;
-                    hardware_acceleration = if target.graphics.legacyGpu then "none" else "opengl";
+                    font_size = if cfg.text.smallTermFont then 10 else 11;
+                    hardware_acceleration = if cfg.graphics.legacyGpu then "none" else "opengl";
                     update_check = false;
-                    editor_path = if target.lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
+                    editor_path = if lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
                 };
             };
             smergeCommitMessageCfg = {
@@ -131,7 +138,7 @@ in {
                     debug = false;
                     linters = {
                         verilator = {
-                            disable = target.lib.isInstalled pkgs.verilator;
+                            disable = !(lib.isInstalled pkgs.verilator);
                             lint_mode = "load_save";
                             styles = [
                                 {
@@ -172,7 +179,7 @@ in {
                 text = builtins.toJSON {
                     clients = {
                         verible = {
-                            enabled = target.lib.isInstalled pkgs.verible;
+                            enabled = lib.isInstalled pkgs.verible;
                             command = [
                                 "verible-verilog-ls"
                                 "--rules_config_search"
@@ -180,12 +187,12 @@ in {
                             selector = "source.systemverilog";
                         };
                         veridian = {
-                            enabled = target.lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
+                            enabled = lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
                             command = ["veridian"];
                             selector = "source.systemverilog";
                         };
                         nil = {
-                            enabled = target.lib.isInstalled pkgs.nil;
+                            enabled = lib.isInstalled pkgs.nil;
                             command = ["nil"];
                             selector = "source.nix";
                             # https://github.com/oxalica/nil/blob/main/docs/configuration.md
@@ -197,12 +204,12 @@ in {
                             };
                         };
                         slang = {
-                            enabled = target.lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools;
+                            enabled = lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools;
                             command = ["slang-lsp"];
                             selector = "source.systemverilog";
                         };
                         svls = {
-                            enabled = target.lib.isInstalled pkgs.svls;
+                            enabled = lib.isInstalled pkgs.svls;
                             command = ["svls"];
                             selector = "source.systemverilog";
                         };
@@ -216,33 +223,33 @@ in {
                 text = builtins.toJSON {
                     extends = "Merge.sublime-theme";
                     variables = {
-                        rosewater = "#" + target.style.catppuccin.rosewater.hex;
-                        flamingo  = "#" + target.style.catppuccin.flamingo.hex;
-                        pink      = "#" + target.style.catppuccin.pink.hex;
-                        mauve     = "#" + target.style.catppuccin.mauve.hex;
-                        red       = "#" + target.style.catppuccin.red.hex;
-                        maroon    = "#" + target.style.catppuccin.maroon.hex;
-                        peach     = "#" + target.style.catppuccin.peach.hex;
-                        yellow    = "#" + target.style.catppuccin.yellow.hex;
-                        green     = "#" + target.style.catppuccin.green.hex;
-                        teal      = "#" + target.style.catppuccin.teal.hex;
-                        sky       = "#" + target.style.catppuccin.sky.hex;
-                        sapphire  = "#" + target.style.catppuccin.sapphire.hex;
-                        blue      = "#" + target.style.catppuccin.blue.hex;
-                        lavender  = "#" + target.style.catppuccin.lavender.hex;
-                        text      = "#" + target.style.catppuccin.text.hex;
-                        subtext1  = "#" + target.style.catppuccin.subtext1.hex;
-                        subtext0  = "#" + target.style.catppuccin.subtext0.hex;
-                        overlay2  = "#" + target.style.catppuccin.overlay2.hex;
-                        overlay1  = "#" + target.style.catppuccin.overlay1.hex;
-                        overlay0  = "#" + target.style.catppuccin.overlay0.hex;
-                        surface2  = "#" + target.style.catppuccin.surface2.hex;
-                        surface1  = "#" + target.style.catppuccin.surface1.hex;
-                        surface0  = "#" + target.style.catppuccin.surface0.hex;
-                        base      = "#" + target.style.catppuccin.base.hex;
-                        mantle    = "#" + target.style.catppuccin.mantle.hex;
-                        crust     = "#" + target.style.catppuccin.crust.hex;
-                        highlight = "#" + target.style.catppuccin.highlight.hex;
+                        rosewater = "#" + theme.rosewater.hex;
+                        flamingo  = "#" + theme.flamingo.hex;
+                        pink      = "#" + theme.pink.hex;
+                        mauve     = "#" + theme.mauve.hex;
+                        red       = "#" + theme.red.hex;
+                        maroon    = "#" + theme.maroon.hex;
+                        peach     = "#" + theme.peach.hex;
+                        yellow    = "#" + theme.yellow.hex;
+                        green     = "#" + theme.green.hex;
+                        teal      = "#" + theme.teal.hex;
+                        sky       = "#" + theme.sky.hex;
+                        sapphire  = "#" + theme.sapphire.hex;
+                        blue      = "#" + theme.blue.hex;
+                        lavender  = "#" + theme.lavender.hex;
+                        text      = "#" + theme.text.hex;
+                        subtext1  = "#" + theme.subtext1.hex;
+                        subtext0  = "#" + theme.subtext0.hex;
+                        overlay2  = "#" + theme.overlay2.hex;
+                        overlay1  = "#" + theme.overlay1.hex;
+                        overlay0  = "#" + theme.overlay0.hex;
+                        surface2  = "#" + theme.surface2.hex;
+                        surface1  = "#" + theme.surface1.hex;
+                        surface0  = "#" + theme.surface0.hex;
+                        base      = "#" + theme.base.hex;
+                        mantle    = "#" + theme.mantle.hex;
+                        crust     = "#" + theme.crust.hex;
+                        highlight = "#" + theme.highlight.hex;
 
                         white = "hsl(0, 0%, 95%)";
                         text-heading = "var(subtext1)";
@@ -782,7 +789,7 @@ in {
                             "layer0.opacity" = 1.0;
                             "layer0.tint" = "var(overlay1)";
                         }
-                    ] ++ (if target.style.catppuccin.flavor == "latte" then [] else [
+                    ] ++ (if theme.flavor == "latte" then [] else [
                         {
                             class = "branch_table";
                             "dark_content" = true;

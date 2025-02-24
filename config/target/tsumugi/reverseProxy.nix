@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, target, ... }: 
+{ inputs, config, pkgs, lib, ... }: 
 {
     sops.secrets."tsumugi/wgpk" = {};
     sops.secrets."ochiai/ip" = {};

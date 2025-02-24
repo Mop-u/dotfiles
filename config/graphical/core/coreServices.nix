@@ -1,4 +1,4 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
 
     security = {
@@ -34,7 +34,7 @@
             sddm.wayland.enable = true;
             sddm.package = pkgs.kdePackages.sddm;
             autoLogin.enable = false;
-            autoLogin.user = target.userName;
+            autoLogin.user = config.sidonia.userName;
             defaultSession = "hyprland";
         };
 
@@ -59,16 +59,16 @@
         nm-applet.enable = true; # systemd graphical-session.target
     };
 
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
         catppuccin.cursors = {
             enable = true;
-            accent = target.style.catppuccin.accent;
-            flavor = target.style.catppuccin.flavor;
+            accent = config.sidonia.style.catppuccin.accent;
+            flavor = config.sidonia.style.catppuccin.flavor;
         };
 
         dconf.settings = {
             "org/gnome/desktop/interface" = {
-                cursor-size = lib.gvariant.mkInt32 target.style.cursorSize.gtk;
+                cursor-size = lib.gvariant.mkInt32 config.sidonia.style.cursorSize;
             };
             "org/cinnamon/desktop/default-applications/terminal" = {
                 #exec = lib.gvariant.mkValue "${pkgs.foot}/bin/foot";
@@ -81,7 +81,7 @@
             };
         };
         gtk = {enable = true;} // (
-            if (builtins.elem target.style.catppuccin.accent [
+            if (builtins.elem config.sidonia.style.catppuccin.accent [
                 "rosewater"
                 "flamingo"
                 "maroon"
@@ -90,7 +90,7 @@
             ]) 
             then (
                 builtins.warn ''
-                    The selected theme accent `${target.style.catppuccin.accent}` is not yet supported by magnetic-catppuccin-gtk.
+                    The selected theme accent `${config.sidonia.style.catppuccin.accent}` is not yet supported by magnetic-catppuccin-gtk.
                     Falling back to the deprecated `gtk.catppuccin.enable` method.
                 '' 
                 {
@@ -101,30 +101,30 @@
                 }
             )
             else let
-                shade = if target.style.catppuccin.flavor == "latte" then "light" else "dark";
+                shade = if config.sidonia.style.catppuccin.flavor == "latte" then "light" else "dark";
                 accent = {
                     # Renamed colours
                     mauve     = "purple";
                     sapphire  = "cyan";
                     peach     = "orange";
-                }.${target.style.catppuccin.accent} or target.style.catppuccin.accent;
-                doTweak = builtins.elem target.style.catppuccin.flavor ["frappe" "macchiato"];
+                }.${config.sidonia.style.catppuccin.accent} or config.sidonia.style.catppuccin.accent;
+                doTweak = builtins.elem config.sidonia.style.catppuccin.flavor ["frappe" "macchiato"];
             in {
                 theme.name = lib.strings.concatStringsSep "-" (
-                    ["Catppuccin" "GTK" (target.lib.capitalize accent) (target.lib.capitalize shade)]
-                    ++(if doTweak then [(target.lib.capitalize target.style.catppuccin.flavor)] else [])
+                    ["Catppuccin" "GTK" (lib.capitalize accent) (lib.capitalize shade)]
+                    ++(if doTweak then [(lib.capitalize config.sidonia.style.catppuccin.flavor)] else [])
                 );
                 theme.package = (pkgs.magnetic-catppuccin-gtk.overrideAttrs{
                     src = inputs.magnetic-catppuccin-gtk;
                 }).override{
                     inherit shade;
                     accent = [accent];
-                    tweaks = if doTweak then [target.style.catppuccin.flavor] else [];
+                    tweaks = if doTweak then [config.sidonia.style.catppuccin.flavor] else [];
                 };
                 iconTheme.name = "Papirus";
                 iconTheme.package = pkgs.catppuccin-papirus-folders.override{
-                    flavor = target.style.catppuccin.flavor;
-                    accent = target.style.catppuccin.accent;
+                    flavor = config.sidonia.style.catppuccin.flavor;
+                    accent = config.sidonia.style.catppuccin.accent;
                 };
             }
         );

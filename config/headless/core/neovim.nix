@@ -1,6 +1,6 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
         catppuccin.nvim.enable = true;
         programs.neovim = {
             enable = true;

@@ -1,12 +1,12 @@
-{ inputs, config, pkgs, lib, target, ... }: 
+{ inputs, config, pkgs, lib, ... }: 
 let
     portRemap = configuration: {
         autoStart = true;
         privateNetwork = true;
-        hostAddress = "192.168.${toString configuration.id}.10";
-        localAddress = "192.168.${toString configuration.id}.11";
-        hostAddress6 = "fc00::${toString configuration.id}:10";
-        localAddress6 = "fc00::${toString configuration.id}:11";
+        hostAddress = "192.168.${builtins.toString configuration.id}.10";
+        localAddress = "192.168.${builtins.toString configuration.id}.11";
+        hostAddress6 = "fc00::${builtins.toString configuration.id}:10";
+        localAddress6 = "fc00::${builtins.toString configuration.id}:11";
         forwardPorts = [{
             containerPort = configuration.containerPort;
             hostPort = configuration.hostPort;
@@ -18,7 +18,7 @@ let
             isReadOnly = false;
         };
         config = {
-            system.stateVersion = target.stateVer;
+            system.stateVersion = config.sidonia.stateVer;
             networking = {
                 firewall.enable = true;
                 useHostResolvConf = lib.mkForce false;
@@ -102,7 +102,7 @@ in {
             isReadOnly = false;
         };
         config = {
-            system.stateVersion = target.stateVer;
+            system.stateVersion = config.sidonia.stateVer;
             services.deluge = {
                 enable = true;
                 web.enable = true;

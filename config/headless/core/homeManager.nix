@@ -1,4 +1,4 @@
-{inputs, config, pkgs, lib, target, ... }:
+{inputs, config, pkgs, lib, ... }:
 {
 
     home-manager = {
@@ -6,18 +6,18 @@
         backupFileExtension = "backup";
     };
 
-    home-manager.users.${target.userName} = {
+    home-manager.users.${config.sidonia.userName} = {
 
         home = {
-            username = target.userName;
-            homeDirectory = "/home/${target.userName}";
-            stateVersion = target.stateVer;
+            username = config.sidonia.userName;
+            homeDirectory = "/home/${config.sidonia.userName}";
+            stateVersion = config.sidonia.stateVer;
         };
 
         catppuccin = {
             enable = true;
-            accent = target.style.catppuccin.accent;
-            flavor = target.style.catppuccin.flavor;
+            accent = config.sidonia.style.catppuccin.accent;
+            flavor = config.sidonia.style.catppuccin.flavor;
         };
     };
 }
