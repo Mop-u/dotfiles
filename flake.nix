@@ -76,7 +76,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         quartus = {
-            url = "github:Mop-u/nix-quartus/ux";
+            url = "github:Mop-u/nix-quartus";
             #url = "git+file:../nix-quartus";
             inputs.nixpkgs.follows = "nixpkgs";
         };

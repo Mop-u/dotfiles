@@ -27,6 +27,17 @@
         
         wavey-launcher.enable = false;       # Not currently playable
         anime-games-launcher.enable = false; # Not for regular use
+        quartus = {
+            enable = true;
+            lite = {
+                enable = true;
+                devices = ["cyclonev"];
+            };
+            pro = {
+                enable = true;
+                devices = ["cyclone10gx"];
+            };
+        };
     };
 
     home-manager.users.${target.userName} = {
@@ -46,15 +57,6 @@
             #xivlauncher
             plexamp
             gtkwave
-            #inputs.quartus.packages.${system}.quartus-prime-pro-24
-            #(inputs.quartus.packages.${system}.quartus-prime-lite{devices=["cyclonev"];})
-            (inputs.quartus.packages.${system}.mkVersion {
-                edition = "pro";
-                version = 24;
-                extraArgs = {
-                    devices=["cyclone10gx"];
-                };
-            })
             surfer
             #bambu-studio
             tageditor

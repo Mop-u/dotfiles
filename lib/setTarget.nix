@@ -105,6 +105,7 @@ rec {
             inputs.aagl.nixosModules.default
             inputs.sops-nix.nixosModules.sops
             inputs.nix-minecraft.nixosModules.minecraft-servers
+            inputs.quartus.nixosModules.quartus
             {
                 home-manager.users.${override.userName}.imports = [
                     inputs.catppuccin.homeManagerModules.catppuccin
