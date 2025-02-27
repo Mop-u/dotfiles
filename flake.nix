@@ -151,22 +151,12 @@
     };
 
     outputs = { self, ... } @ inputs: {
-        nixosConfigurations = let
-            inherit (inputs.nixpkgs) lib;
-        in lib.mapAttrs (hostName: v: (lib.nixosSystem {
+        nixosConfigurations = inputs.nixpkgs.lib.mapAttrs (hostName: v: (inputs.nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
                 ((import ./module.nix) {inherit inputs;})
-                inputs.catppuccin.nixosModules.catppuccin
-                inputs.home-manager.nixosModules.home-manager
-                inputs.lancache.nixosModules.dns
-                inputs.lancache.nixosModules.cache
-                inputs.aagl.nixosModules.default
-                inputs.sops-nix.nixosModules.sops
-                inputs.nix-minecraft.nixosModules.minecraft-servers
-                inputs.quartus.nixosModules.quartus
-                (lib.path.append ./config/target hostName)
+                (inputs.nixpkgs.lib.path.append ./config/target hostName)
             ];
-        })) (lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
+        })) (inputs.nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
     };
 }
