@@ -1,6 +1,7 @@
 {inputs, config, pkgs, lib, ... }: let
     withVencord = true;
-in {
+    cfg = config.sidonia;
+in lib.mkIf (!cfg.graphics.headless) {
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [
             (pkgs.discord.override {

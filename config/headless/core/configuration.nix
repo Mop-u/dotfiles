@@ -7,7 +7,7 @@
 in {
     boot.initrd.systemd.enable = true;
 
-    networking.hostName = config.sidonia.hostName;
+    networking.hostName = cfg.hostName;
 
     nix.gc.automatic = true;
     nix.settings.auto-optimise-store = true;
@@ -16,12 +16,12 @@ in {
 
     sops.defaultSopsFile = ../../../secrets/secrets.yaml;
     sops.defaultSopsFormat = "yaml";
-    sops.age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
+    sops.age.keyFile = "/home/${cfg.userName}/.config/sops/age/keys.txt";
 
     catppuccin = {
         enable = true;
-        accent = config.sidonia.style.catppuccin.accent;
-        flavor = config.sidonia.style.catppuccin.flavor;
+        accent = cfg.style.catppuccin.accent;
+        flavor = cfg.style.catppuccin.flavor;
     };
 
     # Enable Graphics
@@ -109,12 +109,12 @@ in {
         LC_TIME           = "en_IE.UTF-8";
     };
 
-    console.keyMap = config.sidonia.input.keyLayout;
+    console.keyMap = cfg.input.keyLayout;
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.${config.sidonia.userName} = {
+    users.users.${cfg.userName} = {
         isNormalUser = true;
-        description = lib.capitalize config.sidonia.userName;
+        description = cfg.lib.capitalize cfg.userName;
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [];
         shell = pkgs.zsh;
@@ -172,5 +172,5 @@ in {
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = config.sidonia.stateVer;
+    system.stateVersion = cfg.stateVer;
 }

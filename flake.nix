@@ -152,73 +152,11 @@
 
     outputs = { self, ... } @ inputs: {
         nixosConfigurations = let
-            #TODO: add default package definitions etc. here as part of setTarget bringup
-            setTarget = (import ./lib/setTarget.nix {inherit inputs;}).setTarget;
-            targets = {
-                kaoru = setTarget {
-                    hostName = "kaoru";
-                    userName = "hazama";
-                    stateVer = "23.11";
-                    style.catppuccin.flavor = "macchiato";
-                    style.catppuccin.accent = "mauve";
-                    text.comicCode.enable = true;
-                    isLaptop = true;
-                    monitors = [{
-                        name = "eDP-1";
-                        resolution = "2560x1600";
-                        refresh = 165.00400;
-                        scale = 1.333333;
-                        position = "6720x0";
-                        extraArgs = "bitdepth,10";
-                    }{
-                        name = "desc:Lenovo Group Limited P40w-20";
-                        resolution = "5120x2160";
-                        refresh = 74.97900;
-                        scale = 1.066667;
-                        position = "0x0";
-                    }{
-                        name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
-                        resolution = "1920x1080";
-                        refresh = 60.00;
-                        scale = 1.0;
-                        position = "4800x400";
-                    }];
-                };
-                yure = setTarget {
-                    hostName = "yure";
-                    userName = "shinatose";
-                    stateVer = "24.05";
-                    graphics.legacyGpu = true;
-                    text.smallTermFont = false;
-                    style.catppuccin.flavor = "mocha";
-                    style.catppuccin.accent = "mauve";
-                    text.comicCode.enable = true;
-                    input.sensitivity = -0.1;
-                    input.keyLayout = "gb";
-                    isLaptop = true;
-                    monitors = [{
-                        name = "LVDS-1";
-                    }];
-                };
-                tsumugi = setTarget {
-                    hostName = "tsumugi";
-                    userName = "shiraui";
-                    stateVer = "24.05";
-                    style.catppuccin.flavor = "macchiato";
-                    style.catppuccin.accent = "teal";
-                    graphics.headless = true;
-                };
-            };
-        in inputs.nixpkgs.lib.mapAttrs (hostName: target: (inputs.nixpkgs.lib.nixosSystem {
-            system = target.system;
-            specialArgs = {
-                inherit inputs; 
-                inherit (import inputs.nixpkgs { inherit (target) system;
-                    overlays = [((import ./lib/overlay.nix) {inherit (self.nixosConfigurations.${hostName}) config;})];
-                }) lib;
-            };
+            inherit (inputs.nixpkgs) lib;
+        in lib.mapAttrs (hostName: v: (lib.nixosSystem {
+            specialArgs = { inherit inputs; };
             modules = [
-                ((import ./lib/module.nix) {inherit inputs;})
+                ((import ./module.nix) {inherit inputs;})
                 inputs.catppuccin.nixosModules.catppuccin
                 inputs.home-manager.nixosModules.home-manager
                 inputs.lancache.nixosModules.dns
@@ -227,23 +165,8 @@
                 inputs.sops-nix.nixosModules.sops
                 inputs.nix-minecraft.nixosModules.minecraft-servers
                 inputs.quartus.nixosModules.quartus
-                ({inputs, config, pkgs, lib, ... }: let 
-                    modules = builtins.map (module: import module {inherit inputs config pkgs lib;})(
-                        (lib.lsFiles (lib.path.append ./config/target hostName))
-                    );
-                in lib.recursiveMerge modules)
-                ({inputs, config, pkgs, lib, ... }: let
-                    cfg = config.sidonia; 
-                in {
-                    sidonia = target.override;
-                    home-manager.users.${cfg.userName}.imports = [
-                        inputs.catppuccin.homeManagerModules.catppuccin
-                    ];
-
-                })
-                ./config/headless/default.nix
-                ./config/graphical/default.nix
+                (lib.path.append ./config/target hostName)
             ];
-        })) targets;
+        })) (lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
     };
 }

@@ -1,5 +1,6 @@
-{inputs, config, pkgs, lib, ... }:
-{
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+in lib.mkIf (!cfg.graphics.headless) {
     services.goxlr-utility.enable = true;
     services.goxlr-utility.autoStart.xdg = false; # respect goxlr-utility's autostart toggle
     home-manager.users.${config.sidonia.userName} = {

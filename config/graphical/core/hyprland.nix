@@ -1,6 +1,6 @@
 {inputs, config, pkgs, lib, ... }: let
     cfg = config.sidonia;
-in {
+in lib.mkIf (!cfg.graphics.headless) {
 
     nixpkgs.overlays = [
         (final: prev: {

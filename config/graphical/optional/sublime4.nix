@@ -7,9 +7,9 @@
     smergeTop = "/home/${cfg.userName}/.config/sublime-merge";
     smergePkg = smergeTop + "/Packages";
     smergeCfg = smergeTop + "/Packages/User";
-    catppuccinBaseName = "Catppuccin " + lib.capitalize theme.flavor;
+    catppuccinBaseName = "Catppuccin " + cfg.lib.capitalize theme.flavor;
     catppuccinColorScheme = catppuccinBaseName + ".sublime-color-scheme";
-in {
+in lib.mkIf (!cfg.graphics.headless) {
 
     nixpkgs.config.permittedInsecurePackages = [
         "openssl-1.1.1w"  # for sublime4 & sublime-merge :(
@@ -38,7 +38,7 @@ in {
                 source = inputs.stextPackageControl;
             };
             stextSublimeLinterContribVerilator = {
-                enable = lib.isInstalled pkgs.verilator;
+                enable = cfg.lib.isInstalled pkgs.verilator;
                 target = stextPkg + "/SublimeLinter-contrib-verilator";
                 source = inputs.stextSublimeLinterContribVerilator;
             };
@@ -85,7 +85,7 @@ in {
                     theme = "Adaptive.sublime-theme";
                     color_scheme = catppuccinColorScheme;
                     update_check = false;
-                    sublime_merge_path = if lib.isInstalled pkgs.sublime-merge then "${pkgs.sublime-merge}/bin/sublime_merge" else null;
+                    sublime_merge_path = if cfg.lib.isInstalled pkgs.sublime-merge then "${pkgs.sublime-merge}/bin/sublime_merge" else null;
                 };
             };
             smergeCfg = {
@@ -98,7 +98,7 @@ in {
                     font_size = if cfg.text.smallTermFont then 10 else 11;
                     hardware_acceleration = if cfg.graphics.legacyGpu then "none" else "opengl";
                     update_check = false;
-                    editor_path = if lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
+                    editor_path = if cfg.lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
                 };
             };
             smergeCommitMessageCfg = {
@@ -138,7 +138,7 @@ in {
                     debug = false;
                     linters = {
                         verilator = {
-                            disable = !(lib.isInstalled pkgs.verilator);
+                            disable = !(cfg.lib.isInstalled pkgs.verilator);
                             lint_mode = "load_save";
                             styles = [
                                 {
@@ -179,7 +179,7 @@ in {
                 text = builtins.toJSON {
                     clients = {
                         verible = {
-                            enabled = lib.isInstalled pkgs.verible;
+                            enabled = cfg.lib.isInstalled pkgs.verible;
                             command = [
                                 "verible-verilog-ls"
                                 "--rules_config_search"
@@ -187,12 +187,12 @@ in {
                             selector = "source.systemverilog";
                         };
                         veridian = {
-                            enabled = lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
+                            enabled = cfg.lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
                             command = ["veridian"];
                             selector = "source.systemverilog";
                         };
                         nil = {
-                            enabled = lib.isInstalled pkgs.nil;
+                            enabled = cfg.lib.isInstalled pkgs.nil;
                             command = ["nil"];
                             selector = "source.nix";
                             # https://github.com/oxalica/nil/blob/main/docs/configuration.md
@@ -204,12 +204,12 @@ in {
                             };
                         };
                         slang = {
-                            enabled = lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools;
+                            enabled = cfg.lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools;
                             command = ["slang-lsp"];
                             selector = "source.systemverilog";
                         };
                         svls = {
-                            enabled = lib.isInstalled pkgs.svls;
+                            enabled = cfg.lib.isInstalled pkgs.svls;
                             command = ["svls"];
                             selector = "source.systemverilog";
                         };

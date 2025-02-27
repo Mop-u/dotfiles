@@ -3,6 +3,52 @@
 in {
     options = with lib; { 
         sidonia = {
+            lib = mkOption {
+                readOnly = true;
+                type = types.attrs;
+                default = {
+                    capitalize = str: let
+                        chars = stringToCharacters str;
+                    in concatStrings ([(toUpper (builtins.head chars))] ++ (builtins.tail chars));
+                    
+                    # https://stackoverflow.com/questions/54504685/nix-function-to-merge-attributes-records-recursively-and-concatenate-arrays
+                    recursiveMerge = attrList: let
+                        f = attrPath: with builtins;
+                            zipAttrsWith (name: values:
+                                # return if there is only one item for that attribute
+                                if tail values == []
+                                    then head values
+                                # merge and return when we hit lists
+                                else if all isList values
+                                    then lists.unique (concatLists values)
+                                # go deeper on attributes
+                                else if all isAttrs values
+                                    then f (attrPath ++ [name]) values
+                                # we can't merge unless they are lists so just use the last value
+                                #else lib.lists.last values
+                                else assertMsg false ''
+                                    Configuration collision at multiple definitions of ${concatStringsSep "." attrPath}
+                                           Can't merge the following values: ${toString values}
+                                           If you expected your values to be merged into a list, wrap them in square brackets to allow list concatenation.
+                                ''
+                            );
+                    in f [] attrList;
+
+                    ls = dir: filter: mapAttrsToList (n: v: (path.append dir n)) (filterAttrs filter (builtins.readDir dir));
+                    lsFiles = dir: ls dir (n: v: v == "regular");
+                    lsDirs = dir: ls dir (n: v: v == "directory");
+                    #lsFiles = path: mapAttrsToList (n: v: (path.append path n)) (filterAttrs (n: v: v == "regular") (builtins.readDir path));
+                    
+                    isInstalled = package: builtins.elem package.pname (builtins.catAttrs "pname" (
+                        config.environment.systemPackages ++ config.users.users.${cfg.userName}.packages ++ config.home-manager.users.${cfg.userName}.home.packages
+                    ));
+
+                    home = {
+                        applications = "/home/${cfg.userName}/.nix-profile/share/applications";
+                        autostart = "/home/${cfg.userName}/.config/autostart";
+                    };
+                };
+            };
             hostName = mkOption {
                 type = types.str;
                 default = "nixos";
@@ -105,7 +151,7 @@ in {
                         };
                     };
                     apply = x: let
-                        theme = (import ./catppuccin.nix).catppuccin.${x.flavor};
+                        theme = (import ./lib/catppuccin.nix).catppuccin.${x.flavor};
                     in theme // {
                         inherit (x) flavor accent;
                         highlight = theme.${x.accent};
@@ -171,7 +217,7 @@ in {
                     };
                     apply = x: {
                         inherit (x) enable;
-                        package = inputs.nonfree-fonts.packages.${cfg.system}.comic-code;
+                        package = inputs.nonfree-fonts.packages.${config.nixpkgs.system}.comic-code;
                         name = "Comic Code";
                     };
                 };
@@ -195,5 +241,28 @@ in {
             };
         };
     };
+    config = {
+        home-manager.users.${cfg.userName}.imports = [
+            inputs.catppuccin.homeManagerModules.catppuccin
+        ];
 
+    };
+    imports = let 
+        ls = with lib; dir: filter: mapAttrsToList (n: v: (path.append dir n)) (filterAttrs filter (builtins.readDir dir));
+        lsFiles = dir: ls dir (n: v: v == "regular");
+        prefixList = prefix: list: (builtins.map (x: lib.path.append prefix x) list);
+        headless = (lsFiles ./config/headless/core) ++ (
+            prefixList ./config/headless/optional [
+                #"kmscon.nix"
+            ]
+        );
+        graphical = (lsFiles ./config/graphical/core) ++ ( 
+            prefixList ./config/graphical/optional [
+                "vesktop.nix"
+                "discord.nix"
+                "goxlr.nix"
+                "sublime4.nix"
+            ]
+        );
+    in headless ++ graphical;
 }

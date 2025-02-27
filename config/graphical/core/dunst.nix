@@ -1,6 +1,6 @@
 {inputs, config, pkgs, lib, ... }: let
     cfg = config.sidonia;
-in {
+in lib.mkIf (!cfg.graphics.headless) {
     home-manager.users.${cfg.userName} = {
         catppuccin.dunst.enable = false; # using our own values as overriding background breaks opacity
         services.dunst = {

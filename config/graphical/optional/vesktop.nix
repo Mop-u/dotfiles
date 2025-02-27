@@ -1,5 +1,6 @@
-{inputs, config, pkgs, lib, ... }:
-{
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+in lib.mkIf (!cfg.graphics.headless) {
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [
             pkgs.vesktop

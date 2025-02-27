@@ -20,7 +20,7 @@
         opts = placement + border + tb + fb + nb + ab + hb + tf + ff + nf + af + hf + bdr + font;
     };
 
-in {
+in lib.mkIf (!cfg.graphics.headless) {
     home-manager.users.${cfg.userName} = {
         programs.bemenu.enable = true;
         wayland.windowManager.hyprland.settings.bind = [

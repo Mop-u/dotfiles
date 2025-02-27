@@ -1,5 +1,6 @@
-{inputs, config, pkgs, lib, ... }:
-{
+{inputs, config, pkgs, lib, ... }: let
+    cfg = config.sidonia;
+in lib.mkIf (!cfg.graphics.headless) {
     
     security = {
         pam.services.hyprlock = {};
@@ -19,8 +20,8 @@
             gamescopeSession.enable = true;
         };
 
-        anime-game-launcher.enable = !config.sidonia.graphics.legacyGpu; # genshin
-        sleepy-launcher.enable = !config.sidonia.graphics.legacyGpu; # zzz
+        anime-game-launcher.enable = !cfg.graphics.legacyGpu; # genshin
+        sleepy-launcher.enable = !cfg.graphics.legacyGpu; # zzz
 
         honkers-railway-launcher.enable = false;
         honkers-launcher.enable = false;
@@ -40,7 +41,7 @@
         };
     };
 
-    home-manager.users.${config.sidonia.userName} = {
+    home-manager.users.${cfg.userName} = {
 
         home.packages = with pkgs; [
             # Hyprland / core apps
