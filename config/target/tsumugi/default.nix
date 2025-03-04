@@ -16,6 +16,5 @@
         stateVer = "24.05";
         style.catppuccin.flavor = "macchiato";
         style.catppuccin.accent = "teal";
-        graphics.headless = true;
     };
 }

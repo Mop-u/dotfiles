@@ -1,7 +1,7 @@
 {inputs, config, pkgs, lib, ... }: let
     cfg = config.sidonia;
     theme = cfg.style.catppuccin;
-in lib.mkIf (!cfg.graphics.headless) {
+in lib.mkIf (cfg.graphics.enable) {
 
     security = {
         pam.services = {

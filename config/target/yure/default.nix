@@ -6,6 +6,7 @@
         hostName = "yure";
         userName = "shinatose";
         stateVer = "24.05";
+        graphics.enable = true;
         graphics.legacyGpu = true;
         text.smallTermFont = false;
         style.catppuccin.flavor = "mocha";
@@ -14,8 +15,6 @@
         input.sensitivity = -0.1;
         input.keyLayout = "gb";
         isLaptop = true;
-        monitors = [{
-            name = "LVDS-1";
-        }];
+        monitors = [{name="LVDS-1";}];
     };
 }

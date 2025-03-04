@@ -1,6 +1,4 @@
-{ config, pkgs, inputs, lib, ... }: let
-    cfg = config.sidonia;
-in {
+{ config, pkgs, inputs, lib, ... }: {
     imports = [
         ./hardware-configuration.nix
     ];
@@ -11,7 +9,9 @@ in {
         style.catppuccin.flavor = "macchiato";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;
+        services.goxlr.enable = true;
         isLaptop = true;
+        graphics.enable = true;
         monitors = [{
             name = "eDP-1";
             resolution = "2560x1600";
@@ -29,7 +29,7 @@ in {
             name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
             resolution = "1920x1080";
             refresh = 60.00;
-            scale = 1.0;
+            scale = 0.833333;
             position = "4800x400";
         }];
     };

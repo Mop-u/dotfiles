@@ -1,6 +1,7 @@
 {inputs, config, pkgs, lib, ... }: let
     cfg = config.sidonia;
-in lib.mkIf (!cfg.graphics.headless) {
+    theme = cfg.style.catppuccin;
+in lib.mkIf (cfg.graphics.enable) {
 
     nixpkgs.overlays = [
         (final: prev: {
@@ -16,13 +17,14 @@ in lib.mkIf (!cfg.graphics.headless) {
     home-manager.users.${cfg.userName} = let
         monitors = with lib; builtins.map ( monitor: let 
             hasHz = monitor.refresh != 0.0;
+            scaleAuto = monitor.scale == 0.0;
             hasXtra = monitor.extraArgs != "";
         in rec {
             name = monitor.name;
             args = concatStringsSep "," ([
                 (concatStringsSep "@" ([monitor.resolution] ++ (optional hasHz (strings.floatToString monitor.refresh))))
                 monitor.position
-                (strings.floatToString monitor.scale)
+                (if scaleAuto then "auto" else strings.floatToString monitor.scale)
             ] ++ (optional hasXtra monitor.extraArgs));
             enable = concatStringsSep "," [name args];
             disable = concatStringsSep "," [name "disable"];
@@ -31,7 +33,7 @@ in lib.mkIf (!cfg.graphics.headless) {
                 name = "";
                 resolution = "highres";
                 position = "auto";
-                scale = 1.0;
+                scale = 0.0;
                 refresh = 0.0;
                 extraArgs = "";
             }]
@@ -139,8 +141,8 @@ in lib.mkIf (!cfg.graphics.headless) {
                         enabled = !cfg.graphics.legacyGpu;
                         range = 12;
                         render_power = 2;
-                        color          = "rgba(${cfg.style.catppuccin.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
-                        color_inactive = "rgba(${cfg.style.catppuccin.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
+                        color          = "rgba(${theme.crust.hex}aa)"; # shadow's color. Alpha dictates shadow's opacity.
+                        color_inactive = "rgba(${theme.crust.hex}aa)"; # inactive shadow color. (if not set, will fall back to col.shadow)
                     };
                     blur = {
                         enabled = !cfg.graphics.legacyGpu;

@@ -1,6 +1,6 @@
 {inputs, config, pkgs, lib, ... }: let
     cfg = config.sidonia;
-in lib.mkIf (!cfg.graphics.headless) {
+in lib.mkIf (cfg.graphics.enable) {
     
     security = {
         pam.services.hyprlock = {};

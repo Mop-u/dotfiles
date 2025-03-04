@@ -2,7 +2,7 @@
     cfg = config.sidonia;
     configFile = "/home/${config.sidonia.userName}/.config/hypr/hyprswitch.css";
     hyprswitch = inputs.hyprswitch.packages.${pkgs.system}.default;
-in lib.mkIf (!cfg.graphics.headless) {
+in lib.mkIf (cfg.graphics.enable) {
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [hyprswitch];
 

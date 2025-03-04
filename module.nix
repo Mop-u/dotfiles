@@ -72,7 +72,7 @@ in {
                         scale = mkOption {
                             description = "Monitor scale factor";
                             type = float;
-                            default = 1.0;
+                            default = 0.0;
                         };
                         extraArgs = mkOption {
                             description = "Monitor properties ( see https://wiki.hyprland.org/Configuring/Monitors/ )";
@@ -85,8 +85,8 @@ in {
             };
             isLaptop = mkEnableOption "Apply laptop-specific tweaks";
             graphics = {
+                enable = mkEnableOption "Enable gui / desktop environment components";
                 legacyGpu = mkEnableOption "Apply tweaks for OpenGL ES 2 device support";
-                headless = mkEnableOption "Disable graphical components e.g. for server installs";
             };
             style = {
                 # use `apply` attribute in mkOption to convert input options & avoid hacking nixpkgs lib
@@ -223,14 +223,8 @@ in {
                 #"kmscon.nix"
             ]
         );
-        graphical = (lsFiles ./config/graphical/core) ++ ( 
-            prefixList ./config/graphical/optional [
-                "vesktop.nix"
-                "discord.nix"
-                "goxlr.nix"
-                "sublime4.nix"
-            ]
-        );
+        graphical = (lsFiles ./config/graphical/core) ++ (lsFiles ./config/graphical/optional);
+
     in headless ++ graphical ++ [
         inputs.catppuccin.nixosModules.catppuccin
         inputs.home-manager.nixosModules.home-manager
