@@ -39,9 +39,9 @@
             url = "github:nix-community/home-manager/release-24.11";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        catppuccin = {
-            url = "github:catppuccin/nix";
-        };
+        catppuccin.url = "github:catppuccin/nix";
+
+        catppuccin-vsc.url = "github:catppuccin/vscode";
 
         lancache-domains = {
             url = "github:uklans/cache-domains";

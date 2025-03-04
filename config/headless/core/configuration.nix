@@ -120,6 +120,7 @@ in {
         shell = pkgs.zsh;
     };
     programs.zsh.enable = true;
+    programs.direnv.enable = true;
 
     # Enable experimental features
     nix.settings.experimental-features = [ "nix-command" "flakes" ];

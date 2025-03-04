@@ -51,7 +51,6 @@ in lib.mkIf (cfg.graphics.enable) {
             pinta # Paint.NET-like image editor
             #plex-desktop # doesn't launch
             heroic
-            vscodium
             protonvpn-gui
             slack
             prismlauncher
