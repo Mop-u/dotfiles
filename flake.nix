@@ -150,13 +150,13 @@
         #};
     };
 
-    outputs = { self, ... } @ inputs: {
-        nixosConfigurations = inputs.nixpkgs.lib.mapAttrs (hostName: v: (inputs.nixpkgs.lib.nixosSystem {
+    outputs = { self, nixpkgs, ... } @ inputs: {
+        nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: v: (nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
                 ((import ./module.nix) {inherit inputs;})
-                (inputs.nixpkgs.lib.path.append ./config/target hostName)
+                (nixpkgs.lib.path.append ./config/target hostName)
             ];
-        })) (inputs.nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
+        })) (nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
     };
 }

@@ -217,12 +217,8 @@ in {
     imports = let 
         ls = with lib; dir: filter: mapAttrsToList (n: v: (path.append dir n)) (filterAttrs filter (builtins.readDir dir));
         lsFiles = dir: ls dir (n: v: v == "regular");
-        prefixList = prefix: list: (builtins.map (x: lib.path.append prefix x) list);
-        headless = (lsFiles ./config/headless/core) ++ (
-            prefixList ./config/headless/optional [
-                #"kmscon.nix"
-            ]
-        );
+        #prefixList = prefix: list: (builtins.map (x: lib.path.append prefix x) list);
+        headless = (lsFiles ./config/headless/core) ++ (lsFiles ./config/headless/optional);
         graphical = (lsFiles ./config/graphical/core) ++ (lsFiles ./config/graphical/optional);
 
     in headless ++ graphical ++ [
