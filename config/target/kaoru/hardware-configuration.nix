@@ -19,9 +19,10 @@
     boot.initrd.kernelModules = [ ];
     #boot.kernelPackages = pkgs.linuxPackages_latest;
     #boot.kernelPackages = pkgs.linuxPackages_zen;
+    boot.kernelPackages = pkgs.linuxPackages_6_12;
     boot.kernelModules = [
         "kvm-intel"
-        "r8152" # realtek USB 2.5Gbe
+        #"r8152" # realtek USB 2.5Gbe
         "r8125" # realtek PCIe 2.5Gbe
     ];
     boot.extraModulePackages = with config.boot.kernelPackages; [];
