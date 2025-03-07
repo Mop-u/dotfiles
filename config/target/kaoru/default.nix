@@ -12,7 +12,7 @@
         services.goxlr.enable = true;
         isLaptop = true;
         graphics.enable = true;
-        monitors = [{
+        programs.hyprland.monitors = [{
             name = "eDP-1";
             resolution = "2560x1600";
             refresh = 165.00400;

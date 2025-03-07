@@ -46,43 +46,6 @@ in {
                 ];
                 default = "x86_64-linux";
             };
-            monitors = mkOption {
-                description = "List of monitor configurations";
-                type = with types; listOf (submodule { 
-                    options = {
-                        name = mkOption {
-                            description = "Name of monitor ( see https://wiki.hyprland.org/Configuring/Monitors/ )";
-                            type = str;
-                        };
-                        resolution = mkOption {
-                            description = "Resolution in the format WIDTHxHEIGHT. Default is highest available resolution.";
-                            type = str;
-                            default = "highres";
-                        };
-                        position = mkOption {
-                            description = "Monitor position in scaled pixels WIDTHxHEIGHT";
-                            type = str;
-                            default = "auto";
-                        };
-                        refresh = mkOption {
-                            description = "Monitor refresh rate";
-                            type = float;
-                            default = 0.0;
-                        };
-                        scale = mkOption {
-                            description = "Monitor scale factor";
-                            type = float;
-                            default = 0.0;
-                        };
-                        extraArgs = mkOption {
-                            description = "Monitor properties ( see https://wiki.hyprland.org/Configuring/Monitors/ )";
-                            type = str;
-                            default = "";
-                        };
-                    };
-                });
-                default = [];
-            };
             isLaptop = mkEnableOption "Apply laptop-specific tweaks";
             graphics = {
                 enable = mkEnableOption "Enable gui / desktop environment components";

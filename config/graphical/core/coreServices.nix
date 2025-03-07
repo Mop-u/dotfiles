@@ -31,15 +31,6 @@ in lib.mkIf (cfg.graphics.enable) {
     };
 
     services = {
-        displayManager = {
-            sddm.enable = true;
-            sddm.wayland.enable = true;
-            sddm.package = pkgs.kdePackages.sddm;
-            autoLogin.enable = false;
-            autoLogin.user = cfg.userName;
-            defaultSession = "hyprland";
-        };
-
         logind = {
             lidSwitch = "suspend-then-hibernate";
             lidSwitchExternalPower = "ignore";
