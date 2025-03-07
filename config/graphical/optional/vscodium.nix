@@ -33,8 +33,10 @@ in {
             in {
                 vscode-extensions = with flakeExts; lib.zipAttrsWith (name: values: (lib.mergeAttrsList values))[
                     prev.vscode-extensions
-                    vscode-marketplace-release
+                    open-vsx
+                    open-vsx-release
                     vscode-marketplace
+                    vscode-marketplace-release
                     catppuccin-vsc-override
                 ];
             })
