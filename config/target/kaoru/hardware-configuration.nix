@@ -1,6 +1,6 @@
-{ inputs, config, pkgs, lib, ... }:
-
-{
+{ inputs, config, pkgs, lib, ... }: let
+    intelGPU = "46a6";
+in {
  
     hardware.enableRedistributableFirmware = true;
 
@@ -26,6 +26,10 @@
         "r8125" # realtek PCIe 2.5Gbe
     ];
     boot.extraModulePackages = with config.boot.kernelPackages; [];
+    boot.kernelParams = [
+        "i915.force_probe=!${intelGPU}"
+        "xe.force_probe=${intelGPU}"
+    ];
 
     fileSystems."/" = { 
         device = "/dev/disk/by-uuid/75980f2d-cc48-4245-b6c5-31bf9d0465bc";
