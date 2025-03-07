@@ -1,45 +1,61 @@
-{inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
     theme = cfg.style.catppuccin;
-in {
-    options.sidonia.programs.vscodium.enable = with lib; mkOption {
-        type = types.bool;
-        default = cfg.graphics.enable;
-    };
+in
+{
+    options.sidonia.programs.vscodium.enable =
+        with lib;
+        mkOption {
+            type = types.bool;
+            default = cfg.graphics.enable;
+        };
     config = lib.mkIf (cfg.programs.vscodium.enable) {
         nixpkgs.overlays = [
             (final: prev: {
                 vscodium = inputs.nixpkgs-unstable.legacyPackages.${final.system}.vscodium;
             })
-            (final: prev: let
-                system = final.system;
-                vscodium = final.vscodium;
-                version = with lib.versions; pad 3 vscodium.version;
-                flakeExts = inputs.nix-vscode-extensions.extensions.${system}.forVSCodeVersion version;
+            (
+                final: prev:
+                let
+                    system = final.system;
+                    vscodium = final.vscodium;
+                    version = with lib.versions; pad 3 vscodium.version;
+                    flakeExts = inputs.nix-vscode-extensions.extensions.${system}.forVSCodeVersion version;
 
-                catppuccin-vsc-override = {
-                    catppuccin.catppuccin-vsc = inputs.catppuccin-vsc.packages.${system}.default.override {
-                        accent = theme.accent;
-                        boldKeywords = true;
-                        italicComments = true;
-                        italicKeywords = true;
-                        extraBordersEnabled = false;
-                        workbenchMode = "default";
-                        bracketMode = "rainbow";
-                        colorOverrides = {};
-                        customUIColors = {};
+                    catppuccin-vsc-override = {
+                        catppuccin.catppuccin-vsc = inputs.catppuccin-vsc.packages.${system}.default.override {
+                            accent = theme.accent;
+                            boldKeywords = true;
+                            italicComments = true;
+                            italicKeywords = true;
+                            extraBordersEnabled = false;
+                            workbenchMode = "default";
+                            bracketMode = "rainbow";
+                            colorOverrides = { };
+                            customUIColors = { };
+                        };
                     };
-                };
-            in {
-                vscode-extensions = with flakeExts; lib.zipAttrsWith (name: values: (lib.mergeAttrsList values))[
-                    prev.vscode-extensions
-                    open-vsx
-                    open-vsx-release
-                    vscode-marketplace
-                    vscode-marketplace-release
-                    catppuccin-vsc-override
-                ];
-            })
+                in
+                {
+                    vscode-extensions =
+                        with flakeExts;
+                        lib.zipAttrsWith (name: values: (lib.mergeAttrsList values)) [
+                            prev.vscode-extensions
+                            open-vsx
+                            open-vsx-release
+                            vscode-marketplace
+                            vscode-marketplace-release
+                            catppuccin-vsc-override
+                        ];
+                }
+            )
         ];
         home-manager.users.${cfg.userName} = {
             programs.vscode = {

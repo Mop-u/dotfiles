@@ -61,7 +61,7 @@
             url = "github:Mop-u/veridian-nix";
             #url = "git+file:../veridian-nix";
         };
-        
+
         nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -151,13 +151,18 @@
         #};
     };
 
-    outputs = { self, nixpkgs, ... } @ inputs: {
-        nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: v: (nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; };
-            modules = [
-                ((import ./module.nix) {inherit inputs;})
-                (nixpkgs.lib.path.append ./config/target hostName)
-            ];
-        })) (nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
-    };
+    outputs =
+        { self, nixpkgs, ... }@inputs:
+        {
+            nixosConfigurations = nixpkgs.lib.mapAttrs (
+                hostName: v:
+                (nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit inputs; };
+                    modules = [
+                        ((import ./module.nix) { inherit inputs; })
+                        (nixpkgs.lib.path.append ./config/target hostName)
+                    ];
+                })
+            ) (nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
+        };
 }

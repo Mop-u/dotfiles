@@ -1,11 +1,21 @@
-{inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
-in {
-    options.sidonia.services.goxlr.enable = with lib; mkOption {
-        description = "Enable GoXLR support";
-        type = types.bool;
-        default = false;
-    };
+in
+{
+    options.sidonia.services.goxlr.enable =
+        with lib;
+        mkOption {
+            description = "Enable GoXLR support";
+            type = types.bool;
+            default = false;
+        };
     config = lib.mkIf (cfg.services.goxlr.enable) {
         services.goxlr-utility.enable = true;
         services.goxlr-utility.autoStart.xdg = false; # respect goxlr-utility's autostart toggle
@@ -16,7 +26,7 @@ in {
             ];
             #wayland.windowManager.hyprland.settings.windowrulev2 = [
             #    "float, class:(goxlr-utility-ui), title:(GoXLR Utility)"
-            #];   
+            #];
         };
     };
 }

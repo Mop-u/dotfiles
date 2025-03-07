@@ -1,6 +1,14 @@
-{inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
-in lib.mkIf (cfg.graphics.enable) {
+in
+lib.mkIf (cfg.graphics.enable) {
     home-manager.users.${config.sidonia.userName} = {
         catppuccin.foot.enable = true;
         programs.foot = {

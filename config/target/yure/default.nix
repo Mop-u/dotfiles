@@ -1,4 +1,11 @@
-{ config, pkgs, inputs, lib, ... }: {
+{
+    config,
+    pkgs,
+    inputs,
+    lib,
+    ...
+}:
+{
     imports = [
         ./hardware-configuration.nix
     ];
@@ -15,6 +22,6 @@
         input.sensitivity = -0.1;
         input.keyLayout = "gb";
         isLaptop = true;
-        programs.hyprland.monitors = [{name="LVDS-1";}];
+        programs.hyprland.monitors = [ { name = "LVDS-1"; } ];
     };
 }

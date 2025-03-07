@@ -1,4 +1,10 @@
-{inputs, config, pkgs, lib, ... }:
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
 {
     home-manager.users.${config.sidonia.userName} = {
         catppuccin.btop.enable = true;

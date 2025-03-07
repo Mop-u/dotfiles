@@ -1,4 +1,10 @@
-{ inputs, config, pkgs, lib, ... }: 
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
 let
     portRemap = configuration: {
         autoStart = true;
@@ -7,11 +13,13 @@ let
         localAddress = "192.168.${builtins.toString configuration.id}.11";
         hostAddress6 = "fc00::${builtins.toString configuration.id}:10";
         localAddress6 = "fc00::${builtins.toString configuration.id}:11";
-        forwardPorts = [{
-            containerPort = configuration.containerPort;
-            hostPort = configuration.hostPort;
-            protocol = "tcp";
-        }];
+        forwardPorts = [
+            {
+                containerPort = configuration.containerPort;
+                hostPort = configuration.hostPort;
+                protocol = "tcp";
+            }
+        ];
         bindMounts."/mnt/media" = {
             mountPoint = "/mnt/media";
             hostPath = "/mnt/media";
@@ -29,7 +37,8 @@ let
             };
         } // configuration.config;
     };
-in {
+in
+{
 
     # needed for sonarr
     nixpkgs.config.permittedInsecurePackages = [
@@ -39,13 +48,13 @@ in {
         "dotnet-sdk-6.0.428"
     ];
 
-    networking.firewall.allowedTCPPorts = [ 
-        8112  # deluge
-        8998  # sonarrAnime
-        7887  # radarrAnime
+    networking.firewall.allowedTCPPorts = [
+        8112 # deluge
+        8998 # sonarrAnime
+        7887 # radarrAnime
         29347 # deluge incoming
     ];
-    networking.firewall.allowedUDPPorts = [ 
+    networking.firewall.allowedUDPPorts = [
         29347 # deluge incoming
     ];
 
@@ -83,7 +92,6 @@ in {
         enable = true;
         openFirewall = true; # 5055
     };
-    
 
     #sops.secrets."tsumugi/delugePass" = {};
     #sops.templates.delugeAuthFile = {
@@ -152,6 +160,5 @@ in {
             };
         };
     };
-
 
 }

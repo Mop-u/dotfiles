@@ -1,8 +1,14 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
 {
     lancache.dns = {
         enable = true;
-        forwarders = [ 
+        forwarders = [
             "10.0.4.1"
             "fe80::e638:83ff:fe96:6a8b%enp6s0"
         ];
@@ -16,7 +22,7 @@
             "::1/128"
         ];
     };
-    
+
     lancache.cache = {
         enable = true;
         resolvers = [ "10.0.4.1" ];

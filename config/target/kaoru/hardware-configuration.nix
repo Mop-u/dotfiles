@@ -1,7 +1,15 @@
-{ inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     intelGPU = "46a6";
-in {
- 
+in
+{
+
     hardware.enableRedistributableFirmware = true;
 
     boot.loader = {
@@ -15,7 +23,18 @@ in {
         };
     };
 
-    boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" "aesni_intel" "cryptd" ];
+    boot.initrd.availableKernelModules = [
+        "xhci_pci"
+        "thunderbolt"
+        "vmd"
+        "nvme"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+        "sdhci_pci"
+        "aesni_intel"
+        "cryptd"
+    ];
     boot.initrd.kernelModules = [ ];
     #boot.kernelPackages = pkgs.linuxPackages_latest;
     #boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -25,24 +44,27 @@ in {
         #"r8152" # realtek USB 2.5Gbe
         "r8125" # realtek PCIe 2.5Gbe
     ];
-    boot.extraModulePackages = with config.boot.kernelPackages; [];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ ];
     boot.kernelParams = [
         "i915.force_probe=!${intelGPU}"
         "xe.force_probe=${intelGPU}"
     ];
 
-    fileSystems."/" = { 
+    fileSystems."/" = {
         device = "/dev/disk/by-uuid/75980f2d-cc48-4245-b6c5-31bf9d0465bc";
         fsType = "ext4";
     };
 
-    fileSystems."/boot" = { 
+    fileSystems."/boot" = {
         device = "/dev/disk/by-uuid/8F59-FE20";
         fsType = "vfat";
-        options = [ "fmask=0022" "dmask=0022" ];
+        options = [
+            "fmask=0022"
+            "dmask=0022"
+        ];
     };
 
-    swapDevices = [ 
+    swapDevices = [
         { device = "/dev/disk/by-uuid/efa4d278-62f5-48ce-8fdd-6571fa61ea1a"; }
     ];
 
@@ -68,7 +90,7 @@ in {
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     nixpkgs.system = "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    
+
     environment.systemPackages = with pkgs; [
         nvtopPackages.full
         intel-gpu-tools
@@ -76,7 +98,7 @@ in {
     hardware.graphics.extraPackages = with pkgs; [
         # modern intel
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        libvdpau-va-gl     # VDPAU_DRIVER=va_gl
+        libvdpau-va-gl # VDPAU_DRIVER=va_gl
         #nvidia
         nvidia-vaapi-driver # LIBVA_DRIVER_NAME=nvidia # this doesn't seem to work with mixed intel/nvidia
         # VDPAU_DRIVER=nvidia
@@ -89,7 +111,7 @@ in {
         powerManagement.finegrained = false;
         open = false;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest; #latest/beta/production/stable
+        package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
             #sync.enable = true;
@@ -104,31 +126,36 @@ in {
 
     environment.sessionVariables = {
 
-        LIBVA_DRIVER_NAME  = "iHD";     # default to intel hardware acceleration
-        VDPAU_DRIVER       = "va_gl";   # intel vdpau fallback
+        LIBVA_DRIVER_NAME = "iHD"; # default to intel hardware acceleration
+        VDPAU_DRIVER = "va_gl"; # intel vdpau fallback
         __GL_GSYNC_ALLOWED = "1";
-        __GL_VRR_ALLOWED   = "1";
-        NVD_BACKEND        = "direct";     # fixes nvidia VA-API hardware video acceleration
-        
+        __GL_VRR_ALLOWED = "1";
+        NVD_BACKEND = "direct"; # fixes nvidia VA-API hardware video acceleration
+
         # Force NVIDIA offload for all applications
         #__NV_PRIME_RENDER_OFFLOAD          = "1";
         #__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
         #__GLX_VENDOR_LIBRARY_NAME          = "nvidia";
         #__VK_LAYER_NV_optimus              = "NVIDIA_only";
 
-        AQ_DRM_DEVICES = let
-            dGPU = "/dev/dri/card0";
-            iGPU = "/dev/dri/card1";
-        in builtins.concatStringsSep ":" [ iGPU dGPU ]; 
+        AQ_DRM_DEVICES =
+            let
+                dGPU = "/dev/dri/card0";
+                iGPU = "/dev/dri/card1";
+            in
+            builtins.concatStringsSep ":" [
+                iGPU
+                dGPU
+            ];
     };
     programs.steam.gamescopeSession = {
         env = {
             # for Prime render offload on Nvidia laptops.
             # Also requires `hardware.nvidia.prime.offload.enable`.
-            __NV_PRIME_RENDER_OFFLOAD          = "1";
+            __NV_PRIME_RENDER_OFFLOAD = "1";
             __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
-            __GLX_VENDOR_LIBRARY_NAME          = "nvidia";
-            __VK_LAYER_NV_optimus              = "NVIDIA_only";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            __VK_LAYER_NV_optimus = "NVIDIA_only";
         };
     };
 
@@ -157,4 +184,3 @@ in {
         };
     };
 }
-

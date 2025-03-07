@@ -1,4 +1,10 @@
-{ inputs, config, lib, pkgs, ... }: 
+{
+    inputs,
+    config,
+    lib,
+    pkgs,
+    ...
+}:
 {
 
     hardware.enableRedistributableFirmware = true;
@@ -16,11 +22,23 @@
         configurationLimit = 10;
     };
 
-    boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
+    boot.initrd.availableKernelModules = [
+        "uhci_hcd"
+        "ehci_pci"
+        "ata_piix"
+        "ahci"
+        "firewire_ohci"
+        "usb_storage"
+        "sd_mod"
+        "sdhci_pci"
+    ];
     boot.initrd.kernelModules = [ ];
     #boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelPackages = pkgs.linuxPackages_6_12;
-    boot.kernelModules = [ "kvm-intel" "tp_smapi" ];
+    boot.kernelModules = [
+        "kvm-intel"
+        "tp_smapi"
+    ];
     boot.extraModulePackages = [ ];
 
     fileSystems."/" = {
@@ -28,18 +46,20 @@
         fsType = "ext4";
     };
 
-    swapDevices = [{ device = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a"; }];
+    swapDevices = [ { device = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a"; } ];
     boot.resumeDevice = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a";
 
     hardware.display = {
         outputs."LVDS-1".edid = "1400x1050_60hz.bin";
         edid.enable = true;
-        edid.packages = [(pkgs.runCommand "edid-1400x1050-60hz" {} ''
-            mkdir -p "$out/lib/firmware/edid"
-            base64 -d > "$out/lib/firmware/edid/1400x1050_60hz.bin" <<'EOF'
-            AP///////wA15jcTAgAAABcZAQOAGRJ4469AlVZKjyUgUFQhCACQQAEAAQABAAEBAQEBAQEBwCd4yFAaCkAUdCUA9bgAAAAYAAAAEAAAAAAAAAAAAAAAAAAAAAAADwCQQzwAAAATAgAJ5QAAAAAA/gBIVjEyMVAwMS0xMDAKAJ4=
-            EOF
-        '')];
+        edid.packages = [
+            (pkgs.runCommand "edid-1400x1050-60hz" { } ''
+                mkdir -p "$out/lib/firmware/edid"
+                base64 -d > "$out/lib/firmware/edid/1400x1050_60hz.bin" <<'EOF'
+                AP///////wA15jcTAgAAABcZAQOAGRJ4469AlVZKjyUgUFQhCACQQAEAAQABAAEBAQEBAQEBwCd4yFAaCkAUdCUA9bgAAAAYAAAAEAAAAAAAAAAAAAAAAAAAAAAADwCQQzwAAAATAgAJ5QAAAAAA/gBIVjEyMVAwMS0xMDAKAJ4=
+                EOF
+            '')
+        ];
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -81,29 +101,45 @@
     services.thinkfan = {
         enable = true;
         levels = [
-            [0 
-                00 55
+            [
+                0
+                0
+                55
             ]
-            [1
-                40 50
+            [
+                1
+                40
+                50
             ]
-            [2
-                45 55
+            [
+                2
+                45
+                55
             ]
-            [3
-                50 60
+            [
+                3
+                50
+                60
             ]
-            [6
-                55 65
+            [
+                6
+                55
+                65
             ]
-            [7
-                60 75
+            [
+                7
+                60
+                75
             ]
-            ["level full-speed"
-                70 85
+            [
+                "level full-speed"
+                70
+                85
             ]
-            ["level disengaged"
-                80 32767
+            [
+                "level disengaged"
+                80
+                32767
             ]
         ];
     };

@@ -1,6 +1,12 @@
-{ inputs, config, pkgs, lib, ... }:
 {
-    sops.secrets."tsumugi/nutPass" = {};
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+{
+    sops.secrets."tsumugi/nutPass" = { };
     power.ups = {
         enable = true;
         mode = "netserver";
@@ -9,15 +15,26 @@
             passwordFile = config.sops.secrets."tsumugi/nutPass".path;
             upsmon = "primary";
         };
-        upsd.listen = [{
-            address = "10.0.4.2";
-            port = 3493;
-        }];
+        upsd.listen = [
+            {
+                address = "10.0.4.2";
+                port = 3493;
+            }
+        ];
         upsmon = {
             settings.NOTIFYFLAG = [
-                ["COMMOK"  "SYSLOG"]
-                ["COMMBAD" "SYSLOG"]
-                ["NOCOMM"  "SYSLOG"]
+                [
+                    "COMMOK"
+                    "SYSLOG"
+                ]
+                [
+                    "COMMBAD"
+                    "SYSLOG"
+                ]
+                [
+                    "NOCOMM"
+                    "SYSLOG"
+                ]
             ];
             monitor.powercool = {
                 user = "powercoolmon";

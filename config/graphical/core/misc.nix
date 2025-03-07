@@ -1,11 +1,19 @@
-{inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
-in lib.mkIf (cfg.graphics.enable) {
-    
+in
+lib.mkIf (cfg.graphics.enable) {
+
     security = {
-        pam.services.hyprlock = {};
+        pam.services.hyprlock = { };
     };
-    
+
     # enable virtual camera for OBS
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     boot.extraModprobeConfig = ''
@@ -25,18 +33,18 @@ in lib.mkIf (cfg.graphics.enable) {
 
         honkers-railway-launcher.enable = false;
         honkers-launcher.enable = false;
-        
-        wavey-launcher.enable = false;       # Not currently playable
+
+        wavey-launcher.enable = false; # Not currently playable
         anime-games-launcher.enable = false; # Not for regular use
         quartus = {
             enable = true;
             lite = {
                 enable = true;
-                devices = ["cyclonev"];
+                devices = [ "cyclonev" ];
             };
             pro = {
                 enable = true;
-                devices = ["cyclone10gx"];
+                devices = [ "cyclone10gx" ];
             };
         };
     };

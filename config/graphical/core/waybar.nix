@@ -1,7 +1,15 @@
-{inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
     theme = cfg.style.catppuccin;
-in lib.mkIf (cfg.graphics.enable) {
+in
+lib.mkIf (cfg.graphics.enable) {
     home-manager.users.${cfg.userName} = {
         catppuccin.waybar.enable = true;
         programs.waybar = {
@@ -19,11 +27,11 @@ in lib.mkIf (cfg.graphics.enable) {
                     "hyprland/window" # window title
                 ];
                 modules-right = [
-                    "clock"             # date & time
+                    "clock" # date & time
                     "hyprland/language" # keyboard region
-                    "battery"           # laptop battery state
-                    "wireplumber"       # audio
-                    "tray"              # system tray
+                    "battery" # laptop battery state
+                    "wireplumber" # audio
+                    "tray" # system tray
                 ];
 
                 "hyprland/window" = {
@@ -44,26 +52,32 @@ in lib.mkIf (cfg.graphics.enable) {
                         weeks-pos = "right";
                         on-scroll = 1;
                         format = {
-                            months   = "<span color='#${theme.text.hex}'><b>{}</b></span>";
-                            days     = "<span color='#${theme.subtext0.hex}'><b>{}</b></span>";
-                            weeks    = "<span color='#${theme.overlay0.hex}'><b>W{}</b></span>";
+                            months = "<span color='#${theme.text.hex}'><b>{}</b></span>";
+                            days = "<span color='#${theme.subtext0.hex}'><b>{}</b></span>";
+                            weeks = "<span color='#${theme.overlay0.hex}'><b>W{}</b></span>";
                             weekdays = "<span color='#${theme.overlay0.hex}'><b>{}</b></span>";
-                            today    = "<span color='#${theme.highlight.hex}'><b><u>{}</u></b></span>";
+                            today = "<span color='#${theme.highlight.hex}'><b><u>{}</u></b></span>";
                         };
                     };
                     actions = {
-                        on-click-right    = "mode";        # Switch calendar mode between year/month
-                        on-click-forward  = "tz_up";       # Switch to the next provided time zone
-                        on-click-backward = "tz_down";     # Switch to the previous provided time zone
-                        on-scroll-up      = "shift_up";    # Switch to the previous calendar month/year
-                        on-scroll-down    = "shift_down";  # Switch to the previous calendar month/year
-                        on-click-middle   = "shift_reset"; # Switch to current calendar month/year
+                        on-click-right = "mode"; # Switch calendar mode between year/month
+                        on-click-forward = "tz_up"; # Switch to the next provided time zone
+                        on-click-backward = "tz_down"; # Switch to the previous provided time zone
+                        on-scroll-up = "shift_up"; # Switch to the previous calendar month/year
+                        on-scroll-down = "shift_down"; # Switch to the previous calendar month/year
+                        on-click-middle = "shift_reset"; # Switch to current calendar month/year
                     };
                 };
 
                 battery = {
                     format = "{icon}  {capacity}%";
-                    format-icons = [" " " " " " " " " "];
+                    format-icons = [
+                        " "
+                        " "
+                        " "
+                        " "
+                        " "
+                    ];
                     states = {
                         warning = 30;
                         critical = 15;
@@ -73,7 +87,11 @@ in lib.mkIf (cfg.graphics.enable) {
                 wireplumber = {
                     format = "{icon}  {volume}%";
                     format-muted = " ";
-                    format-icons = [" " " " " "];
+                    format-icons = [
+                        " "
+                        " "
+                        " "
+                    ];
                     on-click = "GSK_RENDERER=gl pwvucontrol";
                 };
 

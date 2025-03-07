@@ -1,7 +1,13 @@
-{ inputs, config, pkgs, lib, ... }: 
 {
-    sops.secrets."tsumugi/wgpk" = {};
-    sops.secrets."ochiai/ip" = {};
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+{
+    sops.secrets."tsumugi/wgpk" = { };
+    sops.secrets."ochiai/ip" = { };
     sops.templates.ochiaiWgQuick.content = ''
         [Interface]
         ListenPort = 9546

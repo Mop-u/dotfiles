@@ -2,9 +2,17 @@
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, lib, ... }: let
+{
+    config,
+    pkgs,
+    inputs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
-in {
+in
+{
     boot.initrd.systemd.enable = true;
 
     networking.hostName = cfg.hostName;
@@ -67,13 +75,12 @@ in {
     networking.nftables.enable = true;
     networking.firewall.enable = true;
 
-
     # Enable local service discovery
-    networking.firewall.allowedUDPPorts = [5353];
+    networking.firewall.allowedUDPPorts = [ 5353 ];
     services.resolved = {
         enable = true;
-	    llmnr = "true"; # true/false/resolve
-	    dnsovertls = "opportunistic";
+        llmnr = "true"; # true/false/resolve
+        dnsovertls = "opportunistic";
     };
     services.avahi = {
         enable = true;
@@ -98,15 +105,15 @@ in {
     i18n.defaultLocale = "en_GB.UTF-8";
 
     i18n.extraLocaleSettings = {
-        LC_ADDRESS        = "en_IE.UTF-8";
+        LC_ADDRESS = "en_IE.UTF-8";
         LC_IDENTIFICATION = "en_IE.UTF-8";
-        LC_MEASUREMENT    = "en_IE.UTF-8";
-        LC_MONETARY       = "en_IE.UTF-8";
-        LC_NAME           = "en_IE.UTF-8";
-        LC_NUMERIC        = "en_IE.UTF-8";
-        LC_PAPER          = "en_IE.UTF-8";
-        LC_TELEPHONE      = "en_IE.UTF-8";
-        LC_TIME           = "en_IE.UTF-8";
+        LC_MEASUREMENT = "en_IE.UTF-8";
+        LC_MONETARY = "en_IE.UTF-8";
+        LC_NAME = "en_IE.UTF-8";
+        LC_NUMERIC = "en_IE.UTF-8";
+        LC_PAPER = "en_IE.UTF-8";
+        LC_TELEPHONE = "en_IE.UTF-8";
+        LC_TIME = "en_IE.UTF-8";
     };
 
     console.keyMap = cfg.input.keyLayout;
@@ -115,15 +122,21 @@ in {
     users.users.${cfg.userName} = {
         isNormalUser = true;
         description = cfg.lib.capitalize cfg.userName;
-        extraGroups = [ "networkmanager" "wheel" ];
-        packages = with pkgs; [];
+        extraGroups = [
+            "networkmanager"
+            "wheel"
+        ];
+        packages = with pkgs; [ ];
         shell = pkgs.zsh;
     };
     programs.zsh.enable = true;
     programs.direnv.enable = true;
 
     # Enable experimental features
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+    ];
 
     nixpkgs.config.allowUnfree = true;
 
@@ -153,16 +166,19 @@ in {
 
     fonts = {
         fontDir.enable = true;
-        packages = with pkgs; [
-            # 25.05 / unstable
-            #nerd-fonts.comic-shanns-mono
-            #nerd-fonts.ubuntu
-            nerdfonts # 24.11
-            liberation_ttf
-            meslo-lgs-nf
-        ] ++ (lib.optional cfg.text.comicCode.enable  cfg.text.comicCode.package);
+        packages =
+            with pkgs;
+            [
+                # 25.05 / unstable
+                #nerd-fonts.comic-shanns-mono
+                #nerd-fonts.ubuntu
+                nerdfonts # 24.11
+                liberation_ttf
+                meslo-lgs-nf
+            ]
+            ++ (lib.optional cfg.text.comicCode.enable cfg.text.comicCode.package);
         fontconfig.defaultFonts = {
-            monospace = (lib.optional cfg.text.comicCode.enable cfg.text.comicCode.name) ++ [ 
+            monospace = (lib.optional cfg.text.comicCode.enable cfg.text.comicCode.name) ++ [
                 "ComicShannsMono Nerd Font"
             ];
         };

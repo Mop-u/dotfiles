@@ -1,19 +1,36 @@
-{inputs}: {config, lib, pkgs, ... }: let
+{ inputs }:
+{
+    config,
+    lib,
+    pkgs,
+    ...
+}:
+let
     cfg = config.sidonia;
-in {
-    options = with lib; { 
+in
+{
+    options = with lib; {
         sidonia = {
             lib = mkOption {
                 readOnly = true;
                 type = types.attrs;
                 default = {
-                    capitalize = str: let
-                        chars = stringToCharacters str;
-                    in concatStrings ([(toUpper (builtins.head chars))] ++ (builtins.tail chars));
+                    capitalize =
+                        str:
+                        let
+                            chars = stringToCharacters str;
+                        in
+                        concatStrings ([ (toUpper (builtins.head chars)) ] ++ (builtins.tail chars));
 
-                    isInstalled = package: builtins.elem package.pname (builtins.catAttrs "pname" (
-                        config.environment.systemPackages ++ config.users.users.${cfg.userName}.packages ++ config.home-manager.users.${cfg.userName}.home.packages
-                    ));
+                    isInstalled =
+                        package:
+                        builtins.elem package.pname (
+                            builtins.catAttrs "pname" (
+                                config.environment.systemPackages
+                                ++ config.users.users.${cfg.userName}.packages
+                                ++ config.home-manager.users.${cfg.userName}.home.packages
+                            )
+                        );
 
                     home = {
                         applications = "/home/${cfg.userName}/.nix-profile/share/applications";
@@ -55,12 +72,17 @@ in {
                 # use `apply` attribute in mkOption to convert input options & avoid hacking nixpkgs lib
                 catppuccin = mkOption {
                     description = "Catppuccin configuration";
-                    default = {};
+                    default = { };
                     type = types.submodule {
                         options = {
                             flavor = mkOption {
                                 description = "Catppuccin theme flavor";
-                                type = types.enum [ "latte" "frappe" "macchiato" "mocha" ];
+                                type = types.enum [
+                                    "latte"
+                                    "frappe"
+                                    "macchiato"
+                                    "mocha"
+                                ];
                                 default = "frappe";
                             };
                             accent = mkOption {
@@ -85,12 +107,16 @@ in {
                             };
                         };
                     };
-                    apply = x: let
-                        theme = (import ./lib/catppuccin.nix).catppuccin.${x.flavor};
-                    in theme // {
-                        inherit (x) flavor accent;
-                        highlight = theme.${x.accent};
-                    };
+                    apply =
+                        x:
+                        let
+                            theme = (import ./lib/catppuccin.nix).catppuccin.${x.flavor};
+                        in
+                        theme
+                        // {
+                            inherit (x) flavor accent;
+                            highlight = theme.${x.accent};
+                        };
                 };
                 cursorSize = mkOption {
                     description = "Cursor size";
@@ -100,7 +126,7 @@ in {
             };
             window = mkOption {
                 description = "Window configuration";
-                default = {};
+                default = { };
                 type = types.submodule {
                     options = {
                         float.w = mkOption {
@@ -139,14 +165,14 @@ in {
                     inherit (x) borderSize rounding;
                     opacity = {
                         dec = x.opacity;
-                        hex = toHexString (builtins.floor (x.opacity*255));
+                        hex = toHexString (builtins.floor (x.opacity * 255));
                     };
                 };
             };
             text = {
                 smallTermFont = mkEnableOption "Shrink the terminal font slightly";
                 comicCode = mkOption {
-                    default = {};
+                    default = { };
                     type = types.submodule {
                         options.enable = mkEnableOption "Use Comic Code monospace font";
                     };
@@ -165,7 +191,11 @@ in {
                 };
                 accelProfile = mkOption {
                     description = "Hyprland mouse acceleration profile";
-                    type = types.enum ["adaptive" "flat" "custom"];
+                    type = types.enum [
+                        "adaptive"
+                        "flat"
+                        "custom"
+                    ];
                     default = "flat";
                 };
                 keyLayout = mkOption {
@@ -177,25 +207,31 @@ in {
         };
     };
 
-    imports = let 
-        ls = with lib; dir: filter: mapAttrsToList (n: v: (path.append dir n)) (filterAttrs filter (builtins.readDir dir));
-        lsFiles = dir: ls dir (n: v: v == "regular");
-        #prefixList = prefix: list: (builtins.map (x: lib.path.append prefix x) list);
-        headless = (lsFiles ./config/headless/core) ++ (lsFiles ./config/headless/optional);
-        graphical = (lsFiles ./config/graphical/core) ++ (lsFiles ./config/graphical/optional);
+    imports =
+        let
+            ls =
+                with lib;
+                dir: filter: mapAttrsToList (n: v: (path.append dir n)) (filterAttrs filter (builtins.readDir dir));
+            lsFiles = dir: ls dir (n: v: v == "regular");
+            #prefixList = prefix: list: (builtins.map (x: lib.path.append prefix x) list);
+            headless = (lsFiles ./config/headless/core) ++ (lsFiles ./config/headless/optional);
+            graphical = (lsFiles ./config/graphical/core) ++ (lsFiles ./config/graphical/optional);
 
-    in headless ++ graphical ++ [
-        inputs.catppuccin.nixosModules.catppuccin
-        inputs.home-manager.nixosModules.home-manager
-        inputs.lancache.nixosModules.dns
-        inputs.lancache.nixosModules.cache
-        inputs.aagl.nixosModules.default
-        inputs.sops-nix.nixosModules.sops
-        inputs.nix-minecraft.nixosModules.minecraft-servers
-        inputs.quartus.nixosModules.quartus 
-    ];
+        in
+        headless
+        ++ graphical
+        ++ [
+            inputs.catppuccin.nixosModules.catppuccin
+            inputs.home-manager.nixosModules.home-manager
+            inputs.lancache.nixosModules.dns
+            inputs.lancache.nixosModules.cache
+            inputs.aagl.nixosModules.default
+            inputs.sops-nix.nixosModules.sops
+            inputs.nix-minecraft.nixosModules.minecraft-servers
+            inputs.quartus.nixosModules.quartus
+        ];
 
     config = {
-        home-manager.users.${cfg.userName}.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+        home-manager.users.${cfg.userName}.imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
     };
 }

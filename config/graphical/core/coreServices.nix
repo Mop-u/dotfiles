@@ -1,7 +1,15 @@
-{inputs, config, pkgs, lib, ... }: let
+{
+    inputs,
+    config,
+    pkgs,
+    lib,
+    ...
+}:
+let
     cfg = config.sidonia;
     theme = cfg.style.catppuccin;
-in lib.mkIf (cfg.graphics.enable) {
+in
+lib.mkIf (cfg.graphics.enable) {
 
     security = {
         pam.services = {
@@ -27,7 +35,7 @@ in lib.mkIf (cfg.graphics.enable) {
     };
 
     environment.sessionVariables = {
-        XDG_CONFIG_DIRS = ["$HOME/.config"]; # this is missing by default, needed for ~/.config/autostart
+        XDG_CONFIG_DIRS = [ "$HOME/.config" ]; # this is missing by default, needed for ~/.config/autostart
     };
 
     services = {
@@ -38,7 +46,7 @@ in lib.mkIf (cfg.graphics.enable) {
         };
 
         gvfs.enable = true; # Mount, trash, and other functionalities
-        
+
         tumbler.enable = true; # Thumbnail support for images
 
         blueman.enable = true;
@@ -73,54 +81,74 @@ in lib.mkIf (cfg.graphics.enable) {
                 exec-arg = lib.gvariant.mkValue "-e";
             };
         };
-        gtk = {enable = true;} // (
-            if (builtins.elem theme.accent [
-                "rosewater"
-                "flamingo"
-                "maroon"
-                "sky"
-                "lavender"
-            ]) 
-            then (
-                builtins.warn ''
-                    The selected theme accent `${theme.accent}` is not yet supported by magnetic-catppuccin-gtk.
-                    Falling back to the deprecated `gtk.catppuccin.enable` method.
-                '' 
-                {
-                    catppuccin = {
-                        enable = true;
-                        icon.enable = true;
-                    };
-                }
-            )
-            else let
-                shade = if theme.flavor == "latte" then "light" else "dark";
-                accent = {
-                    # Renamed colours
-                    mauve     = "purple";
-                    sapphire  = "cyan";
-                    peach     = "orange";
-                }.${theme.accent} or theme.accent;
-                doTweak = builtins.elem theme.flavor ["frappe" "macchiato"];
-            in {
-                theme.name = lib.strings.concatStringsSep "-" (
-                    ["Catppuccin" "GTK" (cfg.lib.capitalize accent) (cfg.lib.capitalize shade)]
-                    ++(if doTweak then [(cfg.lib.capitalize theme.flavor)] else [])
-                );
-                theme.package = (pkgs.magnetic-catppuccin-gtk.overrideAttrs{
-                    src = inputs.magnetic-catppuccin-gtk;
-                }).override{
-                    inherit shade;
-                    accent = [accent];
-                    tweaks = if doTweak then [theme.flavor] else [];
-                };
-                iconTheme.name = "Papirus";
-                iconTheme.package = pkgs.catppuccin-papirus-folders.override{
-                    flavor = theme.flavor;
-                    accent = theme.accent;
-                };
+        gtk =
+            {
+                enable = true;
             }
-        );
+            // (
+                if
+                    (builtins.elem theme.accent [
+                        "rosewater"
+                        "flamingo"
+                        "maroon"
+                        "sky"
+                        "lavender"
+                    ])
+                then
+                    (builtins.warn
+                        ''
+                            The selected theme accent `${theme.accent}` is not yet supported by magnetic-catppuccin-gtk.
+                            Falling back to the deprecated `gtk.catppuccin.enable` method.
+                        ''
+                        {
+                            catppuccin = {
+                                enable = true;
+                                icon.enable = true;
+                            };
+                        }
+                    )
+                else
+                    let
+                        shade = if theme.flavor == "latte" then "light" else "dark";
+                        accent =
+                            {
+                                # Renamed colours
+                                mauve = "purple";
+                                sapphire = "cyan";
+                                peach = "orange";
+                            }
+                            .${theme.accent} or theme.accent;
+                        doTweak = builtins.elem theme.flavor [
+                            "frappe"
+                            "macchiato"
+                        ];
+                    in
+                    {
+                        theme.name = lib.strings.concatStringsSep "-" (
+                            [
+                                "Catppuccin"
+                                "GTK"
+                                (cfg.lib.capitalize accent)
+                                (cfg.lib.capitalize shade)
+                            ]
+                            ++ (if doTweak then [ (cfg.lib.capitalize theme.flavor) ] else [ ])
+                        );
+                        theme.package =
+                            (pkgs.magnetic-catppuccin-gtk.overrideAttrs {
+                                src = inputs.magnetic-catppuccin-gtk;
+                            }).override
+                                {
+                                    inherit shade;
+                                    accent = [ accent ];
+                                    tweaks = if doTweak then [ theme.flavor ] else [ ];
+                                };
+                        iconTheme.name = "Papirus";
+                        iconTheme.package = pkgs.catppuccin-papirus-folders.override {
+                            flavor = theme.flavor;
+                            accent = theme.accent;
+                        };
+                    }
+            );
         qt = {
             enable = true;
             style.name = "kvantum";
@@ -168,39 +196,41 @@ in lib.mkIf (cfg.graphics.enable) {
 
                 #dontWrapQtApps = true;
             })
-            mpv           # video player
-            floorp        # browser
-            dconf-editor  # view gsettings stuff
+            mpv # video player
+            floorp # browser
+            dconf-editor # view gsettings stuff
             gsettings-desktop-schemas
             ungoogled-chromium
             ffmpegthumbnailer
             webp-pixbuf-loader
-            (nemo-with-extensions.overrideAttrs{extraNativeBuildInputs=[pkgs.gvfs];})
+            (nemo-with-extensions.overrideAttrs { extraNativeBuildInputs = [ pkgs.gvfs ]; })
             brightnessctl
         ];
 
         xdg = {
             mimeApps.enable = true;
-            mimeApps.defaultApplications = let
-                browser = "floorp.desktop";
-                imageViewer = "qimgv.desktop";
-                fileExplorer = "nemo.desktop";
-            in {
-                "text/html"                = browser;
-                "x-scheme-handler/http"    = browser;
-                "x-scheme-handler/https"   = browser;
-                "x-scheme-handler/about"   = browser;
-                "x-scheme-handler/unknown" = browser;
-                "image/jpg"        = imageViewer;
-                "image/jpeg"       = imageViewer;
-                "image/png"        = imageViewer;
-                "image/bmp"        = imageViewer;
-                "image/gif"        = imageViewer;
-                "image/webp"       = imageViewer;
-                "image/x-sony-arw" = imageViewer;
-                "inode/directory"                  = fileExplorer;
-                "application/x-gnome-saved-search" = fileExplorer;
-            };
+            mimeApps.defaultApplications =
+                let
+                    browser = "floorp.desktop";
+                    imageViewer = "qimgv.desktop";
+                    fileExplorer = "nemo.desktop";
+                in
+                {
+                    "text/html" = browser;
+                    "x-scheme-handler/http" = browser;
+                    "x-scheme-handler/https" = browser;
+                    "x-scheme-handler/about" = browser;
+                    "x-scheme-handler/unknown" = browser;
+                    "image/jpg" = imageViewer;
+                    "image/jpeg" = imageViewer;
+                    "image/png" = imageViewer;
+                    "image/bmp" = imageViewer;
+                    "image/gif" = imageViewer;
+                    "image/webp" = imageViewer;
+                    "image/x-sony-arw" = imageViewer;
+                    "inode/directory" = fileExplorer;
+                    "application/x-gnome-saved-search" = fileExplorer;
+                };
             mimeApps.associations.added = {
                 "image/jpg" = "qimgv.desktop";
             };
