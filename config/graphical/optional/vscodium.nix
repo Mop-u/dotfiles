@@ -8,10 +8,14 @@ in {
     };
     config = lib.mkIf (cfg.programs.vscodium.enable) {
         nixpkgs.overlays = [
+            (final: prev: {
+                vscodium = inputs.nixpkgs-unstable.legacyPackages.${final.system}.vscodium;
+            })
             (final: prev: let
                 system = final.system;
                 vscodium = final.vscodium;
-                flakeExts = inputs.nix-vscode-extensions.extensions.${system}.forVSCodeVersion vscodium.version;
+                version = with lib.versions; pad 3 vscodium.version;
+                flakeExts = inputs.nix-vscode-extensions.extensions.${system}.forVSCodeVersion version;
 
                 catppuccin-vsc-override = {
                     catppuccin.catppuccin-vsc = inputs.catppuccin-vsc.packages.${system}.default.override {
@@ -38,8 +42,8 @@ in {
         home-manager.users.${cfg.userName} = {
             programs.vscode = {
                 enable = true;
-                enableExtensionUpdateCheck = true;
-                enableUpdateCheck = true;
+                enableExtensionUpdateCheck = false;
+                enableUpdateCheck = false;
                 package = pkgs.vscodium;
                 extensions = with pkgs.vscode-extensions; [
                     haskell.haskell
@@ -52,6 +56,29 @@ in {
                     catppuccin.catppuccin-vsc-icons
                     catppuccin.catppuccin-vsc
                 ];
+                userSettings = {
+                    "workbench.iconTheme" = "catppuccin-${theme.flavor}";
+                    "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}";
+                    "nix.enableLanguageServer" = true;
+                    "nix.serverPath" = "nil";
+                    "nix.serverSettings" = {
+                        nil = {
+                            diagnostics.ignored = [
+                                "unused_binding"
+                                "unused_with"
+                            ];
+                            formatting.command = [
+                                "nixfmt"
+                                "--indent=4"
+                            ];
+                            nix.flake = {
+                                autoArchive = true;
+                                autoEvalInputs = true;
+                                nixpkgsInputName = "nixpkgs";
+                            };
+                        };
+                    };
+                };
             };
         };
     };

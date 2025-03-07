@@ -148,7 +148,7 @@ in {
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
         foot.terminfo
         smartmontools
-        nixfmt-rfc-style
+        inputs.nixfmt-git.packages.${pkgs.system}.default
     ];
 
     fonts = {

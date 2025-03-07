@@ -12,9 +12,9 @@
     };
 
     inputs = {
-        #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-
+        nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
 
         aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-24.11";
