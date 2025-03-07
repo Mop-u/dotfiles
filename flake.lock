@@ -1274,11 +1274,11 @@
     "stextSublimeLinter": {
       "flake": false,
       "locked": {
-        "lastModified": 1724857301,
-        "narHash": "sha256-xx0lqgDo8MWS+4dQ24O4/17kTXheo9R5uaI3U7pQ5dc=",
+        "lastModified": 1741359367,
+        "narHash": "sha256-5YZh3mxdeeA/pPZRr4q5aMtyBfa2f+w66JxPVJGvBCc=",
         "owner": "SublimeLinter",
         "repo": "SublimeLinter",
-        "rev": "b71799c0b51fb0effd911794b4df1175e3a51ce3",
+        "rev": "8a29f90c623776baded9761eb0819360470cf428",
         "type": "github"
       },
       "original": {
