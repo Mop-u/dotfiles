@@ -73,30 +73,38 @@ in
                     gruntfuggly.triggertaskonsave
                     catppuccin.catppuccin-vsc-icons
                     catppuccin.catppuccin-vsc
+                    christian-kohler.path-intellisense
                 ];
-                userSettings = {
-                    "workbench.iconTheme" = "catppuccin-${theme.flavor}";
-                    "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}";
-                    "nix.enableLanguageServer" = true;
-                    "nix.serverPath" = "nil";
-                    "nix.serverSettings" = {
-                        nil = {
-                            diagnostics.ignored = [
-                                "unused_binding"
-                                "unused_with"
-                            ];
-                            formatting.command = [
-                                "nixfmt"
-                                "--indent=4"
-                            ];
-                            nix.flake = {
-                                autoArchive = true;
-                                autoEvalInputs = true;
-                                nixpkgsInputName = "nixpkgs";
+                userSettings =
+                    let
+                        nixfmt = [
+                            "nixfmt"
+                            "--indent=4"
+                        ];
+                    in
+                    {
+                        "workbench.iconTheme" = "catppuccin-${theme.flavor}";
+                        "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}";
+                        "typescript.suggest.paths" = false;
+                        "javascript.suggest.paths" = false;
+                        "nix.enableLanguageServer" = true;
+                        "nix.formatterPath" = nixfmt;
+                        "nix.serverPath" = "nil";
+                        "nix.serverSettings" = {
+                            nil = {
+                                diagnostics.ignored = [
+                                    "unused_binding"
+                                    "unused_with"
+                                ];
+                                formatting.command = nixfmt;
+                                nix.flake = {
+                                    autoArchive = true;
+                                    autoEvalInputs = true;
+                                    nixpkgsInputName = "nixpkgs";
+                                };
                             };
                         };
                     };
-                };
             };
         };
     };
