@@ -45,10 +45,16 @@ in
         "r8125" # realtek PCIe 2.5Gbe
     ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ ];
-    boot.kernelParams = [
-        "i915.force_probe=!${intelGPU}"
-        "xe.force_probe=${intelGPU}"
-    ];
+    #boot.kernelParams = [
+    #    "i915.force_probe=!${intelGPU}"
+    #    "xe.force_probe=${intelGPU}"
+    #];
+    ## Use latest mesa for xe driver support
+    #nixpkgs.overlays = [
+    #    (final: prev: {
+    #        mesa = inputs.nixpkgs-unstable.legacyPackages.${final.system}.mesa;
+    #    })
+    #];
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/75980f2d-cc48-4245-b6c5-31bf9d0465bc";
