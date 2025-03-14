@@ -153,16 +153,20 @@
 
     outputs =
         { self, nixpkgs, ... }@inputs:
-        {
-            nixosConfigurations = nixpkgs.lib.mapAttrs (
-                hostName: v:
-                (nixpkgs.lib.nixosSystem {
+        let
+            inherit (nixpkgs) lib;
+            mkConfig =
+                hostName:
+                (lib.nixosSystem {
                     specialArgs = { inherit inputs; };
                     modules = [
                         ((import ./module.nix) { inherit inputs; })
-                        (nixpkgs.lib.path.append ./config/target hostName)
+                        (lib.path.append ./hosts hostName)
                     ];
-                })
-            ) (nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./config/target));
+                });
+            hosts = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
+        in
+        {
+            nixosConfigurations = lib.mapAttrs (n: v: (mkConfig n)) hosts;
         };
 }
