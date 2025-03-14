@@ -39,16 +39,20 @@ in
     };
 
     # Enable sound
+    hardware.pulseaudio.enable = false; # using pipewire instead
     security.rtkit.enable = true;
     services.pipewire = {
         enable = true;
         audio.enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
+        alsa = {
+            enable = true;
+            support32Bit = true;
+        };
         pulse.enable = true;
-        jack.enable = true;
+        jack.enable = false;
         wireplumber.enable = true;
     };
+
 
     # Firmware updater
     services.fwupd.enable = true;
@@ -125,6 +129,7 @@ in
         extraGroups = [
             "networkmanager"
             "wheel"
+            "audio"
         ];
         packages = with pkgs; [ ];
         shell = pkgs.zsh;

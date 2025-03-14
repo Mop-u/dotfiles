@@ -19,6 +19,7 @@
         services.goxlr.enable = true;
         isLaptop = true;
         graphics.enable = true;
+        tweaks.withBehringerAudioInterface = true;
         programs.hyprland.monitors = [
             {
                 name = "eDP-1";
