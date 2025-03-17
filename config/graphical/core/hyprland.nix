@@ -101,7 +101,7 @@ in
             (final: prev: {
                 hyprland =
                     let
-                        hyprPkg = inputs.nixpkgs-unstable.legacyPackages.${final.system}.hyprland;
+                        hyprPkg = prev.hyprland; # inputs.nixpkgs-unstable.legacyPackages.${final.system}.hyprland;
                     in
                     (hyprPkg.override {
                         legacyRenderer = cfg.graphics.legacyGpu;
@@ -109,10 +109,21 @@ in
             })
         ];
 
+        environment.systemPackages = [
+            (pkgs.catppuccin-sddm.override {
+                flavor = theme.flavor;
+                font = cfg.text.comicCode.name;
+                #fontSize = "10";
+                #background = "path-to-wallpaper-here.png";
+                loginBackground = false;
+            })
+        ];
+
         services.displayManager = {
             sddm.enable = true;
             sddm.wayland.enable = true;
             sddm.package = pkgs.kdePackages.sddm;
+            sddm.theme = "catppuccin-${theme.flavor}";
             autoLogin.enable = false;
             autoLogin.user = cfg.userName;
             defaultSession = "hyprland-uwsm";
@@ -121,7 +132,7 @@ in
         programs.hyprland = {
             enable = true;
             withUWSM = true;
-            portalPackage = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.xdg-desktop-portal-hyprland;
+            #portalPackage = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.xdg-desktop-portal-hyprland;
         };
 
         home-manager.users.${cfg.userName} =
@@ -129,7 +140,10 @@ in
                 inherit (cfg.programs.hyprland) monitors;
             in
             {
-                home.packages = [ inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.hyprcursor ];
+                home.packages = [
+                    pkgs.hyprcursor
+                    #inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.hyprcursor
+                ];
                 home.file.xdphCfg = {
                     enable = true;
                     target = "/home/${cfg.userName}/.config/hypr/xdph.conf";

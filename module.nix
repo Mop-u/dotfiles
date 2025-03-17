@@ -182,7 +182,7 @@ in
                     apply = x: {
                         inherit (x) enable;
                         package = inputs.nonfree-fonts.packages.${config.nixpkgs.system}.comic-code;
-                        name = "Comic Code";
+                        name = if x.enable then "Comic Code" else "ComicShannsMono Nerd Font";
                     };
                 };
             };
