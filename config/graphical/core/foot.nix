@@ -27,7 +27,7 @@ lib.mkIf (cfg.graphics.enable) {
                 "${cfg.window.float.onCursor}, class:(foot), title:(foot)"
             ];
             bind = [
-                "SUPERSHIFT, Return, exec, foot"
+                "SUPERSHIFT, Return, exec, uwsm app -- foot"
             ];
         };
     };

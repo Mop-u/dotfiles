@@ -2,11 +2,9 @@
     description = "A simple NixOS flake";
     nixConfig = {
         extra-substituters = [
-            "https://hyprland.cachix.org"
             "https://ezkea.cachix.org"
         ];
         extra-trusted-public-keys = [
-            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
             "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
         ];
     };
@@ -21,13 +19,6 @@
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        hyprland = {
-            url = "https://github.com/hyprwm/Hyprland";
-            type = "git";
-            submodules = true;
             inputs.nixpkgs.follows = "nixpkgs";
         };
 

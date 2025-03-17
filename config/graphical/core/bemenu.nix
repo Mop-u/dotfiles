@@ -33,12 +33,12 @@ lib.mkIf (cfg.graphics.enable) {
         programs.bemenu.enable = true;
         wayland.windowManager.hyprland.settings.bind =
             [
-                "SUPER, P, exec, bemenu-run ${bemenu.opts}"
+                "SUPER, P, exec, uwsm app -- $(bemenu-run --no-exec ${bemenu.opts})"
             ]
             ++ (
                 if config.hardware.nvidia.prime.offload.enableOffloadCmd then
                     [
-                        "SUPERSHIFT, P, exec, LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia nvidia-offload $(bemenu-run --no-exec ${bemenu.opts})"
+                        "SUPERSHIFT, P, exec, uwsm app -- nvidia-offload $(LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia bemenu-run --no-exec ${bemenu.opts})"
                     ]
                 else
                     [ ]

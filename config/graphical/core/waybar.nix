@@ -125,7 +125,7 @@ lib.mkIf (cfg.graphics.enable) {
             target = "/home/${cfg.userName}/.config/systemd/user/waybar.service.d/dropin.conf";
             text = ''
                 [Service]
-                RestartSec=5
+                RestartSec=3
             '';
         };
     };
