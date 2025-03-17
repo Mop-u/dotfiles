@@ -24,13 +24,11 @@ in
             (
                 final: prev:
                 let
-                    system = final.system;
-                    vscodium = final.vscodium;
-                    version = with lib.versions; pad 3 vscodium.version;
-                    flakeExts = inputs.nix-vscode-extensions.extensions.${system}.forVSCodeVersion version;
+                    version = lib.versions.pad 3 final.vscodium.version;
+                    flakeExts = inputs.nix-vscode-extensions.extensions.${final.system}.forVSCodeVersion version;
 
                     catppuccin-vsc-override = {
-                        catppuccin.catppuccin-vsc = inputs.catppuccin-vsc.packages.${system}.default.override {
+                        catppuccin.catppuccin-vsc = inputs.catppuccin-vsc.packages.${final.system}.default.override {
                             accent = theme.accent;
                             boldKeywords = true;
                             italicComments = true;

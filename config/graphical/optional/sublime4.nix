@@ -47,7 +47,7 @@ in
                     #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
                     #svls
                     #verilator
-                    verible
+                    #verible
                 ])
                 ++ (lib.optional cfg.programs.sublime-merge.enable sublime-merge);
 
