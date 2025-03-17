@@ -16,7 +16,7 @@
         style.catppuccin.flavor = "macchiato";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;
-        services.goxlr.enable = true;
+        services.goxlr.enable = false;
         isLaptop = true;
         graphics.enable = true;
         tweaks.withBehringerAudioInterface = true;
