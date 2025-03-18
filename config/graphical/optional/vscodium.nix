@@ -102,6 +102,7 @@ in
                                 };
                             };
                         };
+                        "editor.fontFamily" = "monospace, 'ComicShannsMono Nerd Font'";
                     };
             };
         };
