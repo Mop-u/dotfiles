@@ -62,7 +62,7 @@ in
                             hasHz = monitor.refresh != 0.0;
                             scaleAuto = monitor.scale == 0.0;
                             hasXtra = monitor.extraArgs != "";
-                            args = concatStringsSep "," (
+                            args = concatStringsSep ", " (
                                 [
                                     (concatStringsSep "@" (
                                         [ monitor.resolution ] ++ (optional hasHz (strings.floatToString monitor.refresh))
@@ -99,31 +99,26 @@ in
 
         nixpkgs.overlays = [
             (final: prev: {
-                hyprland =
-                    let
-                        hyprPkg = prev.hyprland; # inputs.nixpkgs-unstable.legacyPackages.${final.system}.hyprland;
-                    in
-                    (hyprPkg.override {
-                        legacyRenderer = cfg.graphics.legacyGpu;
-                    });
+                hyprland = prev.hyprland.override {
+                    legacyRenderer = cfg.graphics.legacyGpu;
+                };
             })
         ];
 
-        environment.systemPackages = [
-            (pkgs.catppuccin-sddm.override {
-                flavor = theme.flavor;
-                font = cfg.text.comicCode.name;
-                #fontSize = "10";
-                #background = "path-to-wallpaper-here.png";
-                loginBackground = false;
-            })
-        ];
+        catppuccin.sddm = {
+            enable = true;
+            assertQt6Sddm = true;
+            inherit (theme) flavor;
+            background = "";
+            font = cfg.text.comicCode.name;
+            fontSize = "9";
+            loginBackground = false;
+        };
 
         services.displayManager = {
             sddm.enable = true;
             sddm.wayland.enable = true;
             sddm.package = pkgs.kdePackages.sddm;
-            sddm.theme = "catppuccin-${theme.flavor}";
             autoLogin.enable = false;
             autoLogin.user = cfg.userName;
             defaultSession = "hyprland-uwsm";
@@ -132,7 +127,6 @@ in
         programs.hyprland = {
             enable = true;
             withUWSM = true;
-            #portalPackage = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.xdg-desktop-portal-hyprland;
         };
 
         home-manager.users.${cfg.userName} =
@@ -140,10 +134,7 @@ in
                 inherit (cfg.programs.hyprland) monitors;
             in
             {
-                home.packages = [
-                    pkgs.hyprcursor
-                    #inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.hyprcursor
-                ];
+                home.packages = [ pkgs.hyprcursor ];
                 home.file.xdphCfg = {
                     enable = true;
                     target = "/home/${cfg.userName}/.config/hypr/xdph.conf";

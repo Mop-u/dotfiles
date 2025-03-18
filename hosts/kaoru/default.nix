@@ -27,10 +27,10 @@
                 refresh = 165.00400;
                 scale = 1.333333;
                 position = "6720x0";
-                extraArgs = "bitdepth,10";
+                extraArgs = "bitdepth, 10";
             }
             {
-                name = "desc:Lenovo Group Limited P40w-20";
+                name = "desc:Lenovo Group Limited P40w-20 V9095052";
                 resolution = "5120x2160";
                 refresh = 74.97900;
                 scale = 1.066667;
