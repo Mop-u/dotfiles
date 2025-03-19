@@ -40,7 +40,9 @@ in
                         borderSize = builtins.toString cfg.window.borderSize;
                         opacity = cfg.window.opacity.hex;
                         theme = cfg.style.catppuccin;
+                        palette = builtins.mapAttrs (n: v: "#${v.hex}") theme.color;
                     in
+                    with palette;
                     ''
                         .client-image {
                             margin: 15px;
@@ -63,7 +65,7 @@ in
                         }
 
                         .client:hover {
-                            color: #${theme.highlight.hex};
+                            color: ${accent};
                             background-color: inherit;
                         }
 
@@ -95,10 +97,10 @@ in
 
                         window {
                             font-size: 18px;
-                            color: #${theme.text.hex};
+                            color: ${text};
                             border-radius: ${rounding}px;
-                            background-color: #${theme.base.hex}${opacity};
-                            border: ${borderSize}px solid #${theme.highlight.hex};
+                            background-color: ${base}${opacity};
+                            border: ${borderSize}px solid ${accent};
                             opacity: initial;
                         }
                     '';

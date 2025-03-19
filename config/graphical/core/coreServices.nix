@@ -67,18 +67,26 @@ lib.mkIf (cfg.graphics.enable) {
             flavor = theme.flavor;
         };
 
-        dconf.settings = {
+        home.file.nmAppletDropin = {
+            enable = true;
+            target = "/home/${cfg.userName}/.config/systemd/user/nm-applet.service.d/dropin.conf";
+            text = ''
+                [Service]
+                RestartSec=3
+            '';
+        };
+
+        dconf.settings = with lib.gvariant; {
             "org/gnome/desktop/interface" = {
-                cursor-size = lib.gvariant.mkInt32 cfg.style.cursorSize;
+                cursor-size = mkInt32 cfg.style.cursorSize;
             };
             "org/cinnamon/desktop/default-applications/terminal" = {
-                #exec = lib.gvariant.mkValue "${pkgs.foot}/bin/foot";
-                exec = lib.gvariant.mkValue "foot";
-                exec-arg = lib.gvariant.mkValue "-e";
+                exec = mkValue "foot";
+                exec-arg = mkValue "-e";
             };
             "org/gnome/desktop/applications/terminal" = {
-                exec = lib.gvariant.mkValue "foot";
-                exec-arg = lib.gvariant.mkValue "-e";
+                exec = mkValue "foot";
+                exec-arg = mkValue "-e";
             };
         };
         gtk =

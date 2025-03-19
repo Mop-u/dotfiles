@@ -9,23 +9,29 @@ let
     cfg = config.sidonia;
     inherit (cfg) window;
     theme = cfg.style.catppuccin;
-    bemenu = rec {
-        placement = " -nciwl '16 down' --single-instance --width-factor 0.33";
-        border = " --border ${builtins.toString window.borderSize} --border-radius ${builtins.toString window.rounding}";
-        tb = " --tb '##${theme.base.hex}${window.opacity.hex}'";
-        fb = " --fb '##${theme.base.hex}${window.opacity.hex}'";
-        nb = " --nb '##${theme.base.hex}${window.opacity.hex}'";
-        ab = " --ab '##${theme.base.hex}${window.opacity.hex}'";
-        hb = " --hb '##${theme.base.hex}${window.opacity.hex}'";
-        tf = " --tf '##${theme.highlight.hex}'";
-        ff = " --ff '##${theme.text.hex}'";
-        nf = " --nf '##${theme.text.hex}'";
-        af = " --af '##${theme.text.hex}'";
-        hf = " --hf '##${theme.highlight.hex}'";
-        bdr = " --bdr '##${theme.highlight.hex}'";
-        font = " --fn monospace";
-        opts = placement + border + tb + fb + nb + ab + hb + tf + ff + nf + af + hf + bdr + font;
-    };
+    bemenu =
+        let
+            palette = builtins.mapAttrs (n: v: "##${v.hex}") theme.color;
+            opacity = window.opacity.hex;
+        in
+        with palette;
+        rec {
+            placement = " -nciwl '16 down' --single-instance --width-factor 0.33";
+            border = " --border ${builtins.toString window.borderSize} --border-radius ${builtins.toString window.rounding}";
+            tb = " --tb '${base}${opacity}'";
+            fb = " --fb '${base}${opacity}'";
+            nb = " --nb '${base}${opacity}'";
+            ab = " --ab '${base}${opacity}'";
+            hb = " --hb '${base}${opacity}'";
+            tf = " --tf '${accent}'";
+            ff = " --ff '${text}'";
+            nf = " --nf '${text}'";
+            af = " --af '${text}'";
+            hf = " --hf '${accent}'";
+            bdr = " --bdr '${accent}'";
+            font = " --fn monospace";
+            opts = placement + border + tb + fb + nb + ab + hb + tf + ff + nf + af + hf + bdr + font;
+        };
 
 in
 lib.mkIf (cfg.graphics.enable) {

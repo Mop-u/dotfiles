@@ -153,9 +153,8 @@ in
                     xwayland.enable = true;
                     settings =
                         let
-                            elems = lib.filterAttrs (n: v: builtins.isAttrs v) theme; # omit flavor & accent strings
-                            rgb = lib.mapAttrs (n: v: "rgb(${v.hex})") elems;
-                            rgba = lib.mapAttrs (n: v: (alpha: "rgba(${v.hex}${alpha})")) elems;
+                            rgb = lib.mapAttrs (n: v: "rgb(${v.hex})") theme.color;
+                            rgba = lib.mapAttrs (n: v: (alpha: "rgba(${v.hex}${alpha})")) theme.color;
                         in
                         {
                             monitor = builtins.concatMap (mon: [ mon.enable ]) monitors;
@@ -201,19 +200,19 @@ in
                                 #"GDK_DPI_SCALE,1"
                             ];
                             # Gradients:
-                            general."col.active_border" = rgb.highlight; # border color for the active window
+                            general."col.active_border" = rgb.accent; # border color for the active window
                             general."col.inactive_border" = rgb.overlay2; # border color for inactive windows
                             general."col.nogroup_border_active" = rgb.maroon; # active border color for window that cannot be added to a group (see denywindowfromgroup dispatcher)
                             general."col.nogroup_border" = rgb.overlay2; # inactive border color for window that cannot be added to a group (see denywindowfromgroup dispatcher)
 
                             group."col.border_active" = rgb.flamingo; # active group border color
                             group."col.border_inactive" = rgb.overlay2; # inactive (out of focus) group border color
-                            group."col.border_locked_active" = "${rgb.flamingo} ${rgb.highlight} 45deg"; # active locked group border color
+                            group."col.border_locked_active" = "${rgb.flamingo} ${rgb.accent} 45deg"; # active locked group border color
                             group."col.border_locked_inactive" = rgb.overlay2; # inactive locked group border color
 
                             group.groupbar."col.active" = rgb.flamingo; # active group border color
                             group.groupbar."col.inactive" = rgb.overlay2; # inactive (out of focus) group border color
-                            group.groupbar."col.locked_active" = "${rgb.flamingo} ${rgb.highlight} 45deg"; # active locked group border color
+                            group.groupbar."col.locked_active" = "${rgb.flamingo} ${rgb.accent} 45deg"; # active locked group border color
                             group.groupbar."col.locked_inactive" = rgb.overlay2; # inactive locked group border color
 
                             # Colours:

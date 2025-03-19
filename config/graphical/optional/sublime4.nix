@@ -261,10 +261,9 @@ in
                         target = smergeCfg + "/${catppuccinBaseName}.sublime-theme";
                         text =
                             let
-                                elems = lib.filterAttrs (n: v: builtins.isAttrs v) theme; # omit flavor & accent strings
-                                hex = lib.mapAttrs (n: v: "#${v.hex}") elems;
+                                palette = lib.mapAttrs (n: v: "#${v.hex}") theme.color;
                             in
-                            with hex;
+                            with palette;
                             builtins.toJSON {
                                 extends = "Merge.sublime-theme";
                                 variables = {
@@ -464,13 +463,13 @@ in
 
                                     # Radio buttons
                                     radio_back = base;
-                                    radio_selected = highlight;
-                                    radio_border-selected = highlight;
+                                    radio_selected = accent;
+                                    radio_border-selected = accent;
 
                                     # Checkbox buttons
                                     checkbox_back = base;
-                                    checkbox_selected = highlight;
-                                    checkbox_border-selected = highlight;
+                                    checkbox_selected = accent;
+                                    checkbox_border-selected = accent;
 
                                     # Dialogs
                                     dialog_bg = base;
@@ -478,19 +477,19 @@ in
 
                                     # Progress bar
                                     progress_bg = "var(header_button_bg)";
-                                    progress_fg = "color(${highlight}))";
+                                    progress_fg = "color(${accent}))";
 
                                     # Quick panel
                                     quick_panel_bg = base;
                                     quick_panel_row_bg = surface0;
                                     quick_panel_fg = text;
-                                    quick_panel_fg-match = highlight;
+                                    quick_panel_fg-match = accent;
                                     quick_panel_fg-selected = text;
-                                    quick_panel_fg-selected-match = highlight;
+                                    quick_panel_fg-selected-match = accent;
                                     quick_panel_path_fg = "var(text-light)";
-                                    quick_panel_path_fg-match = highlight;
+                                    quick_panel_path_fg-match = accent;
                                     quick_panel_path_fg-selected = "var(text-light)";
-                                    quick_panel_path_fg-selected-match = highlight;
+                                    quick_panel_path_fg-selected-match = accent;
 
                                     switch_repo_bg = base;
 
@@ -564,7 +563,7 @@ in
                                                 0
                                                 1
                                             ];
-                                            "layer2.tint" = highlight;
+                                            "layer2.tint" = accent;
                                         }
                                         {
                                             class = "tab_control";
@@ -600,7 +599,7 @@ in
                                                 0
                                                 1
                                             ];
-                                            "layer2.tint" = highlight;
+                                            "layer2.tint" = accent;
                                             "layer2.opacity" = 0.0;
                                         }
                                         {
@@ -692,8 +691,8 @@ in
                                         }
                                         {
                                             class = "diff_text_control";
-                                            "line_selection_color" = "color(${highlight}) alpha(0.05))";
-                                            "line_selection_border_color" = "color(${highlight}) alpha(0.5))";
+                                            "line_selection_color" = "color(${accent}) alpha(0.05))";
+                                            "line_selection_border_color" = "color(${accent}) alpha(0.5))";
                                             "line_selection_border_width" = 2.0;
                                             "line_selection_border_radius" = 2.0;
                                         }
@@ -950,7 +949,7 @@ in
                                             ];
                                             "layer0.texture" = "Theme - Default/common/folder_open.png";
                                             "layer0.opacity" = 1.0;
-                                            "layer0.tint" = highlight;
+                                            "layer0.tint" = accent;
                                         }
                                         {
                                             class = "icon_folder";

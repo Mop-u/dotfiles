@@ -115,10 +115,12 @@ in
                         let
                             theme = (import ./lib/catppuccin.nix).catppuccin.${x.flavor};
                         in
-                        theme
-                        // {
+                        {
                             inherit (x) flavor accent;
                             highlight = theme.${x.accent};
+                            color = theme // {
+                                accent = theme.${x.accent};
+                            };
                         };
                 };
                 cursorSize = mkOption {

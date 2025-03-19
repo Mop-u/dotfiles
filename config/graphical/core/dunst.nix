@@ -19,7 +19,8 @@ lib.mkIf (cfg.graphics.enable) {
                     rounding = builtins.toString cfg.window.rounding;
                     borderSize = builtins.toString cfg.window.borderSize;
                     opacity = cfg.window.opacity.hex;
-                in
+                    palette = builtins.mapAttrs (n: v: "#${v.hex}") theme.color;
+                in with palette;
                 {
                     # https://dunst-project.org/documentation/
                     global = {
@@ -35,23 +36,23 @@ lib.mkIf (cfg.graphics.enable) {
                         layer = "overlay";
                         frame_width = borderSize;
                         corner_radius = rounding;
-                        highlight = "#${theme.highlight.hex}";
-                        separator_color = "#${theme.highlight.hex}";
+                        highlight = accent;
+                        separator_color = accent;
                     };
                     urgency_low = {
-                        background = "#${theme.base.hex + opacity}";
-                        foreground = "#${theme.text.hex}";
-                        frame_color = "#${theme.highlight.hex}";
+                        background = base + opacity;
+                        foreground = text;
+                        frame_color = accent;
                     };
                     urgency_normal = {
-                        background = "#${theme.base.hex + opacity}";
-                        foreground = "#${theme.text.hex}";
-                        frame_color = "#${theme.highlight.hex}";
+                        background = base + opacity;
+                        foreground = text;
+                        frame_color = accent;
                     };
                     urgency_high = {
-                        background = "#${theme.base.hex + opacity}";
-                        foreground = "#${theme.text.hex}";
-                        frame_color = "#${theme.red.hex}";
+                        background = base + opacity;
+                        foreground = text;
+                        frame_color = red;
                     };
                 };
         };
