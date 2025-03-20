@@ -67,11 +67,11 @@ in
                     llvm-vs-code-extensions.vscode-clangd
                     mkhl.direnv
                     mshr-h.veriloghdl
-                    ms-vscode.live-server
                     gruntfuggly.triggertaskonsave
                     catppuccin.catppuccin-vsc-icons
                     catppuccin.catppuccin-vsc
                     christian-kohler.path-intellisense
+                    yandeu.five-server
                 ];
                 userSettings =
                     let
