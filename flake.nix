@@ -47,23 +47,8 @@
             inputs.cache-domains.follows = "lancache-domains";
             inputs.monolithic.follows = "lancache-monolithic";
         };
-
-        veridian-nix = {
-            url = "github:Mop-u/veridian-nix";
-            #url = "git+file:../veridian-nix";
-        };
-
         nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        naturaldocs = {
-            url = "github:Mop-u/naturaldocs-nix";
-            #url = "git+file:../naturaldocs-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        slang-lsp = {
-            url = "github:Mop-u/slang-lsp-tools-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         quartus = {
@@ -78,10 +63,6 @@
         nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
         # sublime text packages
-        stextSublimeLinterContribVerilator = {
-            url = "github:Mop-u/SublimeLinter-contrib-verilator";
-            flake = false;
-        };
         stextPackageControl = {
             url = "github:wbond/package_control";
             flake = false;
@@ -96,10 +77,6 @@
         };
         stextCatppuccin = {
             url = "github:catppuccin/sublime-text";
-            flake = false;
-        };
-        stextSublimeLinter = {
-            url = "github:SublimeLinter/SublimeLinter";
             flake = false;
         };
         stextSystemVerilog = {

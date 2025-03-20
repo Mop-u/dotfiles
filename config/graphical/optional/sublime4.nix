@@ -41,14 +41,7 @@ in
         home-manager.users.${cfg.userName} = {
             home.packages =
                 with pkgs;
-                (lib.optionals cfg.programs.sublime-text.enable [
-                    sublime4
-                    #inputs.veridian-nix.packages.${pkgs.system}.veridian
-                    #inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools
-                    #svls
-                    #verilator
-                    #verible
-                ])
+                (lib.optionals cfg.programs.sublime-text.enable [ sublime4 ])
                 ++ (lib.optional cfg.programs.sublime-merge.enable sublime-merge);
 
             wayland.windowManager.hyprland.settings = lib.mkIf cfg.programs.sublime-merge.enable {
@@ -72,11 +65,6 @@ in
                         target = stextPkg + "/Package Control";
                         source = inputs.stextPackageControl;
                     };
-                    stextSublimeLinterContribVerilator = {
-                        enable = cfg.lib.isInstalled pkgs.verilator;
-                        target = stextPkg + "/SublimeLinter-contrib-verilator";
-                        source = inputs.stextSublimeLinterContribVerilator;
-                    };
                     stextLSP = {
                         enable = true;
                         target = stextPkg + "/LSP";
@@ -86,11 +74,6 @@ in
                         enable = true;
                         target = stextPkg + "/Nix";
                         source = inputs.stextNix;
-                    };
-                    stextSublimeLinter = {
-                        enable = true;
-                        target = stextPkg + "/SublimeLinter";
-                        source = inputs.stextSublimeLinter;
                     };
                     stextSystemVerilog = {
                         enable = true;
@@ -125,53 +108,7 @@ in
                         target = stextCfg + "/SystemVerilog.sublime-settings";
                         text = builtins.toJSON {
                             "sv.disable_autocomplete" = true;
-                            "sv.tooltip" = false;
-                        };
-                    };
-                    stextSublimeLinterCfg = {
-                        enable = true;
-                        target = stextCfg + "/SublimeLinter.sublime-settings";
-                        text = builtins.toJSON {
-                            no_column_highlights_line = true;
-                            debug = false;
-                            linters = {
-                                verilator = {
-                                    disable = !(cfg.lib.isInstalled pkgs.verilator);
-                                    lint_mode = "load_save";
-                                    styles = [
-                                        {
-                                            types = [ "warning" ];
-                                            mark_style = "squiggly_underline";
-                                            icon = "Packages/SublimeLinter/gutter-themes/Default/cog.png";
-                                        }
-                                        {
-                                            types = [ "error" ];
-                                            mark_style = "fill";
-                                            icon = "Packages/SublimeLinter/gutter-themes/Default/cog.png";
-                                        }
-                                    ];
-                                    args = [
-                                        "--error-limit"
-                                        "500"
-                                        "--default-language"
-                                        "1800-2005"
-                                        "-Wall"
-                                    ];
-
-                                    verilator_version = 5;
-                                    use_multiple_source = true;
-                                    search_project_path = true;
-
-                                    use_wsl = false;
-
-                                    extension = [
-                                        ".v"
-                                        ".sv"
-                                        ".svh"
-                                        ".vh"
-                                    ];
-                                };
-                            };
+                            "sv.tooltip" = true;
                         };
                     };
                     stextLSPCfg = {
@@ -187,11 +124,6 @@ in
                                     ];
                                     selector = "source.systemverilog";
                                 };
-                                veridian = {
-                                    enabled = cfg.lib.isInstalled inputs.veridian-nix.packages.${pkgs.system}.veridian;
-                                    command = [ "veridian" ];
-                                    selector = "source.systemverilog";
-                                };
                                 nil = {
                                     enabled = cfg.lib.isInstalled pkgs.nil;
                                     command = [ "nil" ];
@@ -203,11 +135,6 @@ in
                                             autoEvalInputs = true;
                                         };
                                     };
-                                };
-                                slang = {
-                                    enabled = cfg.lib.isInstalled inputs.slang-lsp.packages.${pkgs.system}.slang-lsp-tools;
-                                    command = [ "slang-lsp" ];
-                                    selector = "source.systemverilog";
                                 };
                                 svls = {
                                     enabled = cfg.lib.isInstalled pkgs.svls;

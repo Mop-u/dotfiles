@@ -163,7 +163,6 @@ in
         nil
         gnumake
         gcc
-        inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
         foot.terminfo
         smartmontools
         usbutils
