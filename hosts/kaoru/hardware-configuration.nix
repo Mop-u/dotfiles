@@ -111,6 +111,8 @@ in
         # VDPAU_DRIVER=nvidia
     ];
 
+    services.hardware.bolt.enable = true;
+
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
         modesetting.enable = true;

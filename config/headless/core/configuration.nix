@@ -166,6 +166,7 @@ in
         inputs.naturaldocs.packages.${pkgs.system}.naturaldocs
         foot.terminfo
         smartmontools
+        usbutils
         inputs.nixfmt-git.packages.${pkgs.system}.default
     ];
 
