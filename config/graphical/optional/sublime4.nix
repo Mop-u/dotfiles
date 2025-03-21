@@ -92,7 +92,7 @@ in
                         target = stextCfg + "/Preferences.sublime-settings";
                         text = builtins.toJSON {
                             ignored_packages = [ "Vintage" ];
-                            font_size = if cfg.text.smallTermFont then 10 else 11;
+                            font_size = if cfg.text.smallTermFont then 9 else 10;
                             translate_tabs_to_spaces = true;
                             index_files = true;
                             hardware_acceleration = if cfg.graphics.legacyGpu then "none" else "opengl";
