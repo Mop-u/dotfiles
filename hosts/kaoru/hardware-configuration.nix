@@ -123,10 +123,10 @@ in
         package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
-            #sync.enable = true;
-            offload.enable = true;
-            offload.enableOffloadCmd = true;
-            #reverseSync.enable = true;
+            sync.enable = true;
+            offload.enable = false;
+            offload.enableOffloadCmd = false;
+            reverseSync.enable = false;
             allowExternalGpu = false;
             intelBusId = "PCI:0:2:0";
             nvidiaBusId = "PCI:1:0:0";
@@ -135,10 +135,10 @@ in
 
     environment.sessionVariables = {
 
-        LIBVA_DRIVER_NAME = "iHD"; # default to intel hardware acceleration
-        VDPAU_DRIVER = "va_gl"; # intel vdpau fallback
-        __GL_GSYNC_ALLOWED = "1";
-        __GL_VRR_ALLOWED = "1";
+        #LIBVA_DRIVER_NAME = "iHD"; # default to intel hardware acceleration
+        #VDPAU_DRIVER = "va_gl"; # intel vdpau fallback
+        #__GL_GSYNC_ALLOWED = "1";
+        #__GL_VRR_ALLOWED = "1";
         NVD_BACKEND = "direct"; # fixes nvidia VA-API hardware video acceleration
 
         # Force NVIDIA offload for all applications
@@ -147,25 +147,15 @@ in
         #__GLX_VENDOR_LIBRARY_NAME          = "nvidia";
         #__VK_LAYER_NV_optimus              = "NVIDIA_only";
 
-        AQ_DRM_DEVICES =
-            let
-                dGPU = "/dev/dri/card0";
-                iGPU = "/dev/dri/card1";
-            in
-            builtins.concatStringsSep ":" [
-                iGPU
-                dGPU
-            ];
-    };
-    programs.steam.gamescopeSession = {
-        env = {
-            # for Prime render offload on Nvidia laptops.
-            # Also requires `hardware.nvidia.prime.offload.enable`.
-            __NV_PRIME_RENDER_OFFLOAD = "1";
-            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
-            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-            __VK_LAYER_NV_optimus = "NVIDIA_only";
-        };
+        #AQ_DRM_DEVICES =
+        #    let
+        #        dGPU = "/dev/dri/card0";
+        #        iGPU = "/dev/dri/card1";
+        #    in
+        #    builtins.concatStringsSep ":" [
+        #        iGPU
+        #        dGPU
+        #    ];
     };
 
     powerManagement.enable = true;
