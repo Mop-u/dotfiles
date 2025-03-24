@@ -65,32 +65,32 @@
         ];
         symlinks = {
             "plugins/bluemap.jar" = pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.5/PAPER/bluemap-5.5-paper.jar";
-                hash = "sha256-nZxBbF1KkGHveZCKPJ0hHyJGXHnNSCKTvX5JRr0+s88=";
+                url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.7/PAPER/bluemap-5.7-paper.jar";
+                hash = "sha256-4T9Pf1FA/XlByNTmVIimj+7aCyX/BPy011gdT70mFAk=";
             };
             "plugins/DamageIndicator.jar" = pkgs.fetchurl {
                 url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.2.0/DamageIndicator.jar";
                 hash = "sha256-gtOMFhkgN1tGhB3+42X084kEt5kMJRqXtj029pDlQAU=";
             };
             "plugins/EssentialsX.jar" = pkgs.fetchurl {
-                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+154-667b0f7.jar";
-                hash = "sha256-CcNGdUYRiwTO4/KC8cXwZ8PzTNMa6bmGE/7ULyIwEJg=";
+                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.0/EssentialsX-2.21.0.jar";
+                hash = "sha256-VwQyKlSDa5hLEQ9+Igi67RiGwu/tREa0l+Z+US/skMU=";
             };
             "plugins/EssentialsXChat.jar" = pkgs.fetchurl {
-                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXChat-2.21.0-dev+154-667b0f7.jar";
-                hash = "sha256-+MIRsZ5UZZOclzaSWLf5Imi7Oz/BXFoIYjpk69Na2OU=";
+                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.0/EssentialsXChat-2.21.0.jar";
+                hash = "sha256-EJbW7PYlDLL6AVUMGCe+cdgNP0ZPbu7/aOl9LUGOQT4=";
             };
             "plugins/EssentialsXSpawn.jar" = pkgs.fetchurl {
-                url = "https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+154-667b0f7.jar";
-                hash = "sha256-89+hVJmHCq4CRRdqhiW1nL2rARcgsSCTNkh+GdKI75E=";
+                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.0/EssentialsXSpawn-2.21.0.jar";
+                hash = "sha256-Wv98mEx8i9mnDj7ppc9ILY/iqwyf+1PiGl7ZL0Of2pA=";
             };
             "plugins/FastAsyncWorldEdit.jar" = pkgs.fetchurl {
-                url = "https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.12.3/FastAsyncWorldEdit-Paper-2.12.3.jar";
-                hash = "sha256-b0xybeKRNUzDHyDxI5ONDYIqIT7KuDUASh7tQzPWCUc=";
+                url = "https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.13.0/FastAsyncWorldEdit-Paper-2.13.0.jar";
+                hash = "sha256-6Vhnc+DV7LGzuFTO1ntHNxovIsbMczCu60Q+omN7bPI=";
             };
             "plugins/LuckPerms.jar" = pkgs.fetchurl {
-                url = "https://download.luckperms.net/1569/bukkit/loader/LuckPerms-Bukkit-5.4.152.jar";
-                hash = "sha256-W4olwrQqZmt9cperjH6hAlEUT1h+YQ6eOwVIFefcv68=";
+                url = "https://download.luckperms.net/1574/bukkit/loader/LuckPerms-Bukkit-5.4.157.jar";
+                hash = "sha256-IGR0UFP2jBgMVD11iMIPj88nIBNvoha7JJ3218HBFXU=";
             };
             "plugins/multiverse-core.jar" = pkgs.fetchurl {
                 url = "https://github.com/Multiverse/Multiverse-Core/releases/download/4.3.14/multiverse-core-4.3.14.jar";
