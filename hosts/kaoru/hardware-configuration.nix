@@ -50,12 +50,6 @@ in
     #    "i915.force_probe=!${intelGPU}"
     #    "xe.force_probe=${intelGPU}"
     #];
-    ## Use latest mesa for xe driver support
-    #nixpkgs.overlays = [
-    #    (final: prev: {
-    #        mesa = inputs.nixpkgs-unstable.legacyPackages.${final.system}.mesa;
-    #    })
-    #];
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/75980f2d-cc48-4245-b6c5-31bf9d0465bc";

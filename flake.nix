@@ -10,7 +10,7 @@
     };
 
     inputs = {
-        nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+        unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
         nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
@@ -31,8 +31,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         catppuccin.url = "github:catppuccin/nix";
-
-        catppuccin-vsc.url = "github:catppuccin/vscode";
 
         lancache-domains = {
             url = "github:uklans/cache-domains";

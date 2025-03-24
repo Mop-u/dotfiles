@@ -19,27 +19,13 @@ in
     config = lib.mkIf (cfg.programs.vscodium.enable) {
         nixpkgs.overlays = [
             (final: prev: {
-                vscodium = inputs.nixpkgs-unstable.legacyPackages.${final.system}.vscodium;
+                vscodium = inputs.unstable.legacyPackages.${final.system}.vscodium;
             })
             (
                 final: prev:
                 let
                     version = lib.versions.pad 3 final.vscodium.version;
                     flakeExts = inputs.nix-vscode-extensions.extensions.${final.system}.forVSCodeVersion version;
-
-                    catppuccin-vsc-override = {
-                        catppuccin.catppuccin-vsc = inputs.catppuccin-vsc.packages.${final.system}.default.override {
-                            accent = theme.accent;
-                            boldKeywords = true;
-                            italicComments = true;
-                            italicKeywords = true;
-                            extraBordersEnabled = false;
-                            workbenchMode = "default";
-                            bracketMode = "rainbow";
-                            colorOverrides = { };
-                            customUIColors = { };
-                        };
-                    };
                 in
                 {
                     vscode-extensions =
@@ -50,12 +36,15 @@ in
                             open-vsx-release
                             vscode-marketplace
                             vscode-marketplace-release
-                            catppuccin-vsc-override
                         ];
                 }
             )
         ];
         home-manager.users.${cfg.userName} = {
+            catppuccin.vscode = {
+                enable = true;
+                inherit (theme) accent flavor;
+            };
             programs.vscode = {
                 enable = true;
                 enableExtensionUpdateCheck = false;
@@ -69,7 +58,6 @@ in
                     mshr-h.veriloghdl
                     gruntfuggly.triggertaskonsave
                     catppuccin.catppuccin-vsc-icons
-                    catppuccin.catppuccin-vsc
                     christian-kohler.path-intellisense
                     yandeu.five-server
                 ];
@@ -81,8 +69,8 @@ in
                         ];
                     in
                     {
-                        "workbench.iconTheme" = "catppuccin-${theme.flavor}";
-                        "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}";
+                        "workbench.iconTheme" = "catppuccin-${theme.flavor}"; # remove when 25.05 is stable
+                        "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}"; # remove when 25.05 is stable
                         "typescript.suggest.paths" = false;
                         "javascript.suggest.paths" = false;
                         "nix.enableLanguageServer" = true;
