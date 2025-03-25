@@ -40,7 +40,7 @@
                 name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
                 resolution = "1920x1080";
                 refresh = 60.00;
-                scale = 0.833333;
+                scale = 1.0;#0.833333;
                 position = "4800x400";
             }
         ];
