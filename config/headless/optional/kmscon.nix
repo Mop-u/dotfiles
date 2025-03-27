@@ -9,7 +9,7 @@
 }:
 let
     cfg = config.sidonia;
-    theme = cfg.style.catppuccin;
+    theme = cfg.style.catppuccin.color;
 in
 {
     options.sidonia.services.kmscon.enable =
