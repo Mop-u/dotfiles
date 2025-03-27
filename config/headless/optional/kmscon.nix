@@ -9,7 +9,7 @@
 }:
 let
     cfg = config.sidonia;
-    theme = cfg.style.catppuccin.color;
+    theme = cfg.style.catppuccin;
 in
 {
     options.sidonia.services.kmscon.enable =
@@ -19,51 +19,46 @@ in
             configDir = pkgs.writeTextFile {
                 name = "kmscon-config";
                 destination = "/kmscon.conf";
-                text = ''
-                    xkb-layout=${cfg.input.keyLayout}
+                text =
+                    let
+                        rgb = lib.mapAttrs (n: v: v.rgb) theme.color;
+                    in
+                    with rgb;
+                    ''
+                        xkb-layout=${cfg.input.keyLayout}
 
-                    font-size=14
+                        font-size=14
 
-                    palette=custom
-                    palette-foreground=${theme.text.rgb}
-                    palette-background=${theme.base.rgb}
+                        palette=custom
+                        palette-foreground=${text}
+                        palette-background=${base}
 
-                    palette-black=${theme.surface1.rgb}
-                    palette-red=${theme.red.rgb}
-                    palette-green=${theme.green.rgb}
-                    palette-yellow=${theme.peach.rgb}
-                    palette-blue=${theme.blue.rgb}
-                    palette-magenta=${theme.pink.rgb}
-                    palette-cyan=${theme.lavender.rgb}
-                    palette-light-grey=${theme.subtext1.rgb}
+                        palette-black=${surface1}
+                        palette-red=${red}
+                        palette-green=${green}
+                        palette-yellow=${peach}
+                        palette-blue=${blue}
+                        palette-magenta=${pink}
+                        palette-cyan=${lavender}
+                        palette-light-grey=${subtext1}
 
-                    palette-dark-grey=${theme.surface2.rgb}
-                    palette-light-red=${theme.maroon.rgb}
-                    palette-light-green=${theme.teal.rgb}
-                    palette-light-yellow=${theme.yellow.rgb}
-                    palette-light-blue=${theme.sky.rgb}
-                    palette-light-magenta=${theme.flamingo.rgb}
-                    palette-light-cyan=${theme.sapphire.rgb}
-                    palette-white=${theme.text.rgb}
+                        palette-dark-grey=${surface2}
+                        palette-light-red=${maroon}
+                        palette-light-green=${teal}
+                        palette-light-yellow=${yellow}
+                        palette-light-blue=${sky}
+                        palette-light-magenta=${flamingo}
+                        palette-light-cyan=${sapphire}
+                        palette-white=${text}
 
-                    ${
-                        if config.hardware.graphics.enable then
-                            ''
-                                drm
-                                hwaccel
-                            ''
-                        else
-                            ""
-                    }
-                    ${
-                        if config.fonts.fontconfig.enable then
-                            ''
-                                font-name=${lib.strings.concatStringsSep ", " config.fonts.fontconfig.defaultFonts.monospace}
-                            ''
-                        else
-                            ""
-                    }
-                '';
+                        ${lib.optionalString config.hardware.graphics.enable ''
+                            drm
+                            hwaccel
+                        ''}
+                        ${lib.optionalString config.fonts.fontconfig.enable ''
+                            font-name=${lib.strings.concatStringsSep ", " config.fonts.fontconfig.defaultFonts.monospace}
+                        ''}
+                    '';
             };
         in
         lib.mkIf cfg.services.kmscon.enable {
