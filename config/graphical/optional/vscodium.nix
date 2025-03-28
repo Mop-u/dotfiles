@@ -55,11 +55,12 @@ in
                     jnoortheen.nix-ide
                     llvm-vs-code-extensions.vscode-clangd
                     mkhl.direnv
-                    mshr-h.veriloghdl
                     gruntfuggly.triggertaskonsave
                     catppuccin.catppuccin-vsc-icons
                     christian-kohler.path-intellisense
                     yandeu.five-server
+                    hankhsu1996.better-systemverilog-syntax
+                    chipsalliance.verible
                 ];
                 userSettings =
                     let
