@@ -78,7 +78,7 @@ lib.mkIf (cfg.graphics.enable) {
             plexamp
             gtkwave
             surfer
-            #bambu-studio
+            bambu-studio
             tageditor
         ];
 
