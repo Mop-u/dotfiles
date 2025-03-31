@@ -238,7 +238,7 @@ in
 
     config = lib.mkMerge [
         {
-            home-manager.users.${cfg.userName}.imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+            home-manager.users.${cfg.userName}.imports = [ inputs.catppuccin.homeModules.catppuccin ];
         }
         (lib.mkIf cfg.tweaks.withBehringerAudioInterface {
             # Fix Behringer UV1 stutter https://github.com/arterro/notes/blob/main/behringer_uv1_linux_stutter.org

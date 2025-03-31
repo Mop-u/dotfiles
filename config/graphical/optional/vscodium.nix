@@ -61,6 +61,7 @@ in
                     yandeu.five-server
                     hankhsu1996.better-systemverilog-syntax
                     chipsalliance.verible
+                    bmpenuelas.systemverilog-formatter-vscode
                 ];
                 userSettings =
                     let
