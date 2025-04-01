@@ -18,9 +18,9 @@ in
         };
     config = lib.mkIf (cfg.programs.vscodium.enable) {
         nixpkgs.overlays = [
-            (final: prev: {
-                vscodium = inputs.unstable.legacyPackages.${final.system}.vscodium;
-            })
+            #(final: prev: {
+            #    vscodium = inputs.unstable.legacyPackages.${final.system}.vscodium;
+            #})
             (
                 final: prev:
                 let
