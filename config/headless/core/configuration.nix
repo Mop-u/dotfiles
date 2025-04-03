@@ -208,9 +208,13 @@ in
     hardware.bluetooth.powerOnBoot = true;
 
     # Set your time zone.
-    #time.timeZone = lib.mkDefault "Europe/Dublin";
-    services.automatic-timezoned.enable = true;
-    #services.localtimed.enable = true;
+    time.timeZone = lib.mkDefault "Europe/Dublin";
+    #services.automatic-timezoned.enable = true;
+    services.localtimed.enable = cfg.geolocation.enable;
+    services.geoclue2 = {
+        enable = cfg.geolocation.enable;
+        geoProviderUrl = "https://beacondb.net/v1/geolocate";
+    };
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_GB.UTF-8";

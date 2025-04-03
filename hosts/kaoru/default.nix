@@ -18,6 +18,7 @@
         text.comicCode.enable = true;
         services.goxlr.enable = false;
         isLaptop = true;
+        geolocation.enable = true;
         graphics.enable = true;
         tweaks.withBehringerAudioInterface = true;
         programs.hyprland.monitors = [

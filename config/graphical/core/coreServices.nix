@@ -72,6 +72,7 @@ lib.mkIf (cfg.graphics.enable) {
             target = "/home/${cfg.userName}/.config/systemd/user/nm-applet.service.d/dropin.conf";
             text = ''
                 [Service]
+                Restart=on-failure
                 RestartSec=3
             '';
         };

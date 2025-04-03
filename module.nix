@@ -66,6 +66,7 @@ in
             tweaks = {
                 withBehringerAudioInterface = mkEnableOption "Apply tweaks for some Behringer audio interfaces such as the UV1 and some UMC devices.";
             };
+            geolocation.enable = mkEnableOption "Turn on geolocation related services such as automatic timezone changing and geoclue";
             isLaptop = mkEnableOption "Apply laptop-specific tweaks";
             graphics = {
                 enable = mkEnableOption "Enable gui / desktop environment components";

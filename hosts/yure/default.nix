@@ -13,8 +13,11 @@
         hostName = "yure";
         userName = "shinatose";
         stateVer = "24.05";
-        graphics.enable = true;
-        graphics.legacyGpu = true;
+        graphics = {
+            enable = true;
+            legacyGpu = true;
+        };
+        geolocation.enable = true;
         text.smallTermFont = false;
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
