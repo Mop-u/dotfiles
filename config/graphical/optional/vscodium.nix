@@ -59,10 +59,10 @@ in
                     catppuccin.catppuccin-vsc-icons
                     christian-kohler.path-intellisense
                     yandeu.five-server
-                    hankhsu1996.better-systemverilog-syntax
-                    chipsalliance.verible
+                    #hankhsu1996.better-systemverilog-syntax
+                    #chipsalliance.verible
                     #bmpenuelas.systemverilog-formatter-vscode
-                    #mshr-h.veriloghdl
+                    mshr-h.veriloghdl
                 ];
                 userSettings =
                     let
