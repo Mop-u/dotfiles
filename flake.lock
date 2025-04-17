@@ -329,11 +329,11 @@
     "magnetic-catppuccin-gtk": {
       "flake": false,
       "locked": {
-        "lastModified": 1744391693,
-        "narHash": "sha256-KJArpwySG6MxezT03SQlB0IsewBMiDsKnAfRK2AB7mc=",
+        "lastModified": 1744858516,
+        "narHash": "sha256-fhT8ny58aF7NUsGk4EHguTDGA0w62vMJIMeKZ4/kiYU=",
         "owner": "Fausto-Korpsvart",
         "repo": "Catppuccin-GTK-Theme",
-        "rev": "57f5a73cc53937075b1309d0ef90234dd9f19fc5",
+        "rev": "23827b334c481dfdf0c5cee0f339328e56eba5a4",
         "type": "github"
       },
       "original": {
@@ -370,11 +370,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744768706,
-        "narHash": "sha256-7W63qdst98cXE4j/QDF1L3OHz5N5JjcfTVL17a4a3kw=",
+        "lastModified": 1744855005,
+        "narHash": "sha256-pKTjh8Re/IzMdiceeoCN+dMMSl0NogmG2OdVxxZqpgg=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "46be353e058e970480a9c62ee94a0d1ad2f0c569",
+        "rev": "34a4c1e1d96af67f73e449b2225764491a633ea7",
         "type": "github"
       },
       "original": {
@@ -389,11 +389,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1744768710,
-        "narHash": "sha256-ow0HDShvAe9gkM3Ww5aoJo1lDLpC5pYQ7qLtnTaHoyI=",
+        "lastModified": 1744856209,
+        "narHash": "sha256-/BtMU85kGPAevugyT98NHmsKXCCTZ7AlZcipeHTW534=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "47bd3dc652c4a02dc565a9360fe828af38bea287",
+        "rev": "988752336503df4d2db2801c3b010f27fb634a47",
         "type": "github"
       },
       "original": {
