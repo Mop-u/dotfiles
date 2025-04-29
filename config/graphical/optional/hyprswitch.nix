@@ -18,15 +18,22 @@ in
 
             wayland.windowManager.hyprland.settings =
                 let
-                    mod = "SUPER";
-                    key = "Tab";
+                    mod = "super";
+                    key = "tab";
                 in
                 {
                     env = [
                         "WORKSPACES_PER_ROW,3"
                     ];
                     bind = [
-                        "${mod}, ${key}, exec, hyprswitch gui --mod-key ${lib.toLower mod} --key ${key}"
+                        (lib.concatStringsSep " " [
+                            "${mod}, ${key}, exec,"
+                            "uwsm app --"
+                            "hyprswitch gui"
+                            "--mod-key ${mod}"
+                            "--key ${key}"
+                            "--close mod-key-release"
+                        ])
                     ];
                 };
 
