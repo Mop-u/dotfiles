@@ -13,7 +13,7 @@
         hostName = "kaoru";
         userName = "hazama";
         stateVer = "23.11";
-        style.catppuccin.flavor = "macchiato";
+        style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;
         services.goxlr.enable = false;
@@ -22,6 +22,7 @@
         geolocation.enable = true;
         graphics.enable = true;
         tweaks.withBehringerAudioInterface = true;
+        programs.gtkwave.enable = true;
         programs.hyprland.monitors = [
             {
                 name = "eDP-1";

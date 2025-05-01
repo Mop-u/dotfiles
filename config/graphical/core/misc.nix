@@ -52,10 +52,12 @@ lib.mkIf (cfg.graphics.enable) {
             enable = true;
             lite = {
                 enable = true;
+                version = 23;
                 devices = [ "cyclonev" ];
             };
             pro = {
                 enable = true;
+                version = 24;
                 devices = [ "cyclone10gx" ];
             };
         };
@@ -76,7 +78,6 @@ lib.mkIf (cfg.graphics.enable) {
             prismlauncher
             #xivlauncher
             plexamp
-            gtkwave
             surfer
             bambu-studio
             tageditor
