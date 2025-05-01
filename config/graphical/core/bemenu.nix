@@ -8,43 +8,36 @@
 let
     cfg = config.sidonia;
     inherit (cfg) window;
-    theme = cfg.style.catppuccin;
-    bemenu =
-        let
-            palette = builtins.mapAttrs (n: v: "##${v.hex}") theme.color;
-            opacity = window.opacity.hex;
-        in
-        with palette;
-        rec {
-            placement = " -nciwl '16 down' --single-instance --width-factor 0.33";
-            border = " --border ${builtins.toString window.borderSize} --border-radius ${builtins.toString window.rounding}";
-            tb = " --tb '${base}${opacity}'";
-            fb = " --fb '${base}${opacity}'";
-            nb = " --nb '${base}${opacity}'";
-            ab = " --ab '${base}${opacity}'";
-            hb = " --hb '${base}${opacity}'";
-            tf = " --tf '${accent}'";
-            ff = " --ff '${text}'";
-            nf = " --nf '${text}'";
-            af = " --af '${text}'";
-            hf = " --hf '${accent}'";
-            bdr = " --bdr '${accent}'";
-            font = " --fn monospace";
-            opts = placement + border + tb + fb + nb + ab + hb + tf + ff + nf + af + hf + bdr + font;
-        };
-
+    opts =
+        with builtins.mapAttrs (n: v: "##${v.hex}") cfg.style.catppuccin.color;
+        lib.concatStringsSep " " [
+            "-nciwl '16 down' --single-instance --width-factor 0.33"
+            "--border ${builtins.toString window.borderSize} --border-radius ${builtins.toString window.rounding}"
+            "--tb '${base}${window.opacity.hex}'"
+            "--fb '${base}${window.opacity.hex}'"
+            "--nb '${base}${window.opacity.hex}'"
+            "--ab '${base}${window.opacity.hex}'"
+            "--hb '${base}${window.opacity.hex}'"
+            "--tf '${accent}'"
+            "--ff '${text}'"
+            "--nf '${text}'"
+            "--af '${text}'"
+            "--hf '${accent}'"
+            "--bdr '${accent}'"
+            "--fn monospace"
+        ];
 in
 lib.mkIf (cfg.graphics.enable) {
     home-manager.users.${cfg.userName} = {
         programs.bemenu.enable = true;
         wayland.windowManager.hyprland.settings.bind =
             [
-                "SUPER, P, exec, uwsm app -- $(bemenu-run --no-exec ${bemenu.opts})"
+                "SUPER, P, exec, uwsm app -- $(bemenu-run --no-exec ${opts})"
             ]
             ++ (
                 if config.hardware.nvidia.prime.offload.enableOffloadCmd then
                     [
-                        "SUPERSHIFT, P, exec, uwsm app -- nvidia-offload $(LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia bemenu-run --no-exec ${bemenu.opts})"
+                        "SUPERSHIFT, P, exec, uwsm app -- nvidia-offload $(LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia bemenu-run --no-exec ${opts})"
                     ]
                 else
                     [ ]
