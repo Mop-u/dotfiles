@@ -13,7 +13,7 @@
         hostName = "kaoru";
         userName = "hazama";
         stateVer = "23.11";
-        style.catppuccin.flavor = "mocha";
+        style.catppuccin.flavor = "latte";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;
         services.goxlr.enable = false;

@@ -149,33 +149,35 @@ in
                     smergeCfg = {
                         enable = true;
                         target = smergeCfg + "/Preferences.sublime-settings";
-                        text = builtins.toJSON {
-                            theme = "${catppuccinBaseName}.sublime-theme";
-                            translate_tabs_to_spaces = true;
-                            side_bar_layout = "tabs";
-                            font_size = if cfg.text.smallTermFont then 10 else 11;
-                            hardware_acceleration = if cfg.graphics.legacyGpu then "none" else "opengl";
-                            update_check = false;
-                            editor_path =
-                                if cfg.lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
-                        };
+                        text = builtins.toJSON (
+                            {
+                                translate_tabs_to_spaces = true;
+                                side_bar_layout = "tabs";
+                                font_size = if cfg.text.smallTermFont then 9 else 10;
+                                hardware_acceleration = if cfg.graphics.legacyGpu then "none" else "opengl";
+                                update_check = false;
+                                editor_path =
+                                    if cfg.lib.isInstalled pkgs.sublime4 then "${pkgs.sublime4}/bin/sublime_text" else null;
+                            }
+                            // (if (theme.flavor != "latte") then { theme = "${catppuccinBaseName}.sublime-theme"; } else { })
+                        );
                     };
                     smergeCommitMessageCfg = {
-                        enable = true;
+                        enable = theme.flavor != "latte";
                         target = smergeCfg + "/Commit Message - ${catppuccinBaseName}.sublime-settings";
                         text = builtins.toJSON {
                             color_scheme = catppuccinColorScheme;
                         };
                     };
                     smergeDiffCfg = {
-                        enable = true;
+                        enable = theme.flavor != "latte";
                         target = smergeCfg + "/Diff - ${catppuccinBaseName}.sublime-settings";
                         text = builtins.toJSON {
                             color_scheme = catppuccinColorScheme;
                         };
                     };
                     smergeFileModeCfg = {
-                        enable = true;
+                        enable = theme.flavor != "latte";
                         target = smergeCfg + "/File Mode - ${catppuccinBaseName}.sublime-settings";
                         text = builtins.toJSON {
                             color_scheme = catppuccinColorScheme;
@@ -184,7 +186,7 @@ in
 
                     # based on https://github.com/bitsper2nd/merge-mariana-theme
                     smergeThemeOverride = {
-                        enable = true;
+                        enable = theme.flavor != "latte";
                         target = smergeCfg + "/${catppuccinBaseName}.sublime-theme";
                         text =
                             let
