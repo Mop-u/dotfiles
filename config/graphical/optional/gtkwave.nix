@@ -27,6 +27,8 @@ in
                     traceTriState = teal;
                     traceUndefined = red;
                 in ''
+                    splash_disable 1
+                    do_initial_zoom_fit 1
                     highlight_wavewindow 1
                     fill_waveform 1
                     clipboard_mouseover 1
