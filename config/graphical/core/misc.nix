@@ -40,14 +40,6 @@ lib.mkIf (cfg.graphics.enable) {
                 });
         };
 
-        anime-game-launcher.enable = !cfg.graphics.legacyGpu; # genshin
-        sleepy-launcher.enable = !cfg.graphics.legacyGpu; # zzz
-
-        honkers-railway-launcher.enable = false;
-        honkers-launcher.enable = false;
-
-        wavey-launcher.enable = false; # Not currently playable
-        anime-games-launcher.enable = false; # Not for regular use
         quartus = {
             enable = true;
             lite = {
@@ -58,9 +50,21 @@ lib.mkIf (cfg.graphics.enable) {
             pro = {
                 enable = true;
                 version = 24;
-                devices = [ "cyclone10gx" ];
+                devices = [
+                    "cyclone10gx"
+                    "stratix10"
+                ];
             };
         };
+        
+        anime-game-launcher.enable = !cfg.graphics.legacyGpu; # genshin
+        sleepy-launcher.enable = !cfg.graphics.legacyGpu; # zzz
+
+        honkers-railway-launcher.enable = false;
+        honkers-launcher.enable = false;
+
+        wavey-launcher.enable = false; # Not currently playable
+        anime-games-launcher.enable = false; # Not for regular use
     };
 
     home-manager.users.${cfg.userName} = {
