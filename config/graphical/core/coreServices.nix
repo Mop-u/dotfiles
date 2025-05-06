@@ -89,6 +89,9 @@ lib.mkIf (cfg.graphics.enable) {
                 exec = mkValue "foot";
                 exec-arg = mkValue "-e";
             };
+            "org/gnome/desktop/interface" = {
+                color-scheme = if theme.flavor == "latte" then "prefer-light" else "prefer-dark";
+            };
         };
         gtk =
             {
@@ -140,7 +143,7 @@ lib.mkIf (cfg.graphics.enable) {
                                 (cfg.lib.capitalize accent)
                                 (cfg.lib.capitalize shade)
                             ]
-                            ++ (if doTweak then [ (cfg.lib.capitalize theme.flavor) ] else [ ])
+                            ++ (lib.optional doTweak (cfg.lib.capitalize theme.flavor))
                         );
                         theme.package =
                             (pkgs.magnetic-catppuccin-gtk.overrideAttrs {
@@ -149,7 +152,7 @@ lib.mkIf (cfg.graphics.enable) {
                                 {
                                     inherit shade;
                                     accent = [ accent ];
-                                    tweaks = if doTweak then [ theme.flavor ] else [ ];
+                                    tweaks = lib.optional doTweak theme.flavor;
                                 };
                         iconTheme.name = "Papirus";
                         iconTheme.package = pkgs.catppuccin-papirus-folders.override {

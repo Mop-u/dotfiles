@@ -153,8 +153,10 @@ in
                     xwayland.enable = true;
                     settings =
                         let
-                            rgb = lib.mapAttrs (n: v: "rgb(${v.hex})") theme.color;
-                            rgba = lib.mapAttrs (n: v: (alpha: "rgba(${v.hex}${alpha})")) theme.color;
+                            shadow_opacity = "55";
+                            color = theme.color // {shadow.hex = "000000";};
+                            rgb = lib.mapAttrs (n: v: "rgb(${v.hex})") color;
+                            rgba = lib.mapAttrs (n: v: (alpha: "rgba(${v.hex}${alpha})")) color;
                         in
                         {
                             monitor = builtins.concatMap (mon: [ mon.enable ]) monitors;
@@ -240,9 +242,8 @@ in
                                 shadow = {
                                     enabled = !cfg.graphics.legacyGpu;
                                     range = 12;
-                                    render_power = 2;
-                                    color = rgba.crust cfg.window.opacity.hex; # shadow's color. Alpha dictates shadow's opacity.
-                                    color_inactive = rgba.crust cfg.window.opacity.hex; # inactive shadow color. (if not set, will fall back to col.shadow)
+                                    render_power = 3;
+                                    color = rgba.shadow shadow_opacity; # shadow's color. Alpha dictates shadow's opacity.
                                 };
                                 blur = {
                                     enabled = !cfg.graphics.legacyGpu;
