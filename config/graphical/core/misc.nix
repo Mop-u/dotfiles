@@ -39,23 +39,6 @@ lib.mkIf (cfg.graphics.enable) {
                     };
                 });
         };
-
-        quartus = {
-            enable = true;
-            lite = {
-                enable = true;
-                version = 23;
-                devices = [ "cyclonev" ];
-            };
-            pro = {
-                enable = true;
-                version = 24;
-                devices = [
-                    "cyclone10gx"
-                    "stratix10"
-                ];
-            };
-        };
         
         anime-game-launcher.enable = !cfg.graphics.legacyGpu; # genshin
         sleepy-launcher.enable = !cfg.graphics.legacyGpu; # zzz

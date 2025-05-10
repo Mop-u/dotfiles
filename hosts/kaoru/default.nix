@@ -9,6 +9,7 @@
     imports = [
         ./hardware-configuration.nix
         ./virtualbox.nix
+        ./quartus.nix
     ];
     sidonia = {
         hostName = "kaoru";
