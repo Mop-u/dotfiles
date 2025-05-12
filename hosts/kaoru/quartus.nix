@@ -16,10 +16,7 @@
         pro = {
             enable = true;
             version = 24;
-            devices = [
-                "cyclone10gx"
-                "stratix10"
-            ];
+            devices = [ "cyclone10gx" ];
         };
     };
 }
