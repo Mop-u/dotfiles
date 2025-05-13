@@ -129,12 +129,18 @@ in
             withUWSM = true;
         };
 
+        security.pam.services.hyprlock.enableGnomeKeyring = true;
+
         home-manager.users.${cfg.userName} =
             let
                 inherit (cfg.programs.hyprland) monitors;
             in
             {
-                home.packages = [ pkgs.hyprcursor ];
+                home.packages = [
+                    pkgs.hyprcursor
+                    pkgs.nwg-look
+                    pkgs.hyprshot
+                ];
                 home.file.xdphCfg = {
                     enable = true;
                     target = "/home/${cfg.userName}/.config/hypr/xdph.conf";
@@ -145,6 +151,47 @@ in
                         }
                     '';
                 };
+
+                programs.hyprlock = {
+                    enable = true;
+                };
+                
+                services.hypridle = {
+                    enable = true;
+                    settings = {
+                        general = {
+                            lock_cmd = "pidof hyprlock || uwsm app -- ${pkgs.hyprlock}";
+                            before_sleep_cmd = "loginctl lock-session";
+                            after_cleep_cmd = "hyprctl dispatch dpms on"; # todo: check lid switch
+                        };
+                        listener = [
+                            {
+                                timeout = 180;
+                                on-timeout = "brightnessctl -s set 15%";
+                                on-resume = "brightnessctl -r";
+                            }
+                            #{
+                            #    timeout = 180;
+                            #    on-timeout = "brightnessctl -sd platform::kbd_backlight set 0";
+                            #    on-resume = "brightnessctl -rd platform::kbd_backlight";
+                            #}
+                            {
+                                timeout = 300;
+                                on-timeout = "loginctl lock-session";
+                            }
+                            {
+                                timeout = 350;
+                                on-timeout = "hyprctl dispatch dpms off";
+                                on-resume = "hyprctl dispatch dpms on"; # todo: check lid switch
+                            }
+                            #{
+                            #    timeout = 420;
+                            #    on-timeout = "systemctl suspend"; # todo: check if docked/charging first
+                            #}
+                        ];
+                    };
+                };
+
                 catppuccin.hyprland.enable = false;
                 wayland.windowManager.hyprland = {
                     enable = true;
@@ -154,7 +201,9 @@ in
                     settings =
                         let
                             shadow_opacity = "55";
-                            color = theme.color // {shadow.hex = "000000";};
+                            color = theme.color // {
+                                shadow.hex = "000000";
+                            };
                             rgb = lib.mapAttrs (n: v: "rgb(${v.hex})") color;
                             rgba = lib.mapAttrs (n: v: (alpha: "rgba(${v.hex}${alpha})")) color;
                         in
@@ -359,7 +408,7 @@ in
                             bind =
                                 [
                                     "SUPERSHIFT, C,         killactive,"
-                                    "SUPERSHIFT, Q,         exec, uwsm stop"
+                                    "SUPERSHIFT, Q,         exec, uwsm app -- ${pkgs.hyprlock}" # uwsm stop"
                                     "SUPER,      V,         togglefloating,"
                                     "SUPER,      H,         movefocus, l"
                                     "SUPER,      J,         movefocus, d"

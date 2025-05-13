@@ -10,10 +10,6 @@ let
 in
 lib.mkIf (cfg.graphics.enable) {
 
-    security = {
-        pam.services.hyprlock = { };
-    };
-
     # enable virtual camera for OBS
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     boot.extraModprobeConfig = ''
@@ -53,9 +49,6 @@ lib.mkIf (cfg.graphics.enable) {
     home-manager.users.${cfg.userName} = {
 
         home.packages = with pkgs; [
-            # Hyprland / core apps
-            nwg-look
-            hyprshot
             # GUI apps
             pinta # Paint.NET-like image editor
             #plex-desktop # doesn't launch
@@ -70,16 +63,7 @@ lib.mkIf (cfg.graphics.enable) {
             tageditor
         ];
 
-        services = {
-            hypridle = {
-                enable = false;
-            };
-        };
-
         programs = {
-            hyprlock = {
-                enable = true;
-            };
             obs-studio = {
                 enable = true;
                 plugins = with pkgs.obs-studio-plugins; [
