@@ -137,6 +137,7 @@ in
             in
             {
                 home.packages = [
+                    pkgs.hypridle
                     pkgs.hyprcursor
                     pkgs.nwg-look
                     pkgs.hyprshot
@@ -160,7 +161,7 @@ in
                     enable = true;
                     settings = {
                         general = {
-                            lock_cmd = "pidof hyprlock || uwsm app -- ${pkgs.hyprlock}";
+                            lock_cmd = "uwsm app -- hyprlock";
                             before_sleep_cmd = "loginctl lock-session";
                             after_cleep_cmd = "hyprctl dispatch dpms on"; # todo: check lid switch
                         };
@@ -408,7 +409,7 @@ in
                             bind =
                                 [
                                     "SUPERSHIFT, C,         killactive,"
-                                    "SUPERSHIFT, Q,         exec, uwsm app -- ${pkgs.hyprlock}" # uwsm stop"
+                                    "SUPERSHIFT, Q,         exec, uwsm app -- hyprlock" # uwsm stop"
                                     "SUPER,      V,         togglefloating,"
                                     "SUPER,      H,         movefocus, l"
                                     "SUPER,      J,         movefocus, d"
