@@ -180,11 +180,11 @@ in
                                 timeout = 300;
                                 on-timeout = "loginctl lock-session";
                             }
-                            {
-                                timeout = 350;
-                                on-timeout = "hyprctl dispatch dpms off";
-                                on-resume = "hyprctl dispatch dpms on"; # todo: check lid switch
-                            }
+                            #{
+                            #    timeout = 350;
+                            #    on-timeout = "hyprctl dispatch dpms off";
+                            #    on-resume = "hyprctl dispatch dpms on"; # todo: check lid switch
+                            #}
                             #{
                             #    timeout = 420;
                             #    on-timeout = "systemctl suspend"; # todo: check if docked/charging first
