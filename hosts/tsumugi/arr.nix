@@ -72,6 +72,16 @@ in
         ];
     };
 
+    sops.secrets."tsumugi/autobrrSecret" = {};
+    services.autobrr = {
+        enable = true;
+        openFirewall = true; # 7474
+        secretFile = config.sops.secrets."tsumugi/autobrrSecret".path;
+        settings = {
+            host = "10.0.4.2";
+            port = 7474;
+        };
+    };
     services.sonarr = {
         enable = true;
         openFirewall = true; # 8989
