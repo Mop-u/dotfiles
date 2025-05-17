@@ -49,13 +49,8 @@ in
     ];
 
     networking.firewall.allowedTCPPorts = [
-        8112 # deluge
         8998 # sonarrAnime
         7887 # radarrAnime
-        29347 # deluge incoming
-    ];
-    networking.firewall.allowedUDPPorts = [
-        29347 # deluge incoming
     ];
 
     services.plex = {
@@ -72,16 +67,6 @@ in
         ];
     };
 
-    sops.secrets."tsumugi/autobrrSecret" = {};
-    services.autobrr = {
-        enable = true;
-        openFirewall = true; # 7474
-        secretFile = config.sops.secrets."tsumugi/autobrrSecret".path;
-        settings = {
-            host = "10.0.4.2";
-            port = 7474;
-        };
-    };
     services.sonarr = {
         enable = true;
         openFirewall = true; # 8989
@@ -100,34 +85,31 @@ in
     };
     services.jellyseerr = {
         enable = true;
-        openFirewall = true; # 5055
+        port = 5055;
+        openFirewall = true;
     };
 
-    #sops.secrets."tsumugi/delugePass" = {};
-    #sops.templates.delugeAuthFile = {
-    #    owner = "deluge";
-    #    content = ''
-    #        localclient:${config.sops.placeholder."tsumugi/delugePass"}:10
-    #    '';
-    #};
-
-    containers.deluge = {
-        autoStart = true;
-        privateNetwork = false;
-        bindMounts."/mnt/media" = {
-            mountPoint = "/mnt/media";
-            hostPath = "/mnt/media";
-            isReadOnly = false;
+    sops.secrets."tsumugi/autobrrSecret" = {};
+    services.autobrr = {
+        enable = true;
+        openFirewall = true; # 7474
+        secretFile = config.sops.secrets."tsumugi/autobrrSecret".path;
+        settings = {
+            host = "10.0.4.2";
+            port = 7474;
         };
-        config = {
-            system.stateVersion = config.sidonia.stateVer;
-            services.deluge = {
-                enable = true;
-                web.enable = true;
-                web.openFirewall = true; # 8112
-                config.enabled_plugins = [ "Label" ];
-                #authFile = config.sops.templates.delugeAuthFile.path;
-            };
+    };
+
+    services.transmission = {
+        enable = true;
+        package = pkgs.transmission_4;
+        openRPCPort = true;
+        openPeerPorts = true;
+        settings = {
+            rpc-bind-address = "10.0.4.2";
+            rpc-whitelist = "10.0.4.8";
+            peer-port = 29347;
+            rpc-port = 9091;
         };
     };
 
