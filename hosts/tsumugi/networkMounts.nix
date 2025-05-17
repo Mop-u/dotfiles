@@ -7,28 +7,26 @@
 }:
 let
     useNFS = false;
-    mntBenisuzumeNFS = name: {
-        fsType = "nfs";
-        device = "10.0.4.3:/var/nfs/shared/${name}";
-        options = [
-            "nfsvers=3"
-            "hard" # hard mount
-            "intr"
-            "nolock" # no file locking
-            "fsc" # enable caching with cachefilesd
-        ];
+    hardMount = false;
+    mntBenisuzume = name: {
+        fsType = if useNFS then "nfs" else "cifs";
+        device = if useNFS then "10.0.4.3:/var/nfs/shared/${name}" else "//10.0.4.3/${name}";
+        options =
+            (
+                if useNFS then
+                    [
+                        "nfsvers=3"
+                        "nolock"
+                    ]
+                else
+                    [ "credentials=${config.sops.secrets."benisuzume/cifs".path}" ]
+            )
+            ++ [
+                (if hardMount then "hard" else "soft")
+                "intr"
+                "fsc"
+            ];
     };
-    mntBenisuzumeCIFS = name: {
-        fsType = "cifs";
-        device = "//10.0.4.3/${name}";
-        options = [
-            "credentials=${config.sops.secrets."benisuzume/cifs".path}"
-            "soft"
-            "intr"
-            "fsc"
-        ];
-    };
-    mntBenisuzume = name: (if useNFS then (mntBenisuzumeNFS name) else (mntBenisuzumeCIFS name));
 in
 {
     services.rpcbind.enable = true;
@@ -39,8 +37,9 @@ in
 
     fileSystems."/mnt/media" = mntBenisuzume "media";
     fileSystems."/mnt/lancache" = mntBenisuzume "lancache";
+
     services.cachefilesd = {
         enable = true;
-        # TODO: install ssd raid and point cacheDir to it
+        cacheDir = "/mnt/cache/fscache";
     };
 }

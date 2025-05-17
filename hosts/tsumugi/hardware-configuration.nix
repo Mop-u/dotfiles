@@ -62,6 +62,16 @@ in
         ];
     };
 
+    fileSystems."/mnt/cache" = {
+        device = "/dev/disk/by-uuid/a63ca719-268e-476e-b28d-252dcbeaaa04";
+        fsType = "ext4";
+        options = [
+            "noatime"
+            "nodiratime"
+            "discard"
+        ];
+    };
+
     swapDevices = [
         { device = "/dev/disk/by-uuid/290e7047-d429-4196-825d-8fd6cc01d7d5"; }
     ];

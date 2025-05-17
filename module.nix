@@ -226,16 +226,16 @@ in
         in
         headless
         ++ graphical
-        ++ [
-            inputs.catppuccin.nixosModules.catppuccin
-            inputs.home-manager.nixosModules.home-manager
-            inputs.lancache.nixosModules.dns
-            inputs.lancache.nixosModules.cache
-            inputs.aagl.nixosModules.default
-            inputs.sops-nix.nixosModules.sops
-            inputs.nix-minecraft.nixosModules.minecraft-servers
-            inputs.quartus.nixosModules.quartus
-        ];
+        ++ (with inputs; [
+            catppuccin.nixosModules.catppuccin
+            home-manager.nixosModules.home-manager
+            lancache.nixosModules.dns
+            lancache.nixosModules.cache
+            aagl.nixosModules.default
+            sops-nix.nixosModules.sops
+            nix-minecraft.nixosModules.minecraft-servers
+            quartus.nixosModules.quartus
+        ]);
 
     config = lib.mkMerge [
         {

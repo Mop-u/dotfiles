@@ -11,7 +11,7 @@
 
     inputs = {
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-        nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
         nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
 
