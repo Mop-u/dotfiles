@@ -107,11 +107,19 @@ in
         openRPCPort = true;
         openPeerPorts = true;
         credentialsFile = config.sops.secrets."tsumugi/transmission".path;
-        settings = {
-            rpc-bind-address = "10.0.4.2";
-            #rpc-whitelist = "10.0.4.8";
+        settings = let
+            speed-limit-enabled = true; # speed limit is in KB/s
+            mbits = x: ((x*1000) / 8);
+        in {
+            # https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
+            speed-limit-up = mbits 2;
+            speed-limit-down = mbits 20;
+            speed-limit-up-enabled = speed-limit-enabled;
+            speed-limit-down-enabled = speed-limit-enabled;
             rpc-whitelist-enabled = false;
             rpc-authentication-required = true;
+            anti-brute-force-enabled = true;
+            rpc-bind-address = "10.0.4.2";
             rpc-port = 9091;
             download-dir = "/mnt/media/data/torrents";
             peer-port = 29347;
