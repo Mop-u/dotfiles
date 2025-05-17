@@ -6,7 +6,8 @@
     ...
 }:
 let
-    mntBenisuzume = name: {
+    useNFS = false;
+    mntBenisuzumeNFS = name: {
         fsType = "nfs";
         device = "10.0.4.3:/var/nfs/shared/${name}";
         options = [
@@ -17,10 +18,25 @@ let
             "fsc" # enable caching with cachefilesd
         ];
     };
+    mntBenisuzumeCIFS = name: {
+        fsType = "cifs";
+        device = "//10.0.4.3/${name}";
+        options = [
+            "credentials=${config.sops.secrets."benisuzume/cifs".path}"
+            "hard"
+            "intr"
+            "fsc"
+        ];
+    };
+    mntBenisuzume = name: (if useNFS then (mntBenisuzumeNFS name) else (mntBenisuzumeCIFS name));
 in
 {
     services.rpcbind.enable = true;
     boot.supportedFilesystems = [ "nfs" ];
+    environment.systemPackages = [ pkgs.cifs-utils ];
+
+    sops.secrets."benisuzume/cifs" = { };
+
     fileSystems."/mnt/media" = mntBenisuzume "media";
     fileSystems."/mnt/lancache" = mntBenisuzume "lancache";
     services.cachefilesd = {
