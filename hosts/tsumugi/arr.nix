@@ -100,16 +100,21 @@ in
         };
     };
 
+    sops.secrets."tsumugi/transmission" = {};
     services.transmission = {
         enable = true;
         package = pkgs.transmission_4;
         openRPCPort = true;
         openPeerPorts = true;
+        credentialsFile = config.sops.secrets."tsumugi/transmission".path;
         settings = {
             rpc-bind-address = "10.0.4.2";
-            rpc-whitelist = "10.0.4.8";
-            peer-port = 29347;
+            #rpc-whitelist = "10.0.4.8";
+            rpc-whitelist-enabled = false;
+            rpc-authentication-required = true;
             rpc-port = 9091;
+            download-dir = "/mnt/media/data/torrents";
+            peer-port = 29347;
         };
     };
 
