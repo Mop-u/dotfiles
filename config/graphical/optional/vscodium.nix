@@ -47,54 +47,56 @@ in
             };
             programs.vscode = {
                 enable = true;
-                enableExtensionUpdateCheck = false;
-                enableUpdateCheck = false;
                 package = pkgs.vscodium;
-                extensions = with pkgs.vscode-extensions; [
-                    haskell.haskell
-                    jnoortheen.nix-ide
-                    llvm-vs-code-extensions.vscode-clangd
-                    mkhl.direnv
-                    gruntfuggly.triggertaskonsave
-                    catppuccin.catppuccin-vsc-icons
-                    christian-kohler.path-intellisense
-                    yandeu.five-server
-                    #hankhsu1996.better-systemverilog-syntax
-                    #chipsalliance.verible
-                    #bmpenuelas.systemverilog-formatter-vscode
-                    mshr-h.veriloghdl
-                ];
-                userSettings =
-                    let
-                        nixfmt = [
-                            "nixfmt"
-                            "--indent=4"
-                        ];
-                    in
-                    {
-                        "workbench.iconTheme" = "catppuccin-${theme.flavor}"; # remove when 25.05 is stable
-                        "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}"; # remove when 25.05 is stable
-                        "typescript.suggest.paths" = false;
-                        "javascript.suggest.paths" = false;
-                        "nix.enableLanguageServer" = true;
-                        "nix.formatterPath" = nixfmt;
-                        "nix.serverPath" = "nil";
-                        "nix.serverSettings" = {
-                            nil = {
-                                diagnostics.ignored = [
-                                    "unused_binding"
-                                    "unused_with"
-                                ];
-                                formatting.command = nixfmt;
-                                nix.flake = {
-                                    autoArchive = true;
-                                    autoEvalInputs = true;
-                                    nixpkgsInputName = "nixpkgs";
+                profiles.default = {
+                    enableExtensionUpdateCheck = false;
+                    enableUpdateCheck = false;
+                    extensions = with pkgs.vscode-extensions; [
+                        haskell.haskell
+                        jnoortheen.nix-ide
+                        llvm-vs-code-extensions.vscode-clangd
+                        mkhl.direnv
+                        gruntfuggly.triggertaskonsave
+                        catppuccin.catppuccin-vsc-icons
+                        christian-kohler.path-intellisense
+                        yandeu.five-server
+                        #hankhsu1996.better-systemverilog-syntax
+                        #chipsalliance.verible
+                        #bmpenuelas.systemverilog-formatter-vscode
+                        mshr-h.veriloghdl
+                    ];
+                    userSettings =
+                        let
+                            nixfmt = [
+                                "nixfmt"
+                                "--indent=4"
+                            ];
+                        in
+                        {
+                            "workbench.iconTheme" = "catppuccin-${theme.flavor}"; # remove when 25.05 is stable
+                            "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}"; # remove when 25.05 is stable
+                            "typescript.suggest.paths" = false;
+                            "javascript.suggest.paths" = false;
+                            "nix.enableLanguageServer" = true;
+                            "nix.formatterPath" = nixfmt;
+                            "nix.serverPath" = "nil";
+                            "nix.serverSettings" = {
+                                nil = {
+                                    diagnostics.ignored = [
+                                        "unused_binding"
+                                        "unused_with"
+                                    ];
+                                    formatting.command = nixfmt;
+                                    nix.flake = {
+                                        autoArchive = true;
+                                        autoEvalInputs = true;
+                                        nixpkgsInputName = "nixpkgs";
+                                    };
                                 };
                             };
+                            "editor.fontFamily" = "monospace, 'ComicShannsMono Nerd Font'";
                         };
-                        "editor.fontFamily" = "monospace, 'ComicShannsMono Nerd Font'";
-                    };
+                };
             };
         };
     };

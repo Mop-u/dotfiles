@@ -27,7 +27,7 @@
     networking.wg-quick.interfaces.ochiai.configFile = config.sops.templates.ochiaiWgQuick.path;
 
     sops.secrets."tsumugi/cloudflare" = {
-        owner = "cloudflared";
+        #owner = "cloudflared";
     };
     services.cloudflared = {
         enable = true;

@@ -17,15 +17,34 @@ in
         };
     config = lib.mkIf (cfg.services.audio.enable) {
         # https://cmm.github.io/soapbox/the-year-of-linux-on-the-desktop.html
-        hardware.pulseaudio.enable = false; # using pipewire instead
-        services.pipewire = {
-            enable = true;
-            audio.enable = true;
-            alsa = {
+        services = {
+            # expose important timers etc. to "audio"
+            udev.extraRules = ''
+                DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
+                DEVPATH=="/devices/virtual/misc/hpet", OWNER="root", GROUP="audio", MODE="0660"
+            '';
+            pulseaudio.enable = false; # using pipewire instead
+            pipewire = {
                 enable = true;
-                support32Bit = true;
+                audio.enable = true;
+                alsa = {
+                    enable = true;
+                    support32Bit = true;
+                };
+                pulse.enable = true;
+                # explicitly set Pipewire RT params (may not be necessary)
+                extraConfig.pipewire."99-rtparams" = {
+                    "context.modules" = [
+                        {
+                            name = "libpipewire-module-rt";
+                            args = {
+                                "nice.level" = -11;
+                                "rt.prio" = 19;
+                            };
+                        }
+                    ];
+                };
             };
-            pulse.enable = true;
         };
 
         # Audio stutter prevention
@@ -41,25 +60,7 @@ in
                 value = "90";
             }
         ];
-        # expose important timers etc. to "audio"
-        services.udev.extraRules = ''
-            DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
-            DEVPATH=="/devices/virtual/misc/hpet", OWNER="root", GROUP="audio", MODE="0660"
-        '';
-
-        # explicitly set Pipewire RT params (may not be necessary)
-        services.pipewire.extraConfig.pipewire."99-rtparams" = {
-            "context.modules" = [
-                {
-                    name = "libpipewire-module-rt";
-                    args = {
-                        "nice.level" = -11;
-                        "rt.prio" = 19;
-                    };
-                }
-            ];
-        };
-
+        
         # increase output headroom.  this may make latency worse (not sure how
         # noticeably) -- so if you game you may want to first try doing
         # without it

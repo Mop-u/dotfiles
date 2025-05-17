@@ -285,9 +285,8 @@ in
             with pkgs;
             [
                 # 25.05 / unstable
-                #nerd-fonts.comic-shanns-mono
-                #nerd-fonts.ubuntu
-                nerdfonts # 24.11
+                nerd-fonts.comic-shanns-mono
+                nerd-fonts.ubuntu
                 liberation_ttf
                 meslo-lgs-nf
             ]

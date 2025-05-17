@@ -11,11 +11,11 @@
 
     inputs = {
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+        nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
         nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
 
-        aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-24.11";
+        aagl.url = "github:ezKEa/aagl-gtk-on-nix/main";#release-25.05";
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
@@ -27,7 +27,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         home-manager = {
-            url = "github:nix-community/home-manager/release-24.11";
+            url = "github:nix-community/home-manager";#/release-25.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         catppuccin.url = "github:catppuccin/nix";

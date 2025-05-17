@@ -115,13 +115,13 @@ in
         };
         systemd.user.services.hyprswitch = {
             enable = true;
-            wantedBy = [ "hyprland-session.target" ];
+            wantedBy = [ "graphical-session.target" ];
             serviceConfig = {
                 ExecStart = "${hyprswitch}/bin/hyprswitch init --show-title --custom-css '${configFile}'";
             };
             unitConfig = {
                 Description = "Hyprland workspace switcher";
-                PartOf = "hyprland-session.target";
+                PartOf = "graphical-session.target";
             };
         };
     };
