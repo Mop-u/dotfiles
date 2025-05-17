@@ -96,6 +96,7 @@ in
                                 libGLU
                                 libGL
                                 libdrm
+                                libgbm
                                 (libtsm.overrideAttrs { src = inputs.libtsm; }) # https://github.com/Aetf/kmscon/issues/64
                                 libxkbcommon
                                 pango

@@ -20,6 +20,7 @@
         text.comicCode.enable = true;
         services.goxlr.enable = false;
         services.hyprswitch.enable = true;
+        services.kmscon.enable = true;
         isLaptop = true;
         geolocation.enable = true;
         graphics.enable = true;
