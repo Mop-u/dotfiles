@@ -6,8 +6,8 @@
     ...
 }:
 let
-    useNFS = false;
-    hardMount = false;
+    useNFS = true;
+    hardMount = true;
     mntBenisuzume = name: {
         fsType = if useNFS then "nfs" else "cifs";
         device = if useNFS then "10.0.4.3:/var/nfs/shared/${name}" else "//10.0.4.3/${name}";
