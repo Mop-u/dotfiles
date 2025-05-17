@@ -23,7 +23,7 @@ let
         device = "//10.0.4.3/${name}";
         options = [
             "credentials=${config.sops.secrets."benisuzume/cifs".path}"
-            "hard"
+            "soft"
             "intr"
             "fsc"
         ];
