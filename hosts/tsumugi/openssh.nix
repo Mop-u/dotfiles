@@ -13,7 +13,7 @@
         ports = [ 22 ];
         settings = {
             PasswordAuthentication = false;
-            AllowUsers = null;
+            AllowUsers = [ config.sidonia.userName ];
             UseDns = false;
             X11Forwarding = false;
             PermitRootLogin = "no";

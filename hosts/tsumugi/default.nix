@@ -14,6 +14,7 @@
         ./minecraft.nix
         ./networkMounts.nix
         ./openssh.nix
+        ./builder.nix
         ./reverseProxy.nix
         ./ups.nix
     ];
