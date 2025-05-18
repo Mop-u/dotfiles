@@ -21,8 +21,8 @@ in
     };
     boot.loader.efi.canTouchEfiVariables = true;
 
-    nix.settings.max-jobs = 4; # set to core count w/o hyprethreading to not choke other services
-    nix.settings.cores = 1; # really make sure nix doesn't get greedy with cores on a rebuild
+    nix.settings.max-jobs = 2; # set to core count w/o hyprethreading to not choke other services
+    nix.settings.cores = 4; # really make sure nix doesn't get greedy with cores on a rebuild
 
     boot.initrd.availableKernelModules = [
         "xhci_pci"
