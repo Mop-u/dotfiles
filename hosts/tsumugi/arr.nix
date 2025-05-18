@@ -119,6 +119,7 @@ in
             download-queue-enabled = false;
             incomplete-dir-enabled = false;
             incomplete-dir = "/mnt/media/data/torrents/.incomplete";
+            preallocation = 0;
             trash-can-enabled = false;
             cache-size-mb = 0; # we have fsc on the network share
             rpc-whitelist-enabled = false;
