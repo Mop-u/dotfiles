@@ -15,6 +15,7 @@
         stateVer = "24.05";
         services.audio.enable = true;
         services.kmscon.enable = true;
+        services.remoteBuilders.enable = true;
         graphics = {
             enable = false;
             legacyGpu = true;
