@@ -118,6 +118,7 @@ in
             speed-limit-down-enabled = speed-limit-enabled;
             download-queue-enabled = false;
             incomplete-dir-enabled = false;
+            trash-can-enabled = false;
             cache-size-mb = 0; # we have fsc on the network share
             rpc-whitelist-enabled = false;
             rpc-authentication-required = true;
