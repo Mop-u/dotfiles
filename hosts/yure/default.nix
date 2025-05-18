@@ -13,8 +13,10 @@
         hostName = "yure";
         userName = "shinatose";
         stateVer = "24.05";
+        services.audio.enable = true;
+        services.kmscon.enable = true;
         graphics = {
-            enable = true;
+            enable = false;
             legacyGpu = true;
         };
         geolocation.enable = true;
