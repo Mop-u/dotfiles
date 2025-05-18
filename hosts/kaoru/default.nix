@@ -18,6 +18,7 @@
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;
+        services.remoteBuilders.enable = true;
         services.goxlr.enable = false;
         services.hyprswitch.enable = true;
         services.kmscon.enable = true;
