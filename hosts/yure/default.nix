@@ -17,7 +17,7 @@
         services.kmscon.enable = true;
         services.remoteBuilders.enable = true;
         graphics = {
-            enable = false;
+            enable = true;
             legacyGpu = true;
         };
         geolocation.enable = true;
