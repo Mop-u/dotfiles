@@ -117,7 +117,7 @@ in
             speed-limit-up-enabled = speed-limit-enabled;
             speed-limit-down-enabled = speed-limit-enabled;
             download-queue-enabled = false;
-            incomplete-dir-enabled = true;
+            incomplete-dir-enabled = false;
             incomplete-dir = "/mnt/media/data/torrents/.incomplete";
             trash-can-enabled = false;
             cache-size-mb = 0; # we have fsc on the network share
