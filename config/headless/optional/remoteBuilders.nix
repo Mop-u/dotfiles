@@ -8,7 +8,7 @@
 let
     cfg = config.sidonia;
     builderName = "tsumugibld";
-    identityFile = "/home/${cfg.userName}/.ssh/id_ed25519"; # /root/.ssh/nixremote
+    identityFile = "/home/${cfg.userName}/.ssh/id_ed25519";
 in
 {
     options.sidonia.services.remoteBuilders.enable = lib.mkEnableOption "Enable distributed nix builds";
@@ -31,6 +31,25 @@ in
                     IdentitiesOnly yes
                     IdentityFile ${identityFile}
             '';
+        };
+
+        nix = {
+            distributedBuilds = true;
+            buildMachines = [
+                {
+                    hostName = builderName;
+                    system = "x86_64-linux";
+                    protocol = "ssh-ng";
+                    maxJobs = 1;
+                    speedFactor = 2;
+                    supportedFeatures = [
+                        "nixos-test"
+                        "benchmark"
+                        "big-parallel"
+                        "kvm"
+                    ];
+                }
+            ];
         };
     };
 }
