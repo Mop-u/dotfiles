@@ -12,13 +12,13 @@
         ./quartus.nix
     ];
     sidonia = {
-        hostName = "kaoru";
         userName = "hazama";
         stateVer = "23.11";
+        ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
+        services.distributedBuilds.client.enable = true;
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;
-        services.remoteBuilders.enable = false;
         services.goxlr.enable = false;
         services.hyprswitch.enable = true;
         services.kmscon.enable = true;

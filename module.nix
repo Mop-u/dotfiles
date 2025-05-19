@@ -1,4 +1,7 @@
-{ inputs }:
+{
+    inputs,
+    hostName
+}:
 {
     config,
     lib,
@@ -38,9 +41,13 @@ in
                     };
                 };
             };
-            hostName = mkOption {
+            ssh.pubKey = lib.mkOption {
                 type = types.str;
-                default = "nixos";
+            };
+            hostName = mkOption {
+                readOnly = true;
+                type = types.str;
+                default = hostName;
             };
             userName = mkOption {
                 description = "Username of main user";

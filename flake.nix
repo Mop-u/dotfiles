@@ -15,7 +15,7 @@
         nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
 
-        aagl.url = "github:ezKEa/aagl-gtk-on-nix/main";#release-25.05";
+        aagl.url = "github:ezKEa/aagl-gtk-on-nix/main"; # release-25.05";
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
@@ -121,16 +121,21 @@
         { self, nixpkgs, ... }@inputs:
         let
             inherit (nixpkgs) lib;
+            hosts = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
             mkConfig =
                 hostName:
+                let
+                    otherHosts = lib.mapAttrsToList (n: v: { inherit (self.nixosConfigurations.${n}) config; }) (
+                        lib.filterAttrs (n: v: n != hostName) hosts
+                    );
+                in
                 (lib.nixosSystem {
-                    specialArgs = { inherit inputs; };
+                    specialArgs = { inherit inputs otherHosts; };
                     modules = [
-                        ((import ./module.nix) { inherit inputs; })
+                        ((import ./module.nix) { inherit inputs hostName; })
                         (lib.path.append ./hosts hostName)
                     ];
                 });
-            hosts = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
         in
         {
             nixosConfigurations = lib.mapAttrs (n: v: (mkConfig n)) hosts;
