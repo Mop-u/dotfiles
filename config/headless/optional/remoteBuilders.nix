@@ -34,6 +34,9 @@ in
         };
 
         nix = {
+            settings.trusted-public-keys = [
+                "tsumugi:uwel3yZCdN+VwrqZHk+sPD3HtyhgbLISCqUxVnY1uAI="
+            ];
             distributedBuilds = true;
             buildMachines = [
                 {

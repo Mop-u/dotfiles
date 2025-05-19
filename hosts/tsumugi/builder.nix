@@ -14,4 +14,6 @@
         ];
     };
     services.openssh.settings.AllowUsers = [ "builder" ];
+    sops.secrets."tsumugi/cacheKey" = { };
+    nix.settings.secret-key-files = config.sops.secrets."tsumugi/cacheKey".path;
 }
