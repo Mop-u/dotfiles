@@ -80,10 +80,14 @@ in
                                 '';
                             };
                             nix = {
-                                settings.trusted-public-keys = [ remoteHost.signing.pubKey ];
+                                settings = {
+                                    trusted-public-keys = [ remoteHost.signing.pubKey ];
+                                    substituters = [ "ssh-ng://${builderName}" ];
+                                };
                                 buildMachines = [
                                     {
                                         hostName = builderName;
+                                        publicHostKey = remoteHost.ssh.pubKey;
                                         system = "x86_64-linux";
                                         protocol = "ssh-ng";
                                         maxJobs = 1;
