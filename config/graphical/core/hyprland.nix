@@ -97,13 +97,19 @@ in
     };
     config = lib.mkIf (cfg.programs.hyprland.enable) {
 
-        nixpkgs.overlays = [
-            (final: prev: {
-                hyprland = prev.hyprland.override {
-                    legacyRenderer = cfg.graphics.legacyGpu;
-                };
-            })
-        ];
+        nixpkgs.overlays = lib.optional cfg.graphics.legacyGpu (
+            final: prev: {
+                # hyprland's legacy renderer is broken in 49.0 and support is dropped in future versions.
+                hyprland =
+                    (import (pkgs.fetchFromGitHub {
+                        owner = "NixOS";
+                        repo = "nixpkgs";
+                        rev = "b1bebd0fe266bbd1820019612ead889e96a8fa2d";
+                        hash = "sha256-MmJvj6mlWzeRwKGLcwmZpKaOPZ5nJb/6al5CXqJsgjo=";
+                    }) { inherit (final) system; }).hyprland.override
+                        { legacyRenderer = true; };
+            }
+        );
 
         catppuccin.sddm = {
             enable = true;
@@ -156,7 +162,7 @@ in
                 programs.hyprlock = {
                     enable = true;
                 };
-                
+
                 services.hypridle = {
                     enable = true;
                     settings = {

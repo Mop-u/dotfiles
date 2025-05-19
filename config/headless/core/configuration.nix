@@ -21,6 +21,7 @@ in
     nix.settings.auto-optimise-store = true;
     nix.settings.keep-outputs = true;
     nix.settings.keep-derivations = true;
+    nix.settings.trusted-users = [ cfg.userName ];
 
     sops.defaultSopsFile = ../../../secrets/secrets.yaml;
     sops.defaultSopsFormat = "yaml";
@@ -289,6 +290,7 @@ in
                 nerd-fonts.ubuntu
                 liberation_ttf
                 meslo-lgs-nf
+                dejavu_fonts
             ]
             ++ (lib.optional cfg.text.comicCode.enable cfg.text.comicCode.package);
         fontconfig.defaultFonts = {
