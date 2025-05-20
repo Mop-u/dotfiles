@@ -14,10 +14,10 @@
         stateVer = "24.05";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICw5RRyu1jEMpS5ekIfbdaHtWU/IyZ62LhfqK8xUIjGY shinatose@yure";
         services.audio.enable = true;
-        services.kmscon.enable = true;
+        services.kmscon.enable = false;
         services.distributedBuilds.client.enable = true;
         graphics = {
-            enable = true;
+            enable = false;
             legacyGpu = true;
         };
         geolocation.enable = true;
