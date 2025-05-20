@@ -7,6 +7,7 @@
 }:
 let
     cfg = config.sidonia;
+    forEachOtherHost = f: builtins.map f otherHosts;
 in
 {
     options.sidonia.services.distributedBuilds = with lib; {
@@ -57,7 +58,7 @@ in
         lib.mkMerge [
             (lib.mkIf client.enable (
                 lib.mkMerge (
-                    (builtins.map (
+                    (forEachOtherHost (
                         remote:
                         let
                             remoteHost = remote.config.sidonia.services.distributedBuilds.host;
@@ -86,8 +87,10 @@ in
                                 };
                                 buildMachines = [
                                     {
-                                        hostName = builderName;
-                                        publicHostKey = remoteHost.ssh.pubKey;
+                                        hostName = builtins.head remoteHost.hostNames;
+                                        sshUser = remoteHost.user;
+                                        sshKey = client.ssh.privKeyPath;
+                                        #publicHostKey = remoteHost.ssh.pubKey; # don't use this value as it wants base64, fall back to known_hosts instead
                                         system = "x86_64-linux";
                                         protocol = "ssh-ng";
                                         maxJobs = 1;
@@ -102,7 +105,7 @@ in
                                 ];
                             };
                         }
-                    ) otherHosts)
+                    ))
                     ++ [
                         {
                             nix.distributedBuilds = true;
@@ -112,7 +115,7 @@ in
             ))
             (lib.mkIf host.enable (
                 lib.mkMerge (
-                    (builtins.map (
+                    (forEachOtherHost (
                         remote:
                         let
                             remoteClient = remote.config.sidonia.services.distributedBuilds.client;
@@ -120,12 +123,13 @@ in
                         lib.mkIf remoteClient.enable {
                             users.users.${host.user}.openssh.authorizedKeys.keys = [ remoteClient.ssh.pubKey ];
                         }
-                    ) otherHosts)
+                    ))
                     ++ [
                         {
                             users.users.${host.user}.isNormalUser = true;
                             services.openssh.settings.AllowUsers = [ host.user ];
                             nix.settings.secret-key-files = host.signing.privKeyPath;
+                            nix.settings.trusted-users = [ host.user ];
                         }
                     ]
                 )

@@ -17,7 +17,7 @@
         ./reverseProxy.nix
         ./ups.nix
     ];
-    sops.secrets."tsumugi/cacheKey" = {};
+    sops.secrets."tsumugi/cacheKey.pem" = {};
     sidonia = {
         userName = "shiraui";
         stateVer = "24.05";
@@ -28,7 +28,7 @@
             host = {
                 enable = true;
                 signing.pubKey = "tsumugi:uwel3yZCdN+VwrqZHk+sPD3HtyhgbLISCqUxVnY1uAI=";
-                signing.privKeyPath = config.sops.secrets."tsumugi/cacheKey".path;
+                signing.privKeyPath = config.sops.secrets."tsumugi/cacheKey.pem".path;
                 ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBidxqGI8eFmemPDR2FAGpApxR4tXgSD6m893JchS2+";
                 hostNames = [
                     "10.0.4.2"
