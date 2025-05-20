@@ -44,6 +44,7 @@
             url = "github:Mop-u/nix-lancache";
             inputs.cache-domains.follows = "lancache-domains";
             inputs.monolithic.follows = "lancache-monolithic";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
         nonfree-fonts = {
             url = "github:Mop-u/nonfree-fonts";

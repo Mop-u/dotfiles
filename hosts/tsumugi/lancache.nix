@@ -6,7 +6,7 @@
     ...
 }:
 {
-    lancache.dns = {
+    services.lancache.dns = {
         enable = true;
         forwarders = [
             "10.0.4.1"
@@ -23,12 +23,13 @@
         ];
     };
 
-    lancache.cache = {
+    services.lancache.cache = {
         enable = true;
         resolvers = [ "10.0.4.1" ];
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
         cacheDir = "/mnt/lancache";
+        logDir = "/mnt/lancache/log";
     };
     services.resolved.extraConfig = ''
         DNSStubListener=no

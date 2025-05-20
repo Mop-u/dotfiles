@@ -261,14 +261,17 @@
         ],
         "monolithic": [
           "lancache-monolithic"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1733252407,
-        "narHash": "sha256-AtAk2sAwNsYx52U0inQWUkq0Ml/6gH6jLMsQghgwLzk=",
+        "lastModified": 1747741108,
+        "narHash": "sha256-ifOP3JC1kgvJURERwLIiD/NbpkrdfA3++oMOqJKaHuU=",
         "owner": "Mop-u",
         "repo": "nix-lancache",
-        "rev": "a4ebafef806d791bb56ccb1c0bc435e7ac618541",
+        "rev": "e88a98463f3845bc355e2e8d41e0b8e48afecc70",
         "type": "github"
       },
       "original": {
