@@ -29,6 +29,7 @@ in
             };
             ssh.pubKey = mkOption {
                 description = "known_hosts public key";
+                type = types.str;
             };
             hostNames = mkOption {
                 description = "Hostnames or ip addresses of the build host";
