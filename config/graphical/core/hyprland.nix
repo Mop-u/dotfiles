@@ -135,8 +135,6 @@ in
             withUWSM = true;
         };
 
-        security.pam.services.hyprlock.enableGnomeKeyring = true;
-
         home-manager.users.${cfg.userName} =
             let
                 inherit (cfg.programs.hyprland) monitors;
@@ -157,46 +155,6 @@ in
                             allow_token_by_default = true
                         }
                     '';
-                };
-
-                programs.hyprlock = {
-                    enable = true;
-                };
-
-                services.hypridle = {
-                    enable = true;
-                    settings = {
-                        general = {
-                            lock_cmd = "uwsm app -- hyprlock";
-                            before_sleep_cmd = "loginctl lock-session";
-                            after_cleep_cmd = "hyprctl dispatch dpms on"; # todo: check lid switch
-                        };
-                        listener = [
-                            {
-                                timeout = 180;
-                                on-timeout = "brightnessctl -s set 15%";
-                                on-resume = "brightnessctl -r";
-                            }
-                            #{
-                            #    timeout = 180;
-                            #    on-timeout = "brightnessctl -sd platform::kbd_backlight set 0";
-                            #    on-resume = "brightnessctl -rd platform::kbd_backlight";
-                            #}
-                            {
-                                timeout = 300;
-                                on-timeout = "loginctl lock-session";
-                            }
-                            #{
-                            #    timeout = 350;
-                            #    on-timeout = "hyprctl dispatch dpms off";
-                            #    on-resume = "hyprctl dispatch dpms on"; # todo: check lid switch
-                            #}
-                            #{
-                            #    timeout = 420;
-                            #    on-timeout = "systemctl suspend"; # todo: check if docked/charging first
-                            #}
-                        ];
-                    };
                 };
 
                 catppuccin.hyprland.enable = false;
@@ -393,7 +351,6 @@ in
                                 ", XF86AudioLowerVolume,  exec, wpctl set-volume      @DEFAULT_AUDIO_SINK@   5%-"
                                 ", XF86AudioMute,         exec, wpctl set-mute        @DEFAULT_AUDIO_SINK@   toggle"
                                 ", XF86AudioMicMute,      exec, wpctl set-mute        @DEFAULT_AUDIO_SOURCE@ toggle"
-
                                 ", XF86MonBrightnessUp,   exec, brightnessctl s 10%+"
                                 ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
                             ];
@@ -415,7 +372,7 @@ in
                             bind =
                                 [
                                     "SUPERSHIFT, C,         killactive,"
-                                    "SUPERSHIFT, Q,         exec, uwsm app -- hyprlock" # uwsm stop"
+                                    "SUPERSHIFT, Q,         exec, uwsm stop"
                                     "SUPER,      V,         togglefloating,"
                                     "SUPER,      H,         movefocus, l"
                                     "SUPER,      J,         movefocus, d"
