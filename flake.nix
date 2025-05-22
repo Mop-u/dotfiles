@@ -15,7 +15,7 @@
         nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
 
-        aagl.url = "github:ezKEa/aagl-gtk-on-nix/main"; # release-25.05";
+        aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-25.05";
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
