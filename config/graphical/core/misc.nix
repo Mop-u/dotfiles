@@ -35,15 +35,7 @@ lib.mkIf (cfg.graphics.enable) {
                     };
                 });
         };
-        
-        anime-game-launcher.enable = !cfg.graphics.legacyGpu; # genshin
-        sleepy-launcher.enable = !cfg.graphics.legacyGpu; # zzz
-
-        honkers-railway-launcher.enable = false;
-        honkers-launcher.enable = false;
-
-        wavey-launcher.enable = false; # Not currently playable
-        anime-games-launcher.enable = false; # Not for regular use
+        anime-games-launcher.enable = !cfg.graphics.legacyGpu; # multi launcher
     };
 
     home-manager.users.${cfg.userName} = {
