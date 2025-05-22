@@ -29,7 +29,7 @@
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
         cacheDir = "/mnt/lancache";
-        logDir = "/mnt/lancache/log";
+        #logDir = "/mnt/lancache/log"; # nginx doesn't like network drive for logging
     };
     services.resolved.extraConfig = ''
         DNSStubListener=no
