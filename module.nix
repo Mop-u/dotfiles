@@ -1,6 +1,6 @@
 {
     inputs,
-    hostName
+    hostName,
 }:
 {
     config,
@@ -41,8 +41,15 @@ in
                     };
                 };
             };
-            ssh.pubKey = lib.mkOption {
-                type = types.str;
+            ssh = {
+                pubKey = lib.mkOption {
+                    type = types.str;
+                    default = "";
+                };
+                privKeyPath = lib.mkOption {
+                    type = types.path;
+                    default = "/home/${cfg.userName}/.ssh/id_ed25519";
+                };
             };
             hostName = mkOption {
                 readOnly = true;

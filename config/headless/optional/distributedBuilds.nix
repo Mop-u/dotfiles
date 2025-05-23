@@ -45,7 +45,7 @@ in
                 };
                 privKeyPath = mkOption {
                     type = types.path;
-                    default = "/home/${cfg.userName}/.ssh/id_ed25519";
+                    default = cfg.ssh.privKeyPath;
                 };
             };
         };
