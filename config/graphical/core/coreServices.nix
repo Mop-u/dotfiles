@@ -182,32 +182,6 @@ lib.mkIf (cfg.graphics.enable) {
             qpwgraph
             mate.engrampa # archive manager
             qimgv
-            (stdenv.mkDerivation {
-                pname = "qtraw";
-                version = "1.1";
-
-                src = fetchFromGitLab {
-                    owner = "mardy";
-                    repo = "qtraw";
-                    rev = "e75153f9d914f757d29959775bae7931303781e7";
-                    hash = "sha256-tN9aVb7yCti1j/Jg+B73wo1W5ewSt4oR8aOswjF3Zew=";
-                };
-
-                nativeBuildInputs = [
-                    libsForQt5.qt5.wrapQtAppsHook
-                    libsForQt5.qmake
-                    pkg-config
-                    libraw
-                ];
-
-                buildInputs = [
-                    libsForQt5.qt5.qtbase
-                ];
-
-                #QT_INSTALL_PLUGINS = "";
-
-                #dontWrapQtApps = true;
-            })
             mpv # video player
             floorp # browser
             dconf-editor # view gsettings stuff
