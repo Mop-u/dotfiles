@@ -16,17 +16,24 @@
     networking.firewall.allowedTCPPorts = [ 9092 ];
 
     containers.transmission =
-        with config.sidonia.lib;
+        let
+            realSubnet = "10.0.4.0/24";
+            hostAddress = "192.168.100.10";
+            localAddress = "192.168.100.11";
+            hostPort = 9092;
+            localPort = 9091;
+            inherit (config.sidonia.lib) configContainerCredential;
+        in
         lib.mkMerge [
             {
                 autoStart = true;
                 privateNetwork = true;
-                hostAddress = "192.168.100.10";
-                localAddress = "192.168.100.11";
+                inherit hostAddress;
+                inherit localAddress;
                 forwardPorts = [
                     {
-                        containerPort = 9091;
-                        hostPort = 9092;
+                        containerPort = localPort;
+                        hostPort = hostPort;
                         protocol = "tcp";
                     }
                 ];
@@ -51,8 +58,8 @@
                     privateKeyFile = cred;
                     address = [ "10.2.0.2/32" ];
                     dns = [ "10.2.0.1" ];
-                    postUp = "ip route add 10.0.4.0/24 via 192.168.100.10";
-                    preDown = "ip route delete 10.0.4.0/24";
+                    postUp = "ip route add ${realSubnet} via ${hostAddress}";
+                    preDown = "ip route delete ${realSubnet}";
                     peers = [
                         {
                             publicKey = "YWMbt8hivy0dAHCuK4wFqKFZ54BhlsrLYR07xJzPAQc=";
@@ -98,8 +105,8 @@
                             rpc-whitelist-enabled = false;
                             rpc-authentication-required = true;
                             anti-brute-force-enabled = true;
-                            rpc-bind-address = "192.168.100.11";
-                            rpc-port = 9091;
+                            rpc-bind-address = localAddress;
+                            rpc-port = localPort;
                             download-dir = "/mnt/media/data/torrents";
                         };
                 };
