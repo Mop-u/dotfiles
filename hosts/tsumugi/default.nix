@@ -9,6 +9,7 @@
     imports = [
         ./hardware-configuration.nix
         ./arr.nix
+        ./transmission.nix
         ./iperf.nix
         ./lancache.nix
         ./minecraft.nix
