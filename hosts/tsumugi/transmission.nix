@@ -37,13 +37,7 @@
                         protocol = "tcp";
                     }
                 ];
-                bindMounts = {
-                    "/mnt/media" = {
-                        mountPoint = "/mnt/media";
-                        hostPath = "/mnt/media";
-                        isReadOnly = false;
-                    };
-                };
+                bindMounts."/mnt/media".isReadOnly = false;
                 config = {
                     system.stateVersion = config.sidonia.stateVer;
                     networking = {
