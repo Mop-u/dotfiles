@@ -18,6 +18,7 @@
     containers.transmission =
         let
             realSubnet = "10.0.4.0/24";
+            containerSubnet = "192.168.0.0/16";
             hostAddress = "192.168.100.10";
             localAddress = "192.168.100.11";
             hostPort = 9092;
@@ -52,8 +53,14 @@
                     privateKeyFile = cred;
                     address = [ "10.2.0.2/32" ];
                     dns = [ "10.2.0.1" ];
-                    postUp = "ip route add ${realSubnet} via ${hostAddress}";
-                    preDown = "ip route delete ${realSubnet}";
+                    postUp = ''
+                        ip route add ${realSubnet} via ${hostAddress}
+                        ip route add ${containerSubnet} via ${hostAddress}
+                    '';
+                    preDown = ''
+                        ip route delete ${realSubnet}
+                        ip route delete ${containerSubnet}
+                    '';
                     peers = [
                         {
                             publicKey = "YWMbt8hivy0dAHCuK4wFqKFZ54BhlsrLYR07xJzPAQc=";
