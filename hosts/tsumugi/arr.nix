@@ -100,37 +100,6 @@ in
         };
     };
 
-    services.transmission = {
-        enable = true;
-        package = pkgs.transmission_4;
-        openRPCPort = true;
-        openPeerPorts = true;
-        credentialsFile = config.sops.secrets."tsumugi/transmission".path;
-        settings = let
-            speed-limit-enabled = true; # speed limit is in KB/s
-            mbits = x: ((x*1000) / 8);
-        in {
-            # https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
-            speed-limit-up = mbits 2;
-            speed-limit-down = mbits 20;
-            speed-limit-up-enabled = speed-limit-enabled;
-            speed-limit-down-enabled = speed-limit-enabled;
-            download-queue-enabled = false;
-            incomplete-dir-enabled = false;
-            incomplete-dir = "/mnt/media/data/torrents/.incomplete";
-            preallocation = 0;
-            trash-can-enabled = false;
-            cache-size-mb = 0; # we have fsc on the network share
-            rpc-whitelist-enabled = false;
-            rpc-authentication-required = true;
-            anti-brute-force-enabled = true;
-            rpc-bind-address = "10.0.4.2";
-            rpc-port = 9091;
-            download-dir = "/mnt/media/data/torrents";
-            peer-port = 29347;
-        };
-    };
-
     networking = {
         nat = {
             enable = true;
