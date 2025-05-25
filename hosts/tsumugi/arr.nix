@@ -37,16 +37,16 @@ let
             };
         } // configuration.config;
     };
-in
-{
-
-    # needed for sonarr
-    nixpkgs.config.permittedInsecurePackages = [
+    sonarrInsecurePackages = [
         "aspnetcore-runtime-wrapped-6.0.36"
         "aspnetcore-runtime-6.0.36"
         "dotnet-sdk-wrapped-6.0.428"
         "dotnet-sdk-6.0.428"
     ];
+in
+{
+
+    nixpkgs.config.permittedInsecurePackages = sonarrInsecurePackages;
 
     networking.firewall.allowedTCPPorts = [
         8998 # sonarrAnime
@@ -115,12 +115,7 @@ in
         containerPort = 8989;
         hostPort = 8998;
         config = {
-            nixpkgs.config.permittedInsecurePackages = [
-                "aspnetcore-runtime-wrapped-6.0.36"
-                "aspnetcore-runtime-6.0.36"
-                "dotnet-sdk-wrapped-6.0.428"
-                "dotnet-sdk-6.0.428"
-            ];
+            nixpkgs.config.permittedInsecurePackages = sonarrInsecurePackages;
             services.sonarr = {
                 enable = true;
                 openFirewall = true;
