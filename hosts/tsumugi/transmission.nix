@@ -12,47 +12,43 @@
     sops.secrets."tsumugi/transmissionwgpk" = {
         restartUnits = [ "container@transmission.service" ];
     };
+
     networking.firewall.allowedTCPPorts = [ 9092 ];
+
     containers.transmission =
-        let
-            storeCredential = n: p: "--load-credential=${n}:${p}";
-            loadCredential = n: "${n}Load:${n}";
-        in
-        {
-            extraFlags = [
-                (storeCredential "privateKeyFile" config.sops.secrets."tsumugi/transmissionwgpk".path)
-                (storeCredential "credentialsFile" config.sops.secrets."tsumugi/transmission".path)
-            ];
-            autoStart = true;
-            privateNetwork = true;
-            hostAddress = "192.168.100.10";
-            localAddress = "192.168.100.11";
-            forwardPorts = [
-                {
-                    containerPort = 9091;
-                    hostPort = 9092;
-                    protocol = "tcp";
-                }
-            ];
-            bindMounts = {
-                "/mnt/media" = {
-                    mountPoint = "/mnt/media";
-                    hostPath = "/mnt/media";
-                    isReadOnly = false;
+        with config.sidonia.lib;
+        lib.mkMerge [
+            {
+                autoStart = true;
+                privateNetwork = true;
+                hostAddress = "192.168.100.10";
+                localAddress = "192.168.100.11";
+                forwardPorts = [
+                    {
+                        containerPort = 9091;
+                        hostPort = 9092;
+                        protocol = "tcp";
+                    }
+                ];
+                bindMounts = {
+                    "/mnt/media" = {
+                        mountPoint = "/mnt/media";
+                        hostPath = "/mnt/media";
+                        isReadOnly = false;
+                    };
                 };
-            };
-            config = {
-                system.stateVersion = config.sidonia.stateVer;
-                networking = {
-                    firewall.enable = true;
-                    useHostResolvConf = lib.mkForce false;
-                    nameservers = [ "10.0.4.1" ];
+                config = {
+                    system.stateVersion = config.sidonia.stateVer;
+                    networking = {
+                        firewall.enable = true;
+                        useHostResolvConf = lib.mkForce false;
+                        nameservers = [ "10.0.4.1" ];
+                    };
                 };
-                systemd.services.wg-quick-wg0 = {
-                    serviceConfig.LoadCredential = loadCredential "privateKeyFile";
-                };
+            }
+            (configContainerCredential (cred: {
                 networking.wg-quick.interfaces.wg0 = {
-                    privateKeyFile = "/run/credentials/wg-quick-wg0.service/privateKeyFileLoad";
+                    privateKeyFile = cred;
                     address = [ "10.2.0.2/32" ];
                     dns = [ "10.2.0.1" ];
                     postUp = "ip route add 10.0.4.0/24 via 192.168.100.10";
@@ -65,6 +61,8 @@
                         }
                     ];
                 };
+            }) "wg-quick-wg0" config.sops.secrets."tsumugi/transmissionwgpk".path)
+            (configContainerCredential (cred: {
                 systemd.services.transmission = {
                     serviceConfig = {
                         # https://github.com/NixOS/nixpkgs/issues/258793
@@ -72,11 +70,10 @@
                         RootDirectory = lib.mkForce "";
                         PrivateMounts = lib.mkForce false;
                         PrivateUsers = lib.mkForce false;
-                        LoadCredential = loadCredential "credentialsFile";
                     };
                 };
                 services.transmission = {
-                    credentialsFile = "/run/credentials/transmission.service/credentialsFileLoad";
+                    credentialsFile = cred;
                     enable = true;
                     package = pkgs.transmission_4;
                     openRPCPort = true;
@@ -106,6 +103,6 @@
                             download-dir = "/mnt/media/data/torrents";
                         };
                 };
-            };
-        };
+            }) "transmission" config.sops.secrets."tsumugi/transmission".path)
+        ];
 }

@@ -39,6 +39,19 @@ in
                         applications = "/home/${cfg.userName}/.nix-profile/share/applications";
                         autostart = "/home/${cfg.userName}/.config/autostart";
                     };
+                    configContainerCredential =
+                        f: service: path:
+                        let
+                            rootCredName = "${service}CredentialRoot";
+                            localCredName = "${service}CredentialLocal";
+                        in
+                        {
+                            extraFlags = [ "--load-credential=${rootCredName}:${path}" ];
+                            config = lib.mkMerge [
+                                { systemd.services."${service}".serviceConfig.LoadCredential = "${localCredName}:${rootCredName}"; }
+                                (f "/run/credentials/${service}.service/${localCredName}")
+                            ];
+                        };
                 };
             };
             ssh = {
