@@ -121,8 +121,9 @@ in
             };
             unitConfig = {
                 Description = "Hyprland workspace switcher";
+                After = "wayland-session@Hyprland.target";
+                Wants = "wayland-session@Hyprland.target";
                 PartOf = "wayland-session@Hyprland.target";
-                Restart = "on-failure";
             };
         };
     };

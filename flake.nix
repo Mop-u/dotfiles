@@ -90,16 +90,6 @@
             flake = false;
         };
 
-        # plex packages
-        plexHama = {
-            url = "github:ZeroQI/Hama.bundle";
-            flake = false;
-        };
-        plexASS = {
-            url = "github:ZeroQI/Absolute-Series-Scanner";
-            flake = false;
-        };
-
         # get up-to-date kmscon version
         kmscon = {
             url = "github:Aetf/kmscon/develop";
