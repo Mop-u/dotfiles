@@ -67,6 +67,11 @@ in
         ];
     };
 
+    services.jellyfin = {
+        enable = true;
+        openFirewall = true;
+    };
+
     services.sonarr = {
         enable = true;
         openFirewall = true; # 8989
