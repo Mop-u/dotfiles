@@ -63,7 +63,7 @@ in
     };
 
     fileSystems."/mnt/cache" = {
-        device = "/dev/disk/by-uuid/a63ca719-268e-476e-b28d-252dcbeaaa04";
+        device = "/dev/disk/by-uuid/9e921dc4-9e2f-408f-94ed-99747c2bedd0";
         fsType = "ext4";
         options = [
             "noatime"
