@@ -17,7 +17,7 @@
         cacheNetworks = [
             "10.0.4.0/24"
             "fe80::/10"
-            "2001:bb6:9533:4002::/64"
+            "2001:bb6:9540:502::/64"
             "127.0.0.0/24"
             "::1/128"
         ];
@@ -28,7 +28,7 @@
         resolvers = [ "10.0.4.1" ];
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
-        cacheDir = "/mnt/lancache";
+        cacheDir = "/mnt/lancache/cache";
         #logDir = "/mnt/lancache/log"; # nginx doesn't like network drive for logging
     };
     services.resolved.extraConfig = ''

@@ -32,7 +32,7 @@ let
                 useHostResolvConf = lib.mkForce false;
                 nameservers = [
                     "10.0.4.1"
-                    "2001:bb6:9533:4002::1"
+                    "2001:bb6:9540:502::1"
                 ];
             };
         } // configuration.config;
