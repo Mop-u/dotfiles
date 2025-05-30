@@ -61,6 +61,7 @@ in
     services.jellyfin = {
         enable = true;
         openFirewall = true;
+        cacheDir = "/mnt/media/data/appdata/jellyfin/cache";
     };
 
     services.sonarr = {
