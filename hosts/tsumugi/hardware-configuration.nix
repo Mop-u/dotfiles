@@ -77,7 +77,11 @@ in
     ];
 
     # Intel ARC GPU
-    hardware.graphics.extraPackages = [ pkgs.vpl-gpu-rt ];
+    hardware.graphics.extraPackages = with pkgs; [
+        vpl-gpu-rt
+        intel-media-driver
+        intel-compute-runtime
+    ];
     environment.systemPackages = with pkgs; [
         intel-gpu-tools
     ];
