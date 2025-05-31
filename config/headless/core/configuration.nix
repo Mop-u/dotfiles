@@ -19,8 +19,6 @@ in
 
     nix.gc.automatic = true;
     nix.settings.auto-optimise-store = true;
-    nix.settings.keep-outputs = true;
-    nix.settings.keep-derivations = true;
     nix.settings.trusted-users = [ cfg.userName ];
 
     sops.defaultSopsFile = ../../../secrets/secrets.yaml;

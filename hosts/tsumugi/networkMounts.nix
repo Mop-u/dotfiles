@@ -15,7 +15,7 @@ let
             (
                 if useNFS then
                     [
-                        "nfsvers=3"
+                        #"nfsvers=3"
                         "nolock"
                     ]
                 else
