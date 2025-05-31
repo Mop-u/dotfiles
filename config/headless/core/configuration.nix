@@ -17,6 +17,9 @@ in
 
     networking.hostName = cfg.hostName;
 
+    # https://github.com/NixOS/nixpkgs/issues/389928
+    system.switch.enableNg = false;
+
     nix.gc.automatic = true;
     nix.settings.auto-optimise-store = true;
     nix.settings.trusted-users = [ cfg.userName ];
