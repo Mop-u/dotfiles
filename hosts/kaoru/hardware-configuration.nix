@@ -37,7 +37,7 @@ in
     ];
     boot.initrd.kernelModules = [ ];
     #boot.kernelPackages = pkgs.linuxPackages_6_12;
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_14;
     #boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.kernelModules = [
         "kvm-intel"
@@ -112,7 +112,7 @@ in
         modesetting.enable = true;
         powerManagement.enable = false;
         powerManagement.finegrained = false;
-        open = false;
+        open = true;
         nvidiaSettings = true;
         package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
         prime = {

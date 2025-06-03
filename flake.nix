@@ -26,9 +26,15 @@
         };
 
         hyprswitch = {
-            url = "github:h3rmt/hyprswitch/release";
+            url = "github:h3rmt/hyprswitch/old-release-hyprswitch";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        hyprshell = {
+            url = "github:h3rmt/hyprswitch/hyprshell-release";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         home-manager = {
             url = "github:nix-community/home-manager/release-25.05";
             inputs.nixpkgs.follows = "nixpkgs";
