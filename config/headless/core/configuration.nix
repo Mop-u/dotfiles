@@ -17,8 +17,8 @@ in
 
     networking.hostName = cfg.hostName;
 
-    # https://github.com/NixOS/nixpkgs/issues/389928
-    system.switch.enableNg = false;
+    # https://github.com/NixOS/nixpkgs/issues/343975
+    # system.switch.enableNg = false;
 
     nix.gc.automatic = true;
     nix.settings.auto-optimise-store = true;

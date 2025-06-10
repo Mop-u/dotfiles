@@ -60,9 +60,7 @@ in
                         catppuccin.catppuccin-vsc-icons
                         christian-kohler.path-intellisense
                         yandeu.five-server
-                        #hankhsu1996.better-systemverilog-syntax
-                        #chipsalliance.verible
-                        #bmpenuelas.systemverilog-formatter-vscode
+                        sankooc.pcapviewer
                         mshr-h.veriloghdl
                     ];
                     userSettings =
@@ -75,6 +73,9 @@ in
                         {
                             "workbench.iconTheme" = "catppuccin-${theme.flavor}"; # remove when 25.05 is stable
                             "workbench.colorTheme" = "Catppuccin ${cfg.lib.capitalize theme.flavor}"; # remove when 25.05 is stable
+                            "workbench.editorAssociations" = {
+                                "*.pcap" = "proto.pcapng";
+                            };
                             "typescript.suggest.paths" = false;
                             "javascript.suggest.paths" = false;
                             "nix.enableLanguageServer" = true;
