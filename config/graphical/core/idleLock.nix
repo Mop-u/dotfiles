@@ -19,10 +19,13 @@ in
                 { hyprlock.enableGnomeKeyring = true; }
         );
 
+        sidonia.desktop.keybinds = [{
+            mod = ["super"];
+            key = "x";
+            exec = lock_cmd;
+        }];
+
         home-manager.users.${cfg.userName} = {
-            wayland.windowManager.hyprland.settings.bind = [
-                "SUPER, X, exec, ${lock_cmd}"
-            ];
 
             catppuccin.hyprlock.enable = !cfg.graphics.legacyGpu;
             programs.hyprlock = {

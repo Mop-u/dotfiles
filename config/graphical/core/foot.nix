@@ -9,6 +9,11 @@ let
     cfg = config.sidonia;
 in
 lib.mkIf (cfg.graphics.enable) {
+    sidonia.desktop.keybinds = [{
+        mod = ["super" "shift"];
+        key = "return";
+        exec = "uwsm app -- foot";
+    }];
     home-manager.users.${config.sidonia.userName} = {
         catppuccin.foot.enable = true;
         programs.foot = {
@@ -25,9 +30,6 @@ lib.mkIf (cfg.graphics.enable) {
                 "float,                        class:(foot), title:(foot)"
                 "size ${cfg.window.float.wh},  class:(foot), title:(foot)"
                 "${cfg.window.float.onCursor}, class:(foot), title:(foot)"
-            ];
-            bind = [
-                "SUPERSHIFT, Return, exec, uwsm app -- foot"
             ];
         };
     };

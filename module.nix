@@ -237,6 +237,112 @@ in
                     default = "us";
                 };
             };
+            desktop = {
+                monitors = mkOption {
+                    description = "List of monitor configurations ( see https://wiki.hyprland.org/Configuring/Monitors/ )";
+                    type =
+                        with types;
+                        listOf (submodule {
+                            options = {
+                                name = mkOption {
+                                    description = "Name of monitor";
+                                    type = str;
+                                };
+                                resolution = mkOption {
+                                    description = "Resolution in the format WIDTHxHEIGHT. Default is highest available resolution.";
+                                    type = str;
+                                    default = "highres";
+                                };
+                                position = mkOption {
+                                    description = "Monitor position in scaled pixels WIDTHxHEIGHT";
+                                    type = str;
+                                    default = "auto";
+                                };
+                                refresh = mkOption {
+                                    description = "Monitor refresh rate";
+                                    type = float;
+                                    default = 0.0;
+                                };
+                                scale = mkOption {
+                                    description = "Monitor scale factor";
+                                    type = float;
+                                    default = 0.0;
+                                };
+                                extraArgs = mkOption {
+                                    description = "Extra comma-separated monitor properties";
+                                    type = str;
+                                    default = "";
+                                };
+                            };
+                        });
+                    default = [ ];
+                    apply =
+                        x:
+                        builtins.map
+                            (
+                                monitor:
+                                let
+                                    hasHz = monitor.refresh != 0.0;
+                                    scaleAuto = monitor.scale == 0.0;
+                                    hasXtra = monitor.extraArgs != "";
+                                    args = concatStringsSep ", " (
+                                        [
+                                            (concatStringsSep "@" (
+                                                [ monitor.resolution ] ++ (optional hasHz (strings.floatToString monitor.refresh))
+                                            ))
+                                            monitor.position
+                                            (if scaleAuto then "auto" else strings.floatToString monitor.scale)
+                                        ]
+                                        ++ (optional hasXtra monitor.extraArgs)
+                                    );
+                                in
+                                rec {
+                                    inherit (monitor) name;
+                                    enable = "${name},${args}";
+                                    disable = "${name},disable";
+                                }
+                            )
+                            (
+                                x
+                                ++ [
+                                    # Make sure to automatically find any unconfigured monitors
+                                    {
+                                        name = "";
+                                        resolution = "highres";
+                                        position = "auto";
+                                        scale = 0.0;
+                                        refresh = 0.0;
+                                        extraArgs = "";
+                                    }
+                                ]
+                            );
+                };
+                keybinds = mkOption {
+                    description = "List of keybinds to add to the desktop environment";
+                    type =
+                        with types;
+                        listOf (submodule {
+                            options = {
+                                mod = mkOption {
+                                    description = "Modifier keys";
+                                    type = listOf (enum [
+                                        "super"
+                                        "shift"
+                                        "alt"
+                                    ]);
+                                };
+                                key = mkOption {
+                                    description = "Key";
+                                    type = str;
+                                };
+                                exec = mkOption {
+                                    description = "Command to execute";
+                                    type = str;
+                                };
+                            };
+                        });
+                };
+            };
         };
     };
 

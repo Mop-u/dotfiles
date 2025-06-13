@@ -28,19 +28,21 @@ let
         ];
 in
 lib.mkIf (cfg.graphics.enable) {
-    home-manager.users.${cfg.userName} = {
-        programs.bemenu.enable = true;
-        wayland.windowManager.hyprland.settings.bind =
-            [
-                "SUPER, P, exec, uwsm app -- $(bemenu-run --no-exec ${opts})"
-            ]
-            ++ (
-                if config.hardware.nvidia.prime.offload.enableOffloadCmd then
-                    [
-                        "SUPERSHIFT, P, exec, uwsm app -- nvidia-offload $(LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia bemenu-run --no-exec ${opts})"
-                    ]
-                else
-                    [ ]
-            );
-    };
+    home-manager.users.${cfg.userName}.programs.bemenu.enable = true;
+    sidonia.desktop.keybinds =
+        [
+            {
+                mod = [ "super" ];
+                key = "p";
+                exec = "uwsm app -- $(bemenu-run --no-exec ${opts})";
+            }
+        ]
+        ++ (lib.optional config.hardware.nvidia.prime.offload.enableOffloadCmd {
+            mod = [
+                "super"
+                "shift"
+            ];
+            key = "p";
+            exec = "uwsm app -- nvidia-offload $(LIBVA_DRIVER_NAME=nvidia VDPAU_NAME=nvidia bemenu-run --no-exec ${opts})";
+        });
 }

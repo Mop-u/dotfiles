@@ -26,7 +26,7 @@
         input.sensitivity = -0.1;
         input.keyLayout = "gb";
         isLaptop = true;
-        programs.hyprland.monitors = [
+        desktop.monitors = [
             { 
                 name = "LVDS-1";
                 scale = 1.0;

@@ -26,7 +26,7 @@
         graphics.enable = true;
         tweaks.withBehringerAudioInterface = true;
         programs.gtkwave.enable = true;
-        programs.hyprland.monitors = [
+        desktop.monitors = [
             {
                 name = "eDP-1";
                 resolution = "2560x1600";

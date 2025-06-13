@@ -15,85 +15,6 @@ in
             type = types.bool;
             default = cfg.graphics.enable;
         };
-        monitors = mkOption {
-            description = "List of monitor configurations ( see https://wiki.hyprland.org/Configuring/Monitors/ )";
-            type =
-                with types;
-                listOf (submodule {
-                    options = {
-                        name = mkOption {
-                            description = "Name of monitor";
-                            type = str;
-                        };
-                        resolution = mkOption {
-                            description = "Resolution in the format WIDTHxHEIGHT. Default is highest available resolution.";
-                            type = str;
-                            default = "highres";
-                        };
-                        position = mkOption {
-                            description = "Monitor position in scaled pixels WIDTHxHEIGHT";
-                            type = str;
-                            default = "auto";
-                        };
-                        refresh = mkOption {
-                            description = "Monitor refresh rate";
-                            type = float;
-                            default = 0.0;
-                        };
-                        scale = mkOption {
-                            description = "Monitor scale factor";
-                            type = float;
-                            default = 0.0;
-                        };
-                        extraArgs = mkOption {
-                            description = "Extra comma-separated monitor properties";
-                            type = str;
-                            default = "";
-                        };
-                    };
-                });
-            default = [ ];
-            apply =
-                x:
-                builtins.map
-                    (
-                        monitor:
-                        let
-                            hasHz = monitor.refresh != 0.0;
-                            scaleAuto = monitor.scale == 0.0;
-                            hasXtra = monitor.extraArgs != "";
-                            args = concatStringsSep ", " (
-                                [
-                                    (concatStringsSep "@" (
-                                        [ monitor.resolution ] ++ (optional hasHz (strings.floatToString monitor.refresh))
-                                    ))
-                                    monitor.position
-                                    (if scaleAuto then "auto" else strings.floatToString monitor.scale)
-                                ]
-                                ++ (optional hasXtra monitor.extraArgs)
-                            );
-                        in
-                        rec {
-                            inherit (monitor) name;
-                            enable = "${name},${args}";
-                            disable = "${name},disable";
-                        }
-                    )
-                    (
-                        x
-                        ++ [
-                            # Make sure to automatically find any unconfigured monitors
-                            {
-                                name = "";
-                                resolution = "highres";
-                                position = "auto";
-                                scale = 0.0;
-                                refresh = 0.0;
-                                extraArgs = "";
-                            }
-                        ]
-                    );
-        };
     };
     config = lib.mkIf (cfg.programs.hyprland.enable) {
 
@@ -137,7 +58,7 @@ in
 
         home-manager.users.${cfg.userName} =
             let
-                inherit (cfg.programs.hyprland) monitors;
+                inherit (cfg.desktop) monitors;
             in
             {
                 home.packages = [
@@ -372,7 +293,8 @@ in
                                 "SUPERALT,   L,         resizeactive,  10    0" # resize right
                             ];
                             bind =
-                                [
+                                (builtins.map (x: "${lib.concatStrings x.mod}, ${x.key}, exec, ${x.exec}") cfg.desktop.keybinds)
+                                ++ [
                                     "SUPERSHIFT, C,         killactive,"
                                     "SUPERSHIFT, Q,         exec, uwsm stop"
                                     "SUPER,      V,         togglefloating,"

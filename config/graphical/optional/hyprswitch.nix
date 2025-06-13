@@ -13,29 +13,21 @@ in
 {
     options.sidonia.services.hyprswitch.enable = lib.mkEnableOption "Enable Hyprswitch";
     config = lib.mkIf (cfg.services.hyprswitch.enable) {
+        sidonia.desktop.keybinds = [
+            (rec {
+                mod = ["super"];
+                key = "tab";
+                exec = lib.concatStringsSep " " [
+                    "uwsm app --"
+                    "hyprswitch gui"
+                    "--mod-key ${lib.concatStrings mod}"
+                    "--key ${key}"
+                    "--close mod-key-release"
+                ];
+            })
+        ];
         home-manager.users.${config.sidonia.userName} = {
             home.packages = [ hyprswitch ];
-
-            wayland.windowManager.hyprland.settings =
-                let
-                    mod = "super";
-                    key = "tab";
-                in
-                {
-                    env = [
-                        "WORKSPACES_PER_ROW,3"
-                    ];
-                    bind = [
-                        (lib.concatStringsSep " " [
-                            "${mod}, ${key}, exec,"
-                            "uwsm app --"
-                            "hyprswitch gui"
-                            "--mod-key ${mod}"
-                            "--key ${key}"
-                            "--close mod-key-release"
-                        ])
-                    ];
-                };
 
             home.file.hyprswitch = {
                 enable = true;
