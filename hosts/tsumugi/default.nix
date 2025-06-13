@@ -19,7 +19,6 @@
         ./ups.nix
     ];
     networking.hostName = "tsumugi";
-    sops.secrets."tsumugi/cacheKey.pem" = {};
     sidonia = {
         userName = "shiraui";
         stateVer = "24.05";
@@ -38,5 +37,11 @@
                 ];
             };
         };
+    };
+    sops = {
+        defaultSopsFile = ../../../secrets/secrets.yaml;
+        defaultSopsFormat = "yaml";
+        age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
+        secrets."tsumugi/cacheKey.pem" = { };
     };
 }

@@ -138,9 +138,10 @@
                 in
                 (lib.nixosSystem {
                     specialArgs = { inherit inputs otherHosts; };
-                    modules = [
+                    modules = with inputs; [
                         #((import ./module.nix) { inherit inputs; })
-                        inputs.sidonia.nixosModules.sidonia
+                        sidonia.nixosModules.sidonia
+                        sops-nix.nixosModules.sops
                         (lib.path.append ./hosts hostName)
                     ];
                 });
