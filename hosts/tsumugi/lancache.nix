@@ -6,6 +6,10 @@
     ...
 }:
 {
+    imports = [
+        inputs.lancache.nixosModules.dns
+        inputs.lancache.nixosModules.cache
+    ];
     services.lancache.dns = {
         enable = true;
         forwarders = [

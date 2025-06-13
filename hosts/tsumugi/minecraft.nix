@@ -6,6 +6,9 @@
     ...
 }:
 {
+    imports = [
+        inputs.nix-minecraft.nixosModules.minecraft-servers
+    ];
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
     networking.firewall.allowedTCPPorts = [
         8100 # bluemap

@@ -6,6 +6,9 @@
     ...
 }:
 {
+    imports = [
+        inputs.quartus.nixosModules.quartus
+    ];
     programs.quartus = {
         enable = true;
         lite = {
