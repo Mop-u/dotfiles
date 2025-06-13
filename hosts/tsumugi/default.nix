@@ -39,9 +39,9 @@
         };
     };
     sops = {
-        defaultSopsFile = ../../../secrets/secrets.yaml;
+        defaultSopsFile = ../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
-        age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
+        age.keyFile = "/home/shiraui/.config/sops/age/keys.txt";
         secrets."tsumugi/cacheKey.pem" = { };
     };
 }
