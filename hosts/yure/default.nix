@@ -9,6 +9,7 @@
     imports = [
         ./hardware-configuration.nix
     ];
+    networking.hostName = "yure";
     sidonia = {
         userName = "shinatose";
         stateVer = "24.05";

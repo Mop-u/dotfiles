@@ -11,6 +11,7 @@
         ./virtualbox.nix
         ./quartus.nix
     ];
+    networking.hostName = "kaoru";
     sidonia = {
         userName = "hazama";
         stateVer = "23.11";

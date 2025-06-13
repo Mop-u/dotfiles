@@ -18,6 +18,7 @@
         ./reverseProxy.nix
         ./ups.nix
     ];
+    networking.hostName = "tsumugi";
     sops.secrets."tsumugi/cacheKey.pem" = {};
     sidonia = {
         userName = "shiraui";

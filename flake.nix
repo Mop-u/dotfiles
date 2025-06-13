@@ -15,6 +15,12 @@
         nixfmt-git.url = "github:NixOS/nixfmt";
         nix-colors.url = "github:misterio77/nix-colors";
 
+        sidonia = {
+            url = "github:Mop-u/sidonia";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.unstable.follows = "unstable";
+        };
+
         aagl = {
             url = "github:ezKEa/aagl-gtk-on-nix/release-25.05";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -125,14 +131,16 @@
             mkConfig =
                 hostName:
                 let
-                    otherHosts = lib.mapAttrsToList (n: v: { inherit (self.nixosConfigurations.${n}) config; }) (
-                        lib.filterAttrs (n: v: n != hostName) hosts
-                    );
+                    otherHostNames = lib.filterAttrs (n: v: n != hostName) hosts;
+                    otherHosts = lib.mapAttrsToList (n: v: {
+                        inherit (self.nixosConfigurations.${n}) config;
+                    }) otherHostNames;
                 in
                 (lib.nixosSystem {
                     specialArgs = { inherit inputs otherHosts; };
                     modules = [
-                        ((import ./module.nix) { inherit inputs hostName; })
+                        #((import ./module.nix) { inherit inputs; })
+                        inputs.sidonia.nixosModules.sidonia
                         (lib.path.append ./hosts hostName)
                     ];
                 });
