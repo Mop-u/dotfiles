@@ -1141,7 +1141,7 @@
         "nonfree-fonts": "nonfree-fonts",
         "quartus": "quartus",
         "sidonia": "sidonia",
-        "sops-nix": "sops-nix_2",
+        "sops-nix": "sops-nix",
         "stextCatppuccin": "stextCatppuccin_2",
         "stextHooks": "stextHooks_2",
         "stextLSP": "stextLSP_2",
@@ -1216,7 +1216,6 @@
         ],
         "nonfree-fonts": "nonfree-fonts_2",
         "quartus": "quartus_2",
-        "sops-nix": "sops-nix",
         "stextCatppuccin": "stextCatppuccin",
         "stextHooks": "stextHooks",
         "stextLSP": "stextLSP",
@@ -1228,11 +1227,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749816075,
-        "narHash": "sha256-1nO7gdIVA49m3PcpIQDYK08jAejieDUOl+X8/k99QMs=",
+        "lastModified": 1749817312,
+        "narHash": "sha256-c4kveq+dLwTiXTbOw+fkInWfjxkxKJWxT1baDi+qybg=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "702265e0bb190a123c2413c590867de7cb2a7f29",
+        "rev": "12bb1861cf6aa1d2d593180e7c40056b98227059",
         "type": "github"
       },
       "original": {
@@ -1242,27 +1241,6 @@
       }
     },
     "sops-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "sidonia",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1749592509,
-        "narHash": "sha256-VunQzfZFA+Y6x3wYi2UE4DEQ8qKoAZZCnZPUlSoqC+A=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "50754dfaa0e24e313c626900d44ef431f3210138",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "sops-nix_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
