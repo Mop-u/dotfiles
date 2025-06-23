@@ -12,6 +12,25 @@
         ./quartus.nix
     ];
     networking.hostName = "kaoru";
+    home-manager.users.hazama = {
+        home.packages = [
+            pkgs.wireshark
+        ];
+        programs.vscode = {
+            profiles.default.extensions = with pkgs.vscode-extensions; [
+                mbehr1.vsc-webshark
+                #sankooc.pcapviewer
+            ];
+            userSettings = {
+                "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
+                "workbench.editorAssociations" = {
+                    #"*.pcap" = "proto.pcapng";
+                    "*.pcap" = "vsc-webshark.pcap";
+
+                };
+            };
+        };
+    };
     sidonia = {
         userName = "hazama";
         stateVer = "23.11";
@@ -39,7 +58,7 @@
             {
                 name = "desc:Lenovo Group Limited P40w-20 V9095052";
                 resolution = "5120x2160";
-                refresh = 60.00;#74.97900;
+                refresh = 60.00; # 74.97900;
                 scale = 1.066667;
                 position = "0x0";
             }
@@ -47,7 +66,7 @@
                 name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
                 resolution = "1920x1080";
                 refresh = 60.00;
-                scale = 1.0;#0.833333;
+                scale = 1.0; # 0.833333;
                 position = "4800x400";
             }
         ];
