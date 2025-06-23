@@ -19,6 +19,8 @@
         ./ups.nix
     ];
     networking.hostName = "tsumugi";
+    nix.settings.keep-outputs = true;
+    nix.settings.keep-derivations = true;
     sidonia = {
         userName = "shiraui";
         stateVer = "24.05";
