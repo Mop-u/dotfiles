@@ -15,18 +15,22 @@
     home-manager.users.hazama = {
         home.packages = [
             pkgs.wireshark
+            pkgs.surfer
         ];
         programs.vscode = {
-            profiles.default.extensions = with pkgs.vscode-extensions; [
-                mbehr1.vsc-webshark
-                #sankooc.pcapviewer
-            ];
-            userSettings = {
-                "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
-                "workbench.editorAssociations" = {
-                    #"*.pcap" = "proto.pcapng";
-                    "*.pcap" = "vsc-webshark.pcap";
+            profiles.default = {
+                extensions = with pkgs.vscode-extensions; [
+                    mbehr1.vsc-webshark
+                    surfer-project.surfer
+                    #sankooc.pcapviewer
+                ];
+                userSettings = {
+                    "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
+                    "workbench.editorAssociations" = {
+                        #"*.pcap" = "proto.pcapng";
+                        "*.pcap" = "vsc-webshark.pcap";
 
+                    };
                 };
             };
         };
