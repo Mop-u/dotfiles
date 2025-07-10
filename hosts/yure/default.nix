@@ -23,7 +23,7 @@
         geolocation.enable = true;
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
-        text.comicCode.enable = true;
+        text.comicCode.enable = false;
         input.sensitivity = -0.1;
         input.keyLayout = "gb";
         isLaptop = true;
