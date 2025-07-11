@@ -39,7 +39,7 @@
         userName = "hazama";
         stateVer = "23.11";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
-        services.distributedBuilds.client.enable = true;
+        services.distributedBuilds.client.enable = false;
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
         text.comicCode.enable = true;

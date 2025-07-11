@@ -10,7 +10,6 @@
     hardware.enableRedistributableFirmware = true;
 
     # This is a dual core system :)
-    nix.settings.max-jobs = 0; # use remote builder only
     nix.settings.cores = 1;
 
     boot.loader.grub = {

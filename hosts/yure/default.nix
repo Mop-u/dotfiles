@@ -10,12 +10,13 @@
         ./hardware-configuration.nix
     ];
     networking.hostName = "yure";
+    nix.settings.max-jobs = 0; # set to 0 to use remote builder only
     sidonia = {
         userName = "shinatose";
         stateVer = "24.05";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICw5RRyu1jEMpS5ekIfbdaHtWU/IyZ62LhfqK8xUIjGY shinatose@yure";
         services.audio.enable = true;
-        services.distributedBuilds.client.enable = true;
+        services.distributedBuilds.client.enable = false;
         graphics = {
             enable = true;
             legacyGpu = true;
