@@ -42,7 +42,7 @@
         services.distributedBuilds.client.enable = true;
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
-        text.comicCode.enable = true;
+        text.comicCode.enable = false;
         services.goxlr.enable = false;
         services.hyprswitch.enable = true;
         isLaptop = true;
