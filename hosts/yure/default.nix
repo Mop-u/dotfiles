@@ -24,7 +24,10 @@
         geolocation.enable = true;
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
-        text.comicCode.enable = false;
+        text.comicCode = {
+            enable = true;
+            #source = null;
+        };
         input.sensitivity = -0.1;
         input.keyLayout = "gb";
         isLaptop = true;
