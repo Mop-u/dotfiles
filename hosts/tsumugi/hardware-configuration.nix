@@ -14,6 +14,11 @@ in
 
     hardware.enableRedistributableFirmware = true;
 
+    powerManagement = {
+        enable = true;
+        powertop.enable = true;
+    };
+
     # Bootloader.
     boot.loader.systemd-boot = {
         enable = true;
