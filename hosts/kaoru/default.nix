@@ -46,6 +46,7 @@
             enable = true;
             #source = null;
         };
+        services.kmscon.enable = true;
         services.goxlr.enable = false;
         services.hyprswitch.enable = true;
         isLaptop = true;
