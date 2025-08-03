@@ -102,7 +102,7 @@ in
             enable = true;
             enableIPv6 = true;
             internalInterfaces = [ "ve-*" ]; # wildcard: use * for nftables, + for iptables
-            externalInterface = "enp6s0np0";
+            externalInterface = "enp6s0";
         };
         #networkmanager.unmanaged = [ "interface-name:ve-*" ];
     };
