@@ -25,7 +25,7 @@
         style.catppuccin.flavor = "mocha";
         style.catppuccin.accent = "mauve";
         text.comicCode = {
-            enable = true;
+            enable = false;
             #source = null;
         };
         input.sensitivity = -0.1;
