@@ -16,7 +16,6 @@
         ./networkMounts.nix
         ./openssh.nix
         ./reverseProxy.nix
-        ./ups.nix
     ];
     networking.hostName = "tsumugi";
     nix.settings.keep-outputs = true;
