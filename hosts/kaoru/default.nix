@@ -39,20 +39,27 @@
         userName = "hazama";
         stateVer = "23.11";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
-        services.distributedBuilds.client.enable = true;
-        style.catppuccin.flavor = "mocha";
-        style.catppuccin.accent = "mauve";
+        style.catppuccin = {
+            flavor = "mocha";
+            accent = "mauve";
+        };
         text.comicCode = {
             enable = true;
             #source = null;
         };
-        services.kmscon.enable = true;
-        services.goxlr.enable = false;
-        services.hyprswitch.enable = true;
+        services = {
+            kmscon.enable = true;
+            goxlr.enable = false;
+            hyprswitch.enable = true;
+            distributedBuilds.client.enable = true;
+        };
         isLaptop = true;
         geolocation.enable = true;
         graphics.enable = true;
-        tweaks.withBehringerAudioInterface = true;
+        tweaks = {
+            withBehringerAudioInterface = true;
+            memory.enable = true;
+        };
         programs.gtkwave.enable = true;
         desktop.monitors = [
             {
