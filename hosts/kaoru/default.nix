@@ -50,7 +50,6 @@
         services = {
             kmscon.enable = true;
             goxlr.enable = false;
-            hyprswitch.enable = true;
             distributedBuilds.client.enable = true;
         };
         isLaptop = true;
