@@ -102,7 +102,7 @@
                             incomplete-dir = "/mnt/media/data/torrents/.incomplete";
                             preallocation = 0;
                             trash-can-enabled = false;
-                            cache-size-mb = 0; # we have fsc on the network share
+                            cache-size-mb = 8192; # avoid accessing the disk too much
                             rpc-whitelist-enabled = false;
                             rpc-authentication-required = true;
                             anti-brute-force-enabled = true;
