@@ -50,7 +50,7 @@
         services = {
             kmscon.enable = true;
             goxlr.enable = false;
-            distributedBuilds.client.enable = true;
+            distributedBuilds.client.enable = false;
         };
         isLaptop = true;
         geolocation.enable = true;
