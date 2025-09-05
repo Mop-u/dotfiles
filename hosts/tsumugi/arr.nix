@@ -46,7 +46,7 @@ let
 in
 {
 
-    nixpkgs.config.permittedInsecurePackages = sonarrInsecurePackages;
+    #nixpkgs.config.permittedInsecurePackages = sonarrInsecurePackages;
 
     networking.firewall.allowedTCPPorts = [
         8998 # sonarrAnime
@@ -59,7 +59,7 @@ in
     };
 
     services.jellyfin = {
-        enable = true;
+        enable = false;
         openFirewall = true;
         cacheDir = "/mnt/media/data/appdata/jellyfin/cache";
     };
@@ -112,7 +112,7 @@ in
         containerPort = 8989;
         hostPort = 8998;
         config = {
-            nixpkgs.config.permittedInsecurePackages = sonarrInsecurePackages;
+            #nixpkgs.config.permittedInsecurePackages = sonarrInsecurePackages;
             services.sonarr = {
                 enable = true;
                 openFirewall = true;
