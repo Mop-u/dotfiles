@@ -37,7 +37,7 @@
             gamemode = "survival";
             difficulty = "easy";
         };
-        package = pkgs.paperServers.paper-1_21_4.override {
+        package = pkgs.paperServers.paper-1_21_8.override {
             jre = pkgs.graalvm-ce;
         };
         jvmOpts = lib.concatStringsSep " " [
@@ -68,52 +68,52 @@
         ];
         symlinks = {
             "plugins/bluemap.jar" = pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.7/PAPER/bluemap-5.7-paper.jar";
-                hash = "sha256-4T9Pf1FA/XlByNTmVIimj+7aCyX/BPy011gdT70mFAk=";
+                url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.11/PAPER/bluemap-5.11-paper.jar";
+                hash = "sha256-PUuWF2UB6KhHt/rOMgmHkOjraaYWgOEoUZfQo9eW1cA=";
             };
             "plugins/DamageIndicator.jar" = pkgs.fetchurl {
-                url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.2.0/DamageIndicator.jar";
-                hash = "sha256-gtOMFhkgN1tGhB3+42X084kEt5kMJRqXtj029pDlQAU=";
+                url = "https://github.com/MagicCheese1/Damage-Indicator/releases/download/v2.2.3/DamageIndicator.jar";
+                hash = "sha256-01aeWY1DgbbDE/RHj8DSL/TZcF/MP97FrYY7w4RrTy4=";
             };
             "plugins/EssentialsX.jar" = pkgs.fetchurl {
-                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.0/EssentialsX-2.21.0.jar";
-                hash = "sha256-VwQyKlSDa5hLEQ9+Igi67RiGwu/tREa0l+Z+US/skMU=";
+                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.2/EssentialsX-2.21.2.jar";
+                hash = "sha256-C3WQJvAvPFR8MohvNmbbPB+Uz/c+FBrlZIMT/Q0L38Y=";
             };
             "plugins/EssentialsXChat.jar" = pkgs.fetchurl {
-                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.0/EssentialsXChat-2.21.0.jar";
-                hash = "sha256-EJbW7PYlDLL6AVUMGCe+cdgNP0ZPbu7/aOl9LUGOQT4=";
+                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.2/EssentialsXChat-2.21.2.jar";
+                hash = "sha256-Htc5MloULVLqyUg+r90yBLUeqnVWIV8D6QY739wACds=";
             };
             "plugins/EssentialsXSpawn.jar" = pkgs.fetchurl {
-                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.0/EssentialsXSpawn-2.21.0.jar";
-                hash = "sha256-Wv98mEx8i9mnDj7ppc9ILY/iqwyf+1PiGl7ZL0Of2pA=";
+                url = "https://github.com/EssentialsX/Essentials/releases/download/2.21.2/EssentialsXSpawn-2.21.2.jar";
+                hash = "sha256-CnobRGh7bZ2E+vQkNgsuBKKr9FDi2ZmPJ7K6RwZ0a4Y=";
             };
             "plugins/FastAsyncWorldEdit.jar" = pkgs.fetchurl {
-                url = "https://github.com/IntellectualSites/FastAsyncWorldEdit/releases/download/2.13.0/FastAsyncWorldEdit-Paper-2.13.0.jar";
-                hash = "sha256-6Vhnc+DV7LGzuFTO1ntHNxovIsbMczCu60Q+omN7bPI=";
+                url = "https://ci.athion.net/job/FastAsyncWorldEdit/1167/artifact/artifacts/FastAsyncWorldEdit-Paper-2.13.2-SNAPSHOT-1167.jar";
+                hash = "sha256-Q0Ex3pjIQ+ApVlidUQ4l7TfNMHdD1VFp7JdXjHLjf2M=";
             };
             "plugins/LuckPerms.jar" = pkgs.fetchurl {
-                url = "https://download.luckperms.net/1574/bukkit/loader/LuckPerms-Bukkit-5.4.157.jar";
-                hash = "sha256-IGR0UFP2jBgMVD11iMIPj88nIBNvoha7JJ3218HBFXU=";
+                url = "https://download.luckperms.net/1596/bukkit/loader/LuckPerms-Bukkit-5.5.11.jar";
+                hash = "sha256-oBi4uzcDx97rNs69Efeb8WOEtrUFbN9UI3/DzOmiAuI=";
             };
             "plugins/multiverse-core.jar" = pkgs.fetchurl {
-                url = "https://github.com/Multiverse/Multiverse-Core/releases/download/4.3.14/multiverse-core-4.3.14.jar";
-                hash = "sha256-J2MOl8aGEvLM0a9ykFVSjiKIeSPM5vbOzDTkVYPlrhE=";
+                url = "https://hangarcdn.papermc.io/plugins/Multiverse/Multiverse-Core/versions/5.2.1/PAPER/multiverse-core-5.2.1.jar";
+                hash = "sha256-KE3e/VRp2KOo1gUiouopMZ06g15umLKpBXoCFdj0v+o=";
             };
             "plugins/multiverse-inventories.jar" = pkgs.fetchurl {
-                url = "https://github.com/Multiverse/Multiverse-Inventories/releases/download/4.2.7-pre/multiverse-inventories-4.2.7-pre.jar";
-                hash = "sha256-fxwMD3nrm7LOEOkCEThhg1ozB30XauFf00KCYw3bS8E=";
+                url = "https://hangarcdn.papermc.io/plugins/Multiverse/Multiverse-Inventories/versions/5.1.2/PAPER/multiverse-inventories-5.1.2.jar";
+                hash = "sha256-NxPlOJ4w/s6sSNe5EQWbo8XoG0PAfgQeWdcGZVu+G54=";
             };
             "plugins/multiverse-netherportals.jar" = pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/Multiverse/Multiverse-NetherPortals/versions/4.2.3/PAPER/multiverse-netherportals-4.2.3.jar";
-                hash = "sha256-lyg5Vak62oL15wk4gDhII+IkZxl4uOZ2njwnuhWxusM=";
+                url = "https://hangarcdn.papermc.io/plugins/Multiverse/Multiverse-NetherPortals/versions/5.0.3/PAPER/multiverse-netherportals-5.0.3.jar";
+                hash = "sha256-H8dCstHnY9LX3tpzTi1s/j9fGS1yy7ePaTuenIQVcNU=";
             };
             #"plugins/Slabs.jar" = pkgs.fetchurl {
             #    url = "https://mediafilez.forgecdn.net/files/2381/666/Slabs-2.2.0.jar";
             #    hash = "sha256-95oOuGumIRFcJio+VCXKi1TASVrdEEWf1HYJbVpXkmA=";
             #};
             "plugins/TabTPS.jar" = pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/jmp/TabTPS/versions/1.3.26/PAPER/tabtps-spigot-1.3.26.jar";
-                hash = "sha256-Wd1CvvilPhqE1rATu1hu1X/FyP/GU7CujqL+iVSje7I=";
+                url = "https://hangarcdn.papermc.io/plugins/jmp/TabTPS/versions/1.3.28/PAPER/tabtps-spigot-1.3.28.jar";
+                hash = "sha256-qJ0W3LE75i8eO0SoatxGv+YDoN2IldT02uvRS1shG+g=";
             };
             "plugins/Vault.jar" = pkgs.fetchurl {
                 url = "https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar";

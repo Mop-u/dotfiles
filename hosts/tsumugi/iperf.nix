@@ -7,7 +7,7 @@
 }:
 {
     services.iperf3 = {
-        enable = true;
+        enable = false;
         openFirewall = true; # 5201
     };
 }
