@@ -35,6 +35,7 @@
             };
         };
     };
+    nix.settings.keep-outputs = true;
     sidonia = {
         userName = "hazama";
         stateVer = "23.11";
@@ -48,7 +49,7 @@
             #source = null;
         };
         services = {
-            kmscon.enable = true;
+            kmscon.enable = false;
             goxlr.enable = false;
             distributedBuilds.client.enable = false;
         };

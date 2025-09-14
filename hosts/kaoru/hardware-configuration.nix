@@ -37,9 +37,7 @@ in
         "cryptd"
     ];
     boot.initrd.kernelModules = [ ];
-    #boot.kernelPackages = pkgs.linuxPackages_6_12;
-    boot.kernelPackages = pkgs.linuxPackages_6_15;
-    #boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelModules = [
         "kvm-intel"
         #"r8152" # realtek USB 2.5Gbe
@@ -115,7 +113,14 @@ in
         powerManagement.finegrained = false;
         open = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
+        #package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
+        package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+            version = "580.65.06";
+            sha256_64bit = "sha256-BLEIZ69YXnZc+/3POe1fS9ESN1vrqwFy6qGHxqpQJP8=";
+            openSha256 = "sha256-BKe6LQ1ZSrHUOSoV6UCksUE0+TIa0WcCHZv4lagfIgA=";
+            settingsSha256 = "sha256-9PWmj9qG/Ms8Ol5vLQD3Dlhuw4iaFtVHNC0hSyMCU24=";
+            usePersistenced = false;
+        };
         prime = {
             # Sync and Offload cannot be enabled at the same time!
             sync.enable = true;
@@ -164,8 +169,8 @@ in
             CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
             CPU_SCALING_GOVERNOR_ON_AC = "powersave";
             CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-            CPU_BOOST_ON_AC = 1;
-            CPU_HWP_DYN_BOOST_ON_AC = 1;
+            CPU_BOOST_ON_AC = 0;
+            CPU_HWP_DYN_BOOST_ON_AC = 0;
             CPU_BOOST_ON_BAT = 0;
             CPU_HWP_DYN_BOOST_ON_BAT = 0;
             RUNTIME_PM_ON_AC = "auto";
