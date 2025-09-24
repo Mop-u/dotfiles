@@ -5,13 +5,16 @@
     lib,
     ...
 }:
+let
+    enable = false;
+in
 {
     imports = [
         inputs.lancache.nixosModules.dns
         inputs.lancache.nixosModules.cache
     ];
     services.lancache.dns = {
-        enable = true;
+        inherit enable;
         forwarders = [
             "10.0.4.1"
             "fe80::e638:83ff:fe96:6a8b%enp6s0"
@@ -28,7 +31,7 @@
     };
 
     services.lancache.cache = {
-        enable = true;
+        inherit enable;
         resolvers = [ "10.0.4.1" ];
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
