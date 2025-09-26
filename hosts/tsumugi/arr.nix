@@ -35,15 +35,26 @@ let
                     "2001:bb6:9540:502::1"
                 ];
             };
-        } // configuration.config;
+        }
+        // configuration.config;
     };
 in
 {
+    imports = [
+        ./recyclarr/radarrMain.nix
+        ./recyclarr/radarrAnime.nix
+        ./recyclarr/sonarrAnime.nix
+    ];
 
     networking.firewall.allowedTCPPorts = [
         8998 # sonarrAnime
         7887 # radarrAnime
     ];
+
+    sops.secrets = {
+        "tsumugi/autobrrSecret" = { };
+        "tsumugi/sonarrMainApiKey" = { };
+    };
 
     services.plex = {
         enable = true;
@@ -78,7 +89,6 @@ in
         openFirewall = true;
     };
 
-    sops.secrets."tsumugi/autobrrSecret" = {};
     services.autobrr = {
         enable = true;
         openFirewall = true; # 7474
@@ -121,6 +131,35 @@ in
                 openFirewall = true;
             };
         };
+    };
+
+    systemd.services.recyclarr.serviceConfig.LoadCredential = [
+        "sonarrMainApiKey:${config.sops.secrets."tsumugi/sonarrMainApiKey".path}"
+    ];
+    services.recyclarr = {
+        enable = true;
+        # configuration =
+        #     let
+        #         mkScorer = customFormat: ids: score: {
+        #             trash_ids = ids;
+        #             assign_scores_to = [
+        #                 {
+        #                     name = customFormat;
+        #                     score = score;
+        #                 }
+        #             ];
+        #         };
+        #         mkScores = mkScorer "recyclarr";
+        #         mkScore = id: score: (mkScores [ id ] score);
+        #     in
+        #     {
+        #         sonarr = {
+        #             main = {
+        #                 base_url = "http://localhost:8989";
+        #                 api_key._secret = "/run/credentials/recyclarr.service/sonarrMainApiKey";
+        #             };
+        #         };
+        #     };
     };
 
 }
