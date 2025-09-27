@@ -49,6 +49,10 @@ in
         "xe.force_probe=${intelGPU}"
     ];
 
+    systemd.watchdog = {
+        runtimeTime = "30s";
+    };
+
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/0b6a9c0b-6606-479b-8500-843fb2102c8d";
         fsType = "ext4";

@@ -153,11 +153,9 @@ in
         #         mkScore = id: score: (mkScores [ id ] score);
         #     in
         #     {
-        #         sonarr = {
-        #             main = {
-        #                 base_url = "http://localhost:8989";
-        #                 api_key._secret = "/run/credentials/recyclarr.service/sonarrMainApiKey";
-        #             };
+        #         sonarr.sonarrMain = {
+        #             base_url = "http://localhost:8989";
+        #             api_key._secret = "/run/credentials/recyclarr.service/sonarrMainApiKey";
         #         };
         #     };
     };
