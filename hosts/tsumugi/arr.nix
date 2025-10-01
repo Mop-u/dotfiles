@@ -140,17 +140,18 @@ in
         enable = true;
         # configuration =
         #     let
-        #         mkScorer = customFormat: ids: score: {
-        #             trash_ids = ids;
-        #             assign_scores_to = [
-        #                 {
-        #                     name = customFormat;
-        #                     score = score;
-        #                 }
-        #             ];
-        #         };
-        #         mkScores = mkScorer "recyclarr";
-        #         mkScore = id: score: (mkScores [ id ] score);
+        #        profileName = "recyclarr";
+        #        mkScorer = profile: ids: score: {
+        #            trash_ids = ids;
+        #            assign_scores_to = [
+        #                {
+        #                    name = profile;
+        #                    score = score;
+        #                }
+        #            ];
+        #        };
+        #        mkScores = mkScorer profileName;
+        #        mkScore = id: (mkScores [ id ]);
         #     in
         #     {
         #         sonarr.sonarrMain = {

@@ -9,16 +9,17 @@
 let
     profileName = "1080p Anime Movie";
 
-    mkScores = ids: score: {
+    mkScorer = profile: ids: score: {
         trash_ids = ids;
         assign_scores_to = [
             {
-                name = profileName;
+                name = profile;
                 score = score;
             }
         ];
     };
-    mkScore = id: score: (mkScores [ id ] score);
+    mkScores = mkScorer profileName;
+    mkScore = id: (mkScores [ id ]);
 in
 
 {
