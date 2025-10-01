@@ -14,13 +14,13 @@
         8100 # bluemap
     ];
     services.minecraft-servers = {
-        enable = true;
+        enable = false;
         eula = true;
         dataDir = "/srv/minecraft"; # /srv/minecraft/paper
         runDir = "/run/minecraft"; # tmux -S /run/minecraft/paper.sock attach
     };
     services.minecraft-servers.servers.paper = {
-        enable = true;
+        enable = false;
         openFirewall = true;
         autoStart = true;
         restart = "always";
@@ -37,9 +37,10 @@
             gamemode = "survival";
             difficulty = "easy";
         };
-        package = pkgs.paperServers.paper-1_21_8.override {
-            jre = pkgs.graalvm-ce;
-        };
+        package = pkgs.paperServers.paper-1_21_8;
+        #package = pkgs.paperServers.paper-1_21_8.override {
+        #    jre = pkgs.graalvm-ce;
+        #};
         jvmOpts = lib.concatStringsSep " " [
             "-Xmx18G"
             "-Xms18G"

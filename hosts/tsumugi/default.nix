@@ -25,7 +25,7 @@
         stateVer = "24.05";
         style.catppuccin.flavor = "macchiato";
         style.catppuccin.accent = "teal";
-        services.kmscon.enable = true;
+        services.kmscon.enable = false;
         services.distributedBuilds = {
             host = {
                 enable = true;
