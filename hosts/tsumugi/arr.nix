@@ -44,6 +44,7 @@ in
         ./recyclarr/radarrMain.nix
         ./recyclarr/radarrAnime.nix
         ./recyclarr/sonarrAnime.nix
+        ./recyclarr/sonarrMain.nix
     ];
 
     networking.firewall.allowedTCPPorts = [
@@ -51,10 +52,7 @@ in
         7887 # radarrAnime
     ];
 
-    sops.secrets = {
-        "tsumugi/autobrrSecret" = { };
-        "tsumugi/sonarrMainApiKey" = { };
-    };
+    sops.secrets."tsumugi/autobrrSecret" = { };
 
     services.plex = {
         enable = true;
@@ -133,32 +131,8 @@ in
         };
     };
 
-    systemd.services.recyclarr.serviceConfig.LoadCredential = [
-        "sonarrMainApiKey:${config.sops.secrets."tsumugi/sonarrMainApiKey".path}"
-    ];
     services.recyclarr = {
         enable = true;
-        # configuration =
-        #     let
-        #        profileName = "recyclarr";
-        #        mkScorer = profile: ids: score: {
-        #            trash_ids = ids;
-        #            assign_scores_to = [
-        #                {
-        #                    name = profile;
-        #                    score = score;
-        #                }
-        #            ];
-        #        };
-        #        mkScores = mkScorer profileName;
-        #        mkScore = id: (mkScores [ id ]);
-        #     in
-        #     {
-        #         sonarr.sonarrMain = {
-        #             base_url = "http://localhost:8989";
-        #             api_key._secret = "/run/credentials/recyclarr.service/sonarrMainApiKey";
-        #         };
-        #     };
     };
 
 }

@@ -8,20 +8,8 @@
 
 let
     profileName = "4k Movie";
-
-    mkScorer = profile: ids: score: {
-        trash_ids = ids;
-        assign_scores_to = [
-            {
-                name = profile;
-                score = score;
-            }
-        ];
-    };
-    mkScores = mkScorer profileName;
-    mkScore = id: (mkScores [ id ]);
+    inherit (./mkRecyclarrScore.nix profileName) mkScores mkScore;
 in
-
 {
 
     sops.secrets."tsumugi/radarrMainApiKey" = { };
