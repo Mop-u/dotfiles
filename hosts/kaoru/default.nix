@@ -57,8 +57,8 @@
         geolocation.enable = true;
         graphics.enable = true;
         tweaks = {
-            withBehringerAudioInterface = true;
-            memory.enable = true;
+            withBehringerAudioInterface = false;
+            memory.enable = false;
         };
         programs.gtkwave.enable = true;
         desktop.monitors = [
