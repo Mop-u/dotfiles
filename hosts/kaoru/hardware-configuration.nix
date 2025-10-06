@@ -5,9 +5,6 @@
     lib,
     ...
 }:
-let
-    intelGPU = "46a6";
-in
 {
 
     hardware.enableRedistributableFirmware = true;
@@ -45,10 +42,6 @@ in
         "snd_usb_audio"
     ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ ];
-    #boot.kernelParams = [
-    #    "i915.force_probe=!${intelGPU}"
-    #    "xe.force_probe=${intelGPU}"
-    #];
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/75980f2d-cc48-4245-b6c5-31bf9d0465bc";
