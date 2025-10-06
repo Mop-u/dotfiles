@@ -8,9 +8,14 @@
 
 let
     profileName = "4k TV";
-    inherit (./mkRecyclarrScore.nix profileName) mkScores mkScore;
+    inherit ((import ./mkRecyclarrScore.nix) profileName) mkScores mkScore;
 in
 {
+
+    services.sonarr = {
+        enable = true;
+        openFirewall = true; # 8989
+    };
 
     sops.secrets."tsumugi/sonarrMainApiKey" = { };
 
@@ -18,8 +23,8 @@ in
         "sonarrMainApiKey:${config.sops.secrets."tsumugi/sonarrMainApiKey".path}"
     ];
 
-    services.recyclarr.configuration.sonarr.sonarrAnime = {
-        base_url = "http://10.0.4.2:8989";
+    services.recyclarr.configuration.sonarr.sonarrMain = {
+        base_url = "http://localhost:8989";
         api_key._secret = "/run/credentials/recyclarr.service/sonarrMainApiKey";
         delete_old_custom_formats = true;
         replace_existing_custom_formats = true;

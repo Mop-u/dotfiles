@@ -8,9 +8,23 @@
 
 let
     profileName = "1080p Anime";
-    inherit (./mkRecyclarrScore.nix profileName) mkScores mkScore;
+    inherit ((import ./mkRecyclarrScore.nix) profileName) mkScores mkScore;
+    inherit ((import ./mkPortRemap.nix) { inherit config lib; }) portRemap;
 in
 {
+    networking.firewall.allowedTCPPorts = [ 8998 ];
+
+    containers.sonarrAnime = portRemap {
+        id = 1;
+        containerPort = 8989;
+        hostPort = 8998;
+        config = {
+            services.sonarr = {
+                enable = true;
+                openFirewall = true;
+            };
+        };
+    };
 
     sops.secrets."tsumugi/sonarrAnimeApiKey" = { };
 

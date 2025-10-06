@@ -8,7 +8,7 @@
 {
     imports = [
         ./hardware-configuration.nix
-        ./arr.nix
+        ./arr
         ./transmission.nix
         ./iperf.nix
         ./lancache.nix

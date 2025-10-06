@@ -8,9 +8,14 @@
 
 let
     profileName = "4k Movie";
-    inherit (./mkRecyclarrScore.nix profileName) mkScores mkScore;
+    inherit ((import ./mkRecyclarrScore.nix) profileName) mkScores mkScore;
 in
 {
+
+    services.radarr = {
+        enable = true;
+        openFirewall = true; # 7878
+    };
 
     sops.secrets."tsumugi/radarrMainApiKey" = { };
 

@@ -8,9 +8,23 @@
 
 let
     profileName = "1080p Anime Movie";
-    inherit (./mkRecyclarrScore.nix profileName) mkScores mkScore;
+    inherit ((import ./mkRecyclarrScore.nix) profileName) mkScores mkScore;
+    inherit ((import ./mkPortRemap.nix) {inherit config lib;}) portRemap;
 in
 {
+    networking.firewall.allowedTCPPorts = [ 7887 ];
+
+    containers.radarrAnime = portRemap {
+        id = 2;
+        containerPort = 7878;
+        hostPort = 7887;
+        config = {
+            services.radarr = {
+                enable = true;
+                openFirewall = true;
+            };
+        };
+    };
 
     sops.secrets."tsumugi/radarrAnimeApiKey" = { };
 
