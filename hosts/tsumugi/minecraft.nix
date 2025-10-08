@@ -14,13 +14,13 @@
         8100 # bluemap
     ];
     services.minecraft-servers = {
-        enable = false;
+        enable = true;
         eula = true;
         dataDir = "/srv/minecraft"; # /srv/minecraft/paper
         runDir = "/run/minecraft"; # tmux -S /run/minecraft/paper.sock attach
     };
     services.minecraft-servers.servers.paper = {
-        enable = false;
+        enable = true;
         openFirewall = true;
         autoStart = true;
         restart = "always";
