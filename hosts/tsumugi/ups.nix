@@ -8,7 +8,7 @@
 {
     sops.secrets."tsumugi/nutPass" = { };
     power.ups = {
-        enable = true;
+        enable = false;
         mode = "netserver";
         openFirewall = true;
         users.powercoolmon = {

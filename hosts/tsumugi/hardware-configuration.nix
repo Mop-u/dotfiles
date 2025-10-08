@@ -15,6 +15,7 @@
         enable = true;
         powertop.enable = true;
         cpuFreqGovernor = "powersave";
+        scsiLinkPolicy = "med_power_with_dipm";
     };
 
     # Bootloader.
