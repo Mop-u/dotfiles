@@ -43,7 +43,7 @@
     boot.extraModulePackages = [ ];
 
     systemd.watchdog = {
-        runtimeTime = "30s";
+        runtimeTime = "1m";
     };
 
     fileSystems."/" = {
