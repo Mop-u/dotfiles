@@ -9,10 +9,10 @@
     imports = [
         ./hardware-configuration.nix
         ./arr
+        ./gameServers
         ./transmission.nix
         ./iperf.nix
         ./lancache.nix
-        ./minecraft.nix
         ./networkMounts.nix
         ./openssh.nix
         ./reverseProxy.nix

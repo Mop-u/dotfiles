@@ -37,6 +37,7 @@ in
 
     fileSystems."/mnt/media" = mntBenisuzume "media";
     fileSystems."/mnt/lancache" = mntBenisuzume "lancache";
+    fileSystems."/mnt/gameservers" = mntBenisuzume "gameservers";
 
     services.cachefilesd = {
         enable = true;

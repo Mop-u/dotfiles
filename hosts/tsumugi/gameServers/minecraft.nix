@@ -6,19 +6,9 @@
     ...
 }:
 {
-    imports = [
-        inputs.nix-minecraft.nixosModules.minecraft-servers
-    ];
-    nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
     networking.firewall.allowedTCPPorts = [
         8100 # bluemap
     ];
-    services.minecraft-servers = {
-        enable = true;
-        eula = true;
-        dataDir = "/srv/minecraft"; # /srv/minecraft/paper
-        runDir = "/run/minecraft"; # tmux -S /run/minecraft/paper.sock attach
-    };
     services.minecraft-servers.servers.paper = {
         enable = true;
         openFirewall = true;
@@ -37,36 +27,10 @@
             gamemode = "survival";
             difficulty = "easy";
         };
-        package = pkgs.paperServers.paper-1_21_8;
-        #package = pkgs.paperServers.paper-1_21_8.override {
-        #    jre = pkgs.graalvm-ce;
-        #};
-        jvmOpts = lib.concatStringsSep " " [
-            "-Xmx18G"
-            "-Xms18G"
-            "-XX:+AlwaysPreTouch"
-            "-XX:+DisableExplicitGC"
-            "-XX:+ParallelRefProcEnabled"
-            "-XX:+PerfDisableSharedMem"
-            "-XX:+UnlockExperimentalVMOptions"
-            "-XX:+UseG1GC"
-            "-XX:G1HeapRegionSize=16M"
-            "-XX:G1HeapWastePercent=5"
-            "-XX:G1MaxNewSizePercent=50"
-            "-XX:G1MixedGCCountTarget=4"
-            "-XX:G1MixedGCLiveThresholdPercent=90"
-            "-XX:G1NewSizePercent=40"
-            "-XX:G1RSetUpdatingPauseTimePercent=5"
-            "-XX:G1ReservePercent=15"
-            "-XX:InitiatingHeapOccupancyPercent=20"
-            "-XX:MaxGCPauseMillis=200"
-            "-XX:MaxTenuringThreshold=1"
-            "-XX:SurvivorRatio=32"
-            "-Dusing.aikars.flags=https://mcflags.emc.gs"
-            "-Daikars.new.flags=true"
-            "-Djava.net.preferIPv4Stack=true"
-            "-Djava.net.preferIPv6Addresses=false"
-        ];
+        #package = pkgs.paperServers.paper-1_21_8;
+        package = pkgs.paperServers.paper-1_21_8.override {
+            jre = pkgs.graalvm-ce;
+        };
         symlinks = {
             "plugins/bluemap.jar" = pkgs.fetchurl {
                 url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.11/PAPER/bluemap-5.11-paper.jar";
@@ -129,5 +93,32 @@
             #    hash = "sha256-cAbPnllEx14bV8wZ3IjtF/wXmg4oNU/aQkqjKpWqw9g=";
             #};
         };
+
+        jvmOpts = lib.concatStringsSep " " [
+            "-Xmx8G"
+            "-Xms8G"
+            "-XX:+AlwaysPreTouch"
+            "-XX:+DisableExplicitGC"
+            "-XX:+ParallelRefProcEnabled"
+            "-XX:+PerfDisableSharedMem"
+            "-XX:+UnlockExperimentalVMOptions"
+            "-XX:+UseG1GC"
+            "-XX:G1HeapRegionSize=16M"
+            "-XX:G1HeapWastePercent=5"
+            "-XX:G1MaxNewSizePercent=50"
+            "-XX:G1MixedGCCountTarget=4"
+            "-XX:G1MixedGCLiveThresholdPercent=90"
+            "-XX:G1NewSizePercent=40"
+            "-XX:G1RSetUpdatingPauseTimePercent=5"
+            "-XX:G1ReservePercent=15"
+            "-XX:InitiatingHeapOccupancyPercent=20"
+            "-XX:MaxGCPauseMillis=200"
+            "-XX:MaxTenuringThreshold=1"
+            "-XX:SurvivorRatio=32"
+            "-Dusing.aikars.flags=https://mcflags.emc.gs"
+            "-Daikars.new.flags=true"
+            "-Djava.net.preferIPv4Stack=true"
+            "-Djava.net.preferIPv6Addresses=false"
+        ];
     };
 }
