@@ -86,9 +86,7 @@ in
         ] (name: "${cobblemonFiles}/${name}");
         files =
             let
-                confFiles =
-                    (lib.filesystem.listFilesRecursive "${cobblemonFiles}/config")
-                    ++ (lib.filesystem.listFilesRecursive "${cobblemonFiles}/saves/Tutorial World v3 (1.6)");
+                confFiles = lib.filesystem.listFilesRecursive "${cobblemonFiles}/config";
             in
             builtins.listToAttrs (
                 builtins.map (value: {
