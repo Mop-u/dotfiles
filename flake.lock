@@ -445,11 +445,11 @@
     "kmscon": {
       "flake": false,
       "locked": {
-        "lastModified": 1760097467,
-        "narHash": "sha256-2Oce2FXTsFcM6kE1YKSyKvekrqECV1oVtgkUVQ1DGpY=",
+        "lastModified": 1761127349,
+        "narHash": "sha256-r+o8+cMDcFkiZndwcKWNZL2vnoOz/Sepu+G+sWCssPA=",
         "owner": "Aetf",
         "repo": "kmscon",
-        "rev": "30198f1863a973c9e4bf7ca9e2afe441fe56b933",
+        "rev": "d7b7066d5ee9335ae529d3f2ef93b11ec6a76475",
         "type": "github"
       },
       "original": {
@@ -578,11 +578,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761011864,
-        "narHash": "sha256-x1mJJuLDeJCA7ptCpkmJYrYaeBlUQc4A4WnOKDJ0MFg=",
+        "lastModified": 1761098484,
+        "narHash": "sha256-1CWvNp7sjAijTwbawENQtzh2I36z+K4QHgnlm8fXULA=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "15115a47e7de2321a81ecd3075e5e0043c28aaac",
+        "rev": "4aa18ac239b378bed4d07eb012c6edaa5e34f1d1",
         "type": "github"
       },
       "original": {
@@ -596,11 +596,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1760925854,
-        "narHash": "sha256-mUEWKL7IMA0gzZlP5V/C6bFU12PcQWs1J/5Ucwzp9wY=",
+        "lastModified": 1761098495,
+        "narHash": "sha256-aE2Vp0Q/Ra95sHk/YgQI6z9PvqPttgcIVUk3uSOWj9g=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "ffbbd7f46ff61967e8ad010dc08e31385abbc483",
+        "rev": "bd4690e402591e99a091dcd49663d3d6c9bf0ada",
         "type": "github"
       },
       "original": {
@@ -885,11 +885,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760960230,
-        "narHash": "sha256-6LgTkvOPAmVMv2qeiGh/SHy127zR7EO4hW7UdAQdZpE=",
+        "lastModified": 1761144178,
+        "narHash": "sha256-I+LqVQxj7KCHI5daBwWBesrnmmOgJuHQtRO0EUveOuQ=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "6fb537c0fa350d54b03f10df982a44978f6abd51",
+        "rev": "61e5829814b8af268a85777afe6e167981a63235",
         "type": "github"
       },
       "original": {
@@ -1001,11 +1001,11 @@
     "stextLSP": {
       "flake": false,
       "locked": {
-        "lastModified": 1760035140,
-        "narHash": "sha256-rSiIkww9x6XieR77D+eddWjjrridZLc6lewzVMsLY2E=",
+        "lastModified": 1761065106,
+        "narHash": "sha256-hZD5IYw6xbfW+kw61ZcAmnoQkuh8oSQWYxwiCxfooxI=",
         "owner": "sublimelsp",
         "repo": "LSP",
-        "rev": "aec423a51dda1c12a9c44aef834133a5abd732c5",
+        "rev": "5ff516ca9d869f93f52e84afcaa9652a5ef91742",
         "type": "github"
       },
       "original": {
