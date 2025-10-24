@@ -6,7 +6,6 @@
     ...
 }:
 let
-
     # https://leixb.fly.dev/blog/modrinth-modpacks-nix
     # fetchzip doesn't let us fix the file permissions after extracting... (no read permissions :/)
     modpack = pkgs.stdenvNoCC.mkDerivation {
@@ -28,6 +27,34 @@ let
             cp -R ../ $out/
         '';
     };
+
+    mkMod =
+        name: mod:
+        pkgs.runCommand name { } ''
+            mkdir -p $out/mods
+            cp ${mod} $out/mods
+        '';
+
+    extra_mods = [
+        (mkMod "Cobblemon Unchained" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/wh0wnzrT/versions/loS5XVHf/unchained-fabric-1.6.1-1.5.2.jar";
+                hash = "sha256-qVJUC+FVKLVprxJrdJwN520BY2M5zvbh+kdW2vXo+zo=";
+            }
+        ))
+        (mkMod "Tim Core" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/lVP9aUaY/versions/NsLwACmT/timcore-fabric-1.6.1-1.15.3.jar";
+                hash = "sha256-N56Z9vZGT97poLC1mql+v8Y9PtPOZ4tnG8I2F69R0/U=";
+            }
+        ))
+        (mkMod "Cobblemon Counter" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/rj8uLYP4/versions/ReIkCnf8/counter-fabric-1.6.1-1.6.1.jar";
+                hash = "sha256-mUHnMvsPkxlIembW8D2sUnTLq3F3M7SZ9hevbEJpmYg=";
+            }
+        ))
+    ];
 
     cobblemonFiles =
         let
@@ -62,7 +89,7 @@ let
         in
         pkgs.symlinkJoin {
             inherit (modrinthIndex) name;
-            paths = derivations ++ [ "${modpack}/overrides" ]; # ++ extra_mods;
+            paths = derivations ++ [ "${modpack}/overrides" ] ++ extra_mods;
         };
 in
 {
