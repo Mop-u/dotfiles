@@ -25,6 +25,8 @@ let
                 (if hardMount then "hard" else "soft")
                 "intr"
                 "fsc"
+                "retry=infinity"
+                "timeo=60"
             ];
     };
 in
