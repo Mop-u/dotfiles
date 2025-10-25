@@ -54,6 +54,12 @@ let
                 hash = "sha256-mUHnMvsPkxlIembW8D2sUnTLq3F3M7SZ9hevbEJpmYg=";
             }
         ))
+        (mkMod "MobsBeGone" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/hXvXSxxg/versions/B5tawRRL/MobsBeGone-0.0.7.jar";
+                hash = "sha256-rUXJwb/owBjTcvn7brPpVQfWJStstCBEeNBGU9ljTpg=";
+            }
+        ))
     ];
 
     cobblemonFiles =
