@@ -111,6 +111,7 @@ in
             server-port = 25566;
             network-compression-threshold = 64;
             difficulty = "normal";
+            level-seed = "6662878079737881253";
         };
         symlinks = lib.genAttrs [
             "mods"
