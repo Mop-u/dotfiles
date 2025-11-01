@@ -54,6 +54,24 @@ let
                 hash = "sha256-mUHnMvsPkxlIembW8D2sUnTLq3F3M7SZ9hevbEJpmYg=";
             }
         ))
+        (mkMod "Cobblemon Pasture Collector" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/AufMZTuI/versions/H6cULxOp/cobblemon-pasturecollector-1.6-fabric-1.3.0.jar";
+                hash = "sha256-7Z0W+68B2E3mnf/vfSqc1mCz5dtp8yizHktTyTWo6fQ=";
+            }
+        ))
+        (mkMod "Cobblemon Drop Loot Tables" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/8EoIMfd7/versions/TPq9hUyK/cobblemon-droploottables-1.6-fabric-1.4.1.jar";
+                hash = "sha256-MO46gbHRHnbiAxRKiyEp6yi+xrKnx7Il7z2iY2Ivizw=";
+            }
+        ))
+        (mkMod "Fabric Language Kotlin" (
+            pkgs.fetchurl {
+                url = "https://cdn.modrinth.com/data/Ha28R6CL/versions/LcgnDDmT/fabric-language-kotlin-1.13.7%2Bkotlin.2.2.21.jar";
+                hash = "sha256-d5UZY+3V19N+5PF0431GqHHkW5c0JvO0nWclyBm0uPI=";
+            }
+        ))
         (mkMod "MobsBeGone" (
             pkgs.fetchurl {
                 url = "https://cdn.modrinth.com/data/hXvXSxxg/versions/B5tawRRL/MobsBeGone-0.0.7.jar";
