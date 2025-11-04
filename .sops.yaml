@@ -2,6 +2,7 @@ keys:
   - &kaoru age1hrt0lj225sjnfxd3ha508fuqrf9q3nzk5f5wslqqzlf04dyejdaqahut69
   - &yure age1d5k507hw38y36j6plurhuurx7msr0umtqtpl23zw3726vy2al5as4a3lqy
   - &tsumugi age14dkghgguuprvur93kw7r8tju54gagz5akjcx6rg8ddjzwrt2u4ysj7r8xh
+  - &yuhata age1nkknlcvzre92qcv5c62gw5xxmmexhpumcrqslzs3eqa3ty6xna7qkz6hg3
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
@@ -9,3 +10,4 @@ creation_rules:
         - *kaoru
         - *yure
         - *tsumugi
+        - *yuhata

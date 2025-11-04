@@ -23,8 +23,10 @@
     sidonia = {
         userName = "shiraui";
         stateVer = "24.05";
-        style.catppuccin.flavor = "macchiato";
-        style.catppuccin.accent = "teal";
+        style.catppuccin = {
+            flavor = "macchiato";
+            accent = "teal";
+        };
         services.kmscon.enable = false;
         services.distributedBuilds = {
             host = {
