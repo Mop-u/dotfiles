@@ -30,4 +30,6 @@
         defaultSopsFormat = "yaml";
         age.keyFile = "/home/midorikawa/.config/sops/age/keys.txt";
     };
+    programs.sleepy-launcher.enable = true;
+
 }
