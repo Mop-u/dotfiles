@@ -40,7 +40,7 @@
         userName = "hazama";
         stateVer = "23.11";
         style.catppuccin = {
-            flavor = "mocha";
+            flavor = "latte";
             accent = "mauve";
         };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
