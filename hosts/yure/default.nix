@@ -10,7 +10,7 @@
         ./hardware-configuration.nix
     ];
     networking.hostName = "yure";
-    nix.settings.max-jobs = 0; # set to 0 to use remote builder only
+    nix.settings.max-jobs = 1; # set to 0 to use remote builder only
     sidonia = {
         userName = "shinatose";
         stateVer = "24.05";
