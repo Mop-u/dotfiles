@@ -15,14 +15,21 @@ let
             (
                 if useNFS then
                     [
-                        #"nfsvers=3"
                         "nolock"
                     ]
                 else
                     [ "credentials=${config.sops.secrets."benisuzume/cifs".path}" ]
             )
+            ++ (
+                if hardMount then
+                    [
+                        "hard"
+                        "intr"
+                    ]
+                else
+                    [ "soft" ]
+            )
             ++ [
-                (if hardMount then "hard" else "soft")
                 "intr"
                 "fsc"
                 "retry=infinity"

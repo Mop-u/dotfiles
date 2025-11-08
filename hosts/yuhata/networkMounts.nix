@@ -6,31 +6,56 @@
     ...
 }:
 let
-    mntBenisuzume = name: {
+    benisuzumeIP = "10.0.4.3";
+    unasCIFS = addr: name: "//${addr}/${name}";
+    unasNFS = addr: name: "${addr}:/var/nfs/shared/${name}";
+
+    mntUnasCIFS = addr: name: {
         fsType = "cifs";
-        device = "//10.0.4.3/${name}";
+        device = unasCIFS addr name;
         options = [
             "credentials=${config.sops.secrets."benisuzume/cifs".path}"
-            "x-systemd.automount"
-            "x-systemd.idle-timeout=30"
-            "nofail"
             "uid=${config.sidonia.userName}"
             "gid=users"
             "rw"
-            "rwpidforward"
             "exec"
-            "hard"
+            "nofail"
+            "x-systemd.automount"
+            "x-systemd.device-timeout=60s"
             "fsc"
         ];
     };
+
+    mntUnasNFS = addr: name: {
+        fsType = "nfs";
+        device = unasNFS addr name;
+        options = [
+            "hard"
+            "noacl"
+            "noatime"
+            "nodiratime"
+            "x-systemd.automount"
+            "x-systemd.device-timeout=60s"
+            "nofail"
+            "fsc"
+        ];
+    };
+
+    mntBenisuzumeCIFS = name: mntUnasCIFS benisuzumeIP name;
+    mntBenisuzumeNFS = name: mntUnasNFS benisuzumeIP name;
 in
 {
     services.rpcbind.enable = true;
-    environment.systemPackages = [ pkgs.cifs-utils ];
+    boot.supportedFilesystems = [ "nfs" ];
+    environment.systemPackages = [
+        pkgs.nfs-utils
+        pkgs.cifs-utils
+    ];
 
     sops.secrets."benisuzume/cifs" = { };
 
-    fileSystems."/mnt/benisuzume" = mntBenisuzume "personal-drive";
+    fileSystems."/mnt/benisuzume" = mntBenisuzumeCIFS "personal-drive";
+    fileSystems."/mnt/steam" = mntBenisuzumeNFS "steam";
 
     services.cachefilesd.enable = true;
 }

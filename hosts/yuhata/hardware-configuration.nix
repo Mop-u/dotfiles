@@ -10,11 +10,11 @@
     hardware.enableRedistributableFirmware = true;
     boot.loader = {
         efi.canTouchEfiVariables = true;
-        grub = {
+        systemd-boot = {
             enable = true;
-            devices = [ "nodev" ];
-            efiSupport = true;
-            useOSProber = true;
+            windows."11".efiDeviceHandle = "HD0b";
+            edk2-uefi-shell.enable = true;
+            memtest86.enable = true;
             configurationLimit = 20;
         };
     };
