@@ -24,6 +24,22 @@
         graphics.enable = true;
         text.comicCode.enable = true;
         tweaks.withBehringerAudioInterface = true;
+        desktop.monitors = [
+            {
+                name = "desc:Lenovo Group Limited P40w-20 V9095052";
+                resolution = "5120x2160";
+                refresh = 60.00; # 74.97900;
+                scale = 1.066667;
+                position = "0x0";
+            }
+            {
+                name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
+                resolution = "1920x1080";
+                refresh = 60.00;
+                scale = 1.0; # 0.833333;
+                position = "4800x400";
+            }
+        ];
     };
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;
@@ -32,4 +48,13 @@
     };
     programs.sleepy-launcher.enable = true;
 
+    services.hardware.openrgb.enable = true;
+    nixpkgs.config.permittedInsecurePackages =
+        if config.services.hardware.openrgb.enable then
+            [
+                "mbedtls-2.28.10"
+                "openssl-1.1.1w"
+            ]
+        else
+            [ ];
 }
