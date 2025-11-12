@@ -32,6 +32,10 @@
     boot.kernelModules = [
         "kvm-amd"
         "ntsync"
+        "nvidia"
+        "nvidia_modeset"
+        "nvidia_uvm"
+        "nvidia_drm"
     ];
     boot.extraModulePackages = [ ];
 
