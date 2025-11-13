@@ -48,6 +48,10 @@
     };
     programs.sleepy-launcher.enable = true;
 
+    home-manager.users.${config.sidonia.userName}.home.packages = [
+        pkgs.bs-manager
+    ];
+
     services.hardware.openrgb.enable = true;
     nixpkgs.config.permittedInsecurePackages =
         if config.services.hardware.openrgb.enable then

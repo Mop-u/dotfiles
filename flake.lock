@@ -10,11 +10,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1759320776,
-        "narHash": "sha256-8Ma9aBho6WRvDdaJG0USeQO7KH5a4cyu68go9BF2uUk=",
+        "lastModified": 1762959460,
+        "narHash": "sha256-dCJ5dEurndCML6/fXcPblIHOOGPqCudMYn5Vczcm1QY=",
         "owner": "ezKEa",
         "repo": "aagl-gtk-on-nix",
-        "rev": "5018ad01116ad384d4254298b5a43fbf0d5dd69c",
+        "rev": "b6d10b292e1bd2e193cc15a7e962ba7ff1edd6ba",
         "type": "github"
       },
       "original": {
@@ -39,11 +39,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1762586244,
-        "narHash": "sha256-po6o2DqL4WcTzKR3xGf2djajkKNipeQEFVPiaSwjGmg=",
+        "lastModified": 1762990708,
+        "narHash": "sha256-zK+Ptkdb6tdfmtMEi4tt1IFZCcWDWpDmSlsngAh9UMM=",
         "owner": "mrshmllow",
         "repo": "affinity-nix",
-        "rev": "a71b769b0a5d53b15ea9df0f5ed37280f82575e3",
+        "rev": "56c9eb3fe18858e7cfc1b3c088fffef54dd8027c",
         "type": "github"
       },
       "original": {
@@ -1187,11 +1187,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762826586,
-        "narHash": "sha256-KlPcXOxxyv+KNcf7yNFQ4DGVFbOpITqHfvMcAUYrL7E=",
+        "lastModified": 1762912941,
+        "narHash": "sha256-5hTTfBy1W877TNybferzpEZAzdgihLPF+pi/LvqO+7A=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "1a4fa22ec6e9f2ece24fca273352463b75f6f7c0",
+        "rev": "1a1572c80ad3312c7421accb165e7081d2782231",
         "type": "github"
       },
       "original": {
@@ -1205,11 +1205,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1762826252,
-        "narHash": "sha256-7VqX6Z8Pq5DzVV5YM7o92vC6goNGtucCv71dXwpy01Q=",
+        "lastModified": 1762999120,
+        "narHash": "sha256-cT/Ynb323Zlh/bJ+ICGhXv38xsTjDyDisCNoL5jmTk4=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "f10a42469c4db9b4ae7b3cd3a5c0d8bffb4a8b98",
+        "rev": "acc40f7808fcaa0f96cded3d56285656b7684558",
         "type": "github"
       },
       "original": {
@@ -1453,11 +1453,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762895768,
-        "narHash": "sha256-klVNQeWGjtSkOAMnR1sdztVaWDcUxt/erGSeg3xuhac=",
+        "lastModified": 1763066905,
+        "narHash": "sha256-8QK99Nkn3N6Heu7Fl9kPDVdzJjQmfIcCITrSJMbWLOQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "8155a130aa0970e6ca6da7f06e86e19dd10bb412",
+        "rev": "8c0d7c52aaf0ff0b22ca6ccd431220df9d977bb7",
         "type": "github"
       },
       "original": {
@@ -1638,11 +1638,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762908623,
-        "narHash": "sha256-gX9OTuj4heeR93U+NP5i4vkBxhcLDRh871e3vE/APb8=",
+        "lastModified": 1763067971,
+        "narHash": "sha256-t31xCey+kzuxlGTN245RKP3HS3HbL9+K9yq5j6fM8gA=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "724f9dffc171e3779fadc8ca230ef08aeb92a373",
+        "rev": "aa75462734c249d3a4ff59a3e48246600d987274",
         "type": "github"
       },
       "original": {
@@ -1658,11 +1658,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762812535,
-        "narHash": "sha256-A91a+K0Q9wfdPLwL06e/kbHeAWSzPYy2EGdTDsyfb+s=",
+        "lastModified": 1763023272,
+        "narHash": "sha256-TCVNCn/GcKhwm+WlSJEZEPW4ISQdU9ICIU3lTiOLBYc=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "d75e4f89e58fdda39e4809f8c52013caa22483b7",
+        "rev": "b80c966e70fa0615352c9596315678df1de75801",
         "type": "github"
       },
       "original": {
@@ -1754,11 +1754,11 @@
     "stextLSP": {
       "flake": false,
       "locked": {
-        "lastModified": 1762880392,
-        "narHash": "sha256-hJWLrtdhPybavdiFjrzXMs3UFWhtX8k67E680oOj7yU=",
+        "lastModified": 1763067016,
+        "narHash": "sha256-AquMFEijmdjLQQ/aQd2VOWqvwDzZMVzNAr7pJ/gSsQs=",
         "owner": "sublimelsp",
         "repo": "LSP",
-        "rev": "af9d75237a391192c19e34be201103f222dd4d18",
+        "rev": "0c07ceb8d876d08f16ac5bafb34047fefbda5016",
         "type": "github"
       },
       "original": {
@@ -1961,11 +1961,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1762596750,
-        "narHash": "sha256-rXXuz51Bq7DHBlfIjN7jO8Bu3du5TV+3DSADBX7/9YQ=",
+        "lastModified": 1762844143,
+        "narHash": "sha256-SlybxLZ1/e4T2lb1czEtWVzDCVSTvk9WLwGhmxFmBxI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b6a8526db03f735b89dd5ff348f53f752e7ddc8e",
+        "rev": "9da7f1cf7f8a6e2a7cb3001b048546c92a8258b4",
         "type": "github"
       },
       "original": {
