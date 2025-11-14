@@ -28,7 +28,7 @@
             {
                 name = "desc:Lenovo Group Limited P40w-20 V9095052";
                 resolution = "5120x2160";
-                refresh = 60.00; # 74.97900;
+                refresh = 74.97900;
                 scale = 1.066667;
                 position = "0x0";
             }
@@ -46,7 +46,10 @@
         defaultSopsFormat = "yaml";
         age.keyFile = "/home/midorikawa/.config/sops/age/keys.txt";
     };
-    programs.sleepy-launcher.enable = true;
+    programs = {
+        sleepy-launcher.enable = true;
+        coolercontrol.enable = true;
+    };
 
     home-manager.users.${config.sidonia.userName}.home.packages = [
         pkgs.bs-manager
