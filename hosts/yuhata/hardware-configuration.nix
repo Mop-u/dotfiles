@@ -58,6 +58,7 @@
     ];
 
     services.xserver.videoDrivers = [ "nvidia" ];
+    nixpkgs.overlays = [ inputs.nvidia-patch.overlays.default ];
     hardware.nvidia = {
         modesetting.enable = true;
         powerManagement.enable = false;
@@ -65,15 +66,19 @@
         open = true;
         nvidiaSettings = true;
         #package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
-        package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-            # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
-            version = "580.95.05";
-            sha256_64bit = "sha256-hJ7w746EK5gGss3p8RwTA9VPGpp2lGfk5dlhsv4Rgqc=";
-            sha256_aarch64 = "sha256-zLRCbpiik2fGDa+d80wqV3ZV1U1b4lRjzNQJsLLlICk=";
-            openSha256 = "sha256-RFwDGQOi9jVngVONCOB5m/IYKZIeGEle7h0+0yGnBEI=";
-            settingsSha256 = "sha256-F2wmUEaRrpR1Vz0TQSwVK4Fv13f3J9NJLtBe4UP2f14=";
-            usePersistenced = false;
-        };
+        package = pkgs.nvidia-patch.patch-nvenc (
+            pkgs.nvidia-patch.patch-fbc (
+                config.boot.kernelPackages.nvidiaPackages.mkDriver {
+                    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
+                    version = "580.105.08";
+                    sha256_64bit = "sha256-2cboGIZy8+t03QTPpp3VhHn6HQFiyMKMjRdiV2MpNHU=";
+                    openSha256 = "sha256-FGmMt3ShQrw4q6wsk8DSvm96ie5yELoDFYinSlGZcwQ=";
+                    settingsSha256 = "sha256-YvzWO1U3am4Nt5cQ+b5IJ23yeWx5ud1HCu1U0KoojLY=";
+                    usePersistenced = false;
+                    persistencedSha256 = "sha256-qh8pKGxUjEimCgwH7q91IV7wdPyV5v5dc5/K/IcbruI=";
+                }
+            )
+        );
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
