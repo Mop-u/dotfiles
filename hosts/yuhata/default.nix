@@ -19,7 +19,10 @@
             accent = "lavender";
         };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDCi7RR4mckEAgC7mVNFHNvzTg3JwvcKYrYKXqf1Hew midorikawa@yuhata";
-        services.distributedBuilds.client.enable = true;
+        services = {
+            distributedBuilds.client.enable = true;
+            vr.enable = true;
+        };
         geolocation.enable = true;
         graphics.enable = true;
         text.comicCode.enable = true;
@@ -41,7 +44,7 @@
             }
         ];
     };
-    
+
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
@@ -53,10 +56,18 @@
         coolercontrol.enable = true;
     };
 
-    home-manager.users.${config.sidonia.userName}.home.packages = [
-        pkgs.bs-manager
-    ];
+    # https://github.com/nix-community/nixpkgs-xr/issues/468#issuecomment-3212479060
+    services.monado.package = pkgs.monado.overrideAttrs (oldAttrs: {
+        cmakeFlags = oldAttrs.cmakeFlags ++ [
+            (lib.cmakeBool "XRT_HAVE_OPENCV" false)
+        ];
+    });
 
+    home-manager.users.${config.sidonia.userName} = {
+        home.packages = [
+            pkgs.bs-manager
+        ];
+    };
     services.hardware.openrgb.enable = true;
     nixpkgs.config.permittedInsecurePackages =
         if config.services.hardware.openrgb.enable then
