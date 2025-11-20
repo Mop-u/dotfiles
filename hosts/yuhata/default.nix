@@ -62,6 +62,10 @@
             (lib.cmakeBool "XRT_HAVE_OPENCV" false)
         ];
     });
+    hardware.steam-hardware.enable = true;
+    programs.steam.gamescopeSession.env = {
+        "SDL_VIDEODRIVER" = "x11";
+    };
 
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [
