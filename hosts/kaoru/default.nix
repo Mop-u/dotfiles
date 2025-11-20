@@ -49,7 +49,10 @@
         isLaptop = true;
         geolocation.enable = true;
         graphics.enable = true;
-        programs.gtkwave.enable = true;
+        programs = {
+            gtkwave.enable = true;
+            surfer.enable = true;
+        };
         desktop.monitors = [
             {
                 name = "eDP-1";
