@@ -18,8 +18,12 @@
         ./reverseProxy.nix
     ];
     networking.hostName = "tsumugi";
-    nix.settings.keep-outputs = true;
-    nix.settings.keep-derivations = true;
+    nix.settings = {
+        keep-outputs = true;
+        keep-derivations = true;
+        max-jobs = 4;
+        cores = 4;
+    };
     sidonia = {
         userName = "shiraui";
         stateVer = "24.05";
@@ -38,6 +42,7 @@
                     "10.0.4.2"
                     "tsumugi.local"
                 ];
+                maxJobs = 4;
             };
         };
     };
