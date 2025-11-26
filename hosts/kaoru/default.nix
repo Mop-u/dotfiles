@@ -8,6 +8,7 @@
 {
     imports = [
         ./hardware-configuration.nix
+        ./networkMounts.nix
         ./virtualbox.nix
         ./quartus.nix
     ];
