@@ -29,7 +29,7 @@
         };
         #package = pkgs.paperServers.paper-1_21_8;
         package = pkgs.paperServers.paper-1_21_8.override {
-            jre = pkgs.graalvm-ce;
+            jre = pkgs.graalvmPackages.graalvm-ce;
         };
         symlinks = {
             "plugins/bluemap.jar" = pkgs.fetchurl {
