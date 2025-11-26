@@ -39,9 +39,7 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    systemd.watchdog = {
-        runtimeTime = "1m";
-    };
+    systemd.settings.Manager.RuntimeWatchdogSec = "1m";
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/0b6a9c0b-6606-479b-8500-843fb2102c8d";
