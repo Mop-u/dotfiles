@@ -11,7 +11,7 @@
 
     inputs = {
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+        nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
 
         sidonia = {
             url = "github:Mop-u/sidonia";
