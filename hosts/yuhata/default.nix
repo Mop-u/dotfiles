@@ -23,6 +23,7 @@
             distributedBuilds.client.enable = true;
             vr.enable = false;
         };
+        programs.hyprland.enable = true;
         geolocation.enable = true;
         graphics.enable = true;
         text.comicCode.enable = true;
@@ -43,6 +44,11 @@
                 position = "4800x400";
             }
         ];
+    };
+
+    services.desktopManager.cosmic = {
+        enable = false;
+        xwayland.enable = true;
     };
 
     sops = {
