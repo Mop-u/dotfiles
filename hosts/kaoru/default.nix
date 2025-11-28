@@ -23,6 +23,7 @@
                 extensions = with pkgs.vscode-extensions; [
                     mbehr1.vsc-webshark
                     surfer-project.surfer
+                    redhat.vscode-yaml
                     #sankooc.pcapviewer
                 ];
                 userSettings = {
@@ -82,6 +83,6 @@
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
-        age.keyFile = "/home/kaoru/.config/sops/age/keys.txt";
+        age.keyFile = "/home/hazama/.config/sops/age/keys.txt";
     };
 }
