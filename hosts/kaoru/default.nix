@@ -27,6 +27,7 @@
                     #sankooc.pcapviewer
                 ];
                 userSettings = {
+                    "redhat.telemetry.enabled" = false;
                     "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
                     "workbench.editorAssociations" = {
                         #"*.pcap" = "proto.pcapng";
