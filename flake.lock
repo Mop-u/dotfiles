@@ -668,7 +668,10 @@
     "nix-auth": {
       "inputs": {
         "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": [
+          "sidonia",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1752151075,
@@ -723,7 +726,7 @@
     },
     "nix-vscode-extensions": {
       "inputs": {
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1764900054,
@@ -892,22 +895,6 @@
       }
     },
     "nixpkgs_6": {
-      "locked": {
-        "lastModified": 1751271578,
-        "narHash": "sha256-P/SQmKDu06x8yv7i0s8bvnnuJYkxVGBWLWHaU+tt4YY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3016b4b15d13f3089db8a41ef937b13a9e33a8df",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_7": {
       "locked": {
         "lastModified": 1759770925,
         "narHash": "sha256-CZwkCtzTNclqlhuwDsVtGoRumTpqCUK0xSnFIMgd8ls=",
@@ -1126,11 +1113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764944883,
-        "narHash": "sha256-n673wjPxsejv4FU44Mp3beAth8ZUZPXGhXokvMb2O3o=",
+        "lastModified": 1764945080,
+        "narHash": "sha256-s2KPqliTJsOs4RV47jyptH/MMZsbPlwHql6bUjfmDAA=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "dfd8f37c8dadc13427aa28e390c4ab8ccf16d6d8",
+        "rev": "9c9abe617b9bcd65d4cdaa2c8d13645843be83a1",
         "type": "github"
       },
       "original": {
