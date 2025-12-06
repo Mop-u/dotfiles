@@ -57,5 +57,12 @@ in
     fileSystems."/mnt/benisuzume" = mntBenisuzumeCIFS "personal-drive";
     fileSystems."/mnt/steam" = mntBenisuzumeNFS "steam";
 
-    services.cachefilesd.enable = true;
+    services.cachefilesd = {
+        enable = true;
+        extraConfig = ''
+            brun 30%
+            bcull 20%
+            bstop 10%
+        '';
+    };
 }
