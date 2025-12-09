@@ -28,7 +28,7 @@
         "sd_mod"
     ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.linuxPackages_6_17;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelModules = [
         "kvm-amd"
         "ntsync"
@@ -59,27 +59,27 @@
 
     services.xserver.videoDrivers = [ "nvidia" ];
     nixpkgs.overlays = [ inputs.nvidia-patch.overlays.default ];
-    hardware.nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = false;
-        powerManagement.finegrained = false;
-        open = true;
-        nvidiaSettings = true;
-        package = pkgs.nvidia-patch.patch-nvenc (
-            pkgs.nvidia-patch.patch-fbc (
-                config.boot.kernelPackages.nvidiaPackages.latest # latest/beta/production/stable
-                #config.boot.kernelPackages.nvidiaPackages.mkDriver {
-                #    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
-                #    version = "580.105.08";
-                #    sha256_64bit = "sha256-2cboGIZy8+t03QTPpp3VhHn6HQFiyMKMjRdiV2MpNHU=";
-                #    openSha256 = "sha256-FGmMt3ShQrw4q6wsk8DSvm96ie5yELoDFYinSlGZcwQ=";
-                #    settingsSha256 = "sha256-YvzWO1U3am4Nt5cQ+b5IJ23yeWx5ud1HCu1U0KoojLY=";
-                #    usePersistenced = false;
-                #    persistencedSha256 = "sha256-qh8pKGxUjEimCgwH7q91IV7wdPyV5v5dc5/K/IcbruI=";
-                #}
-            )
-        );
-    };
+    hardware.nvidia =
+        let
+            patch = with pkgs.nvidia-patch; driver: patch-nvenc (patch-fbc driver);
+        in
+        {
+            modesetting.enable = true;
+            powerManagement.enable = false;
+            powerManagement.finegrained = false;
+            open = true;
+            nvidiaSettings = true;
+            #package = patch config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
+            package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+                # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
+                version = "590.44.01";
+                sha256_64bit = "sha256-VbkVaKwElaazojfxkHnz/nN/5olk13ezkw/EQjhKPms=";
+                sha256_aarch64 = "sha256-gpqz07aFx+lBBOGPMCkbl5X8KBMPwDqsS+knPHpL/5g=";
+                openSha256 = "sha256-ft8FEnBotC9Bl+o4vQA1rWFuRe7gviD/j1B8t0MRL/o=";
+                settingsSha256 = "sha256-wVf1hku1l5OACiBeIePUMeZTWDQ4ueNvIk6BsW/RmF4=";
+                persistencedSha256 = "sha256-nHzD32EN77PG75hH9W8ArjKNY/7KY6kPKSAhxAWcuS4=";
+            };
+        };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
     # (the default) this is the recommended approach. When using systemd-networkd it's
