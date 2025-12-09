@@ -37,6 +37,23 @@
                 };
             };
         };
+        programs.ssh = {
+            enable = true;
+            includes = [ config.sops.secrets."hosts/gio".path ];
+            enableDefaultConfig = false;
+            matchBlocks."*" = {
+                forwardAgent = false;
+                addKeysToAgent = "no";
+                compression = false;
+                serverAliveInterval = 0;
+                serverAliveCountMax = 3;
+                hashKnownHosts = false;
+                userKnownHostsFile = "~/.ssh/known_hosts";
+                controlMaster = "no";
+                controlPath = "~/.ssh/master-%r@%n:%p";
+                controlPersist = "no";
+            };
+        };
     };
     nix.settings.keep-outputs = true;
     sidonia = {
@@ -84,6 +101,9 @@
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
-        age.keyFile = "/home/hazama/.config/sops/age/keys.txt";
+        age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
+        secrets."hosts/gio" = {
+            owner = config.sidonia.userName;
+        };
     };
 }
