@@ -51,6 +51,8 @@
         xwayland.enable = true;
     };
 
+    programs.steam.remotePlay.openFirewall = true;
+
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
