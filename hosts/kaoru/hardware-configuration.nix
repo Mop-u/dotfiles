@@ -33,11 +33,12 @@
         "aesni_intel"
         "cryptd"
     ];
-    boot.initrd.kernelModules = [ ];
+    boot.initrd.kernelModules = [
+        "thunderbolt"
+    ];
     boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelModules = [
         "kvm-intel"
-        #"r8152" # realtek USB 2.5Gbe
         "r8125" # realtek PCIe 2.5Gbe
         "snd_usb_audio"
     ];
@@ -111,18 +112,18 @@
             powerManagement.finegrained = false;
             open = true;
             nvidiaSettings = true;
-            #package = patch config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
-            package = patch (
-                config.boot.kernelPackages.nvidiaPackages.mkDriver {
-                    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
-                    version = "580.119.02";
-                    sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
-                    sha256_aarch64 = "sha256-eYcYVD5XaNbp4kPue8fa/zUgrt2vHdjn6DQMYDl0uQs=";
-                    openSha256 = "sha256-l3IQDoopOt0n0+Ig+Ee3AOcFCGJXhbH1Q1nh1TEAHTE=";
-                    settingsSha256 = "sha256-sI/ly6gNaUw0QZFWWkMbrkSstzf0hvcdSaogTUoTecI=";
-                    persistencedSha256 = "sha256-j74m3tAYON/q8WLU9Xioo3CkOSXfo1CwGmDx/ot0uUo=";
-                }
-            );
+            package = patch config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
+            #package = patch (
+            #    config.boot.kernelPackages.nvidiaPackages.mkDriver {
+            #        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
+            #        version = "580.119.02";
+            #        sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
+            #        sha256_aarch64 = "sha256-eYcYVD5XaNbp4kPue8fa/zUgrt2vHdjn6DQMYDl0uQs=";
+            #        openSha256 = "sha256-l3IQDoopOt0n0+Ig+Ee3AOcFCGJXhbH1Q1nh1TEAHTE=";
+            #        settingsSha256 = "sha256-sI/ly6gNaUw0QZFWWkMbrkSstzf0hvcdSaogTUoTecI=";
+            #        persistencedSha256 = "sha256-j74m3tAYON/q8WLU9Xioo3CkOSXfo1CwGmDx/ot0uUo=";
+            #    }
+            #);
             prime = {
                 # Sync and Offload cannot be enabled at the same time!
                 sync.enable = true;
