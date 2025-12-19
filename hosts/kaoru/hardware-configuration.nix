@@ -168,13 +168,15 @@
         settings = {
             PLATFORM_PROFILE_ON_AC = "balanced";
             PLATFORM_PROFILE_ON_BAT = "quiet";
-            CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
+            CPU_DRIVER_OPMODE_ON_AC = "active";
+            CPU_DRIVER_OPMODE_ON_BAT = "active";
+            CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
             CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
             CPU_SCALING_GOVERNOR_ON_AC = "powersave";
             CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-            CPU_BOOST_ON_AC = 0;
-            CPU_HWP_DYN_BOOST_ON_AC = 0;
+            CPU_BOOST_ON_AC = 1;
             CPU_BOOST_ON_BAT = 0;
+            CPU_HWP_DYN_BOOST_ON_AC = 1;
             CPU_HWP_DYN_BOOST_ON_BAT = 0;
             RUNTIME_PM_ON_AC = "auto";
             RUNTIME_PM_ON_BAT = "auto";
@@ -183,7 +185,7 @@
             USB_AUTOSUSPEND = 0; # Fix for behringer audio interface connected to TB4 dock
 
             START_CHARGE_THRESH_BAT0 = 40;
-            STOP_CHARGE_THRESH_BAT0 = 80;
+            STOP_CHARGE_THRESH_BAT0 = 100;
             NATACPI_ENABLE = 1; # battery care driver
         };
     };
