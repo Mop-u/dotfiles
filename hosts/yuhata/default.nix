@@ -46,22 +46,23 @@
         ];
     };
 
-    services.desktopManager.cosmic = {
-        enable = false;
-        xwayland.enable = true;
-    };
-
-    programs.steam.remotePlay.openFirewall = true;
-
-    sops = {
-        defaultSopsFile = ../../secrets/secrets.yaml;
-        defaultSopsFormat = "yaml";
-        age.keyFile = "/home/midorikawa/.config/sops/age/keys.txt";
+    services = {
+        desktopManager.cosmic = {
+            enable = false;
+            xwayland.enable = true;
+        };
+        hardware.openrgb.enable = true;
+        sunshine = {
+            enable = true;
+            capSysAdmin = true;
+            openFirewall = true;
+        };
     };
 
     programs = {
         sleepy-launcher.enable = true;
         coolercontrol.enable = true;
+        steam.remotePlay.openFirewall = true;
     };
 
     # https://github.com/nix-community/nixpkgs-xr/issues/468#issuecomment-3212479060
@@ -79,7 +80,7 @@
             pkgs.bs-manager
         ];
     };
-    services.hardware.openrgb.enable = true;
+
     nixpkgs.config.permittedInsecurePackages =
         if config.services.hardware.openrgb.enable then
             [
@@ -88,4 +89,10 @@
             ]
         else
             [ ];
+
+    sops = {
+        defaultSopsFile = ../../secrets/secrets.yaml;
+        defaultSopsFormat = "yaml";
+        age.keyFile = "/home/midorikawa/.config/sops/age/keys.txt";
+    };
 }
