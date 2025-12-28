@@ -27,7 +27,10 @@
         geolocation.enable = true;
         graphics.enable = true;
         text.comicCode.enable = true;
-        tweaks.withBehringerAudioInterface = true;
+        tweaks = {
+            withBehringerAudioInterface = true;
+            audio.lowLatency.enable = true;
+        };
         desktop.monitors = [
             {
                 name = "desc:Lenovo Group Limited P40w-20 V9095052";
@@ -43,6 +46,12 @@
                 scale = 1.0; # 0.833333;
                 position = "4800x400";
             }
+            {
+                name = "desc:Samsung Electric Company Q90A";
+                resolution = "3840x2160";
+                refresh = 120.00;
+                scale = 1.5;
+            }
         ];
     };
 
@@ -57,6 +66,7 @@
             capSysAdmin = true;
             openFirewall = true;
         };
+
     };
 
     programs = {
