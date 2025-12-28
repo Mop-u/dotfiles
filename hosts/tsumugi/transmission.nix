@@ -93,8 +93,8 @@
                         in
                         {
                             # https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
-                            speed-limit-up = mbits 2;
-                            speed-limit-down = mbits 20;
+                            speed-limit-up = mbits 10;
+                            speed-limit-down = mbits 60;
                             speed-limit-up-enabled = speed-limit-enabled;
                             speed-limit-down-enabled = speed-limit-enabled;
                             download-queue-enabled = false;
