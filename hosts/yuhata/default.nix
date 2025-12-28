@@ -62,7 +62,7 @@
         };
         hardware.openrgb.enable = true;
         sunshine = {
-            enable = true;
+            enable = false;
             capSysAdmin = true;
             openFirewall = true;
         };
