@@ -80,7 +80,7 @@
                 refresh = 165.00400;
                 scale = 1.333333;
                 position = "6720x0";
-                extraArgs = "bitdepth, 10";
+                bitdepth = 10;
             }
             {
                 name = "desc:Lenovo Group Limited P40w-20 V9095052";
@@ -88,11 +88,9 @@
                 refresh = 74.97900;
                 scale = 1.066667;
                 position = "0x0";
-                extraArgs = lib.concatStringsSep "," [
-                    "bitdepth,10"
-                    "cm,hdr"
-                    "sdrbrightness,1.2"
-                ];
+                bitdepth = 10;
+                hdr = true;
+                extraArgs = "sdrbrightness,1.2";
             }
             {
                 name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
