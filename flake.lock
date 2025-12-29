@@ -1178,11 +1178,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766962412,
-        "narHash": "sha256-iBRmYYKVt7J7eqI1iblvIBr6SYMLHbu+xM7n3z1WYi0=",
+        "lastModified": 1766974371,
+        "narHash": "sha256-5ZUC8i3Q+EQl6vGoQLZo1Ux5S/ryD737VaPihHH90gU=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "e45129d73bdf5a5df52103e65e54d8965fd76cc1",
+        "rev": "763d1cffd0449702a36c07ea607c8d76ca988dfc",
         "type": "github"
       },
       "original": {
@@ -1541,11 +1541,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1766651565,
-        "narHash": "sha256-QEhk0eXgyIqTpJ/ehZKg9IKS7EtlWxF3N7DXy42zPfU=",
+        "lastModified": 1766902085,
+        "narHash": "sha256-coBu0ONtFzlwwVBzmjacUQwj3G+lybcZ1oeNSQkgC0M=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3e2499d5539c16d0d173ba53552a4ff8547f4539",
+        "rev": "c0b0e0fddf73fd517c3471e546c0df87a42d53f4",
         "type": "github"
       },
       "original": {

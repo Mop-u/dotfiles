@@ -85,9 +85,14 @@
             {
                 name = "desc:Lenovo Group Limited P40w-20 V9095052";
                 resolution = "5120x2160";
-                refresh = 60.00; # 74.97900;
+                refresh = 74.97900;
                 scale = 1.066667;
                 position = "0x0";
+                extraArgs = lib.concatStringsSep "," [
+                    "bitdepth,10"
+                    "cm,hdr"
+                    "sdrbrightness,1.2"
+                ];
             }
             {
                 name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";

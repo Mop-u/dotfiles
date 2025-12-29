@@ -29,7 +29,7 @@
         text.comicCode.enable = true;
         tweaks = {
             withBehringerAudioInterface = true;
-            audio.lowLatency.enable = true;
+            audio.lowLatency.enable = false;
         };
         desktop.monitors = [
             {
@@ -38,6 +38,11 @@
                 refresh = 74.97900;
                 scale = 1.066667;
                 position = "0x0";
+                extraArgs = lib.concatStringsSep "," [
+                    "bitdepth,10"
+                    "cm,hdr"
+                    "sdrbrightness,1.2"
+                ];
             }
             {
                 name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
@@ -51,6 +56,10 @@
                 resolution = "3840x2160";
                 refresh = 120.00;
                 scale = 1.5;
+                extraArgs = lib.concatStringsSep "," [
+                    "bitdepth,10"
+                    "cm,hdr"
+                ];
             }
         ];
     };
