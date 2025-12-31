@@ -86,6 +86,7 @@
         steam.remotePlay.openFirewall = true;
     };
 
+
     # https://github.com/nix-community/nixpkgs-xr/issues/468#issuecomment-3212479060
     #services.monado.package = pkgs.monado.overrideAttrs (oldAttrs: {
     #    cmakeFlags = oldAttrs.cmakeFlags ++ [
@@ -100,7 +101,14 @@
         home.packages = [
             pkgs.bs-manager
         ];
+        #wayland.windowManager.hyprland.settings.env = [
+        #    "ENABLE_HDR_WSI,1"
+        #    "PROTON_ENABLE_HDR,1"
+        #    "PROTON_ENABLE_WAYLAND,1"
+        #];
     };
+    # Nvidia HDR support
+    environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
 
     nixpkgs.config.permittedInsecurePackages =
         if config.services.hardware.openrgb.enable then
