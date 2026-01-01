@@ -83,7 +83,24 @@
                 services.transmission = {
                     credentialsFile = cred;
                     enable = true;
-                    package = pkgs.transmission_4;
+                    package =
+                        let
+                            transmission_4_0_5 =
+                                (
+                                    (import (
+                                        pkgs.fetchFromGitHub {
+                                            owner = "NixOS";
+                                            repo = "nixpkgs";
+                                            rev = "4a3fc4cf736b7d2d288d7a8bf775ac8d4c0920b4";
+                                            hash = "sha256-KkT6YM/yNQqirtYj/frn6RRakliB8RDvGqVGGaNhdcU=";
+                                        }
+                                    ))
+                                    {
+                                        inherit (pkgs.stdenv.hostPlatform) system;
+                                    }
+                                ).pkgs.transmission_4;
+                        in
+                        transmission_4_0_5;
                     openRPCPort = true;
                     openPeerPorts = true;
                     settings =
