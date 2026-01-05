@@ -170,7 +170,7 @@
             PLATFORM_PROFILE_ON_BAT = "quiet";
             CPU_DRIVER_OPMODE_ON_AC = "active";
             CPU_DRIVER_OPMODE_ON_BAT = "active";
-            CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+            CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
             CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
             CPU_SCALING_GOVERNOR_ON_AC = "powersave";
             CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -182,11 +182,8 @@
             RUNTIME_PM_ON_BAT = "auto";
             #CPU_MAX_PERF_ON_AC = 80;
 
-            USB_AUTOSUSPEND = 0; # Fix for behringer audio interface connected to TB4 dock
-
             START_CHARGE_THRESH_BAT0 = 40;
-            STOP_CHARGE_THRESH_BAT0 = 100;
-            NATACPI_ENABLE = 1; # battery care driver
+            STOP_CHARGE_THRESH_BAT0 = 80;
         };
     };
 }
