@@ -56,6 +56,7 @@
         };
     };
     nix.settings.keep-outputs = true;
+    programs.coolercontrol.enable = true;
     sidonia = {
         userName = "hazama";
         stateVer = "23.11";
