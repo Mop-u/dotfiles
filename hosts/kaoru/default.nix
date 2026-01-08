@@ -56,7 +56,17 @@
         };
     };
     nix.settings.keep-outputs = true;
-    programs.coolercontrol.enable = true;
+    programs = {
+        coolercontrol.enable = true;
+    };
+    services = {
+        supergfxd.enable = true;
+        asusd = {
+            enable = true;
+            enableUserService = true;
+        };
+    };
+
     sidonia = {
         userName = "hazama";
         stateVer = "23.11";
