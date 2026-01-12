@@ -56,9 +56,6 @@
         };
     };
     nix.settings.keep-outputs = true;
-    programs = {
-        coolercontrol.enable = true;
-    };
     services = {
         supergfxd.enable = true;
         asusd = {
