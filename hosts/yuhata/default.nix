@@ -9,6 +9,7 @@
     imports = [
         ./hardware-configuration.nix
         ./networkMounts.nix
+        ./wayvr.nix
     ];
     networking.hostName = "yuhata";
     sidonia = {
