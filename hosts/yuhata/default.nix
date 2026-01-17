@@ -9,7 +9,6 @@
     imports = [
         ./hardware-configuration.nix
         ./networkMounts.nix
-        ./vr.nix
     ];
     networking.hostName = "yuhata";
     sidonia = {
@@ -22,7 +21,7 @@
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDCi7RR4mckEAgC7mVNFHNvzTg3JwvcKYrYKXqf1Hew midorikawa@yuhata";
         services = {
             distributedBuilds.client.enable = false;
-            vr.enable = false;
+            vr.enable = true;
         };
         programs.hyprland.enable = true;
         geolocation.enable = true;
@@ -89,6 +88,7 @@
     };
     # Nvidia HDR support
     environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
+
 
     nixpkgs.config.permittedInsecurePackages =
         if config.services.hardware.openrgb.enable then
