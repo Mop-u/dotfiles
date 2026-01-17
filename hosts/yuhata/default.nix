@@ -9,6 +9,7 @@
     imports = [
         ./hardware-configuration.nix
         ./networkMounts.nix
+        ./vr.nix
     ];
     networking.hostName = "yuhata";
     sidonia = {
@@ -67,17 +68,7 @@
     };
 
     services = {
-        desktopManager.cosmic = {
-            enable = false;
-            xwayland.enable = true;
-        };
         hardware.openrgb.enable = true;
-        sunshine = {
-            enable = false;
-            capSysAdmin = true;
-            openFirewall = true;
-        };
-
     };
 
     programs = {
@@ -85,17 +76,6 @@
         coolercontrol.enable = true;
         steam.remotePlay.openFirewall = true;
     };
-
-
-    # https://github.com/nix-community/nixpkgs-xr/issues/468#issuecomment-3212479060
-    #services.monado.package = pkgs.monado.overrideAttrs (oldAttrs: {
-    #    cmakeFlags = oldAttrs.cmakeFlags ++ [
-    #        (lib.cmakeBool "XRT_HAVE_OPENCV" false)
-    #    ];
-    #});
-    #programs.steam.gamescopeSession.env = {
-    #    "SDL_VIDEODRIVER" = "x11";
-    #};
 
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [
