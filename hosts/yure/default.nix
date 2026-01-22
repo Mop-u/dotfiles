@@ -20,20 +20,23 @@
         };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICw5RRyu1jEMpS5ekIfbdaHtWU/IyZ62LhfqK8xUIjGY shinatose@yure";
         services.distributedBuilds.client.enable = true;
-        graphics = {
+        graphics.legacyGpu = true;
+        desktop = {
             enable = true;
-            legacyGpu = true;
+            compositor = "hyprland";
+            monitors = [
+                {
+                    name = "LVDS-1";
+                    scale = 1.0;
+                }
+            ];
         };
         geolocation.enable = true;
         text.comicCode.enable = false;
-        input.sensitivity = -0.1;
-        input.keyLayout = "gb";
+        input = {
+            sensitivity = -0.1;
+            keyLayout = "gb";
+        };
         isLaptop = true;
-        desktop.monitors = [
-            {
-                name = "LVDS-1";
-                scale = 1.0;
-            }
-        ];
     };
 }

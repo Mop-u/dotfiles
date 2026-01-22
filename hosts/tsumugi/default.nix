@@ -31,7 +31,6 @@
             flavor = "macchiato";
             accent = "teal";
         };
-        services.kmscon.enable = false;
         services.distributedBuilds = {
             host = {
                 enable = true;

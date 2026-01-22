@@ -26,7 +26,37 @@
         };
         programs.hyprland.enable = true;
         geolocation.enable = true;
-        graphics.enable = true;
+        desktop = {
+            enable = true;
+            compositor = "hyprland";
+            monitors = [
+                {
+                    name = "desc:Lenovo Group Limited P40w-20 V9095052";
+                    resolution = "5120x2160";
+                    refresh = 74.97900;
+                    scale = 1.066667;
+                    position = "0x0";
+                    bitdepth = 10;
+                    #hdr = true;
+                    #extraArgs = "sdrbrightness,1.2";
+                }
+                {
+                    name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
+                    resolution = "1920x1080";
+                    refresh = 60.00;
+                    scale = 1.0; # 0.833333;
+                    position = "4800x400";
+                }
+                {
+                    name = "desc:Samsung Electric Company Q90A";
+                    resolution = "3840x2160";
+                    refresh = 120.00;
+                    scale = 1.5;
+                    bitdepth = 10;
+                    #hdr = true;
+                }
+            ];
+        };
         text.comicCode.enable = true;
         tweaks = {
             audio = {
@@ -38,33 +68,6 @@
                 };
             };
         };
-        desktop.monitors = [
-            {
-                name = "desc:Lenovo Group Limited P40w-20 V9095052";
-                resolution = "5120x2160";
-                refresh = 74.97900;
-                scale = 1.066667;
-                position = "0x0";
-                bitdepth = 10;
-                #hdr = true;
-                #extraArgs = "sdrbrightness,1.2";
-            }
-            {
-                name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
-                resolution = "1920x1080";
-                refresh = 60.00;
-                scale = 1.0; # 0.833333;
-                position = "4800x400";
-            }
-            {
-                name = "desc:Samsung Electric Company Q90A";
-                resolution = "3840x2160";
-                refresh = 120.00;
-                scale = 1.5;
-                bitdepth = 10;
-                #hdr = true;
-            }
-        ];
     };
 
     services = {
@@ -89,7 +92,6 @@
     };
     # Nvidia HDR support
     environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
-
 
     nixpkgs.config.permittedInsecurePackages =
         if config.services.hardware.openrgb.enable then
