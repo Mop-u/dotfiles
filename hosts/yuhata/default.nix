@@ -29,6 +29,10 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
+            environment.steam = {
+                PROTON_ENABLE_WAYLAND = null;
+                PROTON_ENABLE_NVAPI = 1;
+            };
             monitors = [
                 {
                     name = "desc:Lenovo Group Limited P40w-20 V9095052";
