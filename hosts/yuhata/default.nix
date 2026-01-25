@@ -34,6 +34,7 @@
                     PROTON_ENABLE_NVAPI = 1;
                     PROTON_ENABLE_WAYLAND = 1;
                     PROTON_ENABLE_HDR = 1;
+                    PROTON_NO_WM_DECORATION = 1;
                 };
                 wayland = {
                     ENABLE_HDR_WSI = 1;
@@ -48,7 +49,7 @@
                     position = "0x0";
                     bitdepth = 10;
                     hdr = true;
-                    extraArgs = "sdrbrightness,1.2";
+                    extraArgs = "sdrbrightness,1.2,sdrsaturation,1.1";
                 }
                 {
                     name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
