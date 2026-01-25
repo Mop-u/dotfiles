@@ -83,10 +83,13 @@
         coolercontrol.enable = true;
         steam.remotePlay.openFirewall = true;
     };
-
+    hardware.keyboard.qmk.enable = true;
+    services.udev.packages = [ pkgs.via ];
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [
             pkgs.bs-manager
+            pkgs.via
+            pkgs.qmk
         ];
         #wayland.windowManager.hyprland.settings.env = [
         #    "ENABLE_HDR_WSI,1"
