@@ -32,12 +32,12 @@
             environment = {
                 steam = {
                     PROTON_ENABLE_NVAPI = 1;
-                    PROTON_ENABLE_WAYLAND = 1;
-                    PROTON_ENABLE_HDR = 1;
-                    PROTON_NO_WM_DECORATION = 1;
+                    PROTON_ENABLE_WAYLAND = null;
+                    PROTON_ENABLE_HDR = null;
+                    PROTON_NO_WM_DECORATION = null;
                 };
                 wayland = {
-                    ENABLE_HDR_WSI = 1;
+                    ENABLE_HDR_WSI = null;
                 };
             };
             monitors = [
@@ -48,8 +48,8 @@
                     scale = 1.066667;
                     position = "0x0";
                     bitdepth = 10;
-                    hdr = true;
-                    extraArgs = "sdrbrightness,1.2,sdrsaturation,1.1";
+                    hdr = false;
+                    #extraArgs = "sdrbrightness,1.2,sdrsaturation,1.1";
                 }
                 {
                     name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
