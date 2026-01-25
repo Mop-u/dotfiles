@@ -29,9 +29,15 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
-            environment.steam = {
-                PROTON_ENABLE_WAYLAND = null;
-                PROTON_ENABLE_NVAPI = 1;
+            environment = {
+                steam = {
+                    PROTON_ENABLE_NVAPI = 1;
+                    PROTON_ENABLE_WAYLAND = null;
+                    PROTON_ENABLE_HDR = null;
+                };
+                wayland = {
+                    ENABLE_HDR_WSI = null;
+                };
             };
             monitors = [
                 {
@@ -91,11 +97,6 @@
             pkgs.via
             pkgs.qmk
         ];
-        #wayland.windowManager.hyprland.settings.env = [
-        #    "ENABLE_HDR_WSI,1"
-        #    "PROTON_ENABLE_HDR,1"
-        #    "PROTON_ENABLE_WAYLAND,1"
-        #];
     };
     # Nvidia HDR support
     environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
