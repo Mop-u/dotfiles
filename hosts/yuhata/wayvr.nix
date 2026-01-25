@@ -8,7 +8,7 @@
 let
     # See: https://github.com/wlx-team/wayvr/wiki
     wayvrConfig =
-        with (builtins.mapAttrs (n: v: "#${v.hex}") config.sidonia.style.catppuccin.color);
+        with (builtins.mapAttrs (n: v: "#${v}") config.sidonia.style.catppuccin.color);
         (pkgs.formats.yaml { }).generate "config.yaml" {
             # This is the main config for WayVR
             # Place this file in ~/.config/wayvr/conf.d and tweak the values.
@@ -21,9 +21,7 @@ let
             #osc_out_port: 9000
 
             ## Set your preferred watch timezones here.
-            timezones = [
-                "Europe/Dublin"
-            ];
+            timezones = [ "Europe/Dublin" ];
 
             ## On most desktops, WayVR is able to pick up your keymap via wayland. (Especially when using Fcitx5!)
             ## However, if this does not happen, you might want to set your keymap by hand.
