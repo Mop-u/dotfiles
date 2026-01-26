@@ -33,11 +33,8 @@
                 steam = {
                     PROTON_ENABLE_NVAPI = 1;
                     PROTON_ENABLE_WAYLAND = null;
-                    PROTON_ENABLE_HDR = null;
-                    PROTON_NO_WM_DECORATION = null;
-                };
-                wayland = {
                     ENABLE_HDR_WSI = null;
+                    PROTON_ENABLE_HDR = null;
                 };
             };
             monitors = [
