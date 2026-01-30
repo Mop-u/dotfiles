@@ -11,6 +11,9 @@
         ./networkMounts.nix
         ./wayvr.nix
     ];
+
+    home-manager.users.${config.sidonia.userName}.imports = [ ./home.nix ];
+
     networking.hostName = "yuhata";
     sidonia = {
         userName = "midorikawa";
@@ -78,9 +81,11 @@
         };
     };
 
-    services = {
-        hardware.openrgb.enable = true;
-    };
+    services.hardware.openrgb.enable = true;
+    nixpkgs.config.permittedInsecurePackages = [
+        pkgs.mbedtls_2.name # for openrgb service
+        pkgs.openssl_1_1.name # for openrgb service
+    ];
 
     programs = {
         sleepy-launcher.enable = true;
@@ -89,24 +94,8 @@
     };
     hardware.keyboard.qmk.enable = true;
     services.udev.packages = [ pkgs.via ];
-    home-manager.users.${config.sidonia.userName} = {
-        home.packages = [
-            pkgs.bs-manager
-            pkgs.via
-            pkgs.qmk
-        ];
-    };
     # Nvidia HDR support
     environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
-
-    nixpkgs.config.permittedInsecurePackages =
-        if config.services.hardware.openrgb.enable then
-            [
-                "mbedtls-2.28.10"
-                "openssl-1.1.1w"
-            ]
-        else
-            [ ];
 
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;
