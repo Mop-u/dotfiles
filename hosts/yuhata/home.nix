@@ -10,5 +10,6 @@
         bs-manager
         via
         qmk
+        limo
     ];
 }
