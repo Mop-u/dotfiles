@@ -16,42 +16,45 @@
     home-manager.users.hazama = {
         home.packages = [
             pkgs.wireshark
-            pkgs.surfer
         ];
-        programs.vscode = {
-            profiles.default = {
-                extensions = with pkgs.vscode-extensions; [
-                    mbehr1.vsc-webshark
-                    surfer-project.surfer
-                    redhat.vscode-yaml
-                    #sankooc.pcapviewer
-                ];
-                userSettings = {
-                    "redhat.telemetry.enabled" = false;
-                    "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
-                    "workbench.editorAssociations" = {
-                        #"*.pcap" = "proto.pcapng";
-                        "*.pcap" = "vsc-webshark.pcap";
+        programs = {
+            surfer.enable = true;
+            gtkwave.enable = true;
+            vscode = {
+                profiles.default = {
+                    extensions = with pkgs.vscode-extensions; [
+                        mbehr1.vsc-webshark
+                        surfer-project.surfer
+                        redhat.vscode-yaml
+                        #sankooc.pcapviewer
+                    ];
+                    userSettings = {
+                        "redhat.telemetry.enabled" = false;
+                        "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
+                        "workbench.editorAssociations" = {
+                            #"*.pcap" = "proto.pcapng";
+                            "*.pcap" = "vsc-webshark.pcap";
 
+                        };
                     };
                 };
             };
-        };
-        programs.ssh = {
-            enable = true;
-            includes = [ config.sops.secrets."hosts/gio".path ];
-            enableDefaultConfig = false;
-            matchBlocks."*" = {
-                forwardAgent = false;
-                addKeysToAgent = "no";
-                compression = false;
-                serverAliveInterval = 0;
-                serverAliveCountMax = 3;
-                hashKnownHosts = false;
-                userKnownHostsFile = "~/.ssh/known_hosts";
-                controlMaster = "no";
-                controlPath = "~/.ssh/master-%r@%n:%p";
-                controlPersist = "no";
+            ssh = {
+                enable = true;
+                includes = [ config.sops.secrets."hosts/gio".path ];
+                enableDefaultConfig = false;
+                matchBlocks."*" = {
+                    forwardAgent = false;
+                    addKeysToAgent = "no";
+                    compression = false;
+                    serverAliveInterval = 0;
+                    serverAliveCountMax = 3;
+                    hashKnownHosts = false;
+                    userKnownHostsFile = "~/.ssh/known_hosts";
+                    controlMaster = "no";
+                    controlPath = "~/.ssh/master-%r@%n:%p";
+                    controlPersist = "no";
+                };
             };
         };
     };
@@ -104,10 +107,6 @@
                     position = "4800x400";
                 }
             ];
-        };
-        programs = {
-            gtkwave.enable = true;
-            surfer.enable = true;
         };
     };
     sops = {
