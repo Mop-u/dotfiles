@@ -22,10 +22,13 @@
             gtkwave.enable = true;
             vscode = {
                 profiles.default = {
-                    extensions = with pkgs.vscode-extensions; [
+                    extensions = with pkgs.vsxExtensionsFor config.home-manager.users.hazama.programs.vscode.package; [
                         mbehr1.vsc-webshark
                         surfer-project.surfer
                         redhat.vscode-yaml
+                        christian-kohler.path-intellisense
+                        mshr-h.veriloghdl
+                        llvm-vs-code-extensions.vscode-clangd
                         #sankooc.pcapviewer
                     ];
                     userSettings = {
