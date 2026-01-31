@@ -49,7 +49,7 @@
                     position = "0x0";
                     bitdepth = 10;
                     hdr = false;
-                    #extraArgs = "sdrbrightness,1.2,sdrsaturation,1.1";
+                    #extraArgs = "sdrbrightness,1.3,sdrsaturation,1.0";
                 }
                 {
                     name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
