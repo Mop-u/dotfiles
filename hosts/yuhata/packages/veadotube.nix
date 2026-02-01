@@ -60,26 +60,27 @@ stdenv.mkDerivation (finalAttrs: rec {
                 exec = meta.mainProgram;
                 comment = meta.description;
             };
+            replaceLibFile =
+                oldName: new:
+                let
+                    old = "$out/share/${pname}/lib/${oldName}";
+                in
+                ''
+                    rm ${old}
+                    ln -s ${new} ${old}
+                '';
         in
         ''
             mkdir -p $out/share/${pname}
             cp -r ./* $out/share/${pname}/
             chmod +x $out/share/${pname}/veadotube
 
-            rm $out/share/${pname}/lib/ffmpeg
-            ln -s ${lib.getExe ffmpeg} $out/share/${pname}/lib/ffmpeg
-
-            rm $out/share/${pname}/lib/sdl3.so
-            ln -s ${sdl3}/lib/libSDL3.so $out/share/${pname}/lib/sdl3.so
-
-            rm $out/share/${pname}/lib/rnnoise.so
-            ln -s ${rnnoise}/lib/librnnoise.so $out/share/${pname}/lib/rnnoise.so
-
-            rm $out/share/${pname}/lib/rtmidi.so
-            ln -s ${rtmidi}/lib/librtmidi.so $out/share/${pname}/lib/rtmidi.so
-
             rm $out/share/${pname}/lib/libonnxruntime.so
             rm $out/share/${pname}/lib/libonnxruntime_providers_shared.so
+            ${replaceLibFile "ffmpeg" (lib.getExe ffmpeg)}
+            ${replaceLibFile "sdl3.so" "${sdl3}/lib/libSDL3.so"}
+            ${replaceLibFile "rnnoise.so" "${rnnoise}/lib/librnnoise.so"}
+            ${replaceLibFile "rtmidi.so" "${rtmidi}/lib/librtmidi.so"}
 
             mkdir -p $out/bin
             cat > $out/bin/veadotube<< EOF

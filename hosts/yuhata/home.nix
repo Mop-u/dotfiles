@@ -14,5 +14,4 @@
         limo
         (pkgs.callPackage ./packages/veadotube.nix {})
     ];
-    services.hyprpolkitagent.enable = true;
 }
