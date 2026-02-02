@@ -35,8 +35,9 @@
                 steam = {
                     PROTON_ENABLE_NVAPI = 1;
                     PROTON_ENABLE_WAYLAND = null;
-                    ENABLE_HDR_WSI = null;
                     PROTON_ENABLE_HDR = null;
+                    ENABLE_HDR_WSI = null;
+                    WINE_CPU_TOPOLOGY = "8:0,1,2,3,4,5,6,7";
                 };
             };
             monitors = [
