@@ -27,7 +27,6 @@
             distributedBuilds.client.enable = false;
             vr.enable = true;
         };
-        programs.hyprland.enable = true;
         geolocation.enable = true;
         desktop = {
             enable = true;
@@ -43,25 +42,31 @@
             monitors = [
                 {
                     name = "desc:Lenovo Group Limited P40w-20 V9095052";
-                    resolution = "5120x2160";
-                    refresh = 74.97900;
+                    resolution.x = 5120;
+                    resolution.y = 2160;
+                    resolution.hz = 74.97900;
                     scale = 1.066667;
                     position = "0x0";
                     bitdepth = 10;
                     hdr = false;
-                    #extraArgs = "sdrbrightness,1.3,sdrsaturation,1.0";
+                    #extraArgs = {
+                    #    sdrbrightness = "1.3";
+                    #    sdrsaturation = "1.0";
+                    #};
                 }
                 {
                     name = "desc:BNQ ZOWIE XL LCD JAG03521SL0";
-                    resolution = "1920x1080";
-                    refresh = 60.00;
+                    resolution.x = 1920;
+                    resolution.y = 1080;
+                    resolution.hz = 60;
                     scale = 1.0; # 0.833333;
                     position = "4800x400";
                 }
                 {
                     name = "desc:Samsung Electric Company Q90A";
-                    resolution = "3840x2160";
-                    refresh = 120.00;
+                    resolution.x = 3840;
+                    resolution.y = 2160;
+                    resolution.hz = 120;
                     scale = 1.5;
                     bitdepth = 10;
                     #hdr = true;
@@ -93,7 +98,11 @@
         steam.remotePlay.openFirewall = true;
     };
     hardware.keyboard.qmk.enable = true;
-    services.udev.packages = [ pkgs.via ];
+    services.udev.packages = [
+        pkgs.via
+        pkgs.huion-switcher
+    ];
+    boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
     # Nvidia HDR support
     environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
 

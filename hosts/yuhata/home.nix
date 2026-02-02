@@ -11,7 +11,7 @@
         bs-manager
         via
         qmk
-        limo
-        (pkgs.callPackage ./packages/veadotube.nix {})
+        (limo.override { withUnrar = true; })
+        (pkgs.callPackage ./packages/veadotube.nix { })
     ];
 }
