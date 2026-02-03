@@ -12,6 +12,6 @@
         via
         qmk
         (limo.override { withUnrar = true; })
-        (pkgs.callPackage ./packages/veadotube.nix { })
+        veadotube
     ];
 }
