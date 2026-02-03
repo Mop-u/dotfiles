@@ -863,11 +863,11 @@
     },
     "moppkgs": {
       "locked": {
-        "lastModified": 1770146365,
-        "narHash": "sha256-tCAYEQbNJje1kFhJpCclMPaYtp9byrVO+DlHn3tVT8g=",
+        "lastModified": 1770148618,
+        "narHash": "sha256-qAVKR5Vgl7EoAZ10DqQ7JpboDbyYnxBkV7mej/UTN0c=",
         "owner": "Mop-u",
         "repo": "moppkgs",
-        "rev": "68498228ba5926ef70a3184c24fabfeed541491c",
+        "rev": "37e6d99d10a0e89e3024c1ea990add995e54df2c",
         "type": "github"
       },
       "original": {
@@ -1197,6 +1197,7 @@
         "lancache": "lancache",
         "lancache-domains": "lancache-domains",
         "lancache-monolithic": "lancache-monolithic",
+        "moppkgs": "moppkgs",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs",
         "nvidia-patch": "nvidia-patch",
@@ -1233,7 +1234,9 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprshell": "hyprshell",
-        "moppkgs": "moppkgs",
+        "moppkgs": [
+          "moppkgs"
+        ],
         "niri": "niri",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": [
@@ -1247,11 +1250,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770146638,
-        "narHash": "sha256-nGtLQiL55vbI0taJGjV/vLGajE/YJgURX9/YzC5hBO0=",
+        "lastModified": 1770147691,
+        "narHash": "sha256-OokxkUg9OEp/VUdUD09k2Q9+t5PYot3QbRnSw8pkXfc=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "cc3d1a8cc9497b615f81eb1b0c2a69234fd57347",
+        "rev": "3d24d12cdd59f4fd452bc6003ed57603845c3f18",
         "type": "github"
       },
       "original": {

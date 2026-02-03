@@ -12,11 +12,13 @@
     inputs = {
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+        moppkgs.url = "github:Mop-u/moppkgs";
 
         sidonia = {
             url = "github:Mop-u/sidonia";
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.unstable.follows = "unstable";
+            inputs.moppkgs.follows = "moppkgs";
         };
 
         sops-nix = {
