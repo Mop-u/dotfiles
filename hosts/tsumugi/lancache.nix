@@ -6,40 +6,60 @@
     ...
 }:
 let
-    enable = false;
+    enable = true;
+    nameservers = [ "10.0.4.1" ];
 in
 {
     imports = [
         inputs.lancache.nixosModules.dns
         inputs.lancache.nixosModules.cache
     ];
+    networking = { inherit nameservers; };
     services.lancache.dns = {
         inherit enable;
-        forwarders = [
-            "10.0.4.1"
-            "fe80::e638:83ff:fe96:6a8b%enp6s0"
-        ];
+        forwarders = nameservers;
         cacheIp = "10.0.4.2";
-        #cacheIp6 = "fe80::e154:9dfe:dd4f:a1d5";
-        cacheNetworks = [
-            "10.0.4.0/24"
-            "fe80::/10"
-            "2001:bb6:9540:502::/64"
-            "127.0.0.0/24"
-            "::1/128"
-        ];
     };
-
     services.lancache.cache = {
         inherit enable;
-        resolvers = [ "10.0.4.1" ];
+        resolvers = nameservers;
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
         cacheDir = "/mnt/lancache/cache";
-        #logDir = "/mnt/lancache/log"; # nginx doesn't like network drive for logging
+        nginxWorkerProcesses = 8;
+        cacheSliceSize = "4m";
     };
     services.resolved.extraConfig = ''
         DNSStubListener=no
     '';
-    systemd.services.nginx.serviceConfig.LimitNOFILE = 65535;
+    systemd = {
+        tmpfiles.rules = [
+            "d ${config.services.lancache.cache.logDir} - nginx nginx"
+        ];
+        services.nginx.serviceConfig = {
+            LimitNOFILE = 65535;
+            ReadWritePaths = [
+                config.services.lancache.cache.logDir
+                config.services.lancache.cache.cacheDir
+            ];
+        };
+    };
+    services.nginx = {
+        proxyResolveWhileRunning = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true;
+        recommendedOptimisation = true;
+        recommendedGzipSettings = true;
+        recommendedBrotliSettings = true;
+        recommendedUwsgiSettings = true;
+        appendConfig = ''
+            worker_rlimit_nofile 65535;
+        '';
+        appendHttpConfig = ''
+            access_log off;
+            proxy_buffer_size 64k;
+            proxy_buffers 8 64k;
+            proxy_busy_buffers_size 128k;
+        '';
+    };
 }

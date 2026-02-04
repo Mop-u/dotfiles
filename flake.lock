@@ -201,6 +201,27 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
+          "lancache",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749398372,
+        "narHash": "sha256-tYBdgS56eXYaWVW3fsnPQ/nFlgWi/Z2Ymhyu21zVM98=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "9305fe4e5c2a6fcf5ba6a3ff155720fbe4076569",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": [
           "sidonia",
           "hyprshell",
           "nixpkgs"
@@ -220,7 +241,7 @@
         "type": "github"
       }
     },
-    "flake-parts_2": {
+    "flake-parts_3": {
       "inputs": {
         "nixpkgs-lib": [
           "steam-servers",
@@ -632,7 +653,7 @@
     "hyprshell": {
       "inputs": {
         "crane": "crane",
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "home-manager": "home-manager_2",
         "hyprland": [
           "sidonia",
@@ -808,6 +829,7 @@
         "cache-domains": [
           "lancache-domains"
         ],
+        "flake-parts": "flake-parts",
         "monolithic": [
           "lancache-monolithic"
         ],
@@ -816,15 +838,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1748633413,
-        "narHash": "sha256-L6YxtHRHng07rWYtKQOoq2MeUkasdxmwn40o4wzu4tA=",
-        "owner": "Mop-u",
+        "lastModified": 1750198881,
+        "narHash": "sha256-5as6C7BSLNYxb4cwM0YtQ5KF0daUGQVY3LfqekeBYyo=",
+        "owner": "boffbowsh",
         "repo": "nix-lancache",
-        "rev": "8c2e08200b16cb0b7a5fefffc1adad80f70617c0",
+        "rev": "c55c577411da87274c7fa91051badc781a1f86e5",
         "type": "github"
       },
       "original": {
-        "owner": "Mop-u",
+        "owner": "boffbowsh",
         "repo": "nix-lancache",
         "type": "github"
       }
@@ -947,11 +969,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1770000653,
-        "narHash": "sha256-QO/twGynxjOSUDtxbqJLshc/Q5/wImLH5O6KV2p9eoE=",
+        "lastModified": 1770172907,
+        "narHash": "sha256-rqYl9B+4shcM5b6OYjT+qdsdQNJ7SY64/xcPIb96NzU=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "6a2ddb643aaf7949caa6158e718c5efc3dda7dc1",
+        "rev": "8958a5a4259e1aebf4916823bf463faaf2538566",
         "type": "github"
       },
       "original": {
@@ -1306,7 +1328,7 @@
     "steam-servers": {
       "inputs": {
         "devshell": "devshell",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts_3",
         "flake-root": "flake-root",
         "nixpkgs": [
           "nixpkgs"

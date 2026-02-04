@@ -37,7 +37,7 @@
         };
 
         lancache = {
-            url = "github:Mop-u/nix-lancache";
+            url = "github:boffbowsh/nix-lancache";
             inputs.cache-domains.follows = "lancache-domains";
             inputs.monolithic.follows = "lancache-monolithic";
             inputs.nixpkgs.follows = "nixpkgs";

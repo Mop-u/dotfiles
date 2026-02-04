@@ -6,35 +6,18 @@
     ...
 }:
 let
-    useNFS = true;
     hardMount = true;
     mntBenisuzume = name: {
-        fsType = if useNFS then "nfs" else "cifs";
-        device = if useNFS then "10.0.4.3:/var/nfs/shared/${name}" else "//10.0.4.3/${name}";
-        options =
-            (
-                if useNFS then
-                    [
-                        "nolock"
-                    ]
-                else
-                    [ "credentials=${config.sops.secrets."benisuzume/cifs".path}" ]
-            )
-            ++ (
-                if hardMount then
-                    [
-                        "hard"
-                        "intr"
-                    ]
-                else
-                    [ "soft" ]
-            )
-            ++ [
-                "intr"
-                "fsc"
-                "retry=infinity"
-                "timeo=60"
-            ];
+        fsType = "nfs";
+        device = "10.0.4.3:/var/nfs/shared/${name}";
+        options = [
+            "nolock"
+            "hard"
+            "async"
+            "fsc"
+            "noatime"
+            "nodiratime"
+        ];
     };
 in
 {
@@ -45,8 +28,8 @@ in
     sops.secrets."benisuzume/cifs" = { };
 
     fileSystems."/mnt/media" = mntBenisuzume "media";
-    fileSystems."/mnt/lancache" = mntBenisuzume "lancache";
     fileSystems."/mnt/gameservers" = mntBenisuzume "gameservers";
+    fileSystems."/mnt/lancache" = mntBenisuzume "lancache";
 
     services.cachefilesd = {
         enable = true;
