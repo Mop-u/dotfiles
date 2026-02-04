@@ -26,7 +26,7 @@ in
         cacheDiskSize = "8000g";
         cacheIndexSize = "2000m";
         cacheDir = "/mnt/lancache/cache";
-        nginxWorkerProcesses = 8;
+        nginxWorkerProcesses = builtins.toString 8;
         cacheSliceSize = "4m";
     };
     services.resolved.extraConfig = ''
