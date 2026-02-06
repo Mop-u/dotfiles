@@ -10,6 +10,7 @@
         ./hardware-configuration.nix
         ./networkMounts.nix
         ./wayvr.nix
+        ./scopebuddy.nix
     ];
 
     home-manager.users.${config.sidonia.userName}.imports = [ ./home.nix ];
@@ -19,7 +20,7 @@
         userName = "midorikawa";
         stateVer = "25.05";
         style.catppuccin = {
-            flavor = "macchiato";
+            flavor = "mocha";
             accent = "lavender";
         };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDCi7RR4mckEAgC7mVNFHNvzTg3JwvcKYrYKXqf1Hew midorikawa@yuhata";
@@ -31,15 +32,6 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
-            environment = {
-                steam = {
-                    PROTON_ENABLE_NVAPI = 1;
-                    PROTON_ENABLE_WAYLAND = null;
-                    PROTON_ENABLE_HDR = null;
-                    ENABLE_HDR_WSI = null;
-                    WINE_CPU_TOPOLOGY = "8:0,1,2,3,4,5,6,7";
-                };
-            };
             monitors = [
                 {
                     name = "desc:Lenovo Group Limited P40w-20 V9095052";
@@ -49,10 +41,10 @@
                     scale = 1.066667;
                     position = "0x0";
                     bitdepth = 10;
-                    hdr = false;
                     #extraArgs = {
-                    #    sdrbrightness = "1.3";
-                    #    sdrsaturation = "1.0";
+                    #    cm = "hdredid";
+                    #    sdrbrightness = "1.20";
+                    #    sdr_min_luminance = "0.005";
                     #};
                 }
                 {
@@ -97,6 +89,7 @@
         sleepy-launcher.enable = true;
         coolercontrol.enable = true;
         steam.remotePlay.openFirewall = true;
+        gamescope.enable = true;
     };
     hardware.keyboard.qmk.enable = true;
     services.udev.packages = [
@@ -105,7 +98,9 @@
     ];
     boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
     # Nvidia HDR support
-    environment.systemPackages = [ pkgs.vulkan-hdr-layer-kwin6 ];
+    environment.systemPackages = [
+        pkgs.vulkan-hdr-layer-kwin6
+    ];
 
     sops = {
         defaultSopsFile = ../../secrets/secrets.yaml;

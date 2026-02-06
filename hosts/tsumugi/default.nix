@@ -28,7 +28,7 @@
         userName = "shiraui";
         stateVer = "24.05";
         style.catppuccin = {
-            flavor = "macchiato";
+            flavor = "mocha";
             accent = "teal";
         };
         services.distributedBuilds = {
