@@ -35,7 +35,7 @@
         "sd_mod"
     ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_18;
     boot.kernelModules = [
         "kvm-amd"
         "ntsync"

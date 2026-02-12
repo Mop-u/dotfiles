@@ -36,7 +36,7 @@
     boot.initrd.kernelModules = [
         "thunderbolt"
     ];
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_18;
     boot.kernelModules = [
         "kvm-intel"
         "r8125" # realtek PCIe 2.5Gbe
