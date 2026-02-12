@@ -11,14 +11,14 @@
     boot.loader = {
         efi.canTouchEfiVariables = true;
         systemd-boot = {
-            enable = false;
+            enable = true;
             windows."11".efiDeviceHandle = "HD0b";
             edk2-uefi-shell.enable = true;
             memtest86.enable = true;
             configurationLimit = 20;
         };
         grub = {
-            enable = true;
+            enable = false;
             devices = [ "nodev" ];
             efiSupport = true;
             useOSProber = true;
