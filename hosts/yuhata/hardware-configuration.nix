@@ -35,7 +35,7 @@
         "sd_mod"
     ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.linuxPackages_6_18;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelModules = [
         "kvm-amd"
         "ntsync"
@@ -68,7 +68,23 @@
     nixpkgs.overlays = [ inputs.nvidia-patch.overlays.default ];
     hardware.nvidia =
         let
-            patch = with pkgs.nvidia-patch; driver: patch-nvenc (patch-fbc driver);
+            patch =
+                with pkgs.nvidia-patch;
+                driver:
+                let
+                    base = patch-nvenc (patch-fbc driver);
+                in
+                base
+                // {
+                    open = base.open.overrideAttrs (oldAttrs: {
+                        patches = (oldAttrs.patches or [ ]) ++ [
+                            (pkgs.fetchpatch {
+                                url = "https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/master/nvidia/nvidia-utils/kernel-6.19.patch";
+                                sha256 = "sha256-YuJjSUXE6jYSuZySYGnWSNG5sfVei7vvxDcHx3K+IN4=";
+                            })
+                        ];
+                    });
+                };
         in
         {
             modesetting.enable = true;
@@ -76,18 +92,18 @@
             powerManagement.finegrained = false;
             open = true;
             nvidiaSettings = true;
-            package = patch config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
-            #package = patch (
-            #    config.boot.kernelPackages.nvidiaPackages.mkDriver {
-            #        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
-            #        version = "580.119.02";
-            #        sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
-            #        sha256_aarch64 = "sha256-eYcYVD5XaNbp4kPue8fa/zUgrt2vHdjn6DQMYDl0uQs=";
-            #        openSha256 = "sha256-l3IQDoopOt0n0+Ig+Ee3AOcFCGJXhbH1Q1nh1TEAHTE=";
-            #        settingsSha256 = "sha256-sI/ly6gNaUw0QZFWWkMbrkSstzf0hvcdSaogTUoTecI=";
-            #        persistencedSha256 = "sha256-j74m3tAYON/q8WLU9Xioo3CkOSXfo1CwGmDx/ot0uUo=";
-            #    }
-            #);
+            #package = patch config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
+            package = patch (
+                config.boot.kernelPackages.nvidiaPackages.mkDriver {
+                    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
+                    version = "590.48.01";
+                    sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
+                    sha256_aarch64 = "sha256-FOz7f6pW1NGM2f74kbP6LbNijxKj5ZtZ08bm0aC+/YA=";
+                    openSha256 = "sha256-hECHfguzwduEfPo5pCDjWE/MjtRDhINVr4b1awFdP44=";
+                    settingsSha256 = "sha256-NWsqUciPa4f1ZX6f0By3yScz3pqKJV1ei9GvOF8qIEE=";
+                    persistencedSha256 = "sha256-wsNeuw7IaY6Qc/i/AzT/4N82lPjkwfrhxidKWUtcwW8=";
+                }
+            );
         };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
