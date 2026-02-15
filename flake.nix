@@ -13,6 +13,7 @@
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
         moppkgs.url = "github:Mop-u/moppkgs";
+        cachyos.url = "github:xddxdd/nix-cachyos-kernel/release";
 
         sidonia = {
             url = "github:Mop-u/sidonia";

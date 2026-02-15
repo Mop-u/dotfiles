@@ -15,6 +15,16 @@
 
     home-manager.users.${config.sidonia.userName}.imports = [ ./home.nix ];
 
+    hardware.bluetooth = {
+        powerOnBoot = true;
+        settings = {
+            General = {
+                Experimental = true;
+                FastConnectable = true;
+            };
+        };
+    };
+
     networking.hostName = "yuhata";
     sidonia = {
         userName = "midorikawa";
@@ -90,6 +100,7 @@
         coolercontrol.enable = true;
         steam.remotePlay.openFirewall = true;
         gamescope.enable = true;
+        gamemode.enable = true;
     };
     hardware.keyboard.qmk.enable = true;
     services.udev.packages = [
