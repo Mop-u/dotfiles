@@ -32,7 +32,8 @@
             gpu = {
                 apply_gpu_optimisations = "accept-responsibility";
                 gpu_device = 1;
-                nv_powermizer_mode = 1;
+                nv_per_profile_editable = 0; # https://github.com/FeralInteractive/gamemode/pull/547
+                #nv_powermizer_mode = 1;
                 #nv_core_clock_mhz_offset = 0;
                 #nv_mem_clock_mhz_offset = 0;
             };
