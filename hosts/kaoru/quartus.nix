@@ -7,7 +7,7 @@
 }:
 {
     environment.systemPackages = [
-        pkgs.quartus-prime-pro
+        (pkgs.mkQuartus { quartusSource = pkgs.quartusSources.pro."25.3.0.109"; })
     ];
 
 }

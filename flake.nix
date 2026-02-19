@@ -44,13 +44,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        quartus = {
-            url = "github:Mop-u/nix-quartus";
-            #url = "git+file:../nix-quartus";
-            inputs.nixpkgs.follows = "nixpkgs";
-            inputs.moppkgs.follows = "moppkgs";
-        };
-
         nvidia-patch = {
             url = "github:icewind1991/nvidia-patch-nixos";
             inputs.nixpkgs.follows = "nixpkgs";
