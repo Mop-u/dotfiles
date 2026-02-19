@@ -13,5 +13,6 @@
         qmk
         (limo.override { withUnrar = true; })
         veadotube
+        (pkgs.callPackage ./packages/rootapp.nix { })
     ];
 }
