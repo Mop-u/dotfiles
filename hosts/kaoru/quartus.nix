@@ -7,7 +7,7 @@
 }:
 {
     environment.systemPackages = [
-        (pkgs.mkQuartus { quartusSource = pkgs.quartusSources.pro."25.3.0.109"; })
+        (pkgs.mkQuartus { quartusSource = pkgs.quartusSources.pro.latestWithDevices [ "cyclone10gx" ]; })
     ];
 
 }
