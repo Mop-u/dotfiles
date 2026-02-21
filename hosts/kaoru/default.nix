@@ -10,57 +10,11 @@
         ./hardware-configuration.nix
         ./networkMounts.nix
         ./virtualbox.nix
-        ./quartus.nix
     ];
-    networking.hostName = "kaoru";
-    home-manager.users.hazama = {
-        home.packages = [
-            pkgs.wireshark
-        ];
-        programs = {
-            surfer.enable = true;
-            gtkwave.enable = true;
-            vscode = {
-                profiles.default = {
-                    extensions = with pkgs.vsxExtensionsFor config.home-manager.users.hazama.programs.vscode.package; [
-                        mbehr1.vsc-webshark
-                        surfer-project.surfer
-                        redhat.vscode-yaml
-                        christian-kohler.path-intellisense
-                        mshr-h.veriloghdl
-                        llvm-vs-code-extensions.vscode-clangd
-                        #sankooc.pcapviewer
-                    ];
-                    userSettings = {
-                        "redhat.telemetry.enabled" = false;
-                        "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
-                        "workbench.editorAssociations" = {
-                            #"*.pcap" = "proto.pcapng";
-                            "*.pcap" = "vsc-webshark.pcap";
 
-                        };
-                    };
-                };
-            };
-            ssh = {
-                enable = true;
-                includes = [ config.sops.secrets."hosts/gio".path ];
-                enableDefaultConfig = false;
-                matchBlocks."*" = {
-                    forwardAgent = false;
-                    addKeysToAgent = "no";
-                    compression = false;
-                    serverAliveInterval = 0;
-                    serverAliveCountMax = 3;
-                    hashKnownHosts = false;
-                    userKnownHostsFile = "~/.ssh/known_hosts";
-                    controlMaster = "no";
-                    controlPath = "~/.ssh/master-%r@%n:%p";
-                    controlPersist = "no";
-                };
-            };
-        };
-    };
+    home-manager.users.${config.sidonia.userName}.imports = [ ./home.nix ];
+
+    networking.hostName = "kaoru";
     nix.settings.keep-outputs = true;
     services = {
         supergfxd.enable = true;
@@ -85,6 +39,7 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
+            shell = "noctalia";
             monitors = [
                 {
                     name = "eDP-1";

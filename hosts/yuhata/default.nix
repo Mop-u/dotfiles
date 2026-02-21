@@ -42,13 +42,14 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
+            shell = "noctalia";
             monitors = [
                 {
                     name = "desc:Lenovo Group Limited P40w-20 V9095052";
                     resolution.x = 5120;
                     resolution.y = 2160;
                     resolution.hz = 74.97900;
-                    scale = 1.066667;
+                    scale = 1.07;
                     position = "0x0";
                     bitdepth = 10;
                     #extraArgs = {
