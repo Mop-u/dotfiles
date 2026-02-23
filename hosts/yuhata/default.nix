@@ -10,7 +10,6 @@
         ./gamemode.nix
         ./hardware-configuration.nix
         ./networkMounts.nix
-        ./wayvr.nix
         ./scopebuddy.nix
     ];
 
@@ -25,14 +24,15 @@
             };
         };
     };
+    catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "lavender";
+    };
     networking.hostName = "yuhata";
     sidonia = {
         userName = "midorikawa";
         stateVer = "25.05";
-        style.catppuccin = {
-            flavor = "mocha";
-            accent = "lavender";
-        };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDCi7RR4mckEAgC7mVNFHNvzTg3JwvcKYrYKXqf1Hew midorikawa@yuhata";
         services = {
             distributedBuilds.client.enable = false;

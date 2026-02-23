@@ -6,6 +6,7 @@
     ...
 }:
 {
+    imports = [ ./wayvr.nix ];
     home.packages = with pkgs; [
         nix-index
         bs-manager

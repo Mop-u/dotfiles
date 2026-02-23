@@ -11,13 +11,14 @@
     ];
     networking.hostName = "yure";
     nix.settings.max-jobs = 1; # set to 0 to use remote builder only
+    catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "green";
+    };
     sidonia = {
         userName = "shinatose";
         stateVer = "24.05";
-        style.catppuccin = {
-            flavor = "mocha";
-            accent = "green";
-        };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICw5RRyu1jEMpS5ekIfbdaHtWU/IyZ62LhfqK8xUIjGY shinatose@yure";
         services.distributedBuilds.client.enable = true;
         graphics.legacyGpu = true;

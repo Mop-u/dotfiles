@@ -1,4 +1,5 @@
 {
+    osConfig,
     config,
     pkgs,
     inputs,
@@ -8,7 +9,7 @@
 let
     # See: https://github.com/wlx-team/wayvr/wiki
     wayvrConfig =
-        with (builtins.mapAttrs (n: v: "#${v}") config.sidonia.style.catppuccin.color);
+        with (builtins.mapAttrs (n: v: "#${v}") config.catppuccin.lib.color);
         (pkgs.formats.yaml { }).generate "config.yaml" {
             # This is the main config for WayVR
             # Place this file in ~/.config/wayvr/conf.d and tweak the values.
@@ -89,10 +90,8 @@ let
 in
 {
     # https://github.com/NixOS/nixpkgs/pull/479448
-    home-manager.users.${config.sidonia.userName} = {
-        home.packages = [
-            pkgs.wayvr
-        ];
-        xdg.configFile."wayvr/conf.d/config.yaml".source = wayvrConfig;
-    };
+    home.packages = [
+        pkgs.wayvr
+    ];
+    xdg.configFile."wayvr/conf.d/config.yaml".source = wayvrConfig;
 }

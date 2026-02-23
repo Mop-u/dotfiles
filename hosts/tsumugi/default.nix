@@ -24,13 +24,14 @@
         max-jobs = 4;
         cores = 4;
     };
+    catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "teal";
+    };
     sidonia = {
         userName = "shiraui";
         stateVer = "24.05";
-        style.catppuccin = {
-            flavor = "mocha";
-            accent = "teal";
-        };
         services.distributedBuilds = {
             host = {
                 enable = true;

@@ -23,14 +23,15 @@
             enableUserService = true;
         };
     };
+    catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "mauve";
+    };
 
     sidonia = {
         userName = "hazama";
         stateVer = "23.11";
-        style.catppuccin = {
-            flavor = "mocha";
-            accent = "mauve";
-        };
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
         text.comicCode.enable = true;
         services.distributedBuilds.client.enable = true;
