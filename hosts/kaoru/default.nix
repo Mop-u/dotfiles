@@ -15,7 +15,11 @@
     home-manager.users.${config.sidonia.userName}.imports = [ ./home.nix ];
 
     networking.hostName = "kaoru";
-    nix.settings.keep-outputs = true;
+    nix.settings = {
+        keep-outputs = true;
+        max-jobs = 4;
+        cores = 8; # avoid thermal throttling
+    };
     services = {
         supergfxd.enable = true;
         asusd = {

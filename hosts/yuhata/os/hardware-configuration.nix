@@ -40,7 +40,7 @@
     nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
     boot.kernelPackages =
         inputs.cachyos.legacyPackages.x86_64-linux.linuxPackages-cachyos-latest-lto-x86_64-v3;
-    
+
     boot.kernelModules = [
         "kvm-amd"
         "ntsync"
@@ -117,6 +117,11 @@
     # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
     networking.useDHCP = lib.mkDefault true;
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    nix.settings.system-features = [ "gccarch-znver3" ];
+    nixpkgs.hostPlatform = {
+        #gcc.arch = "znver3";
+        #gcc.tune = "znver3";
+        system = "x86_64-linux";
+    };
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

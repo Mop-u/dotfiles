@@ -91,7 +91,12 @@
     # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
     # networking.interfaces.enp8s0.useDHCP = lib.mkDefault true;
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    nixpkgs.system = "x86_64-linux";
+    nix.settings.system-features = [ "gccarch-skylake" ];
+    nixpkgs.hostPlatform = {
+        #gcc.arch = "skylake";
+        #gcc.tune = "skylake";
+        system = "x86_64-linux";
+    };
+
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

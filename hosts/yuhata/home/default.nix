@@ -2,11 +2,14 @@
     osConfig,
     config,
     pkgs,
+    inputs,
     lib,
     ...
 }:
 {
-    imports = [ ./wayvr.nix ];
+    imports = [
+        ./wayvr.nix
+    ];
     home.packages = with pkgs; [
         nix-index
         bs-manager
@@ -14,7 +17,7 @@
         qmk
         (limo.override { withUnrar = true; })
         veadotube
-        (pkgs.callPackage ./packages/rootapp.nix { })
+        (pkgs.callPackage ../packages/rootapp.nix { })
         wl-clipboard
     ];
     programs.noctalia-shell =

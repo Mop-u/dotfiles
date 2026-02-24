@@ -81,8 +81,12 @@
     # networking.interfaces.enp0s20f0u1u4.useDHCP = lib.mkDefault true;
     # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    nixpkgs.system = "x86_64-linux";
+    nix.settings.system-features = [ "gccarch-alderlake" ];
+    nixpkgs.hostPlatform = {
+        #gcc.arch = "alderlake";
+        #gcc.tune = "alderlake";
+        system = "x86_64-linux";
+    };
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
     environment.systemPackages = with pkgs; [
