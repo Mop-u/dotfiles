@@ -29,9 +29,9 @@
         accent = "mauve";
     };
 
+    system.stateVersion = "23.11";
     sidonia = {
         userName = "hazama";
-        stateVer = "23.11";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
         text.comicCode.enable = true;
         services.distributedBuilds.client.enable = true;

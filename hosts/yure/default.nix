@@ -16,9 +16,9 @@
         flavor = "mocha";
         accent = "green";
     };
+    system.stateVersion = "24.05";
     sidonia = {
         userName = "shinatose";
-        stateVer = "24.05";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICw5RRyu1jEMpS5ekIfbdaHtWU/IyZ62LhfqK8xUIjGY shinatose@yure";
         services.distributedBuilds.client.enable = true;
         graphics.legacyGpu = true;

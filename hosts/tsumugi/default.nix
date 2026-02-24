@@ -29,9 +29,9 @@
         flavor = "mocha";
         accent = "teal";
     };
+    system.stateVersion = "24.05";
     sidonia = {
         userName = "shiraui";
-        stateVer = "24.05";
         services.distributedBuilds = {
             host = {
                 enable = true;

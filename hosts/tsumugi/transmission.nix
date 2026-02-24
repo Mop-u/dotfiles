@@ -40,7 +40,7 @@
                 ];
                 bindMounts."/mnt/media".isReadOnly = false;
                 config = {
-                    system.stateVersion = config.sidonia.stateVer;
+                    system = {inherit (config.system) stateVersion;};
                     networking = {
                         firewall.enable = true;
                         useHostResolvConf = lib.mkForce false;
