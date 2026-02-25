@@ -34,6 +34,7 @@
     };
 
     system.stateVersion = "23.11";
+    programs.kdeconnect.enable = true;
     sidonia = {
         userName = "hazama";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
