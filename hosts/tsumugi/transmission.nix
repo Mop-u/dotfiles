@@ -40,7 +40,7 @@
                 ];
                 bindMounts."/mnt/media".isReadOnly = false;
                 config = {
-                    system = {inherit (config.system) stateVersion;};
+                    system = { inherit (config.system) stateVersion; };
                     networking = {
                         firewall.enable = true;
                         useHostResolvConf = lib.mkForce false;
@@ -74,33 +74,14 @@
                 systemd.services.transmission = {
                     serviceConfig = {
                         # https://github.com/NixOS/nixpkgs/issues/258793
-                        RootDirectoryStartOnly = lib.mkForce false;
-                        RootDirectory = lib.mkForce "";
-                        PrivateMounts = lib.mkForce false;
-                        PrivateUsers = lib.mkForce false;
+                        RootDirectoryStartOnly = lib.mkForce null;
+                        RootDirectory = lib.mkForce null;
                     };
                 };
                 services.transmission = {
                     credentialsFile = cred;
                     enable = true;
-                    package =
-                        let
-                            transmission_4_0_5 =
-                                (
-                                    (import (
-                                        pkgs.fetchFromGitHub {
-                                            owner = "NixOS";
-                                            repo = "nixpkgs";
-                                            rev = "4a3fc4cf736b7d2d288d7a8bf775ac8d4c0920b4";
-                                            hash = "sha256-KkT6YM/yNQqirtYj/frn6RRakliB8RDvGqVGGaNhdcU=";
-                                        }
-                                    ))
-                                    {
-                                        inherit (pkgs.stdenv.hostPlatform) system;
-                                    }
-                                ).pkgs.transmission_4;
-                        in
-                        transmission_4_0_5;
+                    package = inputs.unstable.legacyPackages.x86_64-linux.transmission_4;
                     openRPCPort = true;
                     openPeerPorts = true;
                     settings =
