@@ -25,12 +25,6 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
-            monitors = [
-                {
-                    name = "LVDS-1";
-                    scale = 1.0;
-                }
-            ];
         };
         geolocation.enable = true;
         text.comicCode.enable = false;
@@ -39,5 +33,19 @@
             keyLayout = "gb";
         };
         isLaptop = true;
+    };
+    home-manager.users.${config.sidonia.userName}.services.shikane = {
+        enable = true;
+        settings.profile = [
+            {
+                name = "Undocked";
+                output = [
+                    {
+                        search = "n=LVDS-1";
+                        scale = 1.0;
+                    }
+                ];
+            }
+        ];
     };
 }
