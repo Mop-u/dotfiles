@@ -8,6 +8,7 @@
 }:
 {
     imports = [
+        ./monitors.nix
         ./wayvr.nix
     ];
     home.packages = with pkgs; [
