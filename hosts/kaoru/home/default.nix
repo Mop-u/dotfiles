@@ -9,6 +9,7 @@
 {
     imports = [
         ./home.nix
+        ./monitors.nix
     ];
     
 }
