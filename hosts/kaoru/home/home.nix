@@ -10,6 +10,11 @@
         pkgs.wireshark
         (pkgs.mkQuartus { quartusSource = pkgs.quartusSources.pro.latestWithDevices [ "cyclone10gx" ]; })
     ];
+
+    xdg.autostart.entries = lib.mkIf osConfig.services.asusd.enable [
+        "${osConfig.services.asusd.package}/share/applications/rog-control-center.desktop"
+    ];
+
     programs = {
         surfer.enable = true;
         gtkwave.enable = true;
