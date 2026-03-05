@@ -11,6 +11,7 @@
         ./hardware-configuration.nix
         ./networkMounts.nix
         ./scopebuddy.nix
+        ./lix.nix
     ];
 
     hardware.bluetooth = {
