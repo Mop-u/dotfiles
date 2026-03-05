@@ -7,14 +7,13 @@
 }:
 {
     imports = [
+        #./displayManager.nix
         ./gamemode.nix
         ./hardware-configuration.nix
         ./networkMounts.nix
         ./scopebuddy.nix
         ./lix.nix
     ];
-
-    services.displayManager.sddm.wayland.compositor = "kwin";
 
     hardware.bluetooth = {
         powerOnBoot = true;
