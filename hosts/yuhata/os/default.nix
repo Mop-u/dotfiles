@@ -14,6 +14,8 @@
         ./lix.nix
     ];
 
+    services.displayManager.sddm.wayland.compositor = "kwin";
+
     hardware.bluetooth = {
         powerOnBoot = true;
         settings = {
