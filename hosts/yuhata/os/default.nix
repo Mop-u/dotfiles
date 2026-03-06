@@ -7,11 +7,10 @@
 }:
 {
     imports = [
-        #./displayManager.nix
+        ./steam.nix
         ./gamemode.nix
         ./hardware-configuration.nix
         ./networkMounts.nix
-        ./scopebuddy.nix
         ./lix.nix
     ];
 
@@ -76,9 +75,4 @@
         pkgs.huion-switcher
     ];
     boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
-    # Nvidia HDR support
-    environment.systemPackages = [
-        pkgs.vulkan-hdr-layer-kwin6
-    ];
-
 }
