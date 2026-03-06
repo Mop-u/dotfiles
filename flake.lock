@@ -553,11 +553,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1772654524,
-        "narHash": "sha256-wZ+NFWqNye3FCAEE36dfK60ZrWZCQz2xYiejO/aZ8WQ=",
+        "lastModified": 1772814788,
+        "narHash": "sha256-+UlE/TlmP8wNhP/A3abCs3lBwi3gGK1FwHBKL6wk2Gk=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "34c7cc7d38256f32f30a947f8b459df220149feb",
+        "rev": "42f0a6005b7c502b1486f1f3b4d9883035be3dd8",
         "type": "github"
       },
       "original": {
@@ -1004,11 +1004,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772678592,
-        "narHash": "sha256-1VZ1hg1YHW+WyBXIOfrQ9Oq+qLL0w93lkdKAiRRHEuI=",
+        "lastModified": 1772764849,
+        "narHash": "sha256-YVPSIbuS7BdahPNgUEK2zt3qoQvMKpvxLmDCOXRfnGY=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "5521856f37c3d2654fe9b20b03331a6594f855c6",
+        "rev": "3c9c62e3505bcb2331f2e36d19dfea4a74d4d962",
         "type": "github"
       },
       "original": {
@@ -1074,11 +1074,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1772676505,
-        "narHash": "sha256-7YAyJtnxtMfxn5/lU6nuLqiuACrCHYb7460b4/Vw3w8=",
+        "lastModified": 1772762760,
+        "narHash": "sha256-GhDh8NKawETPtwIxjP1l+eBJ+rffbIocIgYcNEaT/JI=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "7fffd702dd41c750de408a70c530be85153045b4",
+        "rev": "633902fb1ef580f96d8f2700160eaca6226c1648",
         "type": "github"
       },
       "original": {
@@ -1153,11 +1153,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1772542754,
-        "narHash": "sha256-WGV2hy+VIeQsYXpsLjdr4GvHv5eECMISX1zKLTedhdg=",
+        "lastModified": 1772624091,
+        "narHash": "sha256-QKyJ0QGWBn6r0invrMAK8dmJoBYWoOWy7lN+UHzW1jc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8c809a146a140c5c8806f13399592dbcb1bb5dc4",
+        "rev": "80bdc1e5ce51f56b19791b52b2901187931f5353",
         "type": "github"
       },
       "original": {
@@ -1189,11 +1189,11 @@
         "noctalia-qs": "noctalia-qs"
       },
       "locked": {
-        "lastModified": 1772710679,
-        "narHash": "sha256-rMl8s/mPfC8MW/AAH+XMn10GMzxKjUNyNeJYebe7dXM=",
+        "lastModified": 1772821410,
+        "narHash": "sha256-KE3cnl3eKdfoPwo5aTWmb9j2ROPcdaxWCZ9wSt2VDLc=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "d2ed3a11df2fa39bd2623cef133e09712f2f344c",
+        "rev": "c685b70f10bc59180e515ccad86a80a671ce80a0",
         "type": "github"
       },
       "original": {
@@ -1370,11 +1370,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770975253,
-        "narHash": "sha256-8YFGyRtVOWTWfQp4BD0sUaicUeBhEW127e1kTZuUi4c=",
+        "lastModified": 1772751261,
+        "narHash": "sha256-3h6N5h9aYumIStx+G7qYZpKTOiMG+tQokjs8c+xuJ2A=",
         "owner": "OpenGamingCollective",
         "repo": "ScopeBuddy",
-        "rev": "5b64e1747f268a1b35a5a5d8dfd377799036365b",
+        "rev": "150051976a2a1e64179edc7265175ba4e5f62f62",
         "type": "github"
       },
       "original": {
@@ -1409,11 +1409,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772746447,
-        "narHash": "sha256-uhzcbgJjEVxzkJNETOeWWC6dnHOHhI6WQokFuS+iVUo=",
+        "lastModified": 1772827266,
+        "narHash": "sha256-7XiuhhF3rUWjX3It3CTk4jKNxTqQ0ptWgqE3LPgET0c=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "645613d1faaa94a6104f130bb03d049320e569d7",
+        "rev": "b36de22733b06034907247bb8adfbe7c7647ea3c",
         "type": "github"
       },
       "original": {
