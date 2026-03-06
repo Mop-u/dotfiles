@@ -111,55 +111,33 @@
 
     services.xserver.videoDrivers = [ "nvidia" ];
     nixpkgs.overlays = [ inputs.nvidia-patch.overlays.default ];
-    hardware.nvidia =
-        let
-            patch =
-                with pkgs.nvidia-patch;
-                driver:
-                let
-                    base = patch-nvenc (patch-fbc driver);
-                in
-                base
-                // {
-                    open = base.open.overrideAttrs (oldAttrs: {
-                        patches = (oldAttrs.patches or [ ]) ++ [
-                            (pkgs.fetchpatch {
-                                url = "https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/master/nvidia/nvidia-utils/kernel-6.19.patch";
-                                sha256 = "sha256-YuJjSUXE6jYSuZySYGnWSNG5sfVei7vvxDcHx3K+IN4=";
-                            })
-                        ];
-                    });
+    hardware.nvidia = {
+        modesetting.enable = true;
+        powerManagement.enable = false;
+        powerManagement.finegrained = false;
+        open = true;
+        nvidiaSettings = true;
+        package =
+            let
+                patch = with pkgs.nvidia-patch; driver: (patch-nvenc (patch-fbc driver));
+                master = import inputs.master {
+                    inherit (pkgs.stdenv.hostPlatform) system;
+                    config.allowUnfree = true;
                 };
-        in
-        {
-            modesetting.enable = true;
-            powerManagement.enable = false;
-            powerManagement.finegrained = false;
-            open = true;
-            nvidiaSettings = true;
-            #package = patch config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
-            package = patch (
-                config.boot.kernelPackages.nvidiaPackages.mkDriver {
-                    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/nvidia-x11/default.nix
-                    version = "590.48.01";
-                    sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
-                    sha256_aarch64 = "sha256-FOz7f6pW1NGM2f74kbP6LbNijxKj5ZtZ08bm0aC+/YA=";
-                    openSha256 = "sha256-hECHfguzwduEfPo5pCDjWE/MjtRDhINVr4b1awFdP44=";
-                    settingsSha256 = "sha256-NWsqUciPa4f1ZX6f0By3yScz3pqKJV1ei9GvOF8qIEE=";
-                    persistencedSha256 = "sha256-wsNeuw7IaY6Qc/i/AzT/4N82lPjkwfrhxidKWUtcwW8=";
-                }
-            );
-            prime = {
-                # Sync and Offload cannot be enabled at the same time!
-                sync.enable = true;
-                offload.enable = false;
-                offload.enableOffloadCmd = false;
-                reverseSync.enable = false;
-                allowExternalGpu = false;
-                intelBusId = "PCI:0:2:0";
-                nvidiaBusId = "PCI:1:0:0";
-            };
+                kernelPackages = master.linuxKernel.packagesFor config.boot.kernelPackages.kernel;
+            in
+            kernelPackages.nvidiaPackages.beta; # latest/beta/production/stable
+        prime = {
+            # Sync and Offload cannot be enabled at the same time!
+            sync.enable = true;
+            offload.enable = false;
+            offload.enableOffloadCmd = false;
+            reverseSync.enable = false;
+            allowExternalGpu = false;
+            intelBusId = "PCI:0:2:0";
+            nvidiaBusId = "PCI:1:0:0";
         };
+    };
 
     environment.sessionVariables = {
 
@@ -174,16 +152,6 @@
         #__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA_G0";
         #__GLX_VENDOR_LIBRARY_NAME          = "nvidia";
         #__VK_LAYER_NV_optimus              = "NVIDIA_only";
-
-        #AQ_DRM_DEVICES =
-        #    let
-        #        dGPU = "/dev/dri/card0";
-        #        iGPU = "/dev/dri/card1";
-        #    in
-        #    builtins.concatStringsSep ":" [
-        #        iGPU
-        #        dGPU
-        #    ];
     };
 
     powerManagement.enable = true;

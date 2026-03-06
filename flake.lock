@@ -882,6 +882,22 @@
         "type": "github"
       }
     },
+    "master": {
+      "locked": {
+        "lastModified": 1772833378,
+        "narHash": "sha256-3xCGRFiE9PmrFvYrikic7ja7e7MklVlQlrsfzRxXkwk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "67063f61d1b843adc3d0f2fa415977b03d258ad0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "moppkgs": {
       "locked": {
         "lastModified": 1772065255,
@@ -1333,6 +1349,7 @@
         "lancache": "lancache",
         "lancache-domains": "lancache-domains",
         "lancache-monolithic": "lancache-monolithic",
+        "master": "master",
         "moppkgs": "moppkgs",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs_2",

@@ -11,6 +11,7 @@
 
     inputs = {
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+        master.url = "github:NixOS/nixpkgs/master";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
         moppkgs.url = "github:Mop-u/moppkgs";
         cachyos.url = "github:xddxdd/nix-cachyos-kernel/release";
