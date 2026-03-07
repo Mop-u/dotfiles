@@ -41,6 +41,7 @@
                 name = "Undocked";
                 output = [
                     {
+                        enable = true;
                         search = "n=LVDS-1";
                         scale = 1.0;
                     }
