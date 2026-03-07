@@ -2,14 +2,11 @@
     config,
     lib,
     pkgs,
-    modulesPath,
+    inputs,
     ...
 }:
 
 {
-    imports = [
-        (modulesPath + "/installer/scan/not-detected.nix")
-    ];
 
     boot.initrd.availableKernelModules = [
         "xhci_pci"
@@ -21,6 +18,12 @@
     ];
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
+
+    nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
+    nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+    boot.kernelPackages =
+        inputs.cachyos.legacyPackages.x86_64-linux.linuxPackages-cachyos-latest-lto-x86_64-v3;
+
     boot.extraModulePackages = [ ];
 
     fileSystems."/" = {
