@@ -7,6 +7,15 @@
 }:
 
 {
+    # Bootloader.
+    boot.loader.grub = {
+        enable = true;
+        device = "/dev/sda";
+        useOSProber = true;
+        gfxmodeBios = "1920x1080,auto";
+        gfxpayloadBios = "keep";
+        configurationLimit = 10;
+    };
 
     boot.initrd.availableKernelModules = [
         "xhci_pci"
@@ -37,6 +46,12 @@
 
     networking.useDHCP = lib.mkDefault true;
 
+    hardware.graphics.extraPackages = [
+        (pkgs.intel-vaapi-driver.override { enableHybridCodec = true; })
+        pkgs.libva-vdpau-driver
+    ];
+
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
+# echo 1 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004\:00/fan_mode

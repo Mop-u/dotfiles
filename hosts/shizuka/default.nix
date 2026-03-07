@@ -2,14 +2,8 @@
 
 {
     imports = [
-        # Include the results of the hardware scan.
         ./hardware-configuration.nix
     ];
-
-    # Bootloader.
-    boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/sda";
-    boot.loader.grub.useOSProber = true;
 
     networking.hostName = "shizuka"; # Define your hostname.
 
@@ -24,6 +18,9 @@
         desktop = {
             enable = true;
             compositor = "hyprland";
+            environment.steam = {
+                #"DRI_PRIME" = 1; # use nvidia gpu
+            };
         };
         geolocation.enable = true;
         text.comicCode.enable = true;
@@ -33,21 +30,24 @@
 
     system.stateVersion = "25.05"; # Did you read the comment?
     programs.kdeconnect.enable = true;
-    home-manager.users.${config.sidonia.userName}.services.shikane = {
-        enable = true;
-        settings.profile = [
-            {
-                name = "Undocked";
-                output = [
-                    {
-                        enable = true;
-                        search = "n=eDP-1";
-                        scale = 1.0;
-                        mode = "1920x1080@60.03";
-                        position = "0,0";
-                    }
-                ];
-            }
-        ];
+    home-manager.users.${config.sidonia.userName} = {
+        home.packages = [ ];
+        services.shikane = {
+            enable = true;
+            settings.profile = [
+                {
+                    name = "Undocked";
+                    output = [
+                        {
+                            enable = true;
+                            search = "n=eDP-1";
+                            scale = 1.0;
+                            mode = "1920x1080@60.03";
+                            position = "0,0";
+                        }
+                    ];
+                }
+            ];
+        };
     };
 }

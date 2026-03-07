@@ -129,9 +129,9 @@
             kernelPackages.nvidiaPackages.beta; # latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
-            sync.enable = true;
-            offload.enable = false;
-            offload.enableOffloadCmd = false;
+            sync.enable = false;
+            offload.enable = true;
+            offload.enableOffloadCmd = true;
             reverseSync.enable = false;
             allowExternalGpu = false;
             intelBusId = "PCI:0:2:0";
