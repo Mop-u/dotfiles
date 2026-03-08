@@ -5,10 +5,10 @@
 }:
 let
     pname = "rootapp";
-    version = "0.9.93";
+    version = "0.9.99";
     src = fetchurl {
         url = "https://installer.rootapp.com/installer/Linux/X64/Root.AppImage";
-        hash = "sha256-ejlytvqMnsD6UPKMxjstx1oMIbEPAqFR5W983WhEGAM=";
+        hash = "sha256-lZIZVloM1cq4b5FjeEkYv7BvHD/cmBvPtZcBkXj144U=";
     };
 
     appimageContents = appimageTools.extract {
