@@ -31,7 +31,10 @@
     system.stateVersion = "25.05"; # Did you read the comment?
     programs.kdeconnect.enable = true;
     home-manager.users.${config.sidonia.userName} = {
-        home.packages = [ ];
+        home.packages = [
+            pkgs.pciutils
+            pkgs.mesa-demos
+        ];
         services.shikane = {
             enable = true;
             settings.profile = [

@@ -51,7 +51,18 @@
         pkgs.libva-vdpau-driver
     ];
 
+    hardware.bluetooth = {
+        powerOnBoot = true;
+        settings = {
+            General = {
+                Experimental = true;
+                FastConnectable = true;
+            };
+        };
+    };
+
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
 # echo 1 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004\:00/fan_mode
+# ...:00/rfkill
