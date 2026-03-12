@@ -32,7 +32,12 @@
         "sdhci_pci"
     ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+
+    nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
+    nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+    boot.kernelPackages =
+        inputs.cachyos.legacyPackages.x86_64-linux.linuxPackages-cachyos-latest-lto; # x86_64-v1
+
     boot.kernelModules = [
         "kvm-intel"
         "tp_smapi"
@@ -68,34 +73,14 @@
     # networking.interfaces.enp0s25.useDHCP = lib.mkDefault true;
     # networking.interfaces.wls3.useDHCP = lib.mkDefault true;
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    nixpkgs.system = "x86_64-linux";
+    nix.settings.system-features = [ "gccarch-core2" ];
+    nixpkgs.hostPlatform.system = "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-    environment.systemPackages = with pkgs; [
-        intel-gpu-tools
-    ];
+    environment.systemPackages = [ pkgs.intel-gpu-tools ];
 
     powerManagement.enable = true;
     services.thermald.enable = true; # intel thermal protection
-    services.tlp = {
-        enable = true; # laptop power saving etc
-        settings = {
-            PLATFORM_PROFILE_ON_AC = "performance";
-            PLATFORM_PROFILE_ON_BAT = "low-power";
-            CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-            CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
-            CPU_SCALING_GOVERNOR_ON_AC = "performance";
-            CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
-
-            # Limit max freq to avoid crashing under load on low battery
-            CPU_SCALING_MAX_FREQ_ON_BAT = 1200000;
-
-            START_CHARGE_THRESH_BAT0 = 40;
-            STOP_CHARGE_THRESH_BAT0 = 80;
-            NATACPI_ENABLE = 1; # battery care driver
-        };
-    };
     services.thinkfan = {
         enable = true;
         levels = [

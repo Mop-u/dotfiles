@@ -24,10 +24,10 @@
         graphics.legacyGpu = true;
         desktop = {
             enable = true;
-            compositor = "hyprland";
+            compositor = "niri";
         };
         geolocation.enable = true;
-        text.comicCode.enable = false;
+        text.comicCode.enable = true;
         input = {
             sensitivity = -0.1;
             keyLayout = "gb";
