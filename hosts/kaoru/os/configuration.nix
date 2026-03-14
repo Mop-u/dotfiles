@@ -37,8 +37,7 @@
         geolocation.enable = true;
         desktop = {
             enable = true;
-            compositor = "hyprland";
-            shell = "noctalia";
+            compositor = "niri";
         };
     };
     sops = {
