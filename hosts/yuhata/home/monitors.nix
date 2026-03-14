@@ -28,23 +28,13 @@ in
                         mode = "1920x1080@60";
                         position = "4800,400";
                     }
-
-                    (rec {
+                    {
                         search = ultrawide;
                         enable = true;
                         scale = 1.07;
                         mode = "5120x2160@74.98";
                         position = "0,0";
-                        exec = lib.optional (osConfig.sidonia.desktop.compositor == "hyprland") (
-                            lib.concatStringsSep "," [
-                                "hyprctl keyword monitor desc:Lenovo Group Limited P40w-20"
-                                mode
-                                (replaceSeps "," "x" position)
-                                (lib.strings.floatToString scale)
-                                "bitdepth,10"
-                            ]
-                        );
-                    })
+                    }
                 ];
             }
             {
