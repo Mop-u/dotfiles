@@ -17,7 +17,7 @@
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGebQDOjFJrLRI/kxToxRVVYZo8GQWhYy/TW/dXoYcQn hoshijiro@shizuka";
         desktop = {
             enable = true;
-            compositor = "hyprland";
+            compositor = "niri";
             environment.steam = {
                 #"DRI_PRIME" = 1; # use nvidia gpu
             };
@@ -28,7 +28,7 @@
         isLaptop = true;
     };
 
-    system.stateVersion = "25.05"; # Did you read the comment?
+    system.stateVersion = "25.05";
     programs.kdeconnect.enable = true;
     home-manager.users.${config.sidonia.userName} = {
         home.packages = [
