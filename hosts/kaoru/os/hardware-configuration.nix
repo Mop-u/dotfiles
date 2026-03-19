@@ -120,11 +120,11 @@
         package =
             let
                 patch = with pkgs.nvidia-patch; driver: (patch-nvenc (patch-fbc driver));
-                master = import inputs.master {
+                unstable = import inputs.unstable {
                     inherit (pkgs.stdenv.hostPlatform) system;
                     config.allowUnfree = true;
                 };
-                kernelPackages = master.linuxKernel.packagesFor config.boot.kernelPackages.kernel;
+                kernelPackages = unstable.linuxKernel.packagesFor config.boot.kernelPackages.kernel;
             in
             kernelPackages.nvidiaPackages.beta; # latest/beta/production/stable
         prime = {
