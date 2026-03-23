@@ -28,13 +28,13 @@
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
 
-    nix.settings.substituters = [ "https://attic.xuyh0120.win/lantian" ];
-    nix.settings.trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
     boot.kernelPackages =
-        inputs.cachyos.legacyPackages.x86_64-linux.linuxPackages-cachyos-latest-lto-x86_64-v3; # .override
-    #(prev: {
-    #    patches = (prev.patches or [ ]) ++ [ ./patches/QCA_ROME.patch ];
-    #});
+        let
+            kernel = pkgs.cachyosKernels.linux-cachyos-latest-x86_64-v3.override {
+                patches = [ ./patches/QCA_ROME.patch ];
+            };
+        in
+        pkgs.linuxKernel.packagesFor kernel;
     boot.extraModulePackages = [ ];
 
     fileSystems."/" = {
@@ -63,7 +63,7 @@
         };
     };
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    nixpkgs.hostPlatform.system = "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
 # echo 1 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004\:00/fan_mode
