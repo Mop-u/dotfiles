@@ -27,6 +27,7 @@
                     christian-kohler.path-intellisense
                     mshr-h.veriloghdl
                     llvm-vs-code-extensions.vscode-clangd
+                    b-lang-org.language-bh
                     #sankooc.pcapviewer
                 ];
                 userSettings = {
