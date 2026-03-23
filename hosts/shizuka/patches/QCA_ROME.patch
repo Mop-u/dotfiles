@@ -1,3 +1,23 @@
+diff --git a/drivers/bluetooth/ath3k.c b/drivers/bluetooth/ath3k.c
+index fc796f1dbda9..b333eefe41fe 100644
+--- a/drivers/bluetooth/ath3k.c
++++ b/drivers/bluetooth/ath3k.c
+@@ -85,7 +85,6 @@ static const struct usb_device_id ath3k_table[] = {
+ 	{ USB_DEVICE(0x0930, 0x0227) },
+ 	{ USB_DEVICE(0x0b05, 0x17d0) },
+ 	{ USB_DEVICE(0x0CF3, 0x0036) },
+-	{ USB_DEVICE(0x0CF3, 0x3004) },
+ 	{ USB_DEVICE(0x0CF3, 0x3008) },
+ 	{ USB_DEVICE(0x0CF3, 0x311D) },
+ 	{ USB_DEVICE(0x0CF3, 0x311E) },
+@@ -154,7 +153,6 @@ static const struct usb_device_id ath3k_blist_tbl[] = {
+ 	{ USB_DEVICE(0x0930, 0x0227), .driver_info = BTUSB_ATH3012 },
+ 	{ USB_DEVICE(0x0b05, 0x17d0), .driver_info = BTUSB_ATH3012 },
+ 	{ USB_DEVICE(0x0CF3, 0x0036), .driver_info = BTUSB_ATH3012 },
+-	{ USB_DEVICE(0x0cf3, 0x3004), .driver_info = BTUSB_ATH3012 },
+ 	{ USB_DEVICE(0x0cf3, 0x3008), .driver_info = BTUSB_ATH3012 },
+ 	{ USB_DEVICE(0x0cf3, 0x311D), .driver_info = BTUSB_ATH3012 },
+ 	{ USB_DEVICE(0x0cf3, 0x311E), .driver_info = BTUSB_ATH3012 },
 diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
 index ded09e94d296..5a10252fca97 100644
 --- a/drivers/bluetooth/btusb.c

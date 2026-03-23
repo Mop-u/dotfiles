@@ -28,13 +28,11 @@
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
 
-    boot.kernelPackages =
-        let
-            kernel = pkgs.cachyosKernels.linux-cachyos-latest-x86_64-v3.override {
-                patches = [ ./patches/QCA_ROME.patch ];
-            };
-        in
-        pkgs.linuxKernel.packagesFor kernel;
+    boot.kernelPackages = pkgs.linuxKernel.packagesFor (
+        pkgs.cachyosKernels.linux-cachyos-latest-x86_64-v3.override {
+            patches = [ ./patches/QCA_ROME.patch ];
+        }
+    );
     boot.extraModulePackages = [ ];
 
     fileSystems."/" = {
