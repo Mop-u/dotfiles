@@ -36,6 +36,17 @@
             pkgs.pciutils
             pkgs.mesa-demos
         ];
+        wayland.desktopManager.sidonia.keybinds = [
+            {
+                name = "Bemenu (Discrete GPU)";
+                mod = [
+                    "Super"
+                    "Shift"
+                ];
+                key = "O";
+                exec = "DRI_PRIME=1 $(bemenu-run)";
+            }
+        ];
         services.shikane = {
             enable = true;
             settings.profile = [
