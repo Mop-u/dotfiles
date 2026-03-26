@@ -19,9 +19,6 @@
         desktop = {
             enable = true;
             compositor = "niri";
-            environment.steam = {
-                #"DRI_PRIME" = 1; # use nvidia gpu
-            };
         };
         geolocation.enable = true;
         text.comicCode.enable = true;

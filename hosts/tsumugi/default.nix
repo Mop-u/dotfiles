@@ -12,7 +12,6 @@
         ./gameServers
         ./transmission.nix
         ./iperf.nix
-        ./lancache.nix
         ./networkMounts.nix
         ./openssh.nix
         ./reverseProxy.nix

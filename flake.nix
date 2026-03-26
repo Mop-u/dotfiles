@@ -1,13 +1,5 @@
 {
     description = "A simple NixOS flake";
-    nixConfig = {
-        extra-substituters = [
-            "https://ezkea.cachix.org"
-        ];
-        extra-trusted-public-keys = [
-            "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
-        ];
-    };
 
     inputs = {
         unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -23,23 +15,6 @@
 
         sops-nix = {
             url = "github:Mic92/sops-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        lancache-domains = {
-            url = "github:uklans/cache-domains";
-            flake = false;
-        };
-
-        lancache-monolithic = {
-            url = "github:lancachenet/monolithic";
-            flake = false;
-        };
-
-        lancache = {
-            url = "github:boffbowsh/nix-lancache";
-            inputs.cache-domains.follows = "lancache-domains";
-            inputs.monolithic.follows = "lancache-monolithic";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
