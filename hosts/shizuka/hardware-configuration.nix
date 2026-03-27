@@ -14,7 +14,7 @@
         useOSProber = true;
         gfxmodeBios = "1920x1080,auto";
         gfxpayloadBios = "keep";
-        configurationLimit = 10;
+        configurationLimit = 20;
     };
 
     boot.initrd.availableKernelModules = [
@@ -26,13 +26,13 @@
         "sr_mod"
     ];
     boot.initrd.kernelModules = [ ];
+    boot.blacklistedKernelModules = [
+        #"ath3k"
+        #"btusb"
+    ];
     boot.kernelModules = [ "kvm-intel" ];
 
-    boot.kernelPackages = pkgs.linuxKernel.packagesFor (
-        pkgs.cachyosKernels.linux-cachyos-latest-x86_64-v3.override {
-            patches = [ ./patches/QCA_ROME.patch ];
-        }
-    );
+    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     boot.extraModulePackages = [ ];
 
     fileSystems."/" = {
@@ -65,4 +65,3 @@
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
 # echo 1 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004\:00/fan_mode
-# ...:00/rfkill
