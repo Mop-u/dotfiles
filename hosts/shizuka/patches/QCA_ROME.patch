@@ -19,15 +19,23 @@ index fc796f1dbda9..b333eefe41fe 100644
  	{ USB_DEVICE(0x0cf3, 0x311D), .driver_info = BTUSB_ATH3012 },
  	{ USB_DEVICE(0x0cf3, 0x311E), .driver_info = BTUSB_ATH3012 },
 diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index ded09e94d296..5a10252fca97 100644
+index ded09e94d296..6eee20d04882 100644
 --- a/drivers/bluetooth/btusb.c
 +++ b/drivers/bluetooth/btusb.c
-@@ -226,7 +226,7 @@ static const struct usb_device_id quirks_table[] = {
+@@ -226,7 +226,6 @@ static const struct usb_device_id quirks_table[] = {
  	{ USB_DEVICE(0x0930, 0x0227), .driver_info = BTUSB_ATH3012 },
  	{ USB_DEVICE(0x0b05, 0x17d0), .driver_info = BTUSB_ATH3012 },
  	{ USB_DEVICE(0x0cf3, 0x0036), .driver_info = BTUSB_ATH3012 },
 -	{ USB_DEVICE(0x0cf3, 0x3004), .driver_info = BTUSB_ATH3012 },
-+	{ USB_DEVICE(0x0cf3, 0x3004), .driver_info = BTUSB_QCA_ROME | BTUSB_WIDEBAND_SPEECH },
  	{ USB_DEVICE(0x0cf3, 0x3008), .driver_info = BTUSB_ATH3012 },
  	{ USB_DEVICE(0x0cf3, 0x311d), .driver_info = BTUSB_ATH3012 },
  	{ USB_DEVICE(0x0cf3, 0x311e), .driver_info = BTUSB_ATH3012 },
+@@ -259,6 +258,8 @@ static const struct usb_device_id quirks_table[] = {
+ 	{ USB_DEVICE(0x0489, 0xe03c), .driver_info = BTUSB_ATH3012 },
+ 
+ 	/* QCA ROME chipset */
++	{ USB_DEVICE(0x0cf3, 0x3004), .driver_info = BTUSB_QCA_ROME |
++							 BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0x535b), .driver_info = BTUSB_QCA_ROME |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0xe007), .driver_info = BTUSB_QCA_ROME |
