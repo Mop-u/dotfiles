@@ -175,9 +175,10 @@ in
                 "e36a0ba1bc902b26ee40818a1d59b8bd" # PMTP
                 "c2863d2a50c9acad1fb50e53ece60817" # STAN
                 "dc98083864ea246d05a42df0d05f81cc" # x265 (HD)
+                "839bea857ed2c0a8e084f3cbdbd65ecb" # x265 (no HDR/DV)
+                "ae9b7c9ebde1f3bd336a8cbd1ec4c5e5" # No-RlsGroup
             ] 0)
             (mkScores [
-                "ae9b7c9ebde1f3bd336a8cbd1ec4c5e5" # No-RlsGroup
                 "7357cf5161efbf8c4d5d0c30b4815ee2" # Obfuscated
                 "5c44f52a8714fdd79bb4d98e2673be1f" # Retags
             ] (-10))
@@ -192,7 +193,6 @@ in
                 "e204b80c87be9497a8a6eaff48f72905" # LQ (Release Title)
                 "25c12f78430a3a23413652cbd1d48d77" # SDR (no WEBDL)
                 "bfd8eb01832d646a0a89c4deb46f8564" # Upscaled
-                "839bea857ed2c0a8e084f3cbdbd65ecb" # x265 (no HDR/DV)
                 "923b6abef9b17f937fab56cfcf89e1f1" # DV (w/o HDR fallback)
             ] (-10000))
         ];
