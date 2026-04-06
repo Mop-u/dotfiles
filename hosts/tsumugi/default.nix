@@ -20,8 +20,6 @@
     nix.settings = {
         keep-outputs = true;
         keep-derivations = true;
-        max-jobs = 4;
-        cores = 4;
     };
     catppuccin = {
         enable = true;
