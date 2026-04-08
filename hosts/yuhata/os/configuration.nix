@@ -32,7 +32,7 @@
         geolocation.enable = true;
         desktop = {
             enable = true;
-            compositor = "hyprland";
+            compositor = "niri";
         };
         text.comicCode.enable = true;
         tweaks = {
