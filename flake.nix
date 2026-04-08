@@ -11,14 +11,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.unstable.follows = "unstable";
             inputs.moppkgs.follows = "moppkgs";
-            inputs.hyprland.follows = "hyprland";
-            inputs.split-monitor-workspaces.follows = "split-monitor-workspaces";
+            inputs.niri-flake.inputs.niri-unstable.follows = "niri-blur";
         };
 
-        hyprland.url = "github:hyprwm/Hyprland/v0.54.2";
-        split-monitor-workspaces = {
-            url = "github:zjeffer/split-monitor-workspaces/34c266b732d8a063213098dc88369ac88b95dfa1";
-            inputs.hyprland.follows = "hyprland";
+        niri-blur = {
+            url = "github:YaLTeR/niri/wip/branch";
+            flake = false;
         };
 
         sops-nix = {
