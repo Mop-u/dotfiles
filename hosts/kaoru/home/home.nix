@@ -9,6 +9,10 @@
     home.packages = [
         pkgs.wireshark
         (pkgs.mkQuartus { quartusSource = pkgs.quartusSources.pro.latestWithDevices [ "cyclone10gx" ]; })
+        pkgs.fiano
+        pkgs.uefitoolPackages.old-engine
+        pkgs.coreboot-utils
+        pkgs.wineWowPackages.full
     ];
 
     xdg.autostart.entries = lib.mkIf osConfig.services.asusd.enable [
@@ -28,6 +32,7 @@
                     mshr-h.veriloghdl
                     llvm-vs-code-extensions.vscode-clangd
                     b-lang-org.language-bh
+                    ms-vscode.hexeditor
                     #sankooc.pcapviewer
                 ];
                 userSettings = {
