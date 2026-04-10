@@ -8,7 +8,7 @@
 {
     home.packages = [
         pkgs.wireshark
-        (pkgs.mkQuartus { quartusSource = pkgs.quartusSources.pro.latestWithDevices [ "cyclone10gx" ]; })
+        (pkgs.quartusPackages.pro.latestWithDevices [ "cyclone10gx" ])
         pkgs.fiano
         pkgs.uefitoolPackages.old-engine
         pkgs.coreboot-utils
