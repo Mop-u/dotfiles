@@ -123,7 +123,7 @@
                 };
                 kernelPackages = unstable.linuxKernel.packagesFor config.boot.kernelPackages.kernel;
             in
-            kernelPackages.nvidiaPackages.beta; # latest/beta/production/stable
+            patch kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
             sync.enable = false;

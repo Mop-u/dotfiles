@@ -83,7 +83,7 @@
                 };
                 kernelPackages = unstable.linuxKernel.packagesFor config.boot.kernelPackages.kernel;
             in
-            kernelPackages.nvidiaPackages.beta; # latest/beta/production/stable
+            patch kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
