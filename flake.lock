@@ -879,6 +879,23 @@
         "type": "github"
       }
     },
+    "niri-blur": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775905466,
+        "narHash": "sha256-R3GQb8mJWZCMv2x3LKExgpjM7Kilu8dBxuUGJJjHNEM=",
+        "owner": "YaLTeR",
+        "repo": "niri",
+        "rev": "0ca60209c54997624f1e1249f78e0437d8da1969",
+        "type": "github"
+      },
+      "original": {
+        "owner": "YaLTeR",
+        "ref": "wip/branch",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "niri-stable": {
       "flake": false,
       "locked": {
@@ -1285,6 +1302,7 @@
     "root": {
       "inputs": {
         "moppkgs": "moppkgs",
+        "niri-blur": "niri-blur",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs",
         "nvidia-patch": "nvidia-patch",
@@ -1362,11 +1380,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775915304,
-        "narHash": "sha256-c2ysX9S7N2wyxCJSN6yitAqgBSUcKspgQGGqUAlkHMs=",
+        "lastModified": 1775919937,
+        "narHash": "sha256-DfELabicnNEbgsEQEKRMKSZiEunp6AojRqwdu6a8NT4=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "92a764e425018ff11de224203ba1e1244e5769d9",
+        "rev": "cdaefaff47838b2fab7163c52124cc20443318f3",
         "type": "github"
       },
       "original": {
