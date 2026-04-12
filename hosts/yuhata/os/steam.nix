@@ -13,7 +13,8 @@
             PROTON_ENABLE_HDR = null;
             PROTON_FSR4_UPGRADE = 1;
             PROTON_DLSS_UPGRADE = 1;
-            PROTON_DXVK_GPLASYNC = 1;
+            #PROTON_DXVK_GPLASYNC = 1;
+            PROTON_DXVK_LLASYNC = 1; # enables dxvk lowlatency and gplasync
             #WINE_USE_TAKE_FOCUS = 1;
             WINE_CPU_TOPOLOGY = "16:0,1,2,3,4,5,6,7,16,17,18,19,20,21,22,23"; # use one CCD
             # https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1523177264
