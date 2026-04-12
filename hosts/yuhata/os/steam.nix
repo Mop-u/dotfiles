@@ -6,11 +6,6 @@
     ...
 }:
 {
-
-    home-manager.users.${config.sidonia.userName}.wayland.windowManager.hyprland.settings.windowrule = [
-        "match:initial_class gamescope, content game, tag +game"
-    ];
-
     programs.steam = {
         extraEnv = {
             PROTON_ENABLE_NVAPI = 1;
