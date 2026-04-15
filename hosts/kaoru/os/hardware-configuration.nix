@@ -35,6 +35,7 @@
     ];
     boot.initrd.kernelModules = [
         "thunderbolt"
+        "ntsync"
     ];
 
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
@@ -64,15 +65,37 @@
         { device = "/dev/disk/by-uuid/efa4d278-62f5-48ce-8fdd-6571fa61ea1a"; }
     ];
 
-    boot.initrd.luks.devices."luksroot" = {
-        allowDiscards = true;
-        device = "/dev/disk/by-uuid/04f8ed32-deda-4e3d-a91b-e9e6470a0ac9";
-    };
-
-    boot.initrd.luks.devices."luksswap" = {
-        allowDiscards = true;
-        device = "/dev/disk/by-uuid/8d864adf-9a85-433f-8919-eb6a8371c077";
-    };
+    boot.initrd.luks = {
+        devices = {
+            "luksroot" = {
+                allowDiscards = true;
+                device = "/dev/disk/by-uuid/04f8ed32-deda-4e3d-a91b-e9e6470a0ac9";
+            };
+            "luksswap" = {
+                allowDiscards = true;
+                device = "/dev/disk/by-uuid/8d864adf-9a85-433f-8919-eb6a8371c077";
+            };
+        };
+    }
+    // (lib.mkIf (lib.versionOlder config.system.nixos.release "26.05") {
+        # See https://github.com/NixOS/nixpkgs/pull/504812
+        cryptoModules = [
+            "aes"
+            "blowfish"
+            "twofish"
+            "serpent"
+            "cbc"
+            "xts"
+            "lrw"
+            "sha1"
+            "sha256"
+            "sha512"
+            "af_alg"
+            "algif_skcipher"
+            "cryptd"
+            "input_leds"
+        ];
+    });
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
     # (the default) this is the recommended approach. When using systemd-networkd it's

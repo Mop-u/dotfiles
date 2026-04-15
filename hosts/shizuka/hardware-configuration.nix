@@ -30,7 +30,10 @@
         #"ath3k"
         #"btusb"
     ];
-    boot.kernelModules = [ "kvm-intel" ];
+    boot.kernelModules = [
+        "kvm-intel"
+        "ntsync"
+    ];
 
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
     boot.extraModulePackages = [ ];

@@ -38,6 +38,7 @@
     boot.kernelModules = [
         "kvm-intel"
         "tp_smapi"
+        "ntsync"
     ];
     boot.extraModulePackages = [ ];
 
