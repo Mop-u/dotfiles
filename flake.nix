@@ -11,12 +11,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.unstable.follows = "unstable";
             inputs.moppkgs.follows = "moppkgs";
-            inputs.niri-flake.inputs.niri-unstable.follows = "niri-blur";
-        };
-
-        niri-blur = {
-            url = "github:YaLTeR/niri/wip/branch";
-            flake = false;
         };
 
         sops-nix = {
