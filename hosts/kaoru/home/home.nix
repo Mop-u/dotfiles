@@ -22,6 +22,10 @@
     programs = {
         surfer.enable = true;
         gtkwave.enable = true;
+        helix = {
+            enable = true;
+            defaultEditor = false;
+        };
         vscode = {
             profiles.default = {
                 extensions = with pkgs.vsxExtensionsFor config.programs.vscode.package; [
