@@ -27,7 +27,7 @@
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDCi7RR4mckEAgC7mVNFHNvzTg3JwvcKYrYKXqf1Hew midorikawa@yuhata";
         services = {
             distributedBuilds.client.enable = false;
-            vr.enable = true;
+            vr.enable = false;
         };
         geolocation.enable = true;
         desktop = {
