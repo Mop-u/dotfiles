@@ -19,8 +19,5 @@
     ];
     programs = {
         mangohud.enable = true;
-        helix = {
-            enable = true;
-        };
     };
 }
