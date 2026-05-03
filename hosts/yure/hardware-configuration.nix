@@ -18,7 +18,7 @@
         useOSProber = true;
         gfxmodeBios = "1280x1024,auto";
         gfxpayloadBios = "keep";
-        configurationLimit = 10;
+        configurationLimit = 20;
     };
 
     boot.initrd.availableKernelModules = [
