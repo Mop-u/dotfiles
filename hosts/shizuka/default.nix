@@ -15,7 +15,7 @@
     sidonia = {
         userName = "hoshijiro";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGebQDOjFJrLRI/kxToxRVVYZo8GQWhYy/TW/dXoYcQn hoshijiro@shizuka";
-        services.distributedBuilds.client.enable = true;
+        services.distributedBuilds.client.enable = false;
         desktop = {
             enable = true;
             compositor = "niri";
