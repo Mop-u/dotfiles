@@ -33,7 +33,8 @@
     ];
     boot.initrd.kernelModules = [ ];
 
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto; # x86_64-v1
+    # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto; # x86_64-v1
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
     boot.kernelModules = [
         "kvm-intel"
