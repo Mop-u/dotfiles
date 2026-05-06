@@ -631,6 +631,19 @@
     },
     "nixpkgs_6": {
       "locked": {
+        "lastModified": 1777268161,
+        "narHash": "sha256-e1tDUQMbFCxCnke314UpghgRqg3FJLtcXFfq/WTRLYI=",
+        "rev": "1c3fe55ad329cbcb28471bb30f05c9827f724c76",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.05pre987561.1c3fe55ad329/nixexprs.tar.xz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+      }
+    },
+    "nixpkgs_7": {
+      "locked": {
         "lastModified": 1776877367,
         "narHash": "sha256-EHq1/OX139R1RvBzOJ0aMRT3xnWyqtHBRUBuO1gFzjI=",
         "owner": "nixos",
@@ -645,9 +658,28 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1778090312,
+        "narHash": "sha256-AzegT6i2RAuBFiFXvqc8MONO6nqHFbSNvijGGFyF1bo=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "8cb73cb09fb878f6c927f3a31555125d81635950",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "ref": "v5",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "noctalia-legacy": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_7",
         "noctalia-qs": "noctalia-qs"
       },
       "locked": {
@@ -814,6 +846,7 @@
           "nixpkgs"
         ],
         "nixpkgs-xr": "nixpkgs-xr",
+        "noctalia": "noctalia",
         "noctalia-legacy": "noctalia-legacy",
         "scopebuddy": "scopebuddy",
         "stextCatppuccin": "stextCatppuccin",
@@ -823,11 +856,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778096858,
-        "narHash": "sha256-FVpsLjH7hSe+KgqQ8HAcW8nTZKIuRHjI1giU2ZPf2Ew=",
+        "lastModified": 1778101786,
+        "narHash": "sha256-6T95GUSqNzUYZJx6j1vOWNYxLvlH98P11mB4eMF2n1Q=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "d705844e9fddc6ad3d739b9f28a21ce7613d6676",
+        "rev": "a3c41cb2ac85b2fa57819088223902faf6900354",
         "type": "github"
       },
       "original": {

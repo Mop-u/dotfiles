@@ -25,13 +25,11 @@
         desktop = {
             enable = true;
             compositor = "niri";
+            shell = "noctalia";
         };
         geolocation.enable = true;
         text.comicCode.enable = true;
-        input = {
-            sensitivity = -0.1;
-            keyLayout = "gb";
-        };
+        input.keyLayout = "uk";
         isLaptop = true;
     };
     home-manager.users.${config.sidonia.userName}.services.shikane = {
