@@ -32,19 +32,5 @@
         input.keyLayout = "uk";
         isLaptop = true;
     };
-    home-manager.users.${config.sidonia.userName}.services.shikane = {
-        enable = true;
-        settings.profile = [
-            {
-                name = "Undocked";
-                output = [
-                    {
-                        enable = true;
-                        search = "n=LVDS-1";
-                        scale = 1.0;
-                    }
-                ];
-            }
-        ];
-    };
+    home-manager.users.${config.sidonia.userName}.imports = [./home.nix];
 }
