@@ -66,4 +66,30 @@
         pkgs.huion-switcher
     ];
     boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
+
+    # https://gitlab.com/mission-center-devs/mission-center/-/wikis/Home/CPU
+    #services.udev.extraRules =
+        #let
+        #    coreutils = "${pkgs.coreutils}/bin";
+        #    chgrp = "${coreutils}/chgrp";
+        #    chmod = "${coreutils}/chmod";
+        #in
+        #''
+        #    SUBSYSTEM=="powercap", KERNEL=="intel-rapl*", \
+        #    RUN+="${chgrp} -R wheel /sys/%p/'", \
+        #    RUN+="${chmod} -R g+r /sys/%p/"
+        #'';
+
+    #security.wrappers.nethogs = {
+    #    enable = true;
+    #    owner = "nobody";
+    #    group = "nogroup";
+    #    source = lib.getExe pkgs.nethogs;
+    #    capabilities = lib.concatLines [
+    #        "cap_net_admin"
+    #        "cap_net_raw"
+    #        "cap_dac_read_search"
+    #        "cap_sys_ptrace"
+    #    ];
+    #};
 }
