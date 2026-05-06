@@ -107,23 +107,13 @@
     services.hardware.bolt.enable = true;
 
     services.xserver.videoDrivers = [ "nvidia" ];
-    nixpkgs.overlays = [ inputs.nvidia-patch.overlays.default ];
     hardware.nvidia = {
         modesetting.enable = true;
         powerManagement.enable = false;
         powerManagement.finegrained = false;
         open = true;
         nvidiaSettings = true;
-        package =
-            let
-                patch = with pkgs.nvidia-patch; driver: (patch-nvenc (patch-fbc driver));
-                unstable = import inputs.unstable {
-                    inherit (pkgs.stdenv.hostPlatform) system;
-                    config.allowUnfree = true;
-                };
-                kernelPackages = unstable.linuxKernel.packagesFor config.boot.kernelPackages.kernel;
-            in
-            patch kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
+        package = config.boot.kernelPackages.nvidiaPackages.stable; # latest/beta/production/stable
         prime = {
             # Sync and Offload cannot be enabled at the same time!
             sync.enable = false;
