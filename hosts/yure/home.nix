@@ -11,7 +11,7 @@
     programs = {
         sublime4.enable = false;
         niri.settings = {
-            # layout.default-column-width.proportion = 1.;
+            layout.default-column-width.proportion = 1.;
             animations.enable = false;
             debug = {
                 # disable-cursor-plane = [];
