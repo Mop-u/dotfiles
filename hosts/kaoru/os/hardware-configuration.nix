@@ -10,7 +10,7 @@
     hardware.enableRedistributableFirmware = true;
 
     boot.loader = {
-        efi.canTouchEfiVariables = true;
+        efi.canTouchEfiVariables = false;
         grub = {
             enable = true;
             devices = [ "nodev" ];
