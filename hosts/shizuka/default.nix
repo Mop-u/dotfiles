@@ -22,11 +22,10 @@
         };
         geolocation.enable = true;
         text.comicCode.enable = true;
-        input.keyLayout = "uk";
         isLaptop = true;
     };
 
-    services.xserver.xkb.layout = "uk,us";
+    services.xserver.xkb.layout = "gb,us";
 
     system.stateVersion = "25.05";
     programs.kdeconnect.enable = true;

@@ -29,8 +29,11 @@
         };
         geolocation.enable = true;
         text.comicCode.enable = true;
-        input.keyLayout = "uk";
         isLaptop = true;
+    };
+    services.xserver.xkb = {
+        layout = "gb,us";
+        model = "thinkpad60";
     };
     home-manager.users.${config.sidonia.userName}.imports = [./home.nix];
 }
