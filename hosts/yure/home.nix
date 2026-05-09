@@ -9,15 +9,7 @@
 }:
 {
     programs = {
-        sublime4.enable = false;
-        niri.settings = {
-            layout.default-column-width.proportion = 1.;
-            debug = {
-                # disable-cursor-plane = [];
-                # disable-direct-scanout = [];
-                # enable-overlay-planes = [];
-            };
-        };
+        niri.settings.layout.default-column-width.proportion = 1.;
     };
     services.shikane = {
         enable = true;
