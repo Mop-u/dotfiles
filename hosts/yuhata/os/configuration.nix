@@ -33,6 +33,7 @@
         desktop = {
             enable = true;
             compositor = "niri";
+            shell = "noctalia";
         };
         text.comicCode.enable = true;
         tweaks = {
