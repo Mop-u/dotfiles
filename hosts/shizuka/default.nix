@@ -19,6 +19,7 @@
         desktop = {
             enable = true;
             compositor = "niri";
+            shell = "noctalia";
         };
         geolocation.enable = true;
         text.comicCode.enable = true;
