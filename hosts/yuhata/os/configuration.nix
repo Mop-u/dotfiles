@@ -30,11 +30,7 @@
             vr.enable = false;
         };
         geolocation.enable = true;
-        desktop = {
-            enable = true;
-            compositor = "niri";
-            shell = "noctalia";
-        };
+        desktop.enable = true;
         text.comicCode.enable = true;
         tweaks = {
             audio = {

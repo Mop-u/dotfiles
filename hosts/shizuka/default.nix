@@ -16,11 +16,7 @@
         userName = "hoshijiro";
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGebQDOjFJrLRI/kxToxRVVYZo8GQWhYy/TW/dXoYcQn hoshijiro@shizuka";
         services.distributedBuilds.client.enable = false;
-        desktop = {
-            enable = true;
-            compositor = "niri";
-            shell = "noctalia";
-        };
+        desktop.enable = true;
         geolocation.enable = true;
         text.comicCode.enable = true;
         isLaptop = true;

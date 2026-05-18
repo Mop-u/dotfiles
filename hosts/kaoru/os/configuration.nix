@@ -36,10 +36,7 @@
         services.distributedBuilds.client.enable = false;
         isLaptop = true;
         geolocation.enable = true;
-        desktop = {
-            enable = true;
-            compositor = "niri";
-        };
+        desktop.enable = true;
     };
     sops = {
         defaultSopsFile = ../../../secrets/secrets.yaml;

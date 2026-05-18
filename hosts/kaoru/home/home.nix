@@ -16,7 +16,6 @@ in
         pkgs.uefitoolPackages.old-engine
         pkgs.coreboot-utils
         pkgs.wineWowPackages.full
-        #slang-server
     ];
 
     xdg.autostart.entries = lib.mkIf osConfig.services.asusd.enable [
@@ -43,7 +42,7 @@ in
                 userSettings = {
                     "redhat.telemetry.enabled" = false;
                     "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
-                    #"slang.path" = "${lib.getExe slang-server}";
+                    #"slang.path" = "${lib.getExe pkgs.slang-server}";
                     "workbench.editorAssociations" = {
                         #"*.pcap" = "proto.pcapng";
                         "*.pcap" = "vsc-webshark.pcap";
