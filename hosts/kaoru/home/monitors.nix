@@ -12,9 +12,12 @@ let
     ultrawide = "d%P40w-20";
 in
 {
-    programs.niri.settings.outputs = {
-        # "Lenovo Group Limited P40w-20 V9095052".layout.default-column-width.proportion = 1.0 / 3.0;  
-    };
+    wayland.windowManager.niri.settings.output = [
+        {
+            _args = [ "Lenovo Group Limited P40w-20 V9095052" ];
+            layout.default-column-width.proportion = 1.0 / 3.0;  
+        }
+    ];
     services.shikane = {
         enable = true;
         settings.profile = [

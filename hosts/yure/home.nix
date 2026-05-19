@@ -8,8 +8,8 @@
     ...
 }:
 {
-    programs = {
-        niri.settings.layout.default-column-width.proportion = 1.;
+    wayland.windowManager.niri.settings = {
+        layout.default-column-width.proportion = 1.;
     };
     services.shikane = {
         enable = true;
