@@ -15,6 +15,12 @@ let
         lib.concatStringsSep to (lib.splitString from str);
 in
 {
+    wayland.windowManager.niri.settings.output = [
+        {
+            _args = [ "Lenovo Group Limited P40w-20 V9095052" ];
+            layout.default-column-width.proportion = 1.0 / 3.0;  
+        }
+    ];
     services.shikane = {
         enable = true;
         settings.profile = [
