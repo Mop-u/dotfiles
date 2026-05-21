@@ -73,7 +73,7 @@
         powerManagement.finegrained = false;
         open = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable; # latest/beta/production/stable
+        package = config.boot.kernelPackages.nvidiaPackages.latest; # latest/beta/production/stable
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
