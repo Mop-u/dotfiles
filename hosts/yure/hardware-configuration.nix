@@ -47,6 +47,8 @@
         fsType = "ext4";
     };
 
+    # https://aur.archlinux.org/packages/libcrystalhd
+
     swapDevices = [ { device = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a"; } ];
     boot.resumeDevice = "/dev/disk/by-uuid/a55aed88-5155-4c6a-8508-34360cd1212a";
 
