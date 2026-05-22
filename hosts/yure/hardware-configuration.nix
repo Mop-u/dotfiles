@@ -33,7 +33,7 @@
     ];
     boot.initrd.kernelModules = [ ];
 
-    boot.kernelPackages = pkgs.linuxPackages_6_18;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
     boot.kernelModules = [
         "kvm-intel"
