@@ -34,7 +34,7 @@
         "sd_mod"
     ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-server-lto;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
