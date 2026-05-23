@@ -2,9 +2,9 @@
   lib,
   stdenv,
   symlinkJoin,
-  runCommand,
   fetchgit,
   cef-binary,
+  libx11,
   libsixel,
   cmake,
   pkg-config,
@@ -13,20 +13,26 @@ stdenv.mkDerivation (
   final:
   let
     version = "0.3.4";
-    brow6el= fetchgit {
+    brow6el = fetchgit {
       url = "https://codeberg.org/janantos/brow6el";
       rev = "refs/tags/v${version}";
       hash = "sha256-58NlPdTegk+ZXXbNRwN5JdtjmepJoPb0QeZxHz7WNkI=";
     };
-    libcef_dll_wrapper = runCommand "cef-dir" { } ''
-      mkdir -p $out
-      cp -r ${cef-binary} $out/cef_binary
-      cd $out/cef_binary
-      mkdir -p build
-      cd build
-      cmake -DCMAKE_BUILD_TYPE=Release ..
-      make libcef_dll_wrapper
-    '';
+    libcef_dll_wrapper = stdenv.mkDerivation {
+      version = cef-binary.version;
+      pname = "libcef_dll_wrapper";
+      src = cef-binary;
+      nativeBuildInputs = [ cmake ];
+      buildPhase = ''
+        make libcef_dll_wrapper
+      '';
+      installPhase = ''
+        mkdir -p $out/cef_binary
+        cp -r ${cef-binary}/. $out/cef_binary
+        mkdir -p $out/cef_binary/build
+        cp -r ./ $out/cef_binary/build/
+      '';
+    };
     src = symlinkJoin {
       name = "brow6el_with_cef";
       paths = [
@@ -42,7 +48,13 @@ stdenv.mkDerivation (
     nativeBuildInputs = [
       cmake
       pkg-config
+      libx11
       libsixel
     ];
+    cmakeFlags = ["-DCMAKE_SKIP_BUILD_RPATH=ON"];
+    installPhase = ''
+      mkdir -p $out
+      cp -r ./ $out/
+    '';
   }
 )

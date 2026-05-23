@@ -8,6 +8,9 @@
     ...
 }:
 {
+    home.packages = [
+        # (pkgs.callPackage ../yuhata/packages/brow6el.nix {})
+    ];
     wayland.windowManager.niri.settings = {
         layout.default-column-width.proportion = 1.;
     };
