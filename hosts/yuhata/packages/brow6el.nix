@@ -5,9 +5,14 @@
   fetchgit,
   cef-binary,
   libx11,
-  libsixel,
   cmake,
   pkg-config,
+  auto-patchelf,
+  libsixel,
+  cairo,
+  nss,
+  alsa-lib,
+  pango,
 }:
 stdenv.mkDerivation (
   final:
@@ -48,10 +53,24 @@ stdenv.mkDerivation (
     nativeBuildInputs = [
       cmake
       pkg-config
+      auto-patchelf
       libx11
       libsixel
     ];
-    cmakeFlags = ["-DCMAKE_SKIP_BUILD_RPATH=ON"];
+    buildInputs = [
+      libsixel
+      cairo
+      nss
+      alsa-lib
+      pango
+    ];
+    runtimeDependencies = [
+      cairo
+      nss
+      alsa-lib
+      pango
+    ];
+    cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
     installPhase = ''
       mkdir -p $out
       cp -r ./ $out/
