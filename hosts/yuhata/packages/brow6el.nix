@@ -53,7 +53,6 @@ stdenv.mkDerivation (
     nativeBuildInputs = [
       cmake
       pkg-config
-      auto-patchelf
       libx11
       libsixel
     ];
@@ -64,13 +63,10 @@ stdenv.mkDerivation (
       alsa-lib
       pango
     ];
-    runtimeDependencies = [
-      cairo
-      nss
-      alsa-lib
-      pango
-    ];
     cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
+    buildPhase = ''
+      ./build_appimage.sh
+    '';
     installPhase = ''
       mkdir -p $out
       cp -r ./ $out/
