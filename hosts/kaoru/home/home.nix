@@ -5,9 +5,6 @@
     lib,
     ...
 }:
-let
-    slang-server = pkgs.callPackage ./slangServer.nix { };
-in
 {
     home.packages = [
         pkgs.wireshark
@@ -15,7 +12,7 @@ in
         pkgs.fiano
         pkgs.uefitoolPackages.old-engine
         pkgs.coreboot-utils
-        pkgs.wineWowPackages.full
+        pkgs.wineWow64Packages.full
     ];
 
     xdg.autostart.entries = lib.mkIf osConfig.services.asusd.enable [
@@ -25,9 +22,9 @@ in
     programs = {
         surfer.enable = true;
         gtkwave.enable = true;
-        vscode = {
+        vscodium = {
             profiles.default = {
-                extensions = with pkgs.vsxExtensionsFor config.programs.vscode.package; [
+                extensions = with pkgs.vsxExtensionsFor config.programs.vscodium.package; [
                     mbehr1.vsc-webshark
                     #surfer-project.surfer
                     lramseyer.vaporview
