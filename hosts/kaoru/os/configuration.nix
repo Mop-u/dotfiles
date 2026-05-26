@@ -15,10 +15,7 @@
     };
     services = {
         supergfxd.enable = true;
-        asusd = {
-            enable = true;
-            enableUserService = true;
-        };
+        asusd.enable = true;
     };
     catppuccin = {
         enable = true;
