@@ -39,8 +39,5 @@
         defaultSopsFile = ../../../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
         age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
-        secrets."hosts/gio" = {
-            owner = config.sidonia.userName;
-        };
     };
 }
