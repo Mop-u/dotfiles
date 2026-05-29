@@ -32,14 +32,14 @@
                     christian-kohler.path-intellisense
                     llvm-vs-code-extensions.vscode-clangd
                     b-lang-org.language-bh
-                    #hudson-river-trading.vscode-slang
+                    hudson-river-trading.vscode-slang
                     ms-vscode.hexeditor
                     #sankooc.pcapviewer
                 ];
                 userSettings = {
                     "redhat.telemetry.enabled" = false;
                     "vsc-webshark.sharkdFullPath" = "${pkgs.wireshark}/bin/sharkd";
-                    #"slang.path" = "${lib.getExe pkgs.slang-server}";
+                    "slang.path" = "${lib.getExe pkgs.slang-server}";
                     "workbench.editorAssociations" = {
                         #"*.pcap" = "proto.pcapng";
                         "*.pcap" = "vsc-webshark.pcap";
