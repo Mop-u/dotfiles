@@ -1,43 +1,43 @@
 {
-    config,
-    pkgs,
-    inputs,
-    lib,
-    ...
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 {
 
-    networking.hostName = "kaoru";
-    nix.settings = {
-        keep-outputs = true;
-        max-jobs = 4;
-        cores = 8; # avoid thermal throttling
-    };
-    services = {
-        supergfxd.enable = true;
-        asusd.enable = true;
-    };
-    catppuccin = {
-        enable = true;
-        flavor = "mocha";
-        accent = "mauve";
-    };
+  networking.hostName = "kaoru";
+  nix.settings = {
+    keep-outputs = true;
+    max-jobs = 4;
+    cores = 8; # avoid thermal throttling
+  };
+  services = {
+    supergfxd.enable = true;
+    asusd.enable = true;
+  };
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+  };
 
-    system.stateVersion = "23.11";
-    programs.kdeconnect.enable = true;
-    programs.gpu-screen-recorder.enable = true;
-    sidonia = {
-        userName = "hazama";
-        ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
-        text.comicCode.enable = true;
-        services.distributedBuilds.client.enable = false;
-        isLaptop = true;
-        geolocation.enable = true;
-        desktop.enable = true;
-    };
-    sops = {
-        defaultSopsFile = ../../../secrets/secrets.yaml;
-        defaultSopsFormat = "yaml";
-        age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
-    };
+  system.stateVersion = "23.11";
+  programs.kdeconnect.enable = true;
+  programs.gpu-screen-recorder.enable = true;
+  sidonia = {
+    userName = "hazama";
+    ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
+    text.comicCode.enable = true;
+    services.distributedBuilds.client.enable = false;
+    isLaptop = true;
+    geolocation.enable = true;
+    desktop.enable = true;
+  };
+  sops = {
+    defaultSopsFile = ../../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
+  };
 }

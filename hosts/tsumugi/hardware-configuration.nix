@@ -2,101 +2,101 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-    config,
-    lib,
-    pkgs,
-    ...
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 {
 
-    hardware.enableRedistributableFirmware = true;
+  hardware.enableRedistributableFirmware = true;
 
-    powerManagement = {
-        enable = true;
-        powertop.enable = true;
-        cpuFreqGovernor = "powersave";
-        scsiLinkPolicy = "med_power_with_dipm";
-    };
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = "powersave";
+    scsiLinkPolicy = "med_power_with_dipm";
+  };
 
-    # Bootloader.
-    boot.loader.systemd-boot = {
-        enable = true;
-        configurationLimit = 10;
-    };
-    boot.loader.efi.canTouchEfiVariables = true;
+  # Bootloader.
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 10;
+  };
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    boot.initrd.availableKernelModules = [
-        "xhci_pci"
-        "ahci"
-        "nvme"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+
+  systemd.settings.Manager.RuntimeWatchdogSec = "1m";
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/0b6a9c0b-6606-479b-8500-843fb2102c8d";
+    fsType = "ext4";
+    options = [
+      "noatime"
+      "nodiratime"
+      "discard"
     ];
-    boot.initrd.kernelModules = [ ];
-    boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.kernelModules = [ "kvm-intel" ];
-    boot.extraModulePackages = [ ];
+  };
 
-    systemd.settings.Manager.RuntimeWatchdogSec = "1m";
-
-    fileSystems."/" = {
-        device = "/dev/disk/by-uuid/0b6a9c0b-6606-479b-8500-843fb2102c8d";
-        fsType = "ext4";
-        options = [
-            "noatime"
-            "nodiratime"
-            "discard"
-        ];
-    };
-
-    fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/3556-44E1";
-        fsType = "vfat";
-        options = [
-            "fmask=0077"
-            "dmask=0077"
-        ];
-    };
-
-    fileSystems."/mnt/cache" = {
-        device = "/dev/disk/by-uuid/9e921dc4-9e2f-408f-94ed-99747c2bedd0";
-        fsType = "ext4";
-        options = [
-            "noatime"
-            "nodiratime"
-            "discard"
-        ];
-    };
-
-    swapDevices = [
-        { device = "/dev/disk/by-uuid/290e7047-d429-4196-825d-8fd6cc01d7d5"; }
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/3556-44E1";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
     ];
+  };
 
-    # Intel ARC GPU
-    hardware.graphics.extraPackages = with pkgs; [
-        vpl-gpu-rt
-        intel-media-driver
-        intel-compute-runtime
+  fileSystems."/mnt/cache" = {
+    device = "/dev/disk/by-uuid/9e921dc4-9e2f-408f-94ed-99747c2bedd0";
+    fsType = "ext4";
+    options = [
+      "noatime"
+      "nodiratime"
+      "discard"
     ];
-    environment.systemPackages = with pkgs; [
-        intel-gpu-tools
-    ];
+  };
 
-    # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-    # (the default) this is the recommended approach. When using systemd-networkd it's
-    # still possible to use this option, but it's recommended to use it in conjunction
-    # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-    networking.useDHCP = lib.mkDefault true;
-    # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
-    # networking.interfaces.enp8s0.useDHCP = lib.mkDefault true;
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/290e7047-d429-4196-825d-8fd6cc01d7d5"; }
+  ];
 
-    nix.settings.system-features = [ "gccarch-skylake" ];
-    nixpkgs.hostPlatform = {
-        #gcc.arch = "skylake";
-        #gcc.tune = "skylake";
-        system = "x86_64-linux";
-    };
+  # Intel ARC GPU
+  hardware.graphics.extraPackages = with pkgs; [
+    vpl-gpu-rt
+    intel-media-driver
+    intel-compute-runtime
+  ];
+  environment.systemPackages = with pkgs; [
+    intel-gpu-tools
+  ];
 
-    hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp8s0.useDHCP = lib.mkDefault true;
+
+  nix.settings.system-features = [ "gccarch-skylake" ];
+  nixpkgs.hostPlatform = {
+    #gcc.arch = "skylake";
+    #gcc.tune = "skylake";
+    system = "x86_64-linux";
+  };
+
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

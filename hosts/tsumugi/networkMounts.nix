@@ -1,37 +1,37 @@
 {
-    inputs,
-    config,
-    pkgs,
-    lib,
-    ...
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 let
-    hardMount = true;
-    mntBenisuzume = name: {
-        fsType = "nfs";
-        device = "10.0.4.3:/var/nfs/shared/${name}";
-        options = [
-            "nolock"
-            "hard"
-            "async"
-            "fsc"
-            "noatime"
-            "nodiratime"
-        ];
-    };
+  hardMount = true;
+  mntBenisuzume = name: {
+    fsType = "nfs";
+    device = "10.0.4.3:/var/nfs/shared/${name}";
+    options = [
+      "nolock"
+      "hard"
+      "async"
+      "fsc"
+      "noatime"
+      "nodiratime"
+    ];
+  };
 in
 {
-    services.rpcbind.enable = true;
-    boot.supportedFilesystems = [ "nfs" ];
-    environment.systemPackages = [ pkgs.cifs-utils ];
+  services.rpcbind.enable = true;
+  boot.supportedFilesystems = [ "nfs" ];
+  environment.systemPackages = [ pkgs.cifs-utils ];
 
-    sops.secrets."benisuzume/cifs" = { };
+  sops.secrets."benisuzume/cifs" = { };
 
-    fileSystems."/mnt/media" = mntBenisuzume "media";
-    fileSystems."/mnt/gameservers" = mntBenisuzume "gameservers";
+  fileSystems."/mnt/media" = mntBenisuzume "media";
+  fileSystems."/mnt/gameservers" = mntBenisuzume "gameservers";
 
-    services.cachefilesd = {
-        enable = true;
-        cacheDir = "/mnt/cache/fscache";
-    };
+  services.cachefilesd = {
+    enable = true;
+    cacheDir = "/mnt/cache/fscache";
+  };
 }

@@ -1,11 +1,11 @@
 {
-    config,
-    pkgs,
-    inputs,
-    lib,
-    ...
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 {
-    imports = [ ./os ];
-    home-manager.users.${config.sidonia.userName}.imports = [ ./home ];
+  imports = [ ./os ];
+  home-manager.users.${config.sidonia.userName}.imports = [ ./home ];
 }

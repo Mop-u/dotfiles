@@ -1,15 +1,15 @@
 {
-    osConfig,
-    config,
-    pkgs,
-    inputs,
-    lib,
-    ...
+  osConfig,
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 {
-    imports = [
-        ./home.nix
-        ./monitors.nix
-    ];
-    
+  imports = [
+    ./home.nix
+    ./monitors.nix
+  ];
+
 }
