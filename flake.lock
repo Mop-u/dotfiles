@@ -728,11 +728,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780958031,
-        "narHash": "sha256-YRZEh0EPxxbSvIag+d2+KVNHXYrT/01njJ8cBtgTQU8=",
+        "lastModified": 1781006079,
+        "narHash": "sha256-jSE3BpwLFYRTrVW2Y7KYoLX+HRvXrAuq5poiNUucVsU=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "79ea40ec91e61c7a94b661234145273cb9bbd9e9",
+        "rev": "0e15ef27b218e925858b27981d2489b8cd46ed09",
         "type": "github"
       },
       "original": {
