@@ -56,6 +56,7 @@
     steam.remotePlay.openFirewall = true;
     gamescope.enable = true;
     kdeconnect.enable = true;
+    noctalia-greeter.enable = true;
   };
   hardware.keyboard.qmk.enable = true;
   services.udev.packages = [
@@ -63,5 +64,8 @@
     pkgs.huion-switcher
   ];
   boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
+  services.displayManager = {
+    cosmic-greeter.enable = false;
+  };
 
 }
