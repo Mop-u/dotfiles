@@ -10,9 +10,6 @@ let
   tv = "d%Q90A";
   zowie = "d%ZOWIE";
   ultrawide = "d%P40w-20";
-  replaceSeps =
-    from: to: str:
-    lib.concatStringsSep to (lib.splitString from str);
 in
 {
   wayland.windowManager.niri.settings.output = [
