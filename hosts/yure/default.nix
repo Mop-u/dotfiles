@@ -24,10 +24,7 @@
     graphics.legacyGpu = true;
     desktop.enable = true;
     geolocation.enable = true;
-    text.comicCode = {
-      enable = true;
-      ligatures.enable = true;
-    };
+    text.comicCode.enable = true;
     isLaptop = true;
   };
   services.xserver.xkb = {
