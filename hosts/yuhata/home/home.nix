@@ -14,6 +14,7 @@
     qmk
     (limo.override { withUnrar = true; })
     veadotube
+    heroic
     # (pkgs.callPackage ../packages/brow6el.nix { })
     wl-clipboard
   ];

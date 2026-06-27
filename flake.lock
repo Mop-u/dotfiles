@@ -810,11 +810,11 @@
         "zen-browser": "zen-browser"
       },
       "locked": {
-        "lastModified": 1782526767,
-        "narHash": "sha256-ezWiOxlyTz/SMSWZkMlAHOBEwVzsr1qpFbi8k/gOeoI=",
+        "lastModified": 1782571471,
+        "narHash": "sha256-1H5ae6JJynfhDmSOTHlp9OMU0nIKA9YR/fuhoZ/JYok=",
         "owner": "Mop-u",
         "repo": "sidonia",
-        "rev": "4857ee758e45138348dba3703bc580dadab85afb",
+        "rev": "508d2b1b2b7f95f2f0ab3b4acf2a1cf1ed707042",
         "type": "github"
       },
       "original": {
