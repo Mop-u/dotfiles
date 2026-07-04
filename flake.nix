@@ -22,17 +22,6 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    steam-fetcher = {
-      url = "github:aidalgol/nix-steam-fetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    steam-servers = {
-      url = "github:scottbot95/nix-steam-servers";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.steam-fetcher.follows = "steam-fetcher";
-    };
   };
 
   outputs =
@@ -42,6 +31,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           inputs.sops-nix.nixosModules.sops
+          ./common
         ];
       };
     };
