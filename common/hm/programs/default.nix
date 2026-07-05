@@ -16,6 +16,7 @@
     ./nemo.nix
     ./sublime.nix
     ./vscodium.nix
+    ./yazi.nix
     ./zellij.nix
     ./zenBrowser.nix
     ./zsh.nix

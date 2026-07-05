@@ -28,16 +28,16 @@
         bufferline = "multiple";
       };
       keys.normal = lib.mkMerge [
-        (lib.mkIf config.programs.lazygit.enable {
-          "C-g" = [
-            ":write-all"
-            ":new"
-            ":insert-output ${lib.getExe config.programs.lazygit.package}"
-            ":buffer-close!"
-            ":redraw"
-            ":reload-all"
-          ];
-        })
+        # (lib.mkIf config.programs.lazygit.enable {
+        #   "C-g" = [
+        #     ":write-all"
+        #     ":new"
+        #     ":insert-output ${lib.getExe config.programs.lazygit.package}"
+        #     ":buffer-close!"
+        #     ":redraw"
+        #     ":reload-all"
+        #   ];
+        # })
       ];
     };
   };
