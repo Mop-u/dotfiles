@@ -22,17 +22,21 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-monitored = {
+      url = "github:ners/nix-monitored";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    inputs@{ self, nixpkgs, ... }:
-    {
-      nixosConfigurations = inputs.sidonia.mkSidonia ./hosts {
-        specialArgs = { inherit inputs; };
-        modules = [
-          inputs.sops-nix.nixosModules.sops
-          ./common
-        ];
-      };
+  outputs = inputs: {
+    nixosConfigurations = inputs.sidonia.mkSidonia ./hosts {
+      specialArgs = { inherit inputs; };
+      modules = [
+        inputs.sops-nix.nixosModules.sops
+        inputs.nix-monitored.nixosModules.default
+        ./common
+      ];
     };
+  };
 }

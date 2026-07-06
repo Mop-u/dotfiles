@@ -16,5 +16,11 @@
         ;
     })
   ];
-  nix.package = pkgs.lixPackageSets.stable.lix;
+  # nix.package = pkgs.lixPackageSets.stable.lix;
+  nix.monitored = {
+    enable = true;
+    package = pkgs.nix-monitored.override {
+      nix = pkgs.lixPackageSets.stable.lix;
+    };
+  };
 }
