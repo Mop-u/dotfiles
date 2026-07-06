@@ -20,6 +20,7 @@
     flavor = "mocha";
     accent = "lavender";
   };
+  nix.monitored.enable = true;
   networking.hostName = "yuhata";
   system.stateVersion = "25.05";
   sidonia = {

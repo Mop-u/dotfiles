@@ -8,10 +8,13 @@
 {
 
   networking.hostName = "kaoru";
-  nix.settings = {
-    keep-outputs = true;
-    max-jobs = 4;
-    cores = 8; # avoid thermal throttling
+  nix = {
+    monitored.enable = true;
+    settings = {
+      keep-outputs = true;
+      max-jobs = 4;
+      cores = 8; # avoid thermal throttling
+    };
   };
   services = {
     supergfxd.enable = true;

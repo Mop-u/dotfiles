@@ -9,10 +9,11 @@ let
 in
 {
   imports = [
+    ./configuration.nix
+    ./lix.nix
+    ./niri.nix
     ./programs
     ./services
     ./tweaks
-    ./configuration.nix
-    ./niri.nix
   ];
 }

@@ -10,7 +10,10 @@
     ./hardware-configuration.nix
   ];
   networking.hostName = "yure";
-  nix.settings.max-jobs = 1; # set to 0 to use remote builder only
+  nix = {
+    monitored.enable = true;
+    settings.max-jobs = 1; # set to 0 to use remote builder only
+  };
   catppuccin = {
     enable = true;
     flavor = "mocha";

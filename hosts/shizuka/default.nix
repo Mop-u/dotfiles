@@ -23,6 +23,7 @@
   };
 
   services.xserver.xkb.layout = "gb,us";
+  nix.monitored.enable = true;
 
   system.stateVersion = "25.05";
   programs.kdeconnect.enable = true;
