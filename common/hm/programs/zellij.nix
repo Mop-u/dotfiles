@@ -160,6 +160,10 @@ in
               bind "Alt j" { MoveFocus "down"; }
               bind "Alt k" { MoveFocus "up"; }
               bind "Alt l" { MoveFocusOrTab "right"; }
+              bind "Alt Shift h" { MovePane "left"; }
+              bind "Alt Shift j" { MovePane "down"; }
+              bind "Alt Shift k" { MovePane "up"; }
+              bind "Alt Shift l" { MovePane "right"; }
               bind "Alt +" { Resize "Increase"; }
               bind "Alt -" { Resize "Decrease"; }
               bind "Alt =" { Resize "Increase"; }
