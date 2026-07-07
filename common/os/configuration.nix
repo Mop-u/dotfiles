@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   pkgs,
@@ -16,11 +12,24 @@ in
 
   catppuccin.cache.enable = lib.mkDefault true;
 
-  nix.settings = {
-    auto-optimise-store = true;
-    trusted-users = [ cfg.userName ];
-    fallback = lib.mkDefault true;
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      trusted-users = [ cfg.userName ];
+      fallback = lib.mkDefault true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+    extraOptions = ''
+      !include access-tokens.conf
+    '';
   };
+
+  home-manager.sharedModules = [
+    { nix = { inherit (config.nix) extraOptions; }; }
+  ];
 
   # Enable Graphics
   hardware.graphics = {
@@ -117,12 +126,6 @@ in
     enable = true;
     lfs.enable = true;
   };
-
-  # Enable experimental features
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   nixpkgs.config.allowUnfree = true;
 

@@ -13,18 +13,8 @@
       inputs.moppkgs.follows = "moppkgs";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-monitored = {
-      url = "github:ners/nix-monitored";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -32,11 +22,7 @@
   outputs = inputs: {
     nixosConfigurations = inputs.sidonia.mkSidonia ./hosts {
       specialArgs = { inherit inputs; };
-      modules = [
-        inputs.sops-nix.nixosModules.sops
-        inputs.nix-monitored.nixosModules.default
-        ./common
-      ];
+      modules = [ ./common ];
     };
   };
 }
