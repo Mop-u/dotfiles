@@ -11,6 +11,15 @@ in
 lib.mkIf cfg.desktop.enable {
   wayland.desktopManager.sidonia.keybinds = [
     {
+      name = "Task Manager";
+      mod = [
+        "super"
+        "shift"
+      ];
+      key = "escape";
+      exec = "uwsm app -- foot btop";
+    }
+    {
       name = "Close Active Window";
       mod = [
         "Super"
