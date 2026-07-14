@@ -8,8 +8,10 @@
 {
   imports = [
     inputs.nix-minecraft.nixosModules.minecraft-servers
+    inputs.steamcmd-flake.nixosModules.default
     ./minecraft.nix
-    ./cobblemon.nix
+    #./cobblemon.nix
+    ./palworld.nix
   ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
