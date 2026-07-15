@@ -7,14 +7,14 @@
 }:
 {
   imports = [
-    ./hardware-configuration.nix
+    ../../common/os/services/openssh.nix
     ./arr
     ./gameServers
-    ./transmission.nix
+    ./hardware-configuration.nix
     ./iperf.nix
     ./networkMounts.nix
-    ./openssh.nix
     ./reverseProxy.nix
+    ./transmission.nix
   ];
   networking.hostName = "tsumugi";
   nix.settings = {
