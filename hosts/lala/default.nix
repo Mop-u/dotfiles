@@ -1,4 +1,11 @@
-{ inputs, pkgs, config, lib, ... }: {
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   imports = [
     ../../common/os/services/openssh.nix
     ./hardware-configuration.nix
