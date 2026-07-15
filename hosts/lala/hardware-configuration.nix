@@ -3,7 +3,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ./lustrate.nix
   ];
-  nix.settings.experimental-features = "flakes nix-command";
 
   # Hardware
   fileSystems."/" = {
