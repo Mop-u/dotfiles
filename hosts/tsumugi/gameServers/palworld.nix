@@ -8,7 +8,6 @@
 {
   services.steamcmd-servers.palworld = {
     enable = true;
-    openFirewall = true;
     appId = 2394010;
     executable = "PalServer.sh";
     args = [
@@ -16,6 +15,9 @@
       "-NoAsyncLoadingThread"
       "-UseMultithreadForDS"
     ];
+    autoUpdate = true;
+    openFirewall = true;
     udpPorts = [ 8211 ];
   };
+  networking.firewall.allowedUDPPorts = [ 8211 ];
 }
