@@ -27,9 +27,9 @@ lib.mkIf (cfg.desktop.enable && (cfg.desktop.shell == "noctalia")) {
         telemetry_enabled = false;
         polkit_agent = true;
         animation.enabled = (!cfg.graphics.legacyGpu);
-        panel.background_blur = (!cfg.graphics.legacyGpu);
+        panel.transparency_mode = if cfg.graphics.legacyGpu then "solid" else "soft"; # solid | soft | glass
         font_family = "monospace";
-        shadow.blur = 0;
+        shadow = false;
       };
       notification = lib.mapAttrs (n: v: lib.mkDefault v) {
         enable_daemon = true;
@@ -44,7 +44,7 @@ lib.mkIf (cfg.desktop.enable && (cfg.desktop.shell == "noctalia")) {
         automation = lib.mapAttrs (n: v: lib.mkDefault v) {
           enabled = true;
           order = "random";
-          interval_minutes = 15;
+          interval_seconds = 15*60;
         };
       };
       backdrop.enabled = lib.mkDefault (!cfg.graphics.legacyGpu);
