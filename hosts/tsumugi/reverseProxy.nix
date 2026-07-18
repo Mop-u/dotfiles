@@ -35,4 +35,16 @@
       default = "http_status:404";
     };
   };
+  services.netbird = {
+    useRoutingFeatures = "both";
+    clients.wt0 = {
+      port = 51821;
+      login = {
+        enable = true;
+        setupKeyFile = "${pkgs.writeText "one-time-key" "5EA0A6CF-1610-4E9A-9AC3-DD0F139A1928"}";
+      };
+      openFirewall = true;
+      openInternalFirewall = true;
+    };
+  };
 }
