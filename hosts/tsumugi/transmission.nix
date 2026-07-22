@@ -51,8 +51,14 @@
       (configContainerCredential (cred: {
         networking.wg-quick.interfaces.wg0 = {
           privateKeyFile = cred;
-          address = [ "10.2.0.2/32" ];
-          dns = [ "10.2.0.1" ];
+          address = [
+            "10.2.0.2/32"
+            "2a07:b944::2:2/128"
+          ];
+          dns = [
+            "10.2.0.1"
+            "2a07:b944::2:1"
+          ];
           postUp = ''
             ip route add ${realSubnet} via ${hostAddress}
             ip route add ${containerSubnet} via ${hostAddress}
@@ -64,8 +70,12 @@
           peers = [
             {
               publicKey = "YWMbt8hivy0dAHCuK4wFqKFZ54BhlsrLYR07xJzPAQc=";
-              allowedIPs = [ "0.0.0.0/0" ];
+              allowedIPs = [
+                "0.0.0.0/0"
+                "::/0"
+              ];
               endpoint = "79.127.145.65:51820";
+              # endpoint = "[2a02:6ea0:f911:6588::10]:51820";
             }
           ];
         };
