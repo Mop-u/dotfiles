@@ -53,7 +53,7 @@ lib.mkIf (cfg.desktop.enable && (cfg.desktop.shell == "noctalia")) {
         shadow = false;
       };
       widget.control-center = {
-        custom_image = "${config.programs.noctalia.package}/share/noctalia/assets/images/distros/nixos.svg";
+        custom_image = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         custom_image_colorize = true;
       };
       bar = {
