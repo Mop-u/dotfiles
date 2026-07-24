@@ -9,6 +9,7 @@
   imports = [
     ../../common/os/services/openssh.nix
     ./hardware-configuration.nix
+    ./netbird.nix
   ];
   catppuccin = {
     enable = true;
