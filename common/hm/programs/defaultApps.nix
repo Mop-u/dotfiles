@@ -23,12 +23,12 @@ lib.mkMerge [
     home.packages =
       with pkgs;
       [
-        # GUI apps
-        pinta # Paint.NET-like image editor
+        leaf-markdown
+        pinta
+        plexamp
+        prismlauncher
         proton-vpn
         slack
-        prismlauncher
-        plexamp
         tageditor
       ]
       ++ (lib.optional config.services.shikane.enable config.services.shikane.package);
