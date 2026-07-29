@@ -49,7 +49,7 @@
     openFirewall = true; # 7474
     secretFile = config.sops.secrets."tsumugi/autobrrSecret".path;
     settings = {
-      host = "10.0.4.2";
+      host = "0.0.0.0";
       port = 7474;
     };
   };
