@@ -5,6 +5,9 @@
   lib,
   ...
 }:
+let
+  inherit ((import ./arr/mkPortRemap.nix) { inherit config lib; }) portRemap;
+in
 {
   sops.secrets."tsumugi/transmission" = {
     restartUnits = [ "container@transmission.service" ];
@@ -17,37 +20,22 @@
 
   containers.transmission =
     let
-      realSubnet = "10.0.4.0/24";
-      containerSubnet = "192.168.0.0/16";
-      hostAddress = "192.168.100.10";
-      localAddress = "192.168.100.11";
-      hostPort = 9092;
-      localPort = 9091;
+      id = 100;
+      containerPort = 9091;
+      hostAddress = "192.168.${toString id}.10";
+      localAddress = "192.168.${toString id}.11";
+      hostRoutes = [
+        "100.70.0.0/16" # netbird
+        "10.0.4.0/24" # home subnet
+        "192.168.0.0/16" # container subnet
+      ];
       inherit (config.sidonia.lib) configContainerCredential;
     in
     lib.mkMerge [
-      {
-        autoStart = true;
-        privateNetwork = true;
-        inherit hostAddress;
-        inherit localAddress;
-        forwardPorts = [
-          {
-            containerPort = localPort;
-            hostPort = hostPort;
-            protocol = "tcp";
-          }
-        ];
-        bindMounts."/mnt/media".isReadOnly = false;
-        config = {
-          system = { inherit (config.system) stateVersion; };
-          networking = {
-            firewall.enable = true;
-            useHostResolvConf = lib.mkForce false;
-            nameservers = [ "10.0.4.1" ];
-          };
-        };
-      }
+      (portRemap {
+        inherit id containerPort;
+        hostPort = 9092;
+      })
       (configContainerCredential (cred: {
         networking.wg-quick.interfaces.wg0 = {
           privateKeyFile = cred;
@@ -59,14 +47,8 @@
             "10.2.0.1"
             "2a07:b944::2:1"
           ];
-          postUp = ''
-            ip route add ${realSubnet} via ${hostAddress}
-            ip route add ${containerSubnet} via ${hostAddress}
-          '';
-          preDown = ''
-            ip route delete ${realSubnet}
-            ip route delete ${containerSubnet}
-          '';
+          postUp = lib.concatLines (map (subnet: "ip route add ${subnet} via ${hostAddress}") hostRoutes);
+          preDown = lib.concatLines (map (subnet: "ip route delete ${subnet}") hostRoutes);
           peers = [
             {
               publicKey = "YWMbt8hivy0dAHCuK4wFqKFZ54BhlsrLYR07xJzPAQc=";
@@ -111,11 +93,17 @@
               preallocation = 0;
               trash-can-enabled = false;
               cache-size-mb = 8192; # avoid accessing the disk too much
-              rpc-whitelist-enabled = false;
+              rpc-whitelist-enabled = true;
+              rpc-host-whitelist-enabled = false;
               rpc-authentication-required = true;
               anti-brute-force-enabled = true;
+              rpc-whitelist = lib.concatStringsSep "," [
+                "100.70.*.*"
+                "10.0.4.*"
+                "192.168.*.*"
+              ];
               rpc-bind-address = localAddress;
-              rpc-port = localPort;
+              rpc-port = containerPort;
               download-dir = "/mnt/media/data/torrents";
             };
         };
