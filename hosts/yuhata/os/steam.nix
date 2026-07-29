@@ -9,17 +9,17 @@
   programs.steam = {
     extraEnv = {
       PROTON_ENABLE_NVAPI = 1;
-      PROTON_ENABLE_WAYLAND = null;
+      PROTON_ENABLE_WAYLAND = 1;
       PROTON_ENABLE_HDR = null;
       PROTON_FSR4_UPGRADE = null;
       PROTON_DLSS_UPGRADE = 1;
       PROTON_USE_D7VK = 1;
       PROTON_USE_OPTISCALER = null;
       PROTON_DISCORD_BRIDGE = 1;
-      #PROTON_DXVK_GPLASYNC = 1;
+      PROTON_DXVK_GPLASYNC = 1;
       PROTON_DXVK_LLASYNC = 1; # enables dxvk lowlatency and gplasync
       #WINE_USE_TAKE_FOCUS = 1;
-      #WINE_CPU_TOPOLOGY = "16:0,1,2,3,4,5,6,7,16,17,18,19,20,21,22,23"; # use one CCD
+      WINE_CPU_TOPOLOGY = "16:0,1,2,3,4,5,6,7,16,17,18,19,20,21,22,23"; # use one CCD
       # https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1523177264
       SDL_VIDEODRIVER = null;
       SCB_GAMESCOPE_ARGS = "-f -w 5120 -h 2160 -W 5120 -H 2160 -r 150 --force-grab-cursor";
