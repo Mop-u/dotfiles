@@ -45,14 +45,29 @@
   };
   services.netbird = {
     useRoutingFeatures = "client";
-    clients.wt0 = {
-      port = 51821;
-      login = {
-        enable = true;
-        setupKeyFile = "${pkgs.writeText "one-time-key" "0C185300-F30B-4C4B-8B55-6383B615AA26"}";
+    clients = {
+      sidonia = {
+        port = 51820;
+        login = {
+          enable = true;
+          setupKeyFile = "${pkgs.writeText "one-time-key" "7D99AE7C-B3D2-47F8-BE13-02BA9F66DB92"}";
+        };
+        environment = {
+          NB_MANAGEMENT_URL = "https://netbird.moppu.dev";
+          NB_ADMIN_URL = "https://netbird.moppu.dev";
+        };
+        openFirewall = true;
+        openInternalFirewall = true;
       };
-      openFirewall = true;
-      openInternalFirewall = true;
+      wt0 = {
+        port = 51821;
+        login = {
+          enable = true;
+          setupKeyFile = "${pkgs.writeText "one-time-key" "0C185300-F30B-4C4B-8B55-6383B615AA26"}";
+        };
+        openFirewall = true;
+        openInternalFirewall = true;
+      };
     };
   };
 }
