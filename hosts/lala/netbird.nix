@@ -9,7 +9,6 @@ let
   domain = "moppu.dev";
   netbirdDomain = "netbird.${domain}";
   netbirdUrl = "https://${netbirdDomain}";
-  clientId = "netbird";
   stateDir = "/var/lib/netbird-mgmt";
   enable = true;
   enableNginx = true;
@@ -50,12 +49,14 @@ in
       domain = netbirdDomain;
       # https://github.com/netbirdio/netbird/blob/b65ec8b68a6a1ab8aee162a7b9e5147c0375af68/infrastructure_files/getting-started.sh#L931
       settings = {
-        AUTH_AUTHORITY = "${netbirdUrl}/oauth2";
-        AUTH_CLIENT_ID = clientId;
-        AUTH_AUDIENCE = clientId;
-        AUTH_SUPPORTED_SCOPES = "openid profile email groups";
         NETBIRD_MGMT_API_ENDPOINT = netbirdUrl;
         NETBIRD_MGMT_GRPC_API_ENDPOINT = netbirdUrl;
+        AUTH_AUDIENCE = "netbird-dashboard";
+        AUTH_CLIENT_ID = "netbird-dashboard";
+        AUTH_AUTHORITY = "${netbirdUrl}/oauth2";
+        AUTH_SUPPORTED_SCOPES = "openid profile email groups";
+        AUTH_REDIRECT_URI = "/nb-auth";
+        AUTH_SILENT_REDIRECT_URI = "/nb-silent-auth";
       };
     };
 
@@ -66,16 +67,6 @@ in
       oidcConfigEndpoint = "${netbirdUrl}/oauth2/.well-known/openid-configuration";
       settings = {
         Signal.URI = "${netbirdDomain}:443";
-        HttpConfig.AuthAudience = clientId;
-        IdpManagerConfig.CientConfig.ClientID = clientId;
-        DeviceAuthorizationFlow.ProviderConfig = {
-          Audience = clientId;
-          ClientID = clientId;
-        };
-        PKCEAuthorizationFlow.ProviderConfig = {
-          Audience = clientId;
-          ClientID = clientId;
-        };
         TURNConfig = {
           Secret._secret = coturnPass;
           CredentialsTTL = "12h";
@@ -98,6 +89,11 @@ in
         EmbeddedIdP = {
           Enabled = true;
           DataDir = "${stateDir}/idp";
+          Issuer = "${netbirdUrl}/oauth2";
+          DashboardRedirectURIs = [
+            "${netbirdUrl}/nb-auth"
+            "${netbirdUrl}/nb-silent-auth"
+          ];
         };
         EncryptionKey._secret = idpKey;
       };
@@ -108,6 +104,17 @@ in
   services.nginx.virtualHosts."${netbirdDomain}" = {
     enableACME = true;
     forceSSL = true;
+    locations = {
+      "/oauth2/" = {
+        proxyPass = "http://localhost:${toString config.services.netbird.server.management.port}";
+        extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
+    };
   };
 
   virtualisation.oci-containers.containers.netbird-relay = {
