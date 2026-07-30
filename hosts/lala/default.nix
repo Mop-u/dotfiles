@@ -33,4 +33,10 @@
       openInternalFirewall = true;
     };
   };
+
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/home/hiyama/.config/sops/age/keys.txt";
+  };
 }
