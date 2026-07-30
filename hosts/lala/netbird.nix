@@ -10,19 +10,24 @@ let
   netbirdDomain = "netbird.${domain}";
   netbirdUrl = "https://${netbirdDomain}";
   clientId = "netbird";
+  stateDir = "/var/lib/netbird-mgmt";
   enable = true;
   enableNginx = true;
   coturnPass = config.sops.secrets."lala/netbird/coturnPass".path;
   dataStoreKey = config.sops.secrets."lala/netbird/dataStoreKey".path;
   relaySecret = config.sops.secrets."lala/netbird/relaySecret".path;
   relaySecretEnv = config.sops.secrets."lala/netbird/relaySecretEnv".path;
+  idpKey = config.sops.secrets."lala/netbird/idpKey".path;
 in
 {
   sops.secrets = {
-    "lala/netbird/coturnPass" = { };
+    "lala/netbird/coturnPass" = {
+      owner = config.users.users.turnserver.name;
+    };
     "lala/netbird/dataStoreKey" = { };
     "lala/netbird/relaySecret" = { };
     "lala/netbird/relaySecretEnv" = { };
+    "lala/netbird/idpKey" = { };
   };
 
   services.netbird.server = {
@@ -90,6 +95,11 @@ in
           Secret._secret = relaySecret;
         };
         DataStoreEncryptionKey._secret = dataStoreKey;
+        EmbeddedIdP = {
+          Enabled = true;
+          DataDir = "${stateDir}/idp";
+        };
+        EncryptionKey._secret = idpKey;
       };
     };
   };
