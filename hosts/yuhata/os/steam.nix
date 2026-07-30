@@ -9,7 +9,7 @@
   programs.steam = {
     extraEnv = {
       PROTON_ENABLE_NVAPI = 1;
-      PROTON_ENABLE_WAYLAND = 1;
+      PROTON_ENABLE_WAYLAND = null;
       PROTON_ENABLE_HDR = null;
       PROTON_FSR4_UPGRADE = null;
       PROTON_DLSS_UPGRADE = 1;

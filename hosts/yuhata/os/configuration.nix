@@ -66,14 +66,30 @@
   boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
 
   services.netbird = {
-    clients.wt0 = {
-      port = 51821;
-      login = {
-        enable = true;
-        setupKeyFile = "${pkgs.writeText "one-time-key" "28F1E05B-AB2B-491B-B91E-37D97FDD051F"}";
+    useRoutingFeatures = "client";
+    clients = {
+      sidonia = {
+        port = 51820;
+        login = {
+          enable = true;
+          setupKeyFile = "${pkgs.writeText "one-time-key" "084CBA04-1970-4E48-837A-A89DEAC472E9"}";
+        };
+        environment = {
+          NB_MANAGEMENT_URL = "https://netbird.moppu.dev";
+          NB_ADMIN_URL = "https://netbird.moppu.dev";
+        };
+        openFirewall = true;
+        openInternalFirewall = true;
       };
-      openFirewall = true;
-      openInternalFirewall = true;
+      wt0 = {
+        port = 51821;
+        login = {
+          enable = true;
+          setupKeyFile = "${pkgs.writeText "one-time-key" "28F1E05B-AB2B-491B-B91E-37D97FDD051F"}";
+        };
+        openFirewall = true;
+        openInternalFirewall = true;
+      };
     };
   };
 }
