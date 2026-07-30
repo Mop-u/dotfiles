@@ -94,6 +94,7 @@ in
     };
   };
 
+  security.acme.acceptTerms = true;
   services.nginx.virtualHosts."${netbirdDomain}" = {
     enableACME = true;
     forceSSL = true;
