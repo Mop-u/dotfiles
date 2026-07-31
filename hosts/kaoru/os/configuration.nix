@@ -59,15 +59,6 @@
         openFirewall = true;
         openInternalFirewall = true;
       };
-      wt0 = {
-        port = 51821;
-        login = {
-          enable = true;
-          setupKeyFile = "${pkgs.writeText "one-time-key" "0C185300-F30B-4C4B-8B55-6383B615AA26"}";
-        };
-        openFirewall = true;
-        openInternalFirewall = true;
-      };
     };
   };
 }

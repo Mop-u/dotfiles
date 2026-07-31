@@ -25,7 +25,7 @@ in
       hostAddress = "192.168.${toString id}.10";
       localAddress = "192.168.${toString id}.11";
       hostRoutes = [
-        "100.70.0.0/16" # netbird
+        "100.109.0.0/16" # netbird
         "10.0.4.0/24" # home subnet
         "192.168.0.0/16" # container subnet
       ];
@@ -95,7 +95,7 @@ in
               rpc-authentication-required = true;
               anti-brute-force-enabled = true;
               rpc-whitelist = lib.concatStringsSep "," [
-                "100.70.*.*"
+                "100.109.*.*"
                 "10.0.4.*"
                 "192.168.*.*"
               ];
