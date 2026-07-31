@@ -117,8 +117,6 @@
       "-XX:SurvivorRatio=32"
       "-Dusing.aikars.flags=https://mcflags.emc.gs"
       "-Daikars.new.flags=true"
-      "-Djava.net.preferIPv4Stack=true"
-      "-Djava.net.preferIPv6Addresses=false"
     ];
   };
 }
