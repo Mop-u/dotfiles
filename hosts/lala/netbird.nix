@@ -208,19 +208,24 @@ in
     ];
   };
 
-  services.httpd = {
+  services.nginx = {
     enable = true;
-    virtualHosts.netbird-dashboard = {
-      documentRoot = config.services.netbird.server.dashboard.finalDrv;
-      hostName = netbirdDomain;
+    virtualHosts.${netbirdDomain} = {
       listen = [
         {
           port = dashboardPort;
-          ip = "localhost";
+          addr = "localhost";
         }
       ];
+      root = config.services.netbird.server.dashboard.finalDrv;
+      locations = {
+        "/".tryFiles = "$uri $uri.html $uri/ =404";
+        "= /404.html".extraConfig = ''
+          internal;
+        '';
+      };
       extraConfig = ''
-        ErrorDocument 404 /404.html
+        error_page 404 /404.html;
       '';
     };
   };
