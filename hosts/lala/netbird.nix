@@ -122,6 +122,14 @@ in
     };
   };
 
+  # Keep nginx config for the dashboard but listen on an internal port instead of port 80
+  services.nginx.virtualHosts.${config.services.netbird.server.dashboard.domain}.listen = [
+    {
+      port = dashboardPort;
+      addr = "localhost";
+    }
+  ];
+
   services.netbird.server = {
     enable = true;
     enableNginx = false;
@@ -136,6 +144,7 @@ in
 
     dashboard = {
       domain = netbirdDomain;
+      enableNginx = true;
       # https://github.com/netbirdio/netbird/blob/b65ec8b68a6a1ab8aee162a7b9e5147c0375af68/infrastructure_files/getting-started.sh#L931
       settings = {
         NETBIRD_MGMT_API_ENDPOINT = netbirdUrl;
@@ -206,28 +215,6 @@ in
     environmentFiles = [
       relaySecretEnv
     ];
-  };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts.${netbirdDomain} = {
-      listen = [
-        {
-          port = dashboardPort;
-          addr = "localhost";
-        }
-      ];
-      root = config.services.netbird.server.dashboard.finalDrv;
-      locations = {
-        "/".tryFiles = "$uri $uri.html $uri/ =404";
-        "= /404.html".extraConfig = ''
-          internal;
-        '';
-      };
-      extraConfig = ''
-        error_page 404 /404.html;
-      '';
-    };
   };
 
 }
