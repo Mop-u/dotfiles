@@ -10,8 +10,7 @@ let
   netbirdDomain = "netbird.${domain}";
   netbirdUrl = "https://${netbirdDomain}";
   stateDir = "/var/lib/netbird-mgmt";
-  enable = true;
-  enableNginx = true;
+  dashboardPort = 1234;
   coturnPass = config.sops.secrets."lala/netbird/coturnPass".path;
   dataStoreKey = config.sops.secrets."lala/netbird/dataStoreKey".path;
   relaySecret = config.sops.secrets."lala/netbird/relaySecret".path;
@@ -20,32 +19,112 @@ let
 in
 {
   sops.secrets = {
-    "lala/netbird/coturnPass" = {
-      owner = config.users.users.turnserver.name;
-    };
+    "lala/netbird/coturnPass".owner = config.users.users.turnserver.name;
     "lala/netbird/dataStoreKey" = { };
     "lala/netbird/relaySecret" = { };
     "lala/netbird/relaySecretEnv" = { };
     "lala/netbird/idpKey" = { };
   };
 
+  networking.firewall = {
+    allowedTCPPorts = [
+      80
+      443
+      3478
+      10000
+      33080
+    ];
+    allowedUDPPorts = [
+      3478
+      5349
+      33080
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 40000;
+        to = 40050;
+      }
+    ];
+  };
+
+  security.acme.acceptTerms = true;
+  services.traefik = {
+    enable = true;
+    staticConfigOptions = {
+      entryPoints = {
+        web.address = ":80";
+        websecure.address = ":443";
+      };
+      certificatesResolvers.letsencrypt.acme = {
+        email = "moppu@pm.me";
+        storage = "acme.json";
+        httpChallenge.entryPoint = "web";
+      };
+      log.level = "INFO";
+    };
+    dynamicConfigOptions = {
+      http = {
+        routers = {
+          netbird-dashboard = {
+            rule = "Host(`${netbirdDomain}`)";
+            entryPoints = "websecure";
+            tls.certResolver = "letsencrypt";
+            service = "netbird-dash";
+            priority = 1;
+          };
+          netbird-grpc = {
+            rule = "Host(`${netbirdDomain}`) && (PathPrefix(`/management.ManagementService/`) || PathPrefix(`/management.ProxyService/`))";
+            entryPoints = "websecure";
+            tls.certResolver = "letsencrypt";
+            service = "netbird-grpc";
+            priority = 100;
+          };
+          netbird-signal = {
+            rule = "Host(`${netbirdDomain}`) && PathPrefix(`/signalexchange.SignalExchange/`)";
+            entryPoints = "websecure";
+            tls.certResolver = "letsencrypt";
+            service = "netbird-grpc-signal";
+            priority = 100;
+          };
+          netbird-backend = {
+            rule = "Host(`${netbirdDomain}`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
+            entryPoints = "websecure";
+            tls.certResolver = "letsencrypt";
+            service = "netbird-server";
+            priority = 100;
+          };
+        };
+        services = {
+          netbird-dash.loadBalancer.servers = [
+            { url = "http://localhost:${toString dashboardPort}"; }
+          ];
+          netbird-server.loadBalancer.servers = [
+            { url = "http://localhost:${toString config.services.netbird.server.management.port}"; }
+          ];
+          netbird-grpc.loadBalancer.servers = [
+            { url = "h2c://localhost:${toString config.services.netbird.server.management.port}"; }
+          ];
+          netbird-grpc-signal.loadBalancer.servers = [
+            { url = "h2c://localhost:${toString config.services.netbird.server.signal.port}"; }
+          ];
+        };
+      };
+    };
+  };
+
   services.netbird.server = {
-    inherit enable enableNginx;
+    enable = true;
+    enableNginx = false;
     domain = netbirdDomain;
+    signal.domain = netbirdDomain;
 
     coturn = {
-      inherit enable;
+      enable = true;
       domain = netbirdDomain;
       passwordFile = coturnPass;
     };
 
-    signal = {
-      inherit enable enableNginx;
-      domain = netbirdDomain;
-    };
-
     dashboard = {
-      inherit enable enableNginx;
       domain = netbirdDomain;
       # https://github.com/netbirdio/netbird/blob/b65ec8b68a6a1ab8aee162a7b9e5147c0375af68/infrastructure_files/getting-started.sh#L931
       settings = {
@@ -61,7 +140,6 @@ in
     };
 
     management = {
-      inherit enable enableNginx;
       domain = netbirdDomain;
       turnDomain = netbirdDomain;
       oidcConfigEndpoint = "${netbirdUrl}/oauth2/.well-known/openid-configuration";
@@ -100,23 +178,6 @@ in
     };
   };
 
-  security.acme.acceptTerms = true;
-  services.nginx.virtualHosts."${netbirdDomain}" = {
-    enableACME = true;
-    forceSSL = true;
-    locations = {
-      "/oauth2/" = {
-        proxyPass = "http://localhost:${toString config.services.netbird.server.management.port}";
-        extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        '';
-      };
-    };
-  };
-
   virtualisation.oci-containers.containers.netbird-relay = {
     image = "netbirdio/relay:latest";
     ports = [
@@ -137,24 +198,21 @@ in
     ];
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [
-      80
-      443
-      3478
-      10000
-      33080
-    ];
-    allowedUDPPorts = [
-      3478
-      5349
-      33080
-    ];
-    allowedUDPPortRanges = [
-      {
-        from = 40000;
-        to = 40050;
-      }
-    ];
+  services.httpd = {
+    enable = true;
+    virtualHosts.netbird-dashboard = {
+      documentRoot = config.services.netbird.server.dashboard.finalDrv;
+      hostName = netbirdDomain;
+      listen = [
+        {
+          port = dashboardPort;
+          ip = "localhost";
+        }
+      ];
+      extraConfig = ''
+        ErrorDocument 404 /404.html
+      '';
+    };
   };
+
 }
