@@ -11,6 +11,7 @@ let
   netbirdUrl = "https://${netbirdDomain}";
   stateDir = "/var/lib/netbird-mgmt";
   dashboardPort = 1234;
+  relayPort = 33080;
   coturnPass = config.sops.secrets."lala/netbird/coturnPass".path;
   dataStoreKey = config.sops.secrets."lala/netbird/dataStoreKey".path;
   relaySecret = config.sops.secrets."lala/netbird/relaySecret".path;
@@ -32,12 +33,12 @@ in
       443
       3478
       10000
-      33080
+      relayPort
     ];
     allowedUDPPorts = [
       3478
       5349
-      33080
+      relayPort
     ];
     allowedUDPPortRanges = [
       {
@@ -197,24 +198,45 @@ in
     };
   };
 
-  virtualisation.oci-containers.containers.netbird-relay = {
-    image = "netbirdio/relay:latest";
-    ports = [
-      "33080:33080"
-    ];
-    volumes = [
-      "/var/lib/acme/${netbirdDomain}/:/certs:ro"
-    ];
+  systemd.services.netbird-relay = {
+    enable = true;
+    description = "The relay service for Netbird, a wireguard VPN";
+    documentation = [ "https://netbird.io/docs/" ];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
     environment = {
       NB_LOG_LEVEL = "info";
-      NB_LISTEN_ADDRESS = ":33080";
-      NB_EXPOSED_ADDRESS = "rels://${netbirdDomain}:33080";
-      NB_TLS_CERT_FILE = "/certs/fullchain.pem";
-      NB_TLS_KEY_FILE = "/certs/key.pem";
+      NB_LISTEN_ADDRESS = ":${toString relayPort}";
+      NB_EXPOSED_ADDRESS = "rels://${netbirdDomain}:${toString relayPort}";
+      NB_HEALTH_LISTEN_ADDRESS = ":9999";
+      NB_METRICS_PORT = "9998";
+      NB_TLS_CERT_FILE = "/var/lib/acme/${netbirdDomain}/fullchain.pem";
+      NB_TLS_KEY_FILE = "/var/lib/acme/${netbirdDomain}/key.pem";
     };
-    environmentFiles = [
-      relaySecretEnv
-    ];
+    serviceConfig = {
+      EnvironmentFile = relaySecretEnv;
+      ExecStart = lib.getExe pkgs.netbird-relay;
+      Restart = "always";
+
+      # hardening
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      PrivateMounts = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectSystem = true;
+      RemoveIPC = true;
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+    };
+    stopIfChanged = false;
   };
 
 }
