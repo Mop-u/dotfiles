@@ -72,25 +72,32 @@ in
             service = "netbird-dash";
             priority = 1;
           };
-          netbird-grpc = {
-            rule = "Host(`${netbirdDomain}`) && (PathPrefix(`/management.ManagementService/`) || PathPrefix(`/management.ProxyService/`))";
+          netbird-signal = {
+            rule = "Host(`${netbirdDomain}`) && PathPrefix(`/ws-proxy/signal`)";
             entryPoints = "websecure";
             tls.certResolver = "letsencrypt";
-            service = "netbird-grpc";
+            service = "netbird-signal";
             priority = 100;
           };
-          netbird-signal = {
+          netbird-signal-grpc = {
             rule = "Host(`${netbirdDomain}`) && PathPrefix(`/signalexchange.SignalExchange/`)";
             entryPoints = "websecure";
             tls.certResolver = "letsencrypt";
-            service = "netbird-grpc-signal";
+            service = "netbird-signal-grpc";
             priority = 100;
           };
           netbird-backend = {
-            rule = "Host(`${netbirdDomain}`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
+            rule = "Host(`${netbirdDomain}`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/management`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))";
             entryPoints = "websecure";
             tls.certResolver = "letsencrypt";
             service = "netbird-server";
+            priority = 100;
+          };
+          netbird-backend-grpc = {
+            rule = "Host(`${netbirdDomain}`) && (PathPrefix(`/management.ManagementService/`) || PathPrefix(`/management.ProxyService/`))";
+            entryPoints = "websecure";
+            tls.certResolver = "letsencrypt";
+            service = "netbird-server-grpc";
             priority = 100;
           };
         };
@@ -101,10 +108,13 @@ in
           netbird-server.loadBalancer.servers = [
             { url = "http://localhost:${toString config.services.netbird.server.management.port}"; }
           ];
-          netbird-grpc.loadBalancer.servers = [
+          netbird-server-grpc.loadBalancer.servers = [
             { url = "h2c://localhost:${toString config.services.netbird.server.management.port}"; }
           ];
-          netbird-grpc-signal.loadBalancer.servers = [
+          netbird-signal.loadBalancer.servers = [
+            { url = "http://localhost:${toString config.services.netbird.server.signal.port}"; }
+          ];
+          netbird-signal-grpc.loadBalancer.servers = [
             { url = "h2c://localhost:${toString config.services.netbird.server.signal.port}"; }
           ];
         };
