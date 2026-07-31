@@ -5,7 +5,7 @@ keys:
   - &yuhata age1nkknlcvzre92qcv5c62gw5xxmmexhpumcrqslzs3eqa3ty6xna7qkz6hg3
   - &lala age1cpqgsevvfgk0nnmxacsdcwsrkefd0xcx7wkdlyaqj8vgvfvnm4rq4npjv6
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
+  - path_regex: secrets/*
     key_groups:
       - age:
           - *kaoru

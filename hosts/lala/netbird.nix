@@ -40,13 +40,11 @@ in
       3478
       10000
       relayPort
-      25565
     ];
     allowedUDPPorts = [
       3478
       5349
       relayPort
-      8211
     ];
     allowedUDPPortRanges = [
       {
@@ -82,9 +80,7 @@ in
             priority = 1;
           };
         };
-        services.proxy-tls.loadBalancer.servers = [
-          { address = "localhost:${toString proxyPort}"; }
-        ];
+        services.proxy-tls.loadBalancer.servers = [ { address = "localhost:${toString proxyPort}"; } ];
       };
       http = {
         routers = {
