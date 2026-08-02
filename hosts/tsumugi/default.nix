@@ -35,10 +35,7 @@
         signing.pubKey = "tsumugi:uwel3yZCdN+VwrqZHk+sPD3HtyhgbLISCqUxVnY1uAI=";
         signing.privKeyPath = config.sops.secrets."tsumugi/cacheKey.pem".path;
         ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBidxqGI8eFmemPDR2FAGpApxR4tXgSD6m893JchS2+";
-        hostNames = [
-          "10.0.4.2"
-          "tsumugi.local"
-        ];
+        hostNames = [ "tsumugi.sidon.ia" ];
       };
     };
   };

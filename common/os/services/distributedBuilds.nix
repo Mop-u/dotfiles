@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.sidonia;
-  forEachOtherHost = f: builtins.map f otherHosts;
+  forEachOtherHost = f: map f otherHosts;
 in
 {
   options.sidonia.services.distributedBuilds = with lib; {

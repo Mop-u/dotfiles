@@ -23,7 +23,7 @@
   sidonia = {
     userName = "shinatose";
     ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICw5RRyu1jEMpS5ekIfbdaHtWU/IyZ62LhfqK8xUIjGY shinatose@yure";
-    services.distributedBuilds.client.enable = false;
+    services.distributedBuilds.client.enable = true;
     graphics.legacyGpu = true;
     desktop.enable = true;
     geolocation.enable = true;
