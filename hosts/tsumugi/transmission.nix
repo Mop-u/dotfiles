@@ -12,11 +12,12 @@ in
   sops.secrets."tsumugi/transmission" = {
     restartUnits = [ "container@transmission.service" ];
   };
-  sops.secrets."tsumugi/transmissionwgpk" = {
-    restartUnits = [ "container@transmission.service" ];
-  };
+  # sops.secrets."tsumugi/transmissionwgpk" = {
+  #   restartUnits = [ "container@transmission.service" ];
+  # };
 
-  networking.firewall.allowedTCPPorts = [ 9092 ];
+  networking.firewall.allowedTCPPorts = [ 51413 ];
+  networking.firewall.allowedUDPPorts = [ 51413 ];
 
   containers.transmission =
     let
@@ -35,7 +36,20 @@ in
     lib.mkMerge [
       (portRemap { inherit id containerPort hostPort; })
       {
+        forwardPorts =
+          map
+            (protocol: {
+              containerPort = 51413;
+              hostPort = 51413;
+              inherit protocol;
+            })
+            [
+              "udp"
+              "tcp"
+            ];
         config = {
+          networking.firewall.allowedTCPPorts = [ 51413 ];
+          networking.firewall.allowedUDPPorts = [ 51413 ];
           systemd.services.transmission = {
             serviceConfig = {
               # https://github.com/NixOS/nixpkgs/issues/258793
@@ -85,30 +99,30 @@ in
         services.transmission.credentialsFile = cred;
       }) "transmission" config.sops.secrets."tsumugi/transmission".path)
 
-      (configContainerCredential (cred: {
-        networking.wg-quick.interfaces.wg0.privateKeyFile = cred;
-      }) "wg-quick-wg0" config.sops.secrets."tsumugi/transmissionwgpk".path)
-      {
-        config = {
-          systemd.services.transmission.after = [ "wg-quick-wg0.service" ];
-          networking.wg-quick.interfaces.wg0 = {
-            address = [ "10.2.0.2/32" ];
-            dns = [ "10.2.0.1" ];
-            postUp = lib.concatLines (map (subnet: "ip -4 route add ${subnet} via ${hostAddress}") hostRoutes);
-            preDown = lib.concatLines (map (subnet: "ip -4 route delete ${subnet}") hostRoutes);
-            peers = [
-              {
-                publicKey = "D8Sqlj3TYwwnTkycV08HAlxcXXS3Ura4oamz8rB5ImM=";
-                allowedIPs = [
-                  "0.0.0.0/0"
-                  "::/0"
-                ];
-                endpoint = "103.69.224.4:51820";
-                persistentKeepalive = 25;
-              }
-            ];
-          };
-        };
-      }
+      # (configContainerCredential (cred: {
+      #   networking.wg-quick.interfaces.wg0.privateKeyFile = cred;
+      # }) "wg-quick-wg0" config.sops.secrets."tsumugi/transmissionwgpk".path)
+      # {
+      #   config = {
+      #     systemd.services.transmission.after = [ "wg-quick-wg0.service" ];
+      #     networking.wg-quick.interfaces.wg0 = {
+      #       address = [ "10.2.0.2/32" ];
+      #       dns = [ "10.2.0.1" ];
+      #       postUp = lib.concatLines (map (subnet: "ip -4 route add ${subnet} via ${hostAddress}") hostRoutes);
+      #       preDown = lib.concatLines (map (subnet: "ip -4 route delete ${subnet}") hostRoutes);
+      #       peers = [
+      #         {
+      #           publicKey = "D8Sqlj3TYwwnTkycV08HAlxcXXS3Ura4oamz8rB5ImM=";
+      #           allowedIPs = [
+      #             "0.0.0.0/0"
+      #             "::/0"
+      #           ];
+      #           endpoint = "103.69.224.4:51820";
+      #           persistentKeepalive = 25;
+      #         }
+      #       ];
+      #     };
+      #   };
+      # }
     ];
 }
