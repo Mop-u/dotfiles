@@ -222,93 +222,155 @@ in
     };
   };
 
-  systemd.services = {
-    netbird-relay = {
-      enable = true;
-      description = "The relay service for Netbird, a wireguard VPN";
-      documentation = [ "https://netbird.io/docs/" ];
-      after = [
-        "network.target"
-        "netbird-management.service"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        NB_LOG_LEVEL = "info";
-        NB_LISTEN_ADDRESS = ":${toString relayPort}";
-        NB_EXPOSED_ADDRESS = "rels://${netbirdDomain}:${toString relayPort}";
-        NB_HEALTH_LISTEN_ADDRESS = ":9999";
-        NB_METRICS_PORT = "9998";
-        NB_TLS_CERT_FILE = "/var/lib/acme/${netbirdDomain}/fullchain.pem";
-        NB_TLS_KEY_FILE = "/var/lib/acme/${netbirdDomain}/key.pem";
-      };
-      serviceConfig = {
-        EnvironmentFile = relaySecretEnv;
-        ExecStart = lib.getExe unstable.netbird-relay;
-        Restart = "always";
-
-        # hardening
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateMounts = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectSystem = true;
-        RemoveIPC = true;
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-      };
-      stopIfChanged = false;
+  systemd.services.netbird-proxy = {
+    enable = true;
+    description = "The proxy service for Netbird, a wireguard VPN";
+    documentation = [ "https://netbird.io/docs/" ];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      NB_PROXY_DOMAIN = "proxy.moppu.dev";
+      NB_PROXY_MANAGEMENT_ADDRESS = "http://localhost:${toString config.services.netbird.server.management.port}";
+      NB_PROXY_ALLOW_INSECURE = "true";
+      NB_PROXY_ADDRESS = ":${toString proxyPort}";
+      NB_PROXY_ACME_CERTIFICATES = "true";
+      NB_PROXY_ACME_CHALLENGE_TYPE = "tls-alpn-01";
+      NB_PROXY_CERTIFICATE_DIRECTORY = "/var/lib/proxy-certs";
+      NB_PROXY_LOG_LEVEL = "info";
     };
-    netbird-proxy = {
-      enable = true;
-      description = "The proxy service for Netbird, a wireguard VPN";
-      documentation = [ "https://netbird.io/docs/" ];
-      after = [
-        "network.target"
-        "netbird-management.service"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        NB_PROXY_DOMAIN = "proxy.moppu.dev";
-        NB_PROXY_MANAGEMENT_ADDRESS = "http://localhost:${toString config.services.netbird.server.management.port}";
-        NB_PROXY_ALLOW_INSECURE = "true";
-        NB_PROXY_ADDRESS = ":${toString proxyPort}";
-        NB_PROXY_ACME_CERTIFICATES = "true";
-        NB_PROXY_ACME_CHALLENGE_TYPE = "tls-alpn-01";
-        NB_PROXY_CERTIFICATE_DIRECTORY = "/var/lib/proxy-certs";
-        NB_PROXY_LOG_LEVEL = "info";
-      };
-      serviceConfig = {
-        EnvironmentFile = proxySecretEnv;
-        ExecStart = lib.getExe unstable.netbird-proxy;
-        Restart = "always";
+    serviceConfig = {
+      EnvironmentFile = proxySecretEnv;
+      ExecStart = lib.getExe unstable.netbird-proxy;
+      Restart = "always";
 
-        # hardening
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateMounts = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectSystem = true;
-        RemoveIPC = true;
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-      };
-      stopIfChanged = false;
+      # hardening
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      NoNewPrivileges = true;
+      PrivateMounts = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectSystem = true;
+      RemoveIPC = true;
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
     };
+    stopIfChanged = false;
   };
+
+  networking.nat =
+    let
+      wildcard = if config.networking.nftables.enable then "*" else "+";
+    in
+    {
+      enable = true;
+      enableIPv6 = true;
+      internalInterfaces = [ "ve-${wildcard}" ];
+      externalInterface = "enxfa163ef42698";
+    };
+
+  containers =
+    let
+      addrMap = id: {
+        privateNetwork = true;
+        hostAddress = "192.168.${toString id}.10";
+        localAddress = "192.168.${toString id}.11";
+        hostAddress6 = "fc00::${toString id}:10";
+        localAddress6 = "fc00::${toString id}:11";
+      };
+      commonConfig = {
+        config = {
+          system.stateVersion = "26.05";
+          networking = {
+            firewall.enable = true;
+            useHostResolvConf = lib.mkForce false;
+            nameservers = [
+              "2620:fe::10"
+              "9.9.9.10"
+            ];
+          };
+        };
+      };
+    in
+    {
+      netbird-relay =
+        let
+          id = 1;
+        in
+        lib.mkMerge [
+          commonConfig
+          (addrMap id)
+          {
+            autoStart = true;
+            bindMounts."/var/lib/acme/${netbirdDomain}".isReadOnly = true;
+            bindMounts."${relaySecretEnv}".isReadOnly = true;
+            forwardPorts = [
+              {
+                containerPort = relayPort;
+                hostPort = relayPort;
+                protocol = "tcp";
+              }
+              {
+                containerPort = relayPort;
+                hostPort = relayPort;
+                protocol = "udp";
+              }
+            ];
+            config = {
+              networking.firewall = {
+                allowedTCPPorts = [ relayPort ];
+                allowedUDPPorts = [ relayPort ];
+              };
+              systemd.services.netbird-relay = {
+                enable = true;
+                description = "The relay service for Netbird, a wireguard VPN";
+                documentation = [ "https://netbird.io/docs/" ];
+                after = [
+                  "network.target"
+                  "netbird-management.service"
+                ];
+                wantedBy = [ "multi-user.target" ];
+                environment = {
+                  NB_LOG_LEVEL = "info";
+                  NB_LISTEN_ADDRESS = ":${toString relayPort}";
+                  NB_EXPOSED_ADDRESS = "rels://${netbirdDomain}:${toString relayPort}";
+                  NB_TLS_CERT_FILE = "/var/lib/acme/${netbirdDomain}/fullchain.pem";
+                  NB_TLS_KEY_FILE = "/var/lib/acme/${netbirdDomain}/key.pem";
+                };
+                serviceConfig = {
+                  EnvironmentFile = relaySecretEnv;
+                  ExecStart = lib.getExe unstable.netbird-relay;
+                  Restart = "always";
+
+                  # hardening
+                  LockPersonality = true;
+                  MemoryDenyWriteExecute = true;
+                  NoNewPrivileges = true;
+                  PrivateMounts = true;
+                  ProtectClock = true;
+                  ProtectControlGroups = true;
+                  ProtectHome = true;
+                  ProtectHostname = true;
+                  ProtectKernelLogs = true;
+                  ProtectKernelModules = true;
+                  ProtectKernelTunables = true;
+                  ProtectSystem = true;
+                  RemoveIPC = true;
+                  RestrictNamespaces = true;
+                  RestrictRealtime = true;
+                  RestrictSUIDSGID = true;
+                };
+                stopIfChanged = false;
+              };
+            };
+          }
+        ];
+    };
+
 }
