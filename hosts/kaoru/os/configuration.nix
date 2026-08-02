@@ -32,6 +32,7 @@
   sidonia = {
     userName = "hazama";
     ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINfNV3Z/LI/4ItskdADIC4JWqfW3Wae4TRK/Ahos5TgB hazama@kaoru";
+    netbird.oneTimeKey = "7D99AE7C-B3D2-47F8-BE13-02BA9F66DB92";
     text.comicCode.enable = true;
     services.distributedBuilds.client.enable = false;
     isLaptop = true;
@@ -42,24 +43,5 @@
     defaultSopsFile = ../../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     age.keyFile = "/home/${config.sidonia.userName}/.config/sops/age/keys.txt";
-  };
-  services.netbird = {
-    useRoutingFeatures = "client";
-    package = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.netbird;
-    clients = {
-      sidonia = {
-        port = 51820;
-        login = {
-          enable = true;
-          setupKeyFile = "${pkgs.writeText "one-time-key" "7D99AE7C-B3D2-47F8-BE13-02BA9F66DB92"}";
-        };
-        environment = {
-          NB_MANAGEMENT_URL = "https://netbird.moppu.dev";
-          NB_ADMIN_URL = "https://netbird.moppu.dev";
-        };
-        openFirewall = true;
-        openInternalFirewall = true;
-      };
-    };
   };
 }

@@ -6,7 +6,8 @@
 }:
 {
   imports = [
-    ./coreServices.nix
-    ./displayManager.nix
+    ./vr.nix
+    ./distributedBuilds.nix
+    ./netbird.nix
   ];
 }

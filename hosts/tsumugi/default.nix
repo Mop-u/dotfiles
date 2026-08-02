@@ -13,7 +13,6 @@
     ./hardware-configuration.nix
     ./iperf.nix
     ./networkMounts.nix
-    ./reverseProxy.nix
     ./transmission.nix
   ];
   networking.hostName = "tsumugi";
@@ -29,6 +28,7 @@
   system.stateVersion = "24.05";
   sidonia = {
     userName = "shiraui";
+    netbird.oneTimeKey = "55E39BBC-B480-4272-9577-B7046E432A3F";
     services.distributedBuilds = {
       host = {
         enable = true;

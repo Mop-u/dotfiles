@@ -26,6 +26,7 @@
   sidonia = {
     userName = "midorikawa";
     ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDCi7RR4mckEAgC7mVNFHNvzTg3JwvcKYrYKXqf1Hew midorikawa@yuhata";
+    netbird.oneTimeKey = "084CBA04-1970-4E48-837A-A89DEAC472E9";
     services = {
       distributedBuilds.client.enable = false;
       vr.enable = false;
@@ -65,23 +66,4 @@
   ];
   boot.kernelModules = [ "digimend" ]; # for huion 540 tablet
 
-  services.netbird = {
-    useRoutingFeatures = "client";
-    package = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.netbird;
-    clients = {
-      sidonia = {
-        port = 51820;
-        login = {
-          enable = true;
-          setupKeyFile = "${pkgs.writeText "one-time-key" "084CBA04-1970-4E48-837A-A89DEAC472E9"}";
-        };
-        environment = {
-          NB_MANAGEMENT_URL = "https://netbird.moppu.dev";
-          NB_ADMIN_URL = "https://netbird.moppu.dev";
-        };
-        openFirewall = true;
-        openInternalFirewall = true;
-      };
-    };
-  };
 }

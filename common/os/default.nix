@@ -15,5 +15,6 @@ in
     ./programs
     ./services
     ./tweaks
+    ./modules
   ];
 }
