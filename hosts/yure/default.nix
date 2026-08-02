@@ -28,7 +28,7 @@
     geolocation.enable = true;
     text.comicCode.enable = true;
     isLaptop = true;
-    netbird.oneTimeKey = "1F3C7497-74AE-4194-8DEF-C7E0D3ECBC8F";
+    netbird.oneTimeKey = "912E6CF4-8BC1-41CB-9549-110861084EA9";
   };
   services.xserver.xkb = {
     layout = "gb,us";
