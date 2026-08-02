@@ -8,6 +8,7 @@
 {
   services.netbird = {
     useRoutingFeatures = "both";
+    package = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.netbird;
     clients = {
       sidonia = {
         port = 51820;
