@@ -36,25 +36,7 @@ in
       (portRemap { inherit id containerPort hostPort; })
       {
         config = {
-          networking.wg-quick.interfaces.wg0 = {
-            address = [ "10.2.0.2/32" ];
-            dns = [ "10.2.0.1" ];
-            postUp = lib.concatLines (map (subnet: "ip -4 route add ${subnet} via ${hostAddress}") hostRoutes);
-            preDown = lib.concatLines (map (subnet: "ip -4 route delete ${subnet}") hostRoutes);
-            peers = [
-              {
-                publicKey = "D8Sqlj3TYwwnTkycV08HAlxcXXS3Ura4oamz8rB5ImM=";
-                allowedIPs = [
-                  "0.0.0.0/0"
-                  "::/0"
-                ];
-                endpoint = "103.69.224.4:51820";
-                persistentKeepalive = 25;
-              }
-            ];
-          };
           systemd.services.transmission = {
-            after = [ "wg-quick-wg0.service" ];
             serviceConfig = {
               # https://github.com/NixOS/nixpkgs/issues/258793
               RootDirectoryStartOnly = lib.mkForce null;
@@ -73,8 +55,8 @@ in
               in
               {
                 # https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md
-                speed-limit-up = mbits 3;
-                speed-limit-down = mbits 10;
+                speed-limit-up = mbits 10;
+                speed-limit-down = mbits 60;
                 speed-limit-up-enabled = speed-limit-enabled;
                 speed-limit-down-enabled = speed-limit-enabled;
                 download-queue-enabled = false;
@@ -100,10 +82,33 @@ in
         };
       }
       (configContainerCredential (cred: {
-        networking.wg-quick.interfaces.wg0.privateKeyFile = cred;
-      }) "wg-quick-wg0" config.sops.secrets."tsumugi/transmissionwgpk".path)
-      (configContainerCredential (cred: {
         services.transmission.credentialsFile = cred;
       }) "transmission" config.sops.secrets."tsumugi/transmission".path)
+
+      (configContainerCredential (cred: {
+        networking.wg-quick.interfaces.wg0.privateKeyFile = cred;
+      }) "wg-quick-wg0" config.sops.secrets."tsumugi/transmissionwgpk".path)
+      {
+        config = {
+          systemd.services.transmission.after = [ "wg-quick-wg0.service" ];
+          networking.wg-quick.interfaces.wg0 = {
+            address = [ "10.2.0.2/32" ];
+            dns = [ "10.2.0.1" ];
+            postUp = lib.concatLines (map (subnet: "ip -4 route add ${subnet} via ${hostAddress}") hostRoutes);
+            preDown = lib.concatLines (map (subnet: "ip -4 route delete ${subnet}") hostRoutes);
+            peers = [
+              {
+                publicKey = "D8Sqlj3TYwwnTkycV08HAlxcXXS3Ura4oamz8rB5ImM=";
+                allowedIPs = [
+                  "0.0.0.0/0"
+                  "::/0"
+                ];
+                endpoint = "103.69.224.4:51820";
+                persistentKeepalive = 25;
+              }
+            ];
+          };
+        };
+      }
     ];
 }
