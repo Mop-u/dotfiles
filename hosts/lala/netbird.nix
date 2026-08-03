@@ -232,6 +232,7 @@ in
       NB_PROXY_DOMAIN = "proxy.moppu.dev";
       NB_PROXY_MANAGEMENT_ADDRESS = "http://localhost:${toString config.services.netbird.server.management.port}";
       NB_PROXY_ALLOW_INSECURE = "true";
+      NB_PROXY_PRIVATE = "true";
       NB_PROXY_ADDRESS = ":${toString proxyPort}";
       NB_PROXY_ACME_CERTIFICATES = "true";
       NB_PROXY_ACME_CHALLENGE_TYPE = "tls-alpn-01";
