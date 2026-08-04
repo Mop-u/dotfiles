@@ -14,6 +14,7 @@ let
   dashboardPort = 1234;
   relayPort = 33080;
   proxyPort = 8443;
+  crowdsecPort = 32487;
   coturnPass = config.sops.secrets."lala/netbird/coturnPass".path;
   dataStoreKey = config.sops.secrets."lala/netbird/dataStoreKey".path;
   relaySecret = config.sops.secrets."lala/netbird/relaySecret".path;
@@ -21,6 +22,7 @@ let
   proxySecret = config.sops.secrets."lala/netbird/proxySecret".path;
   proxySecretEnv = config.sops.secrets."lala/netbird/proxySecretEnv".path;
   idpKey = config.sops.secrets."lala/netbird/idpKey".path;
+  crowdsecLAPI = config.sops.secrets."lala/netbird/crowdsecLAPI".path;
 in
 {
   sops.secrets = {
@@ -31,6 +33,7 @@ in
     "lala/netbird/proxySecret" = { };
     "lala/netbird/proxySecretEnv" = { };
     "lala/netbird/idpKey" = { };
+    "lala/netbird/crowdsecLAPI".owner = config.users.users.crowdsec.name;
   };
 
   networking.firewall = {
@@ -238,6 +241,7 @@ in
       NB_PROXY_ACME_CHALLENGE_TYPE = "tls-alpn-01";
       NB_PROXY_CERTIFICATE_DIRECTORY = "/var/lib/proxy-certs";
       NB_PROXY_LOG_LEVEL = "info";
+      NB_PROXY_CROWDSEC_API_URL = "http://127.0.0.1:${toString crowdsecPort}";
     };
     serviceConfig = {
       EnvironmentFile = proxySecretEnv;
@@ -373,5 +377,39 @@ in
           }
         ];
     };
-
+  services.crowdsec =
+    let
+      cfg = config.services.crowdsec;
+    in
+    {
+      enable = true;
+      autoUpdateService = true;
+      openFirewall = false; # using local api
+      settings = {
+        general = {
+          prometheus.enabled = false;
+          api.server = {
+            enable = true;
+            listen_uri = "127.0.0.1:${toString crowdsecPort}";
+            trusted_ips = [
+              "127.0.0.1"
+              "::1"
+            ];
+          };
+        };
+        lapi.credentialsFile = crowdsecLAPI;
+      };
+      hub.collections = [ "crowdsecurity/linux" ];
+      localConfig.acquisitions = [
+        {
+          journalctl_filter = [
+            "_SYSTEMD_UNIT=sshd.service"
+          ];
+          labels = {
+            type = "syslog";
+          };
+          source = "journalctl";
+        }
+      ];
+    };
 }
