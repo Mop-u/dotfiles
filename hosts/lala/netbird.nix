@@ -15,14 +15,28 @@ let
   relayPort = 33080;
   proxyPort = 8443;
   crowdsecPort = 32487;
+  crowdsecURI = "localhost:${toString crowdsecPort}";
   coturnPass = config.sops.secrets."lala/netbird/coturnPass".path;
-  dataStoreKey = config.sops.secrets."lala/netbird/dataStoreKey".path;
-  relaySecret = config.sops.secrets."lala/netbird/relaySecret".path;
   relaySecretEnv = config.sops.secrets."lala/netbird/relaySecretEnv".path;
-  proxySecret = config.sops.secrets."lala/netbird/proxySecret".path;
-  proxySecretEnv = config.sops.secrets."lala/netbird/proxySecretEnv".path;
-  idpKey = config.sops.secrets."lala/netbird/idpKey".path;
-  crowdsecLAPI = config.sops.secrets."lala/netbird/crowdsecLAPI".path;
+  hardening = {
+    # for systemd services (copied from netbird-management nixos module)
+    LockPersonality = true;
+    MemoryDenyWriteExecute = true;
+    NoNewPrivileges = true;
+    PrivateMounts = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHome = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectSystem = true;
+    RemoveIPC = true;
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+  };
 in
 {
   sops.secrets = {
@@ -30,10 +44,10 @@ in
     "lala/netbird/dataStoreKey" = { };
     "lala/netbird/relaySecret" = { };
     "lala/netbird/relaySecretEnv" = { };
-    "lala/netbird/proxySecret" = { };
     "lala/netbird/proxySecretEnv" = { };
     "lala/netbird/idpKey" = { };
-    "lala/netbird/crowdsecLAPI".owner = config.users.users.crowdsec.name;
+    "lala/netbird/crowdsecLAPI" = { };
+    "lala/netbird/crowdsecCAPI".owner = config.users.users.crowdsec.name;
   };
 
   networking.firewall = {
@@ -208,9 +222,9 @@ in
         Relay = {
           Addresses = [ "rels://${netbirdDomain}:33080" ];
           CredentialsTTL = "24h";
-          Secret._secret = relaySecret;
+          Secret._secret = config.sops.secrets."lala/netbird/relaySecret".path;
         };
-        DataStoreEncryptionKey._secret = dataStoreKey;
+        DataStoreEncryptionKey._secret = config.sops.secrets."lala/netbird/dataStoreKey".path;
         EmbeddedIdP = {
           Enabled = true;
           DataDir = "${stateDir}/idp";
@@ -220,7 +234,7 @@ in
             "${netbirdUrl}/nb-silent-auth"
           ];
         };
-        EncryptionKey._secret = idpKey;
+        EncryptionKey._secret = config.sops.secrets."lala/netbird/idpKey".path;
       };
     };
   };
@@ -241,30 +255,12 @@ in
       NB_PROXY_ACME_CHALLENGE_TYPE = "tls-alpn-01";
       NB_PROXY_CERTIFICATE_DIRECTORY = "/var/lib/proxy-certs";
       NB_PROXY_LOG_LEVEL = "info";
-      NB_PROXY_CROWDSEC_API_URL = "http://127.0.0.1:${toString crowdsecPort}";
+      NB_PROXY_CROWDSEC_API_URL = "http://${crowdsecURI}";
     };
-    serviceConfig = {
-      EnvironmentFile = proxySecretEnv;
+    serviceConfig = hardening // {
+      EnvironmentFile = config.sops.secrets."lala/netbird/proxySecretEnv".path;
       ExecStart = lib.getExe unstable.netbird-proxy;
       Restart = "always";
-
-      # hardening
-      LockPersonality = true;
-      MemoryDenyWriteExecute = true;
-      NoNewPrivileges = true;
-      PrivateMounts = true;
-      ProtectClock = true;
-      ProtectControlGroups = true;
-      ProtectHome = true;
-      ProtectHostname = true;
-      ProtectKernelLogs = true;
-      ProtectKernelModules = true;
-      ProtectKernelTunables = true;
-      ProtectSystem = true;
-      RemoveIPC = true;
-      RestrictNamespaces = true;
-      RestrictRealtime = true;
-      RestrictSUIDSGID = true;
     };
     stopIfChanged = false;
   };
@@ -348,28 +344,10 @@ in
                   NB_TLS_CERT_FILE = "/var/lib/acme/${netbirdDomain}/fullchain.pem";
                   NB_TLS_KEY_FILE = "/var/lib/acme/${netbirdDomain}/key.pem";
                 };
-                serviceConfig = {
+                serviceConfig = hardening // {
                   EnvironmentFile = relaySecretEnv;
                   ExecStart = lib.getExe unstable.netbird-relay;
                   Restart = "always";
-
-                  # hardening
-                  LockPersonality = true;
-                  MemoryDenyWriteExecute = true;
-                  NoNewPrivileges = true;
-                  PrivateMounts = true;
-                  ProtectClock = true;
-                  ProtectControlGroups = true;
-                  ProtectHome = true;
-                  ProtectHostname = true;
-                  ProtectKernelLogs = true;
-                  ProtectKernelModules = true;
-                  ProtectKernelTunables = true;
-                  ProtectSystem = true;
-                  RemoveIPC = true;
-                  RestrictNamespaces = true;
-                  RestrictRealtime = true;
-                  RestrictSUIDSGID = true;
                 };
                 stopIfChanged = false;
               };
@@ -377,39 +355,51 @@ in
           }
         ];
     };
-  services.crowdsec =
-    let
-      cfg = config.services.crowdsec;
-    in
-    {
-      enable = true;
-      autoUpdateService = true;
-      openFirewall = false; # using local api
-      settings = {
-        general = {
-          prometheus.enabled = false;
-          api.server = {
-            enable = true;
-            listen_uri = "127.0.0.1:${toString crowdsecPort}";
-            trusted_ips = [
-              "127.0.0.1"
-              "::1"
-            ];
-          };
-        };
-        lapi.credentialsFile = crowdsecLAPI;
-      };
-      hub.collections = [ "crowdsecurity/linux" ];
-      localConfig.acquisitions = [
-        {
-          journalctl_filter = [
-            "_SYSTEMD_UNIT=sshd.service"
+
+  sops.templates."crowdsec_lapi.yaml" = {
+    owner = config.users.users.crowdsec.name;
+    content = ''
+      url: http://${crowdsecURI}
+      ${config.sops.placeholder."lala/netbird/crowdsecLAPI"}
+    '';
+  };
+  services.crowdsec = {
+    enable = true;
+    autoUpdateService = true;
+    openFirewall = false; # using local api
+    settings = {
+      general = {
+        prometheus.enabled = false;
+        api.server = {
+          enable = true;
+          listen_uri = crowdsecURI;
+          trusted_ips = [
+            "127.0.0.1"
+            "::1"
           ];
-          labels = {
-            type = "syslog";
-          };
-          source = "journalctl";
-        }
-      ];
+        };
+      };
+      lapi.credentialsFile = config.sops.templates."crowdsec_lapi.yaml".path;
+      capi.credentialsFile = config.sops.secrets."lala/netbird/crowdsecCAPI".path;
+      console.configuration = {
+        share_context = true;
+        share_custom = true;
+        share_manual_decisions = true;
+        share_tainted = true;
+      };
     };
+    hub.collections = [ "crowdsecurity/linux" ];
+    localConfig.acquisitions = [
+      # Need at least one data source for the service to start
+      {
+        journalctl_filter = [
+          "_SYSTEMD_UNIT=sshd.service"
+        ];
+        labels = {
+          type = "syslog";
+        };
+        source = "journalctl";
+      }
+    ];
+  };
 }
