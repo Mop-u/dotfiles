@@ -1,4 +1,5 @@
 {
+  inputs,
   osConfig,
   config,
   pkgs,
@@ -12,6 +13,7 @@ in
 lib.mkIf (cfg.desktop.enable && (cfg.desktop.shell == "noctalia")) {
   programs.noctalia = {
     enable = true;
+    package = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia;
     systemd.enable = lib.mkDefault true;
     settings = {
       weather = lib.mapAttrs (n: v: lib.mkDefault v) {
@@ -44,7 +46,7 @@ lib.mkIf (cfg.desktop.enable && (cfg.desktop.shell == "noctalia")) {
         automation = lib.mapAttrs (n: v: lib.mkDefault v) {
           enabled = true;
           order = "random";
-          interval_seconds = 15*60;
+          interval_seconds = 15 * 60;
         };
       };
       backdrop.enabled = lib.mkDefault (!cfg.graphics.legacyGpu);
