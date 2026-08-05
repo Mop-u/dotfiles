@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -15,6 +16,7 @@ in
     };
     programs.noctalia-greeter = {
       enable = lib.mkDefault true;
+      package = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter;
       settings.cursor =
         with config.catppuccin;
         lib.mkIf enable {
