@@ -46,6 +46,17 @@ lib.mkIf (cfg.desktop.enable && (cfg.desktop.compositor == "niri")) {
 
         input = {
           warp-mouse-to-focus._props.mode = lib.mkDefault "center-xy";
+          mouse.accel-profile = "flat";
+          touchpad = {
+            click-method = "clickfinger";
+            drag = true;
+            dwt = [ ];
+            dwtp = [ ];
+            natural-scroll = [ ];
+            scroll-method = "two-finger";
+            tap = [ ];
+            tap-button-map = "left-right-middle";
+          };
         };
 
         xwayland-satellite.path = lib.mkDefault (lib.getExe pkgs.xwayland-satellite-unstable);
