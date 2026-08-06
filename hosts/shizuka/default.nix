@@ -15,6 +15,7 @@
   sidonia = {
     userName = "hoshijiro";
     ssh.pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGebQDOjFJrLRI/kxToxRVVYZo8GQWhYy/TW/dXoYcQn hoshijiro@shizuka";
+    netbird.oneTimeKey = "1EFA277A-53A6-4531-A104-FB6C0D766837";
     services.distributedBuilds.client.enable = false;
     desktop.enable = true;
     geolocation.enable = true;
