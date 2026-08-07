@@ -63,6 +63,8 @@
         directory = "/mnt/media/data/media/bandcampsync";
         runDailyAt = 3;
         skipHidden = true;
+        syncIgnoreFile = true;
+        skipItemIndex = true;
       };
     };
   };
