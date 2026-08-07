@@ -12,7 +12,10 @@ lib.mkMerge [
   (lib.mkIf cfg.desktop.enable {
     programs = {
       discord.enable = lib.mkDefault true;
-      vesktop.enable = lib.mkDefault true;
+      vesktop = {
+        enable = lib.mkDefault true;
+        vencord.useSystem = lib.mkDefault true;
+      };
       obs-studio = {
         enable = lib.mkDefault true;
         plugins = with pkgs.obs-studio-plugins; [
