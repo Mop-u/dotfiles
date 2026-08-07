@@ -47,7 +47,16 @@ in
       };
       format = lib.mkOption {
         description = "Media format to download";
-        type = lib.types.str;
+        type = lib.types.enum [
+          "mp3-v0"
+          "mp3-320"
+          "flac"
+          "aac-hi"
+          "aiff-lossless"
+          "vorbis"
+          "alac"
+          "wav"
+        ];
         default = "flac";
       };
       runDailyAt = lib.mkOption {
