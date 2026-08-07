@@ -172,11 +172,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1786107696,
-        "narHash": "sha256-h/qbgdOU3BS6okq/kHS1+zqK/WNYbQvZgwuaKMPUyoo=",
+        "lastModified": 1786116588,
+        "narHash": "sha256-umh83wRIobnUQmvxwdBXJALmBhGtmTZEgebJfHi0aoQ=",
         "owner": "Mop-u",
         "repo": "moppkgs",
-        "rev": "125c16ac902766218dfd8945129fc221f198e97d",
+        "rev": "4c8511e9b44fa01cb33e5e1fd363e6fc9076da4e",
         "type": "github"
       },
       "original": {
