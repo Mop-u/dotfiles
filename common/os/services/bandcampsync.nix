@@ -157,6 +157,7 @@ in
           User = cfg.user;
           Group = cfg.group;
           ExecStart = "${cfg.package}/bin/bandcampsync-service";
+          Restart = "always";
         };
       };
     };
