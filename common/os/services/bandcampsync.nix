@@ -113,40 +113,46 @@ in
     users.groups = lib.optionalAttrs (cfg.group == "bandcampsync") {
       bandcampsync = { };
     };
-    systemd.services.bandcampsync = {
-      enable = true;
-      description = "Automatic downloader for bandcamp purchases";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      environment =
-        let
-          boolToDigit = true': if true' then "1" else "0";
-        in
-        {
-          COOKIES_FILE = cfg.settings.cookies;
-          DIRECTORY = cfg.settings.directory;
-          IGNORES_FILE = cfg.settings.ignoreFile;
-          IGNORE = lib.concatStringsSep " " cfg.settings.ignore;
-          FORMAT = cfg.settings.format;
-          RUN_DAILY_AT = toString cfg.settings.runDailyAt;
-          TEMP_DIR = cfg.settings.tempDir;
-          NOTIFY_URL = cfg.settings.notifyUrl;
-          UNTIL_DATE = cfg.settings.untilDate;
-          DRY_RUN = lib.boolToString cfg.settings.dryRun;
-          MAX_RETRIES = toString cfg.settings.maxRetries;
-          RETRY_WAIT = toString cfg.settings.retryWait;
-          CONCURRENCY = toString cfg.settings.concurrency;
-          SKIP_ITEM_INDEX = boolToDigit cfg.settings.skipItemIndex;
-          SYNC_IGNORE_FILE = boolToDigit cfg.settings.syncIgnoreFile;
-          SKIP_HIDDEN = boolToDigit cfg.settings.skipHidden;
-          EXIT_AFTER_RUN = "0";
-          TZ = config.time.timeZone or "UTC";
-        }
-        // cfg.extraEnv;
-      serviceConfig = {
-        User = cfg.user;
-        Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/bandcampsync-service";
+    systemd = {
+      tmpfiles.rules = [
+        "d ${cfg.stateDir} 0700 ${cfg.user} ${cfg.group} -"
+        "d ${cfg.settings.directory} 0755 ${cfg.user} ${cfg.group} -"
+      ];
+      services.bandcampsync = {
+        enable = true;
+        description = "Automatic downloader for bandcamp purchases";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        environment =
+          let
+            boolToDigit = true': if true' then "1" else "0";
+          in
+          {
+            COOKIES_FILE = cfg.settings.cookies;
+            DIRECTORY = cfg.settings.directory;
+            IGNORES_FILE = cfg.settings.ignoreFile;
+            IGNORE = lib.concatStringsSep " " cfg.settings.ignore;
+            FORMAT = cfg.settings.format;
+            RUN_DAILY_AT = toString cfg.settings.runDailyAt;
+            TEMP_DIR = cfg.settings.tempDir;
+            NOTIFY_URL = cfg.settings.notifyUrl;
+            UNTIL_DATE = cfg.settings.untilDate;
+            DRY_RUN = lib.boolToString cfg.settings.dryRun;
+            MAX_RETRIES = toString cfg.settings.maxRetries;
+            RETRY_WAIT = toString cfg.settings.retryWait;
+            CONCURRENCY = toString cfg.settings.concurrency;
+            SKIP_ITEM_INDEX = boolToDigit cfg.settings.skipItemIndex;
+            SYNC_IGNORE_FILE = boolToDigit cfg.settings.syncIgnoreFile;
+            SKIP_HIDDEN = boolToDigit cfg.settings.skipHidden;
+            EXIT_AFTER_RUN = "0";
+            TZ = config.time.timeZone or "UTC";
+          }
+          // cfg.extraEnv;
+        serviceConfig = {
+          User = cfg.user;
+          Group = cfg.group;
+          ExecStart = "${cfg.package}/bin/bandcampsync-service";
+        };
       };
     };
   };
