@@ -11,7 +11,7 @@ in
 {
   options.services.bandcampsync = {
     enable = lib.mkEnableOption "Enable bandcampsync service";
-    package = lib.mkPackageOption pkgs "bandcampsync";
+    package = lib.mkPackageOption pkgs "bandcampsync" { };
     user = lib.mkOption {
       type = lib.types.str;
       default = "bandcampsync";
@@ -56,13 +56,13 @@ in
       };
       tempDir = lib.mkOption {
         description = "Path to use for temporary downloads";
-        type = lib.types.path;
-        default = "";
+        type = lib.types.nullOr lib.types.path;
+        default = null;
       };
       notifyUrl = lib.mkOption {
         description = "URL to notify with a GET request when any new downloads have completed";
-        type = lib.types.string;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       concurrency = lib.mkOption {
         description = "Number of concurrent downloads";
@@ -71,8 +71,8 @@ in
       };
       untilDate = lib.mkOption {
         description = "Process purchases down to this purchase date (YYYY-MM-DD, inclusive)";
-        type = lib.types.str;
-        default = "";
+        type = lib.types.nullOr lib.types.str;
+        default = null;
       };
       maxRetries = lib.mkOption {
         description = "Maximum number of retries for a download";
@@ -91,12 +91,13 @@ in
     };
     extraEnv = lib.mkOption {
       type = lib.types.attrsOf (
-        lib.types.oneOf [
-          lib.types.null
-          lib.types.str
-          lib.types.package
-          lib.types.path
-        ]
+        lib.types.nullOr (
+          lib.types.oneOf [
+            lib.types.str
+            lib.types.package
+            lib.types.path
+          ]
+        )
       );
       default = { };
     };
@@ -108,6 +109,9 @@ in
         description = "bandcampsync user";
         isSystemUser = true;
       };
+    };
+    users.groups = lib.optionalAttrs (cfg.group == "bandcampsync") {
+      bandcampsync = { };
     };
     systemd.services.bandcampsync = {
       enable = true;
