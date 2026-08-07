@@ -14,43 +14,56 @@
   ];
 
   sops.secrets."tsumugi/autobrrSecret" = { };
+  sops.secrets."tsumugi/bandcampCookies".owner = config.users.users.bandcampsync.name;
 
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-  };
+  services = {
+    plex = {
+      enable = true;
+      openFirewall = true;
+    };
 
-  services.jellyfin = {
-    enable = false;
-    openFirewall = true;
-    cacheDir = "/mnt/media/data/appdata/jellyfin/cache";
-  };
+    jellyfin = {
+      enable = false;
+      openFirewall = true;
+      cacheDir = "/mnt/media/data/appdata/jellyfin/cache";
+    };
 
-  services.prowlarr = {
-    enable = true;
-    openFirewall = true; # 9696
-  };
-  services.bazarr = {
-    enable = true;
-    openFirewall = true; # 6767
-  };
-  services.seerr = {
-    enable = true;
-    port = 5055;
-    openFirewall = true;
-  };
+    prowlarr = {
+      enable = true;
+      openFirewall = true; # 9696
+    };
+    bazarr = {
+      enable = true;
+      openFirewall = true; # 6767
+    };
+    seerr = {
+      enable = true;
+      port = 5055;
+      openFirewall = true;
+    };
 
-  services.recyclarr = {
-    enable = true;
-  };
+    recyclarr = {
+      enable = true;
+    };
 
-  services.autobrr = {
-    enable = true;
-    openFirewall = true; # 7474
-    secretFile = config.sops.secrets."tsumugi/autobrrSecret".path;
-    settings = {
-      host = "0.0.0.0";
-      port = 7474;
+    autobrr = {
+      enable = true;
+      openFirewall = true; # 7474
+      secretFile = config.sops.secrets."tsumugi/autobrrSecret".path;
+      settings = {
+        host = "0.0.0.0";
+        port = 7474;
+      };
+    };
+
+    bandcampsync = {
+      enable = true;
+      settings = {
+        cookies = config.sops.secrets."tsumugi/bandcampCookies".path;
+        directory = "/mnt/media/data/media/bandcampsync";
+        runDailyAt = 3;
+        skipHidden = true;
+      };
     };
   };
 
