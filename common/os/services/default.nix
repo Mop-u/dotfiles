@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./bandcampsync.nix
     ./coreServices.nix
     ./displayManager.nix
   ];
